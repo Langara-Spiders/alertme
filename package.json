@@ -9,13 +9,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@tamagui/config": "^1.99.1",
+    "@tamagui/core": "^1.99.1",
+    "@tanstack/react-query": "^5.40.0",
     "expo": "~51.0.9",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.74.1"
+    "react-native": "0.74.1",
+    "styled-components": "^6.1.11",
+    "tamagui": "^1.99.1",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@tsconfig/react-native": "^3.0.5",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.3",
+    "@types/react-test-renderer": "^18.3.0",
+    "typescript": "^5.4.5"
   },
   "private": true
 }
