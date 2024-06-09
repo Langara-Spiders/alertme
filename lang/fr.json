@@ -1,0 +1,14 @@
+{
+  "home.button": [
+    {
+      "type": 0,
+      "value": "Appuyez"
+    }
+  ],
+  "home.title": [
+    {
+      "type": 0,
+      "value": "Bonjour de la maison"
+    }
+  ]
+}
