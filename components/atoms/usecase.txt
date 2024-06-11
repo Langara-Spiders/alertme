@@ -1,0 +1,39 @@
+modals
+
+import React, { useRef, useState } from 'react';
+
+
+
+  const [showModal, setShowModal] = useState(false);
+  const ref = useRef(null);
+
+  const handleButtonPress = () => {
+    console.log('Button pressed');
+    setShowModal(true);
+    console.log('Modal should be open:', showModal);
+  };
+
+  return (
+    <Center h={300}>
+      <ButtonGS onPress={() => setShowModal(true)} ref={ref}>
+        <ButtonText>Show Modal</ButtonText>
+      </ButtonGS>
+      <CustomModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="Engage with Modals"
+        bodyText="Elevate user interactions with our versatile modals. Seamlessly integrate notifications, forms, and media displays. Make an impact effortlessly."
+        primaryButtonText="Explore"
+        secondaryButtonText="Cancel"
+        primaryButtonAction={() => setShowModal(false)}
+        secondaryButtonAction={() => setShowModal(false)}
+        size="lg"
+        variant="solid"
+        action="primary"
+      />
+    </Center>
+  );
+
+
+
+=======================================
