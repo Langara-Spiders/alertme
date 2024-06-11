@@ -27,6 +27,7 @@ export const gluestackUIConfig = createConfig({
   } as const,
   tokens: {
     colors: {
+      primary: '#0077E6',
       rose50: '#fff1f2',
       rose100: '#ffe4e6',
       rose200: '#fecdd3',
@@ -537,9 +538,10 @@ export const gluestackUIConfig = createConfig({
       extraBlack: '950',
     },
     fonts: {
-      heading: undefined,
-      body: undefined,
-      mono: undefined,
+      body: 'Roboto-Regular',
+      heading: 'Roboto-Bold',
+      mono: 'Nunito-Regular',
+      bold: 'Nunito-Bold',
     },
     fontSizes: {
       '2xs': 10,
