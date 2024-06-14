@@ -5,18 +5,20 @@ import {
 } from '@gluestack-ui/themed';
 
 const IconButton = (props) => {
+    const { children, size, variant, action, isDisabled, isFocusVisible, style, children, icon, color } = props;
 
     return (
         <ButtonGS
+            color={color ?? 'black'}
             size={size ?? 'md'}
             variant={variant ?? 'solid'}
             action={action ?? 'primary'}
             isDisabled={isDisabled ?? false}
             isFocusVisible={isFocusVisible ?? false}
             style={style ?? buttonDefaultStyle}
+            icon={icon}
         >
-            {icon && typeof icon === 'string' && <ButtonIconGS as={Image} source={icon} style={{ width: 24, height: 24, marginRight: 8 }} />}
-            {icon && React.isValidElement(icon) && <ButtonIconGS as={icon.type} {...icon.props} style={{ marginRight: 8 }} />}
+            <ButtonIcon as={icon}></ButtonIcon>
             <ButtonText>{children}</ButtonText>
         </ButtonGS>
     );
