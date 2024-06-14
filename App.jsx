@@ -18,21 +18,21 @@ const messages = {
   fr
 }
 
-const fetchFonts = () => {
+/* const fetchFonts = () => {
   return Font.loadAsync({
     'Roboto-Regular': require('@expo-google-fonts/roboto/Roboto_400Regular.ttf'),
     'Roboto-Bold': require('@expo-google-fonts/roboto/Roboto_700Bold.ttf'),
     'Nunito-Regular': require('@expo-google-fonts/nunito/Nunito_400Regular.ttf'),
     'Nunito-Bold': require('@expo-google-fonts/nunito/Nunito_700Bold.ttf'),
   });
-};
+}; */
 
 export default function App() {
 
-  const [fontLoaded, setFontLoaded] = useState(false);
+  //const [fontLoaded, setFontLoaded] = useState(false);
   const [locale, setLocale] = React.useState("en");
 
-  if (!fontLoaded) {
+  /* if (!fontLoaded) {
     return (
       <AppLoading
         startAsync={fetchFonts}
@@ -40,7 +40,7 @@ export default function App() {
         onError={console.warn}
       />
     );
-  }
+  } */
 
   return (
     <IntlProvider messages={messages[locale]} locale={locale} defaultLocale="en">
