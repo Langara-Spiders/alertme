@@ -30,7 +30,7 @@ const getTabIcon = (routeName, focused) => {
         case incidents:
             iconPath = focused ? require('../assets/navigation-icons/incidents.svg') : require('../assets/navigation-icons/incidents-outline.svg');
             break;
-        
+
         case rewards:
             iconPath = focused ? require('../assets/navigation-icons/rewards.svg') : require('../assets/navigation-icons/rewards-outline.svg');
             break;
@@ -38,38 +38,43 @@ const getTabIcon = (routeName, focused) => {
         case profile:
             iconPath = focused ? require('../assets/navigation-icons/profile.svg') : require('../assets/navigation-icons/profile-outline.svg');
             break;
-        
+
     }
 
-    return <Image 
-    source={iconPath} 
-    style={[styles.icon, { width: iconSize, height: iconSize }]} 
-  />;
+    return <Image
+        source={iconPath}
+        style={[styles.icon, { width: iconSize, height: iconSize }]}
+    />;
 };
 
 const MainContainer = () => {
     return (
-        
-            <Tab.Navigator
-                initialRouteName={homeName}
-                screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused }) => getTabIcon(route.name, focused),
-                })}
-            >
-                <Tab.Screen name={homeName} component={Home} />
-                <Tab.Screen name={incidents} component={MyIncidents} />
-                
-                <Tab.Screen name={rewards} component={Rewards} />
-                <Tab.Screen name={profile} component={Profile} />
-            </Tab.Navigator>
-       
+
+        <Tab.Navigator
+            initialRouteName={homeName}
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused }) => getTabIcon(route.name, focused),
+                tabBarStyle: styles.tabBarStyle, // Apply styles to the tab bar
+                tabBarActiveTintColor: 'white', // Active tab icon color
+                tabBarInactiveTintColor: 'gray', // Inactive tab icon color
+            })}
+        >
+            <Tab.Screen name={homeName} component={Home} />
+            <Tab.Screen name={incidents} component={MyIncidents} />
+            <Tab.Screen name={rewards} component={Rewards} />
+            <Tab.Screen name={profile} component={Profile} />
+        </Tab.Navigator>
+
     );
 }
 
 const styles = StyleSheet.create({
     icon: {
         tintColor: 'black',
-      },
+    },
+    tabBarStyle: {
+        backgroundColor: 'black', 
+    },
 })
 
 export default MainContainer;
