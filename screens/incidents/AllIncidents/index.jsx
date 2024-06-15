@@ -84,16 +84,16 @@ const AllIncidents = () => {
 
       <View style={{display:"flex", flexDirection:"row", gap:"1rem"}}>
         <Button style={{backgroundColor:"black", color:"white", width:"20%"}}>
-         All
+         <Text>All</Text>
         </Button>
         <Button style={{backgroundColor:"white", width:"25%"}}>
-         Active
+         <Text>Active</Text>
         </Button>
         <Button style={{backgroundColor:"white", width:"30%"}}>
-         Pending
+         <Text>Pending</Text>
         </Button>
         <Button style={{backgroundColor:"white", width:"30%"}}>
-         Resolved
+         <Text>Resolved</Text>
         </Button>
       </View>
 
