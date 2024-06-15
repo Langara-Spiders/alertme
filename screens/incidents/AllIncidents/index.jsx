@@ -103,7 +103,7 @@ const AllIncidents = () => {
             <Card key={index} style={{marginTop:"1rem", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
             
                 <View>
-                  <Button>{incident.status}</Button>
+                  <Button><Text>{incident.status}</Text></Button>
                   <Text>{incident.title}</Text>
                   <Text style={{fontWeight:"bold"}}>{incident.description}</Text>
                   <Text>{incident.location}</Text>
