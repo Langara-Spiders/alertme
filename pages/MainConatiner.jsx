@@ -54,9 +54,9 @@ const MainContainer = () => {
             initialRouteName={homeName}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused }) => getTabIcon(route.name, focused),
-                tabBarStyle: styles.tabBarStyle, // Apply styles to the tab bar
-                tabBarActiveTintColor: 'white', // Active tab icon color
-                tabBarInactiveTintColor: 'gray', // Inactive tab icon color
+                tabBarStyle: styles.tabBarStyle, 
+                tabBarActiveTintColor: 'white', 
+                tabBarInactiveTintColor: 'gray', 
             })}
         >
             <Tab.Screen name={homeName} component={Home} />
