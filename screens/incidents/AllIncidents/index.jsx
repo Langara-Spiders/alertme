@@ -96,6 +96,8 @@ const AllIncidents = () => {
         </Button>
       </View>
 
+
+
       <ScrollView>
         {AllIncidentsArrray.map((incident, index) => {
           return (
