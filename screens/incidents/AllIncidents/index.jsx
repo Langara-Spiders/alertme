@@ -1,6 +1,5 @@
-import {AddIcon, Button, ButtonIcon, Card} from '@gluestack-ui/themed';
-import {Image, ScrollView, Text, View} from 'react-native';
-
+import { AddIcon, Button, ButtonIcon, Card } from '@gluestack-ui/themed';
+import { Image, ScrollView, Text, View } from 'react-native';
 import React from 'react';
 
 const AllIncidentsArrray = [
@@ -12,7 +11,7 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"2"
+    votes: "2"
   },
   {
     title: "Incident Title",
@@ -22,7 +21,7 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"4"
+    votes: "4"
   },
   {
     title: "Incident Title",
@@ -32,7 +31,7 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"5"
+    votes: "5"
   },
   {
     title: "Incident Title",
@@ -42,7 +41,7 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"7"
+    votes: "7"
   },
   {
     title: "Incident Title",
@@ -52,17 +51,7 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"8"
-  } ,
-  {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes:"9"
+    votes: "8"
   },
   {
     title: "Incident Title",
@@ -72,28 +61,38 @@ const AllIncidentsArrray = [
     date: "Date",
     time: "Time",
     image: "https://via.placeholder.com/150",
-    votes:"10"
+    votes: "9"
+  },
+  {
+    title: "Incident Title",
+    description: "Incident Description",
+    status: "Active",
+    location: "Location",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "10"
   }
-]
+];
 
 const AllIncidents = () => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1, padding: 10 }}>
       <Text>All Incidents</Text>
       {/* <ButtonIcon as={AddIcon}></ButtonIcon> */}
 
-      <View style={{display:"flex", flexDirection:"row", gap:"1rem"}}>
-        <Button style={{backgroundColor:"black", color:"white", width:"20%"}}>
-         <Text>All</Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 10 }}>
+        <Button style={{ backgroundColor: "black", color: "white", width: "20%" }}>
+          <Text style={{ color: "white" }}>All</Text>
         </Button>
-        <Button style={{backgroundColor:"white", width:"25%"}}>
-         <Text>Active</Text>
+        <Button style={{ backgroundColor: "white", width: "25%" }}>
+          <Text>Active</Text>
         </Button>
-        <Button style={{backgroundColor:"white", width:"30%"}}>
-         <Text>Pending</Text>
+        <Button style={{ backgroundColor: "white", width: "30%" }}>
+          <Text>Pending</Text>
         </Button>
-        <Button style={{backgroundColor:"white", width:"30%"}}>
-         <Text>Resolved</Text>
+        <Button style={{ backgroundColor: "white", width: "30%" }}>
+          <Text>Resolved</Text>
         </Button>
       </View>
 
@@ -113,12 +112,11 @@ const AllIncidents = () => {
                 <Image source={{uri: incident.image}} style={{height: 100, width: 100}}/>
                   <Text>{incident.votes}</Text>
                 </View>
-             
             </Card>
-          )
+          );
         })}
       </ScrollView>
-    </View> 
+    </View>
   );
 };
 
