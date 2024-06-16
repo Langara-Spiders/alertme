@@ -2,7 +2,7 @@ import { Center } from '@gluestack-ui/themed';
 import { Box } from '@gluestack-ui/themed';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import NotificationCard from '../../components/molecules/NotificationsCard';
+import NotificationCard from '../../components/molecules/cards/NotificationsCard';
 import { ScrollView } from 'react-native';
 
 

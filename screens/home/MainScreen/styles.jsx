@@ -13,20 +13,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: "2rem",
     width: "100%",
-    position: "absolute",
-  },
-  buttonsContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: 60, 
-  },
-  button1: {
-    marginVertical: 10, 
-    position: ""
-  },
-  svgImage: {
-    
-  },
+    marginTop: "2rem",
+    paddingTop: 100
+  }
 });
 
 export default styles;
