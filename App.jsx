@@ -12,6 +12,7 @@ import {
   en,
   fr
 } from "./lang";
+import MainContainer from "./pages/MainConatiner";
 
 const messages = {
   en,
@@ -46,7 +47,8 @@ export default function App() {
     <IntlProvider messages={messages[locale]} locale={locale} defaultLocale="en">
       <SafeAreaView style={{ flex:1 }}>
         <GluestackUIProvider config={configLight}>
-          <MainNavigator />
+          <MainContainer />
+
         </GluestackUIProvider>
       </SafeAreaView>
     </IntlProvider>

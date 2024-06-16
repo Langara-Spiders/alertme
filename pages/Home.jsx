@@ -1,33 +1,51 @@
-import {
-  Box,
-  ButtonText,
-  Center,
-  Icon,
-  Text,
-} from "@gluestack-ui/themed";
-import React, { useRef, useState } from 'react';
-
-import Button from "../components/atoms/buttons/Button";
-import { FormattedMessage } from 'react-intl'
-import MainScreen from "../screens/home/MainScreen"
-import {useToken} from "@gluestack-ui/themed";
+import React, { useState, useEffect } from 'react';
+import { Box, Text } from "@gluestack-ui/themed";
+import { View, StyleSheet } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import MainScreen from "../screens/home/MainScreen";
 
 const Home = ({ navigation }) => {
+  const route = useRoute();
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  const primaryColor =  useToken("colors")
-  console.log("token:",primaryColor);
-
+  useEffect(() => {
+    if (route.params?.incidentPosted) {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000); 
+    }
+  }, [route.params]);
 
   return (
-
-    <Box>
-     
-    
-      <Box>
+    <View style={{ flex: 1 }}>
       <MainScreen navigation={navigation} />
-      </Box>
-    </Box>
-  )
-}
+      {showSuccess && (
+        <View style={styles.successCard}>
+          <Text style={styles.successText}>Incident Posted Successfully</Text>
+        </View>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  successCard: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  successText: {
+    fontSize: 18,
+  },
+});
 
 export default Home;
