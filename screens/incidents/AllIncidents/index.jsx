@@ -97,7 +97,6 @@ const AllIncidents = () => {
       </View>
 
 
-
       <ScrollView>
         {AllIncidentsArrray.map((incident, index) => {
           return (

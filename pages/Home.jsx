@@ -1,41 +1,51 @@
-import {
-  Box,
-  ButtonText,
-  Center,
-  Icon,
-  Text,
-} from "@gluestack-ui/themed";
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Box, Text } from "@gluestack-ui/themed";
+import { View, StyleSheet } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import MainScreen from "../screens/home/MainScreen";
 
-import Button from "../components/atoms/buttons/Button";
-import { FormattedMessage } from 'react-intl'
-import MainScreen from "../screens/home/MainScreen"
-import {useToken} from "@gluestack-ui/themed";
+const Home = ({ navigation }) => {
+  const route = useRoute();
+  const [showSuccess, setShowSuccess] = useState(false);
 
-const Home = () => {
-
-  const primaryColor =  useToken("colors")
-  console.log("token:",primaryColor);
-
+  useEffect(() => {
+    if (route.params?.incidentPosted) {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000); 
+    }
+  }, [route.params]);
 
   return (
+    <View style={{ flex: 1 }}>
+      <MainScreen navigation={navigation} />
+      {showSuccess && (
+        <View style={styles.successCard}>
+          <Text style={styles.successText}>Incident Posted Successfully</Text>
+        </View>
+      )}
+    </View>
+  );
+};
 
-    <Box>
-     {/*  // bg="$primary"
-      // justifyContent="center"
-      // alignItems="center"
-      // flex={1} */}
-      <Box>
-       {/*  <Text size="5xl" color="$green900" textAlign="right" fontFamily="$body">
-          <FormattedMessage id="home.title" defaultMessage="Hi from Home" />
-        </Text> */}
-        <MainScreen></MainScreen>
-        {/* <Button>
-          <FormattedMessage id="home.button" defaultMessage="Press" />
-        </Button> */}
-      </Box>
-    </Box>
-  )
-}
+const styles = StyleSheet.create({
+  successCard: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+    alignItems: 'center',
+  },
+  successText: {
+    fontSize: 18,
+  },
+});
 
 export default Home;
