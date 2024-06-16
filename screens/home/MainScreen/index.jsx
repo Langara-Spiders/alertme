@@ -27,10 +27,16 @@ const MainScreen = ({ navigation }) => {
 
 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{marginBottom: 60 , marginTop: 200}}>
         <Button
           title="Report Incident"
           onPress={() => navigation.navigate('ReportIncident')}
         ><Text>Report Incident</Text></Button>
+        </View>
+        <View>
+        <Button
+          title="Nearby Hazards"><Text>NearBy Hazards</Text></Button>
+        </View>
       </View>
 
 

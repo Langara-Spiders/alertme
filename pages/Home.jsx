@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
   }, [route.params]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <MainScreen navigation={navigation} />
       {showSuccess && (
         <View style={styles.successCard}>
