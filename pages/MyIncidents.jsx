@@ -1,17 +1,17 @@
 import { IncidentsCard, LeaderBoardCard, LoginAsCard, RewardsGreetingCard, RewardsLevelCards, SwitchIconCard }
  from '../components/molecules';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import AllIncidents from '../screens/incidents/AllIncidents';
+import LevelReward from '../assets/rewardscreen/LevelReward.svg';
 import React from 'react';
 import { Text } from '@gluestack-ui/themed';
 
 const MyIncidents = () => {
     return (
-        <View>
+        <ScrollView>
             <Text>My Incidents</Text>
-        </View>
-
+        </ScrollView>
     );
 }
 
