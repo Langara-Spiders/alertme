@@ -1,7 +1,7 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const MenuBackdrop = createStyle({
-  position: 'absolute',
+  position: "absolute",
   top: 0,
   bottom: 0,
   left: 0,
@@ -10,6 +10,6 @@ export const MenuBackdrop = createStyle({
   // opacity: 0.5,
   // bg: '$backgroundLight500',
   _web: {
-    cursor: 'default',
+    cursor: "default",
   },
 });

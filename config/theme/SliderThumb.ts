@@ -1,57 +1,57 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const SliderThumb = createStyle({
-  'bg': '$primary500',
-  '_dark': {
-    bg: '$primary400',
+  "bg": "$primary500",
+  "_dark": {
+    bg: "$primary400",
   },
-  'position': 'absolute',
-  'borderRadius': '$full',
-  ':focus': {
-    bg: '$primary600',
+  "position": "absolute",
+  "borderRadius": "$full",
+  ":focus": {
+    bg: "$primary600",
     _dark: {
-      bg: '$primary300',
+      bg: "$primary300",
     },
   },
-  ':active': {
-    bg: '$primary600',
+  ":active": {
+    bg: "$primary600",
     _dark: {
-      bg: '$primary300',
+      bg: "$primary300",
     },
   },
-  ':hover': {
-    bg: '$primary600',
+  ":hover": {
+    bg: "$primary600",
     _dark: {
-      bg: '$primary300',
+      bg: "$primary300",
     },
   },
-  ':disabled': {
-    bg: '$primary500',
+  ":disabled": {
+    bg: "$primary500",
     _dark: {
-      bg: '$primary500',
+      bg: "$primary500",
     },
   },
-  '_web': {
+  "_web": {
     //@ts-ignore
-    'cursor': 'pointer',
-    ':active': {
+    "cursor": "pointer",
+    ":active": {
       outlineWidth: 4,
-      outlineStyle: 'solid',
-      outlineColor: '$primary400',
+      outlineStyle: "solid",
+      outlineColor: "$primary400",
       _dark: {
-        outlineColor: '$primary500',
+        outlineColor: "$primary500",
       },
     },
-    ':focus': {
+    ":focus": {
       outlineWidth: 4,
-      outlineStyle: 'solid',
-      outlineColor: '$primary400',
+      outlineStyle: "solid",
+      outlineColor: "$primary400",
       _dark: {
-        outlineColor: '$primary500',
+        outlineColor: "$primary500",
       },
     },
   },
-  'defaultProps': {
-    hardShadow: '1',
+  "defaultProps": {
+    hardShadow: "1",
   },
 });

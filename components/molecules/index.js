@@ -1,20 +1,10 @@
-import CheckboxWithText from "./CheckboxWithText";
-import IncidentsCard from "./cards/IncidentsCard";
-import LeaderBoardCard from "./cards/LeaderBoardCard";
-import LoginAsCard from "./cards/LoginAsCard";
-import NotificationCard from "./cards/NotificationsCard";
-import RewardsGreetingCard from "./cards/RewardGreetingCard";
-import RewardsLevelCards from "./cards/RewardsLevelCards";
-import SwitchIconCard from "./cards/SwitchIconCard";
-
-export {
-  SwitchIconCard,
-  LoginAsCard,
-  IncidentsCard,
-  NotificationCard,
-  LeaderBoardCard,
-  RewardsLevelCards,
-  RewardsGreetingCard,
-  CheckboxWithText,
-};
-
+// Cards
+export { default as IncidentCard } from "./cards/IncidentCard";
+export { default as LeaderBoardCard } from "./cards/LeaderBoardCard";
+export { default as NotificationCard } from "./cards/NotificationCard";
+export { default as RewardGreetingCard } from "./cards/RewardGreetingCard";
+export { default as RewardLevelCard } from "./cards/RewardLevelCard";
+export { default as Modal } from "./modals/Modal";
+export { default as BottomSheet } from "./modals/BottomSheet";
+export { default as Search } from "./Search";
+export { default as CheckboxWithText } from "./CheckboxWithText";

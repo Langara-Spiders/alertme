@@ -1,51 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text } from "@gluestack-ui/themed";
-import { View, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import MainScreen from "../screens/home/MainScreen";
+import {
+  BellIcon,
+  Button,
+  ButtonIcon,
+  Input,
+  InputField,
+  InputIcon,
+  InputSlot,
+  SearchIcon,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
+import { routes } from "../constants";
 
-const Home = ({ navigation }) => {
-  const route = useRoute();
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  useEffect(() => {
-    if (route.params?.incidentPosted) {
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000); 
-    }
-  }, [route.params]);
+const Home = (props) => {
+  const { navigation } = props;
 
   return (
-    <View>
-      <MainScreen navigation={navigation} />
-      {showSuccess && (
-        <View style={styles.successCard}>
-          <Text style={styles.successText}>Incident Posted Successfully</Text>
-        </View>
-      )}
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={styles.searchContainer}>
+        <Input style={{ flex: 1 }}>
+          <InputSlot pl="$3">
+            <InputIcon as={SearchIcon} />
+          </InputSlot>
+          <InputField placeholder="Search..." />
+        </Input>
+        <Button
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate(routes.NOTIFICATIONS);
+          }}
+        >
+          <ButtonIcon as={BellIcon} />
+        </Button>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
+          <Text>Report Incident</Text>
+        </Button>
+      </View>
     </View>
   );
 };
 
+export default Home;
+
 const styles = StyleSheet.create({
-  successCard: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    padding: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-    alignItems: 'center',
+  button: {
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: "grey",
+    backgroundColor: "#09090D",
   },
-  successText: {
-    fontSize: 18,
+  searchContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 2,
+    width: "100%",
+  },
+  buttonsContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 60,
   },
 });
-
-export default Home;

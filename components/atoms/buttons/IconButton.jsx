@@ -1,32 +1,33 @@
 import {
-    Button as ButtonGS,
-    ButtonIcon as ButtonIconGS,
-    ButtonText
-} from '@gluestack-ui/themed';
+  Button as ButtonGS,
+  ButtonIcon as ButtonIconGS,
+  ButtonText,
+} from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
 
 const IconButton = (props) => {
-    const { children, size, variant, action, isDisabled, isFocusVisible, style, children, icon, color } = props;
-
-    return (
-        <ButtonGS
-            color={color ?? 'black'}
-            size={size ?? 'md'}
-            variant={variant ?? 'solid'}
-            action={action ?? 'primary'}
-            isDisabled={isDisabled ?? false}
-            isFocusVisible={isFocusVisible ?? false}
-            style={style ?? buttonDefaultStyle}
-            icon={icon}
-        >
-            <ButtonIcon as={icon}></ButtonIcon>
-            <ButtonText>{children}</ButtonText>
-        </ButtonGS>
-    );
-}
+  return (
+    <ButtonGS
+      color={props.color ?? "black"}
+      size={props.size ?? "md"}
+      variant={props.variant ?? "solid"}
+      action={props.action ?? "primary"}
+      isDisabled={props.isDisabled ?? false}
+      isFocusVisible={props.isFocusVisible ?? false}
+      style={props.style ?? iconButtonDefaultStyle.button}
+      icon={props.icon}
+    >
+      <ButtonIconGS as={props.icon}></ButtonIconGS>
+      <ButtonText>{props.children}</ButtonText>
+    </ButtonGS>
+  );
+};
 
 export default IconButton;
 
-const buttonDefaultStyle = {
+const iconButtonDefaultStyle = StyleSheet.create({
+  button: {
     borderRadius: 50,
-    bg: 'theme.colors.pink100'
-};
+    bg: "theme.colors.pink100",
+  },
+});

@@ -1,66 +1,66 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const InputField = createStyle({
   flex: 1,
-  color: '$textLight900',
+  color: "$textLight900",
   props: {
-    placeholderTextColor: '$textLight500',
+    placeholderTextColor: "$textLight500",
   },
   _dark: {
-    color: '$textDark50',
+    color: "$textDark50",
     props: {
-      placeholderTextColor: '$textDark400',
+      placeholderTextColor: "$textDark400",
     },
   },
   _web: {
-    'cursor': 'text',
-    ':disabled': {
-      cursor: 'not-allowed',
+    "cursor": "text",
+    ":disabled": {
+      cursor: "not-allowed",
     },
   },
   variants: {
     size: {
-      '2xs': {
-        fontSize: '$2xs',
+      "2xs": {
+        fontSize: "$2xs",
       },
-      'xs': {
-        fontSize: '$xs',
-      },
-
-      'sm': {
-        fontSize: '$sm',
+      "xs": {
+        fontSize: "$xs",
       },
 
-      'md': {
-        fontSize: '$md',
+      "sm": {
+        fontSize: "$sm",
       },
 
-      'lg': {
-        fontSize: '$lg',
+      "md": {
+        fontSize: "$md",
       },
 
-      'xl': {
-        fontSize: '$xl',
+      "lg": {
+        fontSize: "$lg",
       },
 
-      '2xl': {
-        fontSize: '$2xl',
+      "xl": {
+        fontSize: "$xl",
       },
 
-      '3xl': {
-        fontSize: '$3xl',
+      "2xl": {
+        fontSize: "$2xl",
       },
 
-      '4xl': {
-        fontSize: '$4xl',
+      "3xl": {
+        fontSize: "$3xl",
       },
 
-      '5xl': {
-        fontSize: '$5xl',
+      "4xl": {
+        fontSize: "$4xl",
       },
 
-      '6xl': {
-        fontSize: '$6xl',
+      "5xl": {
+        fontSize: "$5xl",
+      },
+
+      "6xl": {
+        fontSize: "$6xl",
       },
     },
   },

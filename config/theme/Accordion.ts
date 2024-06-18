@@ -1,23 +1,23 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const Accordion = createStyle({
-  width: '$full',
+  width: "$full",
   _icon: {
-    color: '$textLight900',
+    color: "$textLight900",
     _dark: {
-      color: '$textDark50',
+      color: "$textDark50",
     },
   },
   _titleText: {
-    color: '$textLight900',
+    color: "$textLight900",
     _dark: {
-      color: '$textDark50',
+      color: "$textDark50",
     },
   },
   _contentText: {
-    color: '$textLight700',
+    color: "$textLight700",
     _dark: {
-      color: '$textDark200',
+      color: "$textDark200",
     },
   },
 
@@ -25,54 +25,54 @@ export const Accordion = createStyle({
     size: {
       sm: {
         _titleText: {
-          fontSize: '$sm',
-          fontFamily: '$body',
-          fontWeight: '$bold',
-          lineHeight: '$sm',
+          fontSize: "$sm",
+          fontFamily: "$body",
+          fontWeight: "$bold",
+          lineHeight: "$sm",
         },
         _contentText: {
-          fontSize: '$sm',
-          fontFamily: '$body',
-          fontWeight: '$normal',
-          lineHeight: '$sm',
+          fontSize: "$sm",
+          fontFamily: "$body",
+          fontWeight: "$normal",
+          lineHeight: "$sm",
         },
       },
       md: {
         _titleText: {
-          fontSize: '$md',
-          fontFamily: '$body',
-          fontWeight: '$bold',
-          lineHeight: '$md',
+          fontSize: "$md",
+          fontFamily: "$body",
+          fontWeight: "$bold",
+          lineHeight: "$md",
         },
         _contentText: {
-          fontSize: '$md',
-          fontFamily: '$body',
-          fontWeight: '$normal',
-          lineHeight: '$md',
+          fontSize: "$md",
+          fontFamily: "$body",
+          fontWeight: "$normal",
+          lineHeight: "$md",
         },
       },
       lg: {
         _titleText: {
-          fontSize: '$lg',
-          fontFamily: '$body',
-          fontWeight: '$bold',
-          lineHeight: '$lg',
+          fontSize: "$lg",
+          fontFamily: "$body",
+          fontWeight: "$bold",
+          lineHeight: "$lg",
         },
         _contentText: {
-          fontSize: '$lg',
-          fontFamily: '$body',
-          fontWeight: '$normal',
-          lineHeight: '$lg',
+          fontSize: "$lg",
+          fontFamily: "$body",
+          fontWeight: "$normal",
+          lineHeight: "$lg",
         },
       },
     },
     variant: {
       filled: {
-        backgroundColor: '$white',
+        backgroundColor: "$white",
         _item: {
-          backgroundColor: '$backgroundLight0',
+          backgroundColor: "$backgroundLight0",
         },
-        shadowColor: '$backgroundLight900',
+        shadowColor: "$backgroundLight900",
         shadowOffset: {
           width: 0,
           height: 3,
@@ -81,32 +81,32 @@ export const Accordion = createStyle({
         shadowOpacity: 0.2,
         elevation: 10,
         _dark: {
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
           _item: {
-            backgroundColor: '$backgroundDark950',
+            backgroundColor: "$backgroundDark950",
           },
         },
       },
       unfilled: {
-        shadowColor: 'transparent',
+        shadowColor: "transparent",
         shadowOffset: {
           width: 0,
           height: 0,
         },
         _item: {
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
         },
         _dark: {
           _item: {
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
           },
         },
       },
     },
   },
   defaultProps: {
-    theme: 'light',
-    size: 'md',
-    variant: 'filled',
+    theme: "light",
+    size: "md",
+    variant: "filled",
   },
 });

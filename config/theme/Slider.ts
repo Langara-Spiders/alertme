@@ -1,26 +1,26 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const Slider = createStyle({
-  justifyContent: 'center',
-  alignItems: 'center',
+  justifyContent: "center",
+  alignItems: "center",
   variants: {
     orientation: {
       horizontal: {
-        w: '$full',
+        w: "$full",
         _track: {
-          width: '$full',
+          width: "$full",
         },
         _filledTrack: {
-          height: '$full',
+          height: "$full",
         },
       },
       vertical: {
-        h: '$full',
+        h: "$full",
         _track: {
-          height: '$full',
+          height: "$full",
         },
         _filledTrack: {
-          width: '$full',
+          width: "$full",
         },
       },
     },
@@ -31,162 +31,162 @@ export const Slider = createStyle({
     size: {
       sm: {
         _thumb: {
-          h: '$4',
-          w: '$4',
+          h: "$4",
+          w: "$4",
         },
       },
       md: {
         _thumb: {
-          h: '$5',
-          w: '$5',
+          h: "$5",
+          w: "$5",
         },
       },
       lg: {
         _thumb: {
-          h: '$6',
-          w: '$6',
+          h: "$6",
+          w: "$6",
         },
       },
     },
   },
   compoundVariants: [
     {
-      orientation: 'horizontal',
-      size: 'sm',
+      orientation: "horizontal",
+      size: "sm",
       value: {
         _track: {
-          height: '$1',
-          flexDirection: 'row',
+          height: "$1",
+          flexDirection: "row",
         },
       },
     },
     {
-      orientation: 'horizontal',
-      size: 'sm',
+      orientation: "horizontal",
+      size: "sm",
       isReversed: true,
       value: {
         _track: {
-          height: '$1',
-          flexDirection: 'row-reverse',
+          height: "$1",
+          flexDirection: "row-reverse",
         },
       },
     },
     {
-      orientation: 'horizontal',
-      size: 'md',
+      orientation: "horizontal",
+      size: "md",
       value: {
         _track: {
           height: 5,
-          flexDirection: 'row',
+          flexDirection: "row",
         },
       },
     },
     {
-      orientation: 'horizontal',
-      size: 'md',
+      orientation: "horizontal",
+      size: "md",
       isReversed: true,
       value: {
         _track: {
           height: 5,
-          flexDirection: 'row-reverse',
+          flexDirection: "row-reverse",
         },
       },
     },
     {
-      orientation: 'horizontal',
-      size: 'lg',
+      orientation: "horizontal",
+      size: "lg",
       value: {
         _track: {
-          height: '$1.5',
-          flexDirection: 'row',
+          height: "$1.5",
+          flexDirection: "row",
         },
       },
     },
     {
-      orientation: 'horizontal',
-      size: 'lg',
+      orientation: "horizontal",
+      size: "lg",
       isReversed: true,
       value: {
         _track: {
-          height: '$1.5',
-          flexDirection: 'row-reverse',
+          height: "$1.5",
+          flexDirection: "row-reverse",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'sm',
+      orientation: "vertical",
+      size: "sm",
       value: {
         _track: {
-          w: '$1',
-          flexDirection: 'column-reverse',
+          w: "$1",
+          flexDirection: "column-reverse",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'sm',
+      orientation: "vertical",
+      size: "sm",
       isReversed: true,
       value: {
         _track: {
-          width: '$1',
-          flexDirection: 'column',
+          width: "$1",
+          flexDirection: "column",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'md',
+      orientation: "vertical",
+      size: "md",
       value: {
         _track: {
           width: 5,
-          flexDirection: 'column-reverse',
+          flexDirection: "column-reverse",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'md',
+      orientation: "vertical",
+      size: "md",
       isReversed: true,
       value: {
         _track: {
           width: 5,
-          flexDirection: 'column',
+          flexDirection: "column",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'lg',
+      orientation: "vertical",
+      size: "lg",
       value: {
         _track: {
-          width: '$1.5',
-          flexDirection: 'column-reverse',
+          width: "$1.5",
+          flexDirection: "column-reverse",
         },
       },
     },
     {
-      orientation: 'vertical',
-      size: 'lg',
+      orientation: "vertical",
+      size: "lg",
       isReversed: true,
       value: {
         _track: {
-          width: '$1.5',
-          flexDirection: 'column',
+          width: "$1.5",
+          flexDirection: "column",
         },
       },
     },
   ],
   _web: {
-    ':disabled': {
+    ":disabled": {
       // @ts-ignore
-      pointerEvents: 'all !important',
-      cursor: 'not-allowed',
+      pointerEvents: "all !important",
+      cursor: "not-allowed",
       opacity: 0.4,
     },
   },
   defaultProps: {
-    size: 'md',
-    orientation: 'horizontal',
+    size: "md",
+    orientation: "horizontal",
   },
 });
