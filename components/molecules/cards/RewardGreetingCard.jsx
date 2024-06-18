@@ -8,7 +8,7 @@ import { StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
 const RewardsGreetingCard = (props) => {
-  const name = props.name || '';
+  const name = props.name || "";
 
   return (
     <View style={styles.container}>
