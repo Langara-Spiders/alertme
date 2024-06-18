@@ -23,7 +23,7 @@ const LoginAsCard = (props)=>{
         </>
       ) : (
         <>
-          <Image src={'https://picsum.photos/200/300'}
+          <Image source={'https://picsum.photos/200/300'}
             alt="Organization Icon"
             style={styles.icon}/>
           <Typography size="$lg" style={styles.title}>Organization</Typography>

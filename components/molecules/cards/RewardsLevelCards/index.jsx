@@ -23,7 +23,7 @@ const RewardsGreetingCard = (props) => {
         </View>
       </View>
       <Image
-        source={'../../assets/rewardscreen/LevelReward.svg'}
+        source={'https://picsum.photos/200/300'}
         alt={props.alt ?? "Level Reward"}
         style={styles.image}
       />
