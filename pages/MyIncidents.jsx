@@ -1,4 +1,4 @@
-import { IncidentsCard, LeaderBoardCard, LoginAsCard, RewardsGreetingCard, RewardsLevelCards, SwitchIconCard }
+import { IncidentImageUpload, IncidentsCard, LeaderBoardCard, LoginAsCard, RewardsGreetingCard, RewardsLevelCards, SwitchIconCard }
  from '../components/molecules';
 import { ScrollView, StyleSheet } from 'react-native';
 
@@ -11,6 +11,7 @@ const MyIncidents = () => {
     return (
         <ScrollView>
             <Text>My Incidents</Text>
+            <IncidentImageUpload/>
         </ScrollView>
     );
 }
