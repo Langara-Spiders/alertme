@@ -1,3 +1,4 @@
+import CheckboxWithText from "./CheckboxWithText";
 import IncidentsCard from "./cards/IncidentsCard";
 import LeaderBoardCard from "./cards/LeaderBoardCard";
 import LoginAsCard from "./cards/LoginAsCard";
@@ -13,6 +14,7 @@ export {
   NotificationCard,
   LeaderBoardCard,
   RewardsLevelCards,
-  RewardsGreetingCard
+  RewardsGreetingCard,
+  CheckboxWithText,
 };
 

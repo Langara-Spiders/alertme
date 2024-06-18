@@ -1,4 +1,4 @@
-import { IncidentsCard, LeaderBoardCard, LoginAsCard, RewardsGreetingCard, RewardsLevelCards, SwitchIconCard }
+import { CheckboxWithText, IncidentsCard, LeaderBoardCard, LoginAsCard, NotificationCard, RewardsGreetingCard, RewardsLevelCards, SwitchIconCard }
  from '../components/molecules';
 import { ScrollView, StyleSheet } from 'react-native';
 
