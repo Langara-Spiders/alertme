@@ -15,6 +15,7 @@ export { default as UpVoteCard } from "./cards/UpVoteCard";
 export { default as CheckboxWithText } from "./CheckboxWithText";
 export { default as IncidentImageUpload } from "./IncidentImageUpload";
 export { default as CategoriesModal } from "./modals/CategoriesModal";
+export { default as LocationInput } from "./LocationInput";
 export { default as Modal } from "./modals/Modal";
 export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as UpVoteModal } from "./modals/UpVoteModal";

@@ -1,14 +1,23 @@
-import { Input, InputField, InputSlot, SearchIcon } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
+import SearchIcon from "../../assets/icons/SearchIcon";
+import Input from "../atoms/Input";
 
 const Search = (props) => {
   return (
-    <Input onChange={props.onChange} value={props.value}>
-      <InputSlot>
-        <InputIcon as={SearchIcon} />
-      </InputSlot>
-      <InputField placeholder="Search" />
-    </Input>
+    <Input
+      onChange={props.onChange}
+      value={props.value}
+      style={searchStyle.input}
+      icon={SearchIcon}
+      placeholder="Search"
+    />
   );
 };
 
 export default Search;
+
+const searchStyle = StyleSheet.create({
+  input: {
+    marginBottom: 20,
+  },
+});
