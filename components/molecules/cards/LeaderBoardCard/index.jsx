@@ -5,12 +5,14 @@ import React from "react";
 import Typography from "../../../atoms/Typography";
 
 const LeaderBoardCard = (props) => {
+  const name = props.name || ''   
+   
   return (
     <Card style={styles.card}>
       <View style={styles.leftContainer}>
         <Avatar style={styles.avatar}>
           <AvatarImage source={props.avatar} style={styles.avatarImage} />
-          <AvatarFallbackText style={styles.avatarFallbackText}>{props.name.charAt(0)}</AvatarFallbackText>
+          <AvatarFallbackText style={styles.avatarFallbackText}>{name.charAt(0)}</AvatarFallbackText>
         </Avatar>
         <VStack style={styles.textContainer}>
           <Typography style={styles.nameText} size="sm">{props.name}</Typography>

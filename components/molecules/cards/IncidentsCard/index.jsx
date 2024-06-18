@@ -1,27 +1,36 @@
-import { Card, Heading } from '@gluestack-ui/themed';
-import { Image, StyleSheet, View } from 'react-native';
+import { Card, Heading, View } from '@gluestack-ui/themed';
 
-import { Button } from '../../../atoms/buttons/Button';
+import Button from '../../../atoms/buttons/Button';
+import Image from '../../../atoms/Image';
 import React from 'react';
-import { Typography } from '../../../atoms/Typography';
-import { UpvoteButton } from '../../../atoms/buttons/UpvoteButton';
+import { StyleSheet, } from 'react-native';
+import Typography  from '../../../atoms/Typography';
+import UpvoteButton from '../../../atoms/buttons/UpvoteButton';
 
 const IncidentsCard = (props) => {
   const { color, title, location, date, time, image, upvote, status } = props;
 
   return (
     <Card style={styles.card}>
-      <Button style={styles.statusButton}>{status}</Button>
-      <Image source={image} style={styles.image} />
-      <Heading style={styles.title}>{title}</Heading>
-      
       <View style={styles.infoContainer}>
-        <Typography style={styles.location}>{location}</Typography>
-        <UpvoteButton style={styles.upvoteButton}>{upvote}</UpvoteButton>
+        <View>
+          <Button style={styles.statusButton}>{status}</Button>
+          <Heading style={styles.title}>{title}</Heading>
+          <Typography style={styles.location}>{location}</Typography>
+          
+          <View style={styles.dateTime}>
+            <Typography style={styles.date}>{date},</Typography>
+            <Typography style={styles.time}>{time}</Typography>
+          </View>
+        </View>
+      
+      
+        <View>
+          <Image source={'image'} style={styles.image} />
+          <UpvoteButton style={styles.upvoteButton}>{upvote??"0"}</UpvoteButton>
+        </View>
       </View>
       
-      <Typography style={styles.date}>{date}</Typography>
-      <Typography style={styles.time}>{time}</Typography>
     </Card>
   );
 }
@@ -33,13 +42,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
   },
+  innercontainer: {
+    justifyContent: 'space-between',      
+  },
   statusButton: {
     backgroundColor: '#FF9900',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
     borderRadius: 5,
     color: '#FFF',
-    fontWeight: 'bold',
+    weight:"70%",
     marginBottom: 10,
   },
   image: {
@@ -80,6 +90,10 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 12,
     color: '#FFF',
+  },
+  dateTime: {
+    flexDirection: 'row',
+    justifyContent: 'start',
   },
 });
 

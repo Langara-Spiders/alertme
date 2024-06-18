@@ -4,8 +4,10 @@ const Image = (props) => {
     return (
         <ImageGS
         size={props.size ?? "md"}
-        src={props.src}
+        source={{uri:props.source}}
         alt={props.alt}
+        height={props.height?? 100}
+        width={props.width?? 100}
         style={props.style ?? imageDefaultStyle}
         />
     )
