@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: "2rem",
+    // gap: "2rem",
     width: "100%",
     marginTop: "2rem",
     paddingTop: 100

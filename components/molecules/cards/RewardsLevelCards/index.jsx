@@ -1,7 +1,7 @@
-import { Card, Image } from '@gluestack-ui/themed';
 import { StyleSheet, View } from 'react-native';
 
-import LevelReward from '../../../assets/rewardscreen/LevelReward.svg';
+import { Card } from '@gluestack-ui/themed';
+import Image from '../../../atoms/Image';
 import React from 'react';
 import Typography from '../../../atoms/Typography';
 
@@ -10,15 +10,22 @@ const RewardsGreetingCard = (props) => {
     <Card style={styles.card}>
       <View style={styles.textContainer}>
         <Typography style={styles.levelText}>Level {props.level}</Typography>
-        <Typography style={styles.subtitleText}>{props.subtitle}</Typography>
-        <Typography style={styles.completedText}>Completed {props.completed}</Typography>
-        <Typography style={styles.progressText}>Progress {props.progress}</Typography>
+        <Typography style={styles.subtitleText}>{props.subtitle?? 'Incident Reported'}</Typography>
+        <View style={styles.view2}>
+          <View style={styles.viewInside}>
+            <Typography style={styles.completedText}>Completed</Typography>
+            <Typography style={styles.completedText}>{props.completed ?? '0'}</Typography>
+          </View>
+          <View style={styles.viewInside}>
+            <Typography style={styles.progressText}>Progress</Typography>
+            <Typography style={styles.progressText}>{props.progress?? '0'}</Typography>
+          </View>
+        </View>
       </View>
       <Image
-        source={LevelReward}
+        source={'../../assets/rewardscreen/LevelReward.svg'}
+        alt={props.alt ?? "Level Reward"}
         style={styles.image}
-        width={100}
-        height={100}
       />
     </Card>
   );
@@ -46,6 +53,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFF',
     marginBottom: 5,
+  },
+  view2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  viewInside: {
+    alignItems: 'center',
   },
   completedText: {
     fontSize: 14,
