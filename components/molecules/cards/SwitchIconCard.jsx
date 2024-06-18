@@ -1,9 +1,9 @@
-import {Card, View} from '@gluestack-ui/themed'
+import { Card, View } from "@gluestack-ui/themed";
 
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import Switch from '../../atoms/Switch';
-import Typography from '../../atoms/Typography';
+import React from "react";
+import { StyleSheet } from "react-native";
+import Switch from "../../atoms/Switch";
+import Typography from "../../atoms/Typography";
 
 const SwitchIconCard = (props) => {
   return (
@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
   card: {
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#2a2a2a',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: "#2a2a2a",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginVertical: 10,
   },
   textContainer: {
@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
   description: {
-    color: '#bbb',
+    color: "#bbb",
   },
   switch: {
     marginLeft: 10,

@@ -16,10 +16,7 @@ const RewardLevelCard = (props) => {
           Progress {props.progress}
         </Typography>
       </View>
-      <Image
-        source={RewardLevelIcon}
-        style={styles.image}
-      />
+      <Image source={RewardLevelIcon} style={styles.image} />
     </Card>
   );
 };
@@ -50,11 +47,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   view2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   viewInside: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   completedText: {
     fontSize: 14,

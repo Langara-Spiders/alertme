@@ -1,6 +1,7 @@
 import { Button, Card } from "@gluestack-ui/themed";
-import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
+
+import React from "react";
 
 const AllIncidentsArrray = [
   {
