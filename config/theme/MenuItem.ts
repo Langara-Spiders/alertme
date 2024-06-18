@@ -1,64 +1,64 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const MenuItem = createStyle({
-  'p': '$3',
-  'flexDirection': 'row',
-  'alignItems': 'center',
+  "p": "$3",
+  "flexDirection": "row",
+  "alignItems": "center",
 
-  ':hover': {
-    bg: '$backgroundLight100',
+  ":hover": {
+    bg: "$backgroundLight100",
   },
 
-  ':disabled': {
-    'opacity': 0.4,
-    '_web': {
-      cursor: 'not-allowed',
+  ":disabled": {
+    "opacity": 0.4,
+    "_web": {
+      cursor: "not-allowed",
     },
-    ':focus': {
-      bg: 'transparent',
+    ":focus": {
+      bg: "transparent",
     },
-    '_dark': {
-      ':focus': {
-        bg: 'transparent',
+    "_dark": {
+      ":focus": {
+        bg: "transparent",
       },
     },
   },
 
-  ':active': {
-    bg: '$backgroundLight200',
+  ":active": {
+    bg: "$backgroundLight200",
   },
 
-  ':focus': {
-    bg: '$backgroundLight100',
+  ":focus": {
+    bg: "$backgroundLight100",
     // @ts-ignore
-    outlineWidth: '$0',
-    outlineStyle: 'none',
+    outlineWidth: "$0",
+    outlineStyle: "none",
   },
 
-  ':focusVisible': {
+  ":focusVisible": {
     // @ts-ignore
-    outlineWidth: '$0.5',
-    outlineColor: '$primary700',
-    outlineStyle: 'solid',
+    outlineWidth: "$0.5",
+    outlineColor: "$primary700",
+    outlineStyle: "solid",
     _dark: {
-      outlineColor: '$primary300',
+      outlineColor: "$primary300",
     },
   },
 
-  '_dark': {
-    ':hover': {
-      bg: '$backgroundDark800',
+  "_dark": {
+    ":hover": {
+      bg: "$backgroundDark800",
     },
 
-    ':active': {
-      bg: '$backgroundDark700',
+    ":active": {
+      bg: "$backgroundDark700",
     },
 
-    ':focus': {
-      bg: '$backgroundDark800',
+    ":focus": {
+      bg: "$backgroundDark800",
     },
   },
-  '_web': {
-    cursor: 'pointer',
+  "_web": {
+    cursor: "pointer",
   },
 });

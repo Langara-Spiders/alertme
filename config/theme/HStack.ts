@@ -1,37 +1,37 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const HStack = createStyle({
-  flexDirection: 'row',
+  flexDirection: "row",
   variants: {
     space: {
-      'xs': {
+      "xs": {
         gap: `$1`,
       },
-      'sm': {
+      "sm": {
         gap: `$2`,
       },
-      'md': {
+      "md": {
         gap: `$3`,
       },
-      'lg': {
+      "lg": {
         gap: `$4`,
       },
-      'xl': {
+      "xl": {
         gap: `$5`,
       },
-      '2xl': {
+      "2xl": {
         gap: `$6`,
       },
-      '3xl': {
+      "3xl": {
         gap: `$7`,
       },
-      '4xl': {
+      "4xl": {
         gap: `$8`,
       },
     },
     reversed: {
       true: {
-        flexDirection: 'row-reverse',
+        flexDirection: "row-reverse",
       },
     },
   },

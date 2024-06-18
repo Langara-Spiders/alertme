@@ -1,8 +1,5 @@
-import {
-  Button as ButtonGS,
-  ButtonText,
-} from "@gluestack-ui/themed";
-
+import { Button as ButtonGS, ButtonText } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
 
 const Button = (props) => {
   return (
@@ -11,14 +8,18 @@ const Button = (props) => {
       variant={props.variant ?? "solid"}
       action={props.action ?? "primary"}
       isDisabled={props.isDisabled ?? false}
-      style={props.style ?? buttonDefaultStyle}>
+      onPress={props.onPress}
+      style={props.style ?? buttonDefaultStyle.button}
+    >
       <ButtonText>{props.children}</ButtonText>
     </ButtonGS>
-  )
-}
+  );
+};
 
 export default Button;
 
-const buttonDefaultStyle = {
-  borderRadius: 50,
-}
+const buttonDefaultStyle = StyleSheet.create({
+  button: {
+    borderRadius: 50,
+  },
+});

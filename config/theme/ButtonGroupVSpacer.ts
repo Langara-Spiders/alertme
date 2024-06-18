@@ -1,22 +1,22 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const ButtonGroupVSpacer = createStyle({
   variants: {
     space: {
       xs: {
-        h: '$1',
+        h: "$1",
       },
       sm: {
-        h: '$1.5',
+        h: "$1.5",
       },
       md: {
-        h: '$2',
+        h: "$2",
       },
       lg: {
-        h: '$3',
+        h: "$3",
       },
       xl: {
-        h: '$4',
+        h: "$4",
       },
     },
   },

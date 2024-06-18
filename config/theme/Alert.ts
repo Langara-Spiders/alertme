@@ -1,79 +1,79 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const Alert = createStyle({
-  alignItems: 'center',
-  p: '$3',
-  flexDirection: 'row',
-  borderRadius: '$sm',
+  alignItems: "center",
+  p: "$3",
+  flexDirection: "row",
+  borderRadius: "$sm",
   variants: {
     action: {
       error: {
-        bg: '$backgroundLightError',
-        borderColor: '$error300',
+        bg: "$backgroundLightError",
+        borderColor: "$error300",
         _icon: {
-          color: '$error500',
+          color: "$error500",
         },
         _dark: {
-          bg: '$backgroundDarkError',
-          borderColor: '$error700',
+          bg: "$backgroundDarkError",
+          borderColor: "$error700",
           _icon: {
-            color: '$error500',
+            color: "$error500",
           },
         },
       },
       warning: {
-        bg: '$backgroundLightWarning',
-        borderColor: '$warning300',
+        bg: "$backgroundLightWarning",
+        borderColor: "$warning300",
         _icon: {
-          color: '$warning500',
+          color: "$warning500",
         },
         _dark: {
-          bg: '$backgroundDarkWarning',
-          borderColor: '$warning700',
+          bg: "$backgroundDarkWarning",
+          borderColor: "$warning700",
           _icon: {
-            color: '$warning500',
+            color: "$warning500",
           },
         },
       },
       success: {
-        bg: '$backgroundLightSuccess',
-        borderColor: '$success300',
+        bg: "$backgroundLightSuccess",
+        borderColor: "$success300",
         _icon: {
-          color: '$success500',
+          color: "$success500",
         },
         _dark: {
-          bg: '$backgroundDarkSuccess',
-          borderColor: '$success700',
+          bg: "$backgroundDarkSuccess",
+          borderColor: "$success700",
           _icon: {
-            color: '$success500',
+            color: "$success500",
           },
         },
       },
       info: {
-        bg: '$backgroundLightInfo',
-        borderColor: '$info300',
+        bg: "$backgroundLightInfo",
+        borderColor: "$info300",
         _icon: {
-          color: '$info500',
+          color: "$info500",
         },
         _dark: {
-          bg: '$backgroundDarkInfo',
-          borderColor: '$info700',
+          bg: "$backgroundDarkInfo",
+          borderColor: "$info700",
           _icon: {
-            color: '$info500',
+            color: "$info500",
           },
         },
       },
       muted: {
-        bg: '$backgroundLightMuted',
-        borderColor: '$secondary300',
+        bg: "$backgroundLightMuted",
+        borderColor: "$secondary300",
         _icon: {
-          color: '$secondary500',
+          color: "$secondary500",
         },
         _dark: {
-          bg: '$backgroundDarkMuted',
-          borderColor: '$secondary700',
+          bg: "$backgroundDarkMuted",
+          borderColor: "$secondary700",
           _icon: {
-            color: '$secondary500',
+            color: "$secondary500",
           },
         },
       },
@@ -82,20 +82,20 @@ export const Alert = createStyle({
     variant: {
       solid: {},
       outline: {
-        borderWidth: '$1',
-        bg: '$white',
+        borderWidth: "$1",
+        bg: "$white",
         _dark: {
-          bg: '$black',
+          bg: "$black",
         },
       },
       accent: {
-        borderLeftWidth: '$4',
+        borderLeftWidth: "$4",
       },
     },
   },
 
   defaultProps: {
-    variant: 'solid',
-    action: 'info',
+    variant: "solid",
+    action: "info",
   },
 });

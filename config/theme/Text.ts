@@ -1,14 +1,14 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const Text = createStyle({
-  color: '$textLight700',
+  color: "$textLight700",
   _dark: {
-    color: '$textDark200',
+    color: "$textDark200",
   },
-  fontWeight: '$normal',
-  fontFamily: '$body',
-  fontStyle: 'normal',
-  letterSpacing: '$md',
+  fontWeight: "$normal",
+  fontFamily: "$body",
+  fontStyle: "normal",
+  letterSpacing: "$md",
 
   variants: {
     isTruncated: {
@@ -16,58 +16,58 @@ export const Text = createStyle({
         props: {
           // @ts-ignore
           numberOfLines: 1,
-          ellipsizeMode: 'tail',
+          ellipsizeMode: "tail",
         },
       },
     },
     bold: {
       true: {
-        fontWeight: '$bold',
+        fontWeight: "$bold",
       },
     },
     underline: {
       true: {
-        textDecorationLine: 'underline',
+        textDecorationLine: "underline",
       },
     },
     strikeThrough: {
       true: {
-        textDecorationLine: 'line-through',
+        textDecorationLine: "line-through",
       },
     },
     sub: {
       true: {
-        fontSize: '$xs',
-        lineHeight: '$xs',
+        fontSize: "$xs",
+        lineHeight: "$xs",
       },
     },
     italic: {
       true: {
-        fontStyle: 'italic',
+        fontStyle: "italic",
       },
     },
     highlight: {
       true: {
-        bg: '$yellow500',
+        bg: "$yellow500",
       },
     },
     size: {
-      '2xs': {
-        fontSize: '$2xs',
-        lineHeight: '$2xs',
+      "2xs": {
+        fontSize: "$2xs",
+        lineHeight: "$2xs",
       },
-      'xs': {
-        fontSize: '$xs',
-        lineHeight: '$sm',
-      },
-
-      'sm': {
-        fontSize: '$sm',
-        lineHeight: '$sm',
+      "xs": {
+        fontSize: "$xs",
+        lineHeight: "$sm",
       },
 
-      'md': {
-        fontSize: '$md',
+      "sm": {
+        fontSize: "$sm",
+        lineHeight: "$sm",
+      },
+
+      "md": {
+        fontSize: "$md",
 
         /**
          * @todo Fix the lineHeight issue
@@ -76,44 +76,44 @@ export const Text = createStyle({
         // lineHeight: '$md',
       },
 
-      'lg': {
-        fontSize: '$lg',
-        lineHeight: '$xl',
+      "lg": {
+        fontSize: "$lg",
+        lineHeight: "$xl",
       },
 
-      'xl': {
-        fontSize: '$xl',
-        lineHeight: '$xl',
+      "xl": {
+        fontSize: "$xl",
+        lineHeight: "$xl",
       },
 
-      '2xl': {
-        fontSize: '$2xl',
-        lineHeight: '$2xl',
+      "2xl": {
+        fontSize: "$2xl",
+        lineHeight: "$2xl",
       },
 
-      '3xl': {
-        fontSize: '$3xl',
-        lineHeight: '$3xl',
+      "3xl": {
+        fontSize: "$3xl",
+        lineHeight: "$3xl",
       },
 
-      '4xl': {
-        fontSize: '$4xl',
-        lineHeight: '$4xl',
+      "4xl": {
+        fontSize: "$4xl",
+        lineHeight: "$4xl",
       },
 
-      '5xl': {
-        fontSize: '$5xl',
-        lineHeight: '$6xl',
+      "5xl": {
+        fontSize: "$5xl",
+        lineHeight: "$6xl",
       },
 
-      '6xl': {
-        fontSize: '$6xl',
-        lineHeight: '$7xl',
+      "6xl": {
+        fontSize: "$6xl",
+        lineHeight: "$7xl",
       },
     },
   },
 
   defaultProps: {
-    size: 'md',
+    size: "md",
   },
 });

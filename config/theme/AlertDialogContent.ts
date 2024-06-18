@@ -1,37 +1,37 @@
-import { createStyle } from '@gluestack-style/react';
+import { createStyle } from "@gluestack-style/react";
 
 export const AlertDialogContent = createStyle({
-  'bg': '$backgroundLight50',
-  'rounded': '$lg',
-  'overflow': 'hidden',
+  "bg": "$backgroundLight50",
+  "rounded": "$lg",
+  "overflow": "hidden",
   //@ts-ignore
-  ':initial': {
+  ":initial": {
     scale: 0.9,
     opacity: 0,
   },
-  ':animate': {
+  ":animate": {
     scale: 1,
     opacity: 1,
   },
-  ':exit': {
+  ":exit": {
     scale: 0.9,
     opacity: 0,
   },
-  ':transition': {
-    type: 'spring',
+  ":transition": {
+    type: "spring",
     damping: 18,
     stiffness: 250,
     opacity: {
-      type: 'timing',
+      type: "timing",
       duration: 250,
     },
   },
 
   // @ts-ignore
-  '_dark': {
-    bg: '$backgroundDark900',
+  "_dark": {
+    bg: "$backgroundDark900",
   },
-  'defaultProps': {
-    softShadow: '3',
+  "defaultProps": {
+    softShadow: "3",
   },
 });

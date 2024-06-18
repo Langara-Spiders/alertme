@@ -1,4 +1,5 @@
-import { Image as ImageGS } from '@gluestack-ui/themed';
+import { Image as ImageGS } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
 
 const Image = (props) => {
     return (
@@ -15,9 +16,11 @@ const Image = (props) => {
 
 export default Image;
 
-const imageDefaultStyle = {
+const imageDefaultStyle = StyleSheet.create({
+  image: {
     borderRadius: 50,
     width: 100,
     height: 100,
-    objectFit: 'cover'
-}
+    objectFit: "cover",
+  },
+});

@@ -1,32 +1,32 @@
-import {
-    Input as InputGS,
-    InputField
-} from '@gluestack-ui/themed';
-
-
+import { Input as InputGS, InputField } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
 
 const Input = (props) => {
-    return (
-        <InputGS
-        size={props.size ?? "md"}
-        variant={props.variant ?? "solid"}
-        action={props.action ?? "primary"}
-        isDisabled={props.isDisabled ?? false}
-        style={props.style ?? InputDefaultStyle}>
-        <InputField placeholder={props.placeholder ?? "Enter"} style={props.style ?? FieldDefaultStyle}/>  
-            {props.children}
-        </InputGS>    
-
-    )
-}
+  return (
+    <InputGS
+      size={props.size ?? "md"}
+      variant={props.variant ?? "solid"}
+      action={props.action ?? "primary"}
+      isDisabled={props.isDisabled ?? false}
+      style={props.style ?? InputDefaultStyle}
+    >
+      <InputField
+        placeholder={props.placeholder ?? "Enter"}
+        style={props.style ?? inputDefaultStyle.field}
+      />
+      {props.children}
+    </InputGS>
+  );
+};
 
 export default Input;
 
-const InputDefaultStyle = {
+const inputDefaultStyle = StyleSheet.create({
+  button: {
     borderRadius: 50,
     border: "2px solid $green900",
-}
-
-const FieldDefaultStyle = {
-    color: "blue"
-}
+  },
+  field: {
+    color: "blue",
+  },
+});
