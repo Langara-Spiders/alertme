@@ -2,6 +2,7 @@ import { Button, Card } from "@gluestack-ui/themed";
 import { Image, ScrollView, Text, View } from "react-native";
 
 import React from "react";
+import { RewardLevel } from "../components/molecules";
 
 const AllIncidentsArrray = [
   {
@@ -80,6 +81,9 @@ const Incidents = () => {
   return (
     <View style={{ flex: 1, padding: 10 }}>
       <Text>My Incidents</Text>
+
+      <RewardLevel value="1" reports="10" />
+
       <View
         style={{
           flexDirection: "row",

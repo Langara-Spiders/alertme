@@ -1,19 +1,25 @@
 import { Card, Image, View } from "@gluestack-ui/themed";
+
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import RewardLevelIcon from "../../../assets/icons/reward-level.svg";
+import RewardLevelIcon from "../../../assets/icons/RewardLevelIcon.jsx";
 import Typography from "../../atoms/Typography";
 
 const RewardLevelCard = (props) => {
   return (
     <Card style={styles.card}>
       <View style={styles.textContainer}>
-        <Typography style={styles.levelText}>Level {props.level}</Typography>
-        <Typography style={styles.subtitleText}>{props.subtitle}</Typography>
+        <Typography style={styles.levelText}>
+          <FormattedMessage>Level {props.level}</FormattedMessage>
+        </Typography>
+        <Typography style={styles.subtitleText}>
+          <FormattedMessage>{props.subtitle}</FormattedMessage>
+        </Typography>
         <Typography style={styles.completedText}>
-          Completed {props.completed}
+          <FormattedMessage>Completed {props.completed}</FormattedMessage>
         </Typography>
         <Typography style={styles.progressText}>
-          Progress {props.progress}
+          <FormattedMessage>Progress {props.progress}</FormattedMessage>
         </Typography>
       </View>
       <Image source={RewardLevelIcon} style={styles.image} />
