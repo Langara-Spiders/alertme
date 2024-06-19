@@ -1,6 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Button from "../../atoms";
+import Button from "../../atoms/buttons/Button";
 
 const CongratsModal = (props) => {
   return (
