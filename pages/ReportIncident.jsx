@@ -1,8 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
-
 const ReportIncident = (props) => {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text>Report Incident</Text>
     </View>
   );
