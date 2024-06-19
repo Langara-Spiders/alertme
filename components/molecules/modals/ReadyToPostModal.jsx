@@ -8,16 +8,16 @@ const ReadyToPostModal = (props) => {
     <View style={styles.confirmationCard}>
       <Text style={styles.confirmationText}>
         <FormattedMessage
-          id="congratsModal.readytopost"
+          id="readyModal.readytopost"
           defaultMessage="Ready to post the Incident?"
         />
       </Text>
       <View style={styles.confirmationButtons}>
         <Button style={styles.no} onPress={props.onCancel}>
-          <FormattedMessage id="congratsModal.no" defaultMessage="No" />
+          <FormattedMessage id="readyModal.no" defaultMessage="No" />
         </Button>
         <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
-          <FormattedMessage id="congratsModal.yes" defaultMessage="Yes" />
+          <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
         </Button>
       </View>
     </View>
