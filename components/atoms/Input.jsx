@@ -1,4 +1,4 @@
-import { InputField, Input as InputGS } from "@gluestack-ui/themed";
+import { Input as InputGS, InputField } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 
 const Input = (props) => {
