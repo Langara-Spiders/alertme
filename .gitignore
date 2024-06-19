@@ -36,3 +36,6 @@ yarn-error.*
 
 # gluestack
 .gluestack
+
+# Yarn
+.yarn
