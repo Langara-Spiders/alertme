@@ -1,6 +1,5 @@
-import { StyleSheet } from "react-native";
-
 import React from "react";
+import { StyleSheet } from "react-native";
 import LocationIcon from "../../assets/icons/LocationIcon";
 import Input from "../atoms/Input"; // Update the path as necessary
 

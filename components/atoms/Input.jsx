@@ -3,17 +3,24 @@ import {
   Input as InputGS,
   InputField,
   InputSlot,
-  Text,
   View,
 } from "@gluestack-ui/themed";
 
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
+import Typography from "../atoms/Typography";
 
 const Input = (props) => {
   return (
     <View style={inputDefaultStyle.wrapper}>
       {props.label && (
-        <Text style={inputDefaultStyle.label}>{props.label}</Text>
+        <Typography>
+          <FormattedMessage
+            id="inputField.input"
+            style={inputDefaultStyle.label}
+            defaultMessage={props.label}
+          />
+        </Typography>
       )}
       <InputGS
         size={props.size ?? "md"}
