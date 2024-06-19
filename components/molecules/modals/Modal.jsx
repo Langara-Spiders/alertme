@@ -1,12 +1,12 @@
 import {
   ButtonText,
   Heading,
+  Modal as ModalGS,
   ModalBackdrop,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  Modal as ModalGS,
   ModalHeader,
   Text,
 } from "@gluestack-ui/themed";
