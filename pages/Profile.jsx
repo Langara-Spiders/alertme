@@ -1,8 +1,8 @@
-import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
 import { Dimensions, StyleSheet } from "react-native";
+import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
 
-import { logout } from "../api";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
+import { logout } from "../api";
 import { routes } from "../constants";
 import { useStore } from "../store";
 
