@@ -1,8 +1,8 @@
 import { Card, Heading, Image, View } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
+import { Typography } from "../../atoms/Typography";
 import { Button } from "../../atoms/buttons/Button";
 import { UpvoteButton } from "../../atoms/buttons/UpvoteButton";
-import { Typography } from "../../atoms/Typography";
 
 const IncidentCard = (props) => {
   return (
