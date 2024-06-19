@@ -16,11 +16,7 @@ const ReadyToPostModal = (props) => {
         <Button style={styles.no} onPress={props.onCancel}>
           <FormattedMessage id="congratsModal.no" defaultMessage="No" />
         </Button>
-        <Button
-          style={styles.yes}
-          textStyle={styles.buttonTextBlack}
-          onPress={props.onConfirm}
-        >
+        <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
           <FormattedMessage id="congratsModal.yes" defaultMessage="Yes" />
         </Button>
       </View>
