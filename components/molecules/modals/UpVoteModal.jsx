@@ -7,23 +7,23 @@ const UpVoteModal = (props) => {
     <View style={styles.confirmationCard}>
       <Text style={styles.confirmationText}>
         <FormattedMessage
-          id="congratsModal.upvote"
+          id="upvoteModal.upvote"
           defaultMessage="👍Confirm Up-vote?"
         />
       </Text>
 
       <Text style={styles.confirmationText}>
         <FormattedMessage
-          id="congratsModal.trust"
+          id="upvoteModal.trust"
           defaultMessage="We trust that your up-vote is genuine and based on the incident you reviewed. Please refrain from misusing this community application."
         />
       </Text>
       <View style={styles.confirmationButtons}>
         <Button style={styles.no} onPress={props.onCancel}>
-          <FormattedMessage id="congratsModal.no" defaultMessage="No" />
+          <FormattedMessage id="upvoteModal.no" defaultMessage="No" />
         </Button>
         <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
-          <FormattedMessage id="congratsModal.yes" defaultMessage="Confirm" />
+          <FormattedMessage id="upvoteModal.yes" defaultMessage="Confirm" />
         </Button>
       </View>
     </View>
