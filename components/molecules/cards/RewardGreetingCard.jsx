@@ -2,10 +2,12 @@ import {
   Avatar,
   AvatarFallbackText,
   AvatarImage,
+  Text,
   View,
 } from "@gluestack-ui/themed";
+
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Typography from "../../atoms/Typography";
 
 const RewardsGreetingCard = (props) => {
   const name = props.name || "";
@@ -13,16 +15,28 @@ const RewardsGreetingCard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Typography style={styles.greetingText}>Hello {props.name}!</Typography>
-        <Typography style={styles.subtitleText}>
-          You're a road hero 😎
-        </Typography>
+        <Text style={styles.greetingText}>
+          <FormattedMessage
+            id="greeting.hello"
+            defaultMessage="Hello {name}!"
+            values={{ name: name }}
+          />
+        </Text>
+        <Text style={styles.subtitleText}>
+          <FormattedMessage
+            id="greeting.profile"
+            defaultMessage="You're a road hero 😎"
+          />
+        </Text>
       </View>
 
       <Avatar style={styles.avatar}>
         <AvatarImage source={props.avatar} style={styles.avatarImage} />
         <AvatarFallbackText style={styles.avatarFallbackText}>
-          {props.name.charAt(0)}
+          <FormattedMessage
+            id="greeting.profile"
+            defaultMessage="name.charAt(0)"
+          />
         </AvatarFallbackText>
       </Avatar>
     </View>
