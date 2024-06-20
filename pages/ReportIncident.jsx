@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import ReadyToPostModal from "../components/molecules/modals/ReadyToPostModal";
+import {ReadyToPostModal} from "../components/molecules";
 
 const ReportIncident = () => {
   const [images, setImages] = useState([]);
