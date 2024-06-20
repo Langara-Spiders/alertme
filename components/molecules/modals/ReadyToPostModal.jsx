@@ -1,7 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Button from "../../atoms/buttons/Button";
+import { Button } from "../../atoms";
 
 const ReadyToPostModal = (props) => {
   return (
@@ -16,7 +16,7 @@ const ReadyToPostModal = (props) => {
         <Button style={styles.no} onPress={props.onCancel}>
           <FormattedMessage id="readyModal.no" defaultMessage="No" />
         </Button>
-        <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
+        <Button style={styles.yes}>
           <Text style={styles.buttonTextBlack}>
             <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
           </Text>
