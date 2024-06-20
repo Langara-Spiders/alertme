@@ -108,7 +108,6 @@ const ReportIncident = () => {
         value={incidentLocation}
         onChangeText={setIncidentLocation}
       />
-
       <TextInput
         style={styles.textArea}
         placeholder="Incident Description"
@@ -116,9 +115,7 @@ const ReportIncident = () => {
         onChangeText={setIncidentDescription}
         multiline
       />
-
       <Button title="Post Incident" onPress={handlePostIncident} />
-
       {showConfirmation && <ReadyToPostModal />}
     </View>
   );
