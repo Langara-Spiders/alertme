@@ -24,11 +24,7 @@ const ProfileGreeting = (props) => {
         )}
       </Avatar>
       <Text style={styles.text}>
-        <FormattedMessage
-          id="greeting.profile"
-          defaultMessage={`{name}`}
-          values={{ name }}
-        />
+        { name }
       </Text>
     </View>
   );
