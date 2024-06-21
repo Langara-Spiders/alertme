@@ -4,20 +4,28 @@
     "slug": "alertme",
     "version": "1.0.0",
     "orientation": "portrait",
-    // "icon": "./assets/icon.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      // "image": "./assets/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCSzQHuRDVo-QovbnDV5q52Hq2CS9-StJo"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        // "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCSzQHuRDVo-QovbnDV5q52Hq2CS9-StJo"
+        }
       }
     },
     "web": {
