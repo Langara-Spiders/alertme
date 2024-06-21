@@ -8,11 +8,12 @@ import {
   SearchIcon,
   View,
 } from "@gluestack-ui/themed";
+
 import { useRef } from "react";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import { Button } from "../components/atoms";
-import DBottomSheet from "../components/organisms/DraggableBottomSheet";
+import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 
 const Home = (props) => {

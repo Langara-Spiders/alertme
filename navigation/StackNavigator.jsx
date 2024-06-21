@@ -1,7 +1,9 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { routes } from "../constants";
+
 import { Notifications, ReportIncident } from "../pages";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { routes } from "../constants";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
