@@ -1,8 +1,7 @@
-import { ArrowRightIcon, Icon, Text } from "@gluestack-ui/themed";
-import { StyleSheet, View } from "react-native";
+import { ArrowRightIcon, Icon, Text, View } from "@gluestack-ui/themed";
 
-import React from "react";
 import { FormattedMessage } from "react-intl";
+import { StyleSheet } from "react-native";
 
 const ProfileItemsWithIcon = (props) => {
   return (
