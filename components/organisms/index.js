@@ -1,1 +1,1 @@
-export { default as BottomSheet } from "../organisms/DraggableBottomSheet";
+export { default as DBottomSheet } from "./DraggableBottomSheet";

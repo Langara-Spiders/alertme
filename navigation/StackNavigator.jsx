@@ -4,6 +4,8 @@ import { Notifications, ReportIncident } from "../pages";
 
 import IncidentDetail from "../pages/IncidentDetail";
 import TabNavigator from "./TabNavigator";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { routes } from "../constants";
 
 const Stack = createNativeStackNavigator();
 

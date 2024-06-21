@@ -1,10 +1,17 @@
-import { Button, Input } from "../components/atoms";
-import { IncidentImageUpload, ReadyToPostModal } from "../components/molecules";
-import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "@gluestack-ui/themed";
+import * as ImagePicker from "expo-image-picker";
 
-import { FormattedMessage } from "react-intl";
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+
+import { ReadyToPostModal } from "../components/molecules";
 import { useNavigation } from "@react-navigation/native";
 
 const ReportIncident = () => {
@@ -97,15 +104,12 @@ const ReportIncident = () => {
         onChangeText={setIncidentDescription}
         multiline
       />
-      <Button onPress={handlePostIncident}>
-        <Text>
-          <FormattedMessage
-            id="ReportIncident.layout"
-            defaultMessage="Report Incident"
-          />
-        </Text>
-      </Button>
-      {showConfirmation && <ReadyToPostModal onConfirm={handleConfirmPost} />}
+      <Button title="Post Incident" onPress={handlePostIncident} />
+      {showConfirmation && (
+        <View>
+          <ReadyToPostModal onCancel={handleCancelPostIncident} />
+        </View>
+      )}
     </View>
   );
 };
