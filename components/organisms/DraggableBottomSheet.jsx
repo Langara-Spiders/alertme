@@ -1,4 +1,4 @@
-import { Text, View } from "@gluestack-ui/themed";
+import { View } from "@gluestack-ui/themed";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import {
   Modal,
@@ -8,7 +8,42 @@ import {
 } from "react-native";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
-const DraggableBottomSheet = forwardRef((props, ref) => {
+import { IncidentCard } from "../molecules";
+
+const AllIncidentsArrray = [
+  {
+    title: "Incident Title",
+    description: "Oil Spilled on Main Street",
+    status: "Fixing",
+    location: "0.21 Km away",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+  {
+    title: "Incident Title",
+    description: "Incident Description",
+    status: "Active",
+    location: "Location",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+  {
+    title: "Incident Title",
+    description: "Incident Description",
+    status: "Active",
+    location: "Location",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+];
+
+const DraggableBottomSheet = forwardRef(({ navigation }, ref) => {
   const bottomSheetRef = useRef();
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -19,6 +54,11 @@ const DraggableBottomSheet = forwardRef((props, ref) => {
       setModalVisible(!isModalVisible);
     },
   }));
+
+  const handleCardPress = (incident) => {
+    setModalVisible(false);
+    navigation.navigate("IncidentDetail", { incident });
+  };
 
   return (
     <Modal
@@ -35,10 +75,24 @@ const DraggableBottomSheet = forwardRef((props, ref) => {
               <BottomSheet ref={bottomSheetRef} isOpen={true}>
                 {(onScrollEndDrag) => (
                   <ScrollView onScrollEndDrag={onScrollEndDrag}>
-                    {[...Array(10)].map((_, index) => (
-                      <View key={`${index}`} style={{ height: 50, width: 100 }}>
-                        <Text>{`List Item ${index + 1}`}</Text>
-                      </View>
+                    {AllIncidentsArrray.map((incident, index) => (
+                      <TouchableWithoutFeedback
+                        key={index}
+                        onPress={() => handleCardPress(incident)}
+                      >
+                        <View>
+                          <IncidentCard
+                            status={incident.status}
+                            title={incident.title}
+                            description={incident.description}
+                            location={incident.location}
+                            date={incident.date}
+                            time={incident.time}
+                            image={{ uri: incident.image }}
+                            upvote={incident.votes}
+                          />
+                        </View>
+                      </TouchableWithoutFeedback>
                     ))}
                   </ScrollView>
                 )}
@@ -63,6 +117,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    maxHeight: "50%",
+    maxHeight: "60%",
   },
 });

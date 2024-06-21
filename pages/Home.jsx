@@ -9,13 +9,13 @@ import {
   View,
 } from "@gluestack-ui/themed";
 
-import { useRef } from "react";
-import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
 import { DBottomSheet } from "../components/organisms";
+import { FormattedMessage } from "react-intl";
+import MapView from "react-native-maps";
+import { StyleSheet } from "react-native";
 import { routes } from "../constants";
+import { useRef } from "react";
 
 const Home = (props) => {
   const { navigation } = props;
@@ -74,7 +74,7 @@ const Home = (props) => {
           </Button>
         </View>
       </View>
-      <DBottomSheet initialState={true} ref={panelRef} />
+      <DBottomSheet ref={panelRef} navigation={navigation} />
     </View>
   );
 };
