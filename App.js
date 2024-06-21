@@ -5,6 +5,8 @@ import { SafeAreaView, StatusBar } from "react-native";
 import { configLight } from "./config/gluestack-ui.config";
 import { en, fr } from "./lang";
 import RootNavigator from "./navigation/RootNavigator";
+import ChooseUser from "./pages/ChooseUser";
+
 
 const messages = {
   en,
@@ -23,7 +25,8 @@ export default function App() {
       <SafeAreaView style={{ flex: 1 }}>
         <GluestackUIProvider config={configLight}>
           <StatusBar barStyle="light-content" backgroundColor="black" />
-          <RootNavigator />
+         {/*  <RootNavigator /> */}
+          <ChooseUser />
         </GluestackUIProvider>
       </SafeAreaView>
     </IntlProvider>
