@@ -9,12 +9,18 @@ import {
 import { StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
+/* This component displays an individual leaderboard card
+ with user details including avatar, name, level, and points. */
 const LeaderBoardCard = (props) => {
   return (
     <Card style={styles.card}>
       <View style={styles.leftContainer}>
         <Avatar style={styles.avatar}>
-          <AvatarImage source={props.avatar} style={styles.avatarImage} />
+          <AvatarImage
+            source={props.avatar}
+            style={styles.avatarImage}
+            alt="Avatar Image"
+          />
           <AvatarFallbackText style={styles.avatarFallbackText}>
             {props.name.charAt(0)}
           </AvatarFallbackText>
@@ -35,9 +41,11 @@ const LeaderBoardCard = (props) => {
 
 export default LeaderBoardCard;
 
+/* Styles for the LeaderBoardCard component including the card layout,
+ avatar, text container, and points display. */
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "white",
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   avatarFallbackText: {
-    color: "#FFF",
+    color: "black",
     fontWeight: "bold",
     fontSize: 20,
   },
@@ -71,16 +79,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   nameText: {
-    color: "#FFF",
+    color: "black",
     fontSize: 16,
     fontWeight: "bold",
   },
   levelText: {
-    color: "#FFF",
+    color: "black",
     fontSize: 14,
   },
   points: {
-    color: "#FFF",
+    color: "black",
     fontSize: 18,
     fontWeight: "bold",
   },
