@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+
 import React, { useState } from "react";
 import {
   Button,
@@ -10,7 +10,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {ReadyToPostModal} from "../components/molecules";
+
+import { useNavigation } from "@react-navigation/native";
+import { ReadyToPostModal } from "../components/molecules";
 
 const ReportIncident = () => {
   const [images, setImages] = useState([]);
@@ -36,6 +38,10 @@ const ReportIncident = () => {
 
   const handlePostIncident = () => {
     setShowConfirmation(true);
+  };
+
+  const handleCancelPostIncident = () => {
+    setShowConfirmation(false);
   };
 
   const handleConfirmPost = (confirm) => {
@@ -116,7 +122,11 @@ const ReportIncident = () => {
         multiline
       />
       <Button title="Post Incident" onPress={handlePostIncident} />
-      {showConfirmation && <ReadyToPostModal />}
+      {showConfirmation && (
+        <View>
+          <ReadyToPostModal onCancel={handleCancelPostIncident} />
+        </View>
+      )}
     </View>
   );
 };
