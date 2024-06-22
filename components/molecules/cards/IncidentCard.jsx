@@ -1,21 +1,38 @@
-import { Card, Heading, Image, View } from "@gluestack-ui/themed";
+import {
+  AddIcon,
+  Card,
+  Heading,
+  Icon,
+  Image,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
-import { Button } from "../../atoms/buttons/Button";
-import { UpvoteButton } from "../../atoms/buttons/UpvoteButton";
-import { Typography } from "../../atoms/Typography";
+import { UpvoteButton } from "../../atoms";
 
 const IncidentCard = (props) => {
   return (
     <Card style={styles.card}>
-      <Button style={styles.statusButton}>{props.status}</Button>
-      <Image source={props.image} style={styles.image} />
-      <Heading style={styles.title}>{props.title}</Heading>
       <View style={styles.infoContainer}>
-        <Typography style={styles.location}>{props.location}</Typography>
-        <UpvoteButton style={styles.upvoteButton}>{props.upvote}</UpvoteButton>
+        <Heading style={styles.title}>{props.title}</Heading>
+        <View style={styles.dateTime}>
+          <Icon as={AddIcon} />
+          <Text style={styles.location}>{props.location}</Text>
+        </View>
+        <View style={styles.dateTime}>
+          <Text style={styles.date}>{props.date ?? "June 3 2024"},</Text>
+          <Text style={styles.time}>{props.time}</Text>
+        </View>
       </View>
-      <Typography style={styles.date}>{props.date}</Typography>
-      <Typography style={styles.time}>{props.time}</Typography>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: props.image ?? "https://picsum.photos/200/300" }}
+          style={styles.image}
+          alt="image"
+        />
+        <UpvoteButton style={styles.upvoteButton} upvote={props.upvote} />
+      </View>
     </Card>
   );
 };
@@ -24,57 +41,32 @@ export default IncidentCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1E1E1E",
-    padding: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "start",
+    backgroundColor: "#F1F1F1",
     borderRadius: 10,
-    marginBottom: 15,
   },
-  statusButton: {
-    backgroundColor: "#FF9900",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    color: "#FFF",
-    fontWeight: "bold",
-    marginBottom: 10,
+  infoContainer: {
+    gap: 3,
   },
   image: {
-    width: "100%",
-    height: 100,
-    borderRadius: 10,
+    borderRadius: 5,
     marginBottom: 10,
   },
   title: {
-    fontSize: 16,
+    setTextAlign: "center",
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#FFF",
-    marginBottom: 10,
   },
-  infoContainer: {
+  dateTime: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    marginTop: 10,
+    gap: 1,
+    alignItems: "center",
+  },
+  imageContainer: {
     alignItems: "center",
     marginBottom: 10,
-  },
-  location: {
-    fontSize: 14,
-    color: "#FFF",
-  },
-  upvoteButton: {
-    backgroundColor: "#FF9900",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    color: "#FFF",
-    fontWeight: "bold",
-  },
-  date: {
-    fontSize: 12,
-    color: "#FFF",
-    marginBottom: 5,
-  },
-  time: {
-    fontSize: 12,
-    color: "#FFF",
   },
 });

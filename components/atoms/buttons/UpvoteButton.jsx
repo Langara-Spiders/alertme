@@ -1,12 +1,23 @@
-import { ButtonIcon, ChevronUpIcon } from "@gluestack-ui/themed";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ButtonIcon, ChevronUpIcon, Text, View } from "@gluestack-ui/themed";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
-const UpvoteButton = ({ upvotes, onPress }) => {
+import { FormattedMessage } from "react-intl";
+
+const UpvoteButton = (props) => {
   return (
-    <TouchableOpacity style={upvoteButtonDefaultStyle.button} onPress={onPress}>
-      <View style={upvoteButtonDefaultStyle.iconContainer}>
+    <TouchableOpacity
+      style={[styles.button, props.style]}
+      onPress={props.onPress}
+    >
+      <View style={styles.iconContainer}>
         <ButtonIcon as={ChevronUpIcon}></ButtonIcon>
-        <Text style={upvoteButtonDefaultStyle.text}>Upvotes {upvotes} </Text>
+        <Text style={styles.text}>
+          <FormattedMessage
+            id="atom.upvotebuttontext"
+            defaultMessage="Upvote "
+          />
+          {props.upvote}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -14,22 +25,19 @@ const UpvoteButton = ({ upvotes, onPress }) => {
 
 export default UpvoteButton;
 
-const upvoteButtonDefaultStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#FF9900",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 50,
   },
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  text: {
-    color: "#FFF",
-    fontWeight: "bold",
-    marginLeft: 5,
   },
 });

@@ -1,20 +1,19 @@
-import { ArrowRightIcon, Icon, Text, View } from "@gluestack-ui/themed";
+import {
+  AddIcon,
+  ArrowRightIcon,
+  Icon,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
 
-import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 
 const ProfileItemsWithIcon = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textIcon}>
-        <Icon as={props.icon} />
-        <Text style={styles.text}>
-          <FormattedMessage
-            id="profile.items"
-            defaultMessage="{text}"
-            values={{ text: props.text }}
-          />
-        </Text>
+        <Icon as={props.icon ?? AddIcon} />
+        <Text style={styles.text}>{props.text}</Text>
       </View>
       <ArrowRightIcon />
     </View>
