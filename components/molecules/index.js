@@ -8,5 +8,6 @@ export { default as CheckboxWithText } from "./CheckboxWithText";
 export { default as IncidentImageUpload } from "./IncidentImageUpload";
 export { default as BottomSheet } from "./modals/BottomSheet";
 export { default as Modal } from "./modals/Modal";
+export { default as ProfileImageEdit } from "./ProfileImageEdit";
 export { default as ProfileitemsWithIcon } from "./ProfileItemsWithIcon";
 export { default as Search } from "./Search";
