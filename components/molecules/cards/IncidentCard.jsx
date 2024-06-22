@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "start",
     backgroundColor: "#F1F1F1",
     borderRadius: 10,
+    margin: 3,
   },
   infoContainer: {
     gap: 3,
