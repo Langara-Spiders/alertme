@@ -11,8 +11,6 @@ import {
 import { StyleSheet } from "react-native";
 import { UpvoteButton } from "../../atoms";
 
-import { StyleSheet } from "react-native";
-
 const IncidentCard = (props) => {
   return (
     <Card style={styles.card}>

@@ -1,13 +1,13 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import React, { useEffect, useState } from "react";
 import {
   LeaderBoardCard,
   RewardGreetingCard,
   RewardLevelCard,
 } from "../components/molecules";
-import React, { useEffect, useState } from "react";
 
-import ABCD from "../assets/favicon.png";
 import { StyleSheet } from "react-native";
+import ABCD from "../assets/favicon.png";
 
 /* The `mockData` constant is storing a mock data object 
 that represents user and leaderboard
