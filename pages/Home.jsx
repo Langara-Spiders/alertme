@@ -1,25 +1,30 @@
 import {
   BellIcon,
-  Button,
   ButtonIcon,
   Input,
   InputField,
   InputIcon,
   InputSlot,
   SearchIcon,
-  Text,
   View,
 } from "@gluestack-ui/themed";
+
+import { useRef } from "react";
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
+import MapView from "react-native-maps";
+import { Button } from "../components/atoms";
+import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 
 const Home = (props) => {
   const { navigation } = props;
+  const panelRef = useRef(null);
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.searchContainer}>
-        <Input style={{ flex: 1 }}>
+        <Input style={{ flex: 1, backgroundColor: "white" }}>
           <InputSlot pl="$3">
             <InputIcon as={SearchIcon} />
           </InputSlot>
@@ -37,14 +42,39 @@ const Home = (props) => {
       <View
         style={{
           flex: 1,
+          width: "100%",
+          height: "100%",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
-          <Text>Report Incident</Text>
-        </Button>
+        <MapView
+          style={styles.map}
+          userInterfaceStyle="dark"
+          provider={MapView.PROVIDER_GOOGLEr}
+          initialRegion={{
+            latitude: 49.225,
+            longitude: -123.1076,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.03,
+          }}
+        />
+        <View style={styles.buttonsContainer}>
+          <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
+            <FormattedMessage
+              id="home.layout"
+              defaultMessage="Report Incident"
+            />
+          </Button>
+          <Button onPress={() => panelRef.current.togglePanel()}>
+            <FormattedMessage
+              id="home.layout"
+              defaultMessage="NearBy Incidents"
+            />
+          </Button>
+        </View>
       </View>
+      <DBottomSheet initialState={true} ref={panelRef} />
     </View>
   );
 };
@@ -59,15 +89,37 @@ const styles = StyleSheet.create({
     backgroundColor: "#09090D",
   },
   searchContainer: {
+    position: "absolute",
+    left: 0,
+    top: 20,
+    zIndex: 99,
+    elevation: 99,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     gap: 2,
     width: "100%",
+    paddingHorizontal: 10,
   },
   buttonsContainer: {
+    position: "absolute",
+    left: 0,
+    bottom: 10,
+    gap: 20,
+    width: "100%",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 60,
+    justifyContent: "center",
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+  reportIncidentBtn: {
+    position: "absolute",
+    bottom: 10,
+    left: 0,
+    zIndex: 99,
+    elevation: 99,
   },
 });
