@@ -1,150 +1,163 @@
-import { Button, Card } from "@gluestack-ui/themed";
-import { Image, ScrollView, Text, View } from "react-native";
+import {
+  ArrowLeftIcon,
+  FlatList,
+  Icon,
+  Pressable,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
 
 import React from "react";
+import { FormattedMessage } from "react-intl";
+import { StyleSheet } from "react-native";
+import Button from "../components/atoms/buttons/Button";
+import { IncidentCard } from "../components/molecules";
+import { routes } from "../constants";
 
 const AllIncidentsArrray = [
   {
-    title: "Incident Title",
-    description: "Incident Description",
+    id: 1,
     status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "2",
+    title: "Oil Spilled On Road",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 1,
   },
   {
-    title: "Incident Title",
-    description: "Incident Description",
+    id: 2,
     status: "Pending",
-    location: "Location",
-    date: "Date",
-    time: "Time",
+    title: "Pothole",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 3,
     image: "https://via.placeholder.com/150",
-    votes: "4",
   },
   {
-    title: "Incident Title",
-    description: "Incident Description",
+    id: 3,
     status: "Resolved",
-    location: "Location",
-    date: "Date",
-    time: "Time",
+    title: "Broken Street Light",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 5,
     image: "https://via.placeholder.com/150",
-    votes: "5",
   },
   {
-    title: "Incident Title",
-    description: "Incident Description",
+    id: 4,
     status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "7",
+    title: "Oil Spilled On Road",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 1,
   },
   {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
+    id: 5,
+    status: "Pending",
+    title: "Pothole",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 3,
     image: "https://via.placeholder.com/150",
-    votes: "8",
   },
   {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
+    id: 6,
+    status: "Resolved",
+    title: "Broken Street Light",
+    distance: "0.21 km away",
+    location: "121, 51A Main Street",
+    date: "June 1st 2024",
+    time: "02:43 PM",
+    upvote: 5,
     image: "https://via.placeholder.com/150",
-    votes: "9",
-  },
-  {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "10",
   },
 ];
 
-const Incidents = () => {
+const Incidents = (props) => {
+  const { navigation } = props;
+
+  const renderItem = ({ item }) => (
+    <IncidentCard
+      title={item.title}
+      location={item.location}
+      date={item.date}
+      time={item.time}
+      image={item.image}
+      upvote={item.upvote}
+    />
+  );
+
+  const ItemSeparator = () => <View style={styles.separator} />;
+
   return (
-    <View style={{ flex: 1, padding: 10 }}>
-      <Text>My Incidents</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginVertical: 10,
-        }}
-      >
-        <Button
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            width: "20%",
-          }}
-        >
-          <Text style={{ color: "white" }}>All</Text>
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.navigate(routes.HOME)}>
+          <Icon as={ArrowLeftIcon} />
+        </Pressable>
+
+        <Text>My Posted Issues</Text>
+      </View>
+      <View style={styles.subcontainer}>
+        <Button>
+          <FormattedMessage id="incidentspage.button1" defaultMessage="All" />
         </Button>
         <Button style={{ backgroundColor: "white", width: "25%" }}>
-          <Text>Active</Text>
+          <FormattedMessage
+            id="incidentsPage.button2"
+            defaultMessage="Active"
+          />
         </Button>
         <Button style={{ backgroundColor: "white", width: "30%" }}>
-          <Text>Pending</Text>
+          <FormattedMessage
+            id="incidentsPage.button3"
+            defaultMessage="Pending"
+          />
         </Button>
         <Button style={{ backgroundColor: "white", width: "30%" }}>
-          <Text>Resolved</Text>
+          <FormattedMessage
+            id="incidentsPage.button4"
+            defaultMessage="Resolved"
+          />
         </Button>
       </View>
 
-      <ScrollView>
-        {AllIncidentsArrray.map((incident, index) => {
-          return (
-            <Card
-              key={index}
-              style={{
-                marginTop: "1rem",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <View>
-                <Button>
-                  <Text>{incident.status}</Text>
-                </Button>
-                <Text>{incident.title}</Text>
-                <Text style={{ fontWeight: "bold" }}>
-                  {incident.description}
-                </Text>
-                <Text>{incident.location}</Text>
-                <Text>
-                  {incident.date},{incident.time}{" "}
-                </Text>
-              </View>
-              <View>
-                <Image
-                  source={{ uri: incident.image }}
-                  style={{ height: 100, width: 100 }}
-                />
-                <Text>{incident.votes}</Text>
-              </View>
-            </Card>
-          );
-        })}
-      </ScrollView>
+      <View style={{ flex: 1, padding: 10 }}>
+        <FlatList
+          data={AllIncidentsArrray}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={ItemSeparator}
+        />
+      </View>
     </View>
   );
 };
 
 export default Incidents;
+
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    justifyContent: "start",
+    alignItems: "center",
+    padding: 10,
+  },
+  subcontainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  separator: {
+    height: 10,
+    // backgroundColor: "#CED0CE",
+  },
+});
