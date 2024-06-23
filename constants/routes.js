@@ -18,6 +18,8 @@ const routes = {
   MY_INCIDENTS_ACTIVE: "My Incidents Active",
   MY_INCIDENTS_PENDING: "My Incidents Pending",
   MY_INCIDENTS_RESOLVED: "My Incidents Resolved",
+
+  LEADERBOARD: "Leaderboard",
 };
 
 export default routes;

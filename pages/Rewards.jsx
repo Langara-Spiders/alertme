@@ -1,13 +1,16 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import ABCD from "../assets/images/sample_user.png";
+
 import {
   LeaderBoardCard,
   RewardGreetingCard,
   RewardLevelCard,
 } from "../components/molecules";
-
-import { StyleSheet } from "react-native";
-import ABCD from "../assets/favicon.png";
+import { routes } from "../constants";
 
 /* The `mockData` constant is storing a mock data object 
 that represents user and leaderboard
@@ -33,9 +36,11 @@ const mockData = {
 };
 
 // Feature `Rewards`.
-const Rewards = () => {
+const Rewards = (props) => {
+  const intl = useIntl();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   /* The `useEffect` hook in the provided code snippet 
 is used to perform side effects in a functional
@@ -69,7 +74,13 @@ a level card, and a scrollable leaderboard.*/
         <RewardGreetingCard name={data.user.name} avatar={data.user.avatar} />
       </View>
       <View>
-        <Text style={styles.levelCardText}>Issue Reported</Text>
+        <Text style={styles.levelCardText}>
+          {" "}
+          <FormattedMessage
+            id="Rewards.issueReported"
+            defaultMessage="Issue Reported"
+          />
+        </Text>
       </View>
       <View style={styles.levelCardContainer}>
         <RewardLevelCard
@@ -81,8 +92,21 @@ a level card, and a scrollable leaderboard.*/
         />
       </View>
       <View style={styles.leaderboardHeader}>
-        <Text style={styles.leaderboardText}>Leaderboard</Text>
-        <Text style={styles.viewAllText}>View All</Text>
+        <Text style={styles.leaderboardText}>
+          <FormattedMessage
+            id="Rewards.leaderBoard"
+            defaultMessage="Leaderboard"
+          />
+        </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.LEADERBOARD, {
+              leaderboard: data.leaderboard,
+            })
+          }
+        >
+          <Text style={styles.viewAllText}>View All</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView style={styles.leaderboardContainer}>
         {data.leaderboard.map((leader, index) => (

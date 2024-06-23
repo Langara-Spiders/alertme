@@ -1,4 +1,5 @@
 import { Card, View } from "@gluestack-ui/themed";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Image, StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
@@ -6,18 +7,35 @@ import Typography from "../../atoms/Typography";
 subtitle, earned points, issues reported, 
 and an icon with a view progress text. */
 const RewardLevelCard = (props) => {
+  const intl = useIntl();
   return (
     <Card style={styles.card}>
       <View style={styles.leftContainer}>
-        <Typography style={styles.levelText}>Level {props.level}</Typography>
+        <Typography style={styles.levelText}>
+          <FormattedMessage
+            id="RewardLevelCard.levelText"
+            defaultMessage="Level"
+          />{" "}
+          {props.level}
+        </Typography>
         <Typography style={styles.subtitleText}>{props.subtitle}</Typography>
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
-            <Typography style={styles.statLabel}>Earned Points</Typography>
+            <Typography style={styles.statLabel}>
+              <FormattedMessage
+                id="RewardLevelCard.earnedPoints"
+                defaultMessage="Earned Points"
+              />
+            </Typography>
             <Typography style={styles.statValue}>{props.completed}</Typography>
           </View>
           <View style={styles.statAdjusted}>
-            <Typography style={styles.statLabel}>Issues Reported</Typography>
+            <Typography style={styles.statLabel}>
+              <FormattedMessage
+                id="RewardLevelCard.issuesReported"
+                defaultMessage=" Issues Reported"
+              />
+            </Typography>
             <Typography style={styles.statValue}>{props.progress}</Typography>
           </View>
         </View>

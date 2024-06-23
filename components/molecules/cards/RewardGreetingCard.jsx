@@ -4,6 +4,7 @@ import {
   AvatarImage,
   View,
 } from "@gluestack-ui/themed";
+import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
@@ -11,14 +12,24 @@ import Typography from "../../atoms/Typography";
 subtitle, and avatar. If the avatar is not provided,
 it falls back to displaying the first letter of the user's name. */
 const RewardsGreetingCard = (props) => {
+  const intl = useIntl();
   const name = props.name || "";
 
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Typography style={styles.greetingText}>Hello {props.name}!</Typography>
+        <Typography style={styles.greetingText}>
+          <FormattedMessage
+            id="RewardsGreetingCard.greeting"
+            defaultMessage="Hello 😎"
+          />
+          {props.name}!
+        </Typography>
         <Typography style={styles.subtitleText}>
-          You're a road hero 😎
+          <FormattedMessage
+            id="RewardsGreetingCard.roadhero"
+            defaultMessage="You're a road hero 😎"
+          />
         </Typography>
       </View>
 
