@@ -7,7 +7,7 @@ const routes = {
 
   NOTIFICATIONS: "Notifications",
   REPORT_INCIDENT: "Report Incident",
-  INCIDENTDETAIL: "Incident Detail",
+  INCIDENT_DETAIL: "Incident Detail",
 
   REWARDS: "Rewards",
   PROFILE: "Profile",
