@@ -1,8 +1,8 @@
 import { Card, View } from "@gluestack-ui/themed";
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import { SwitchButton } from "../../atoms";
 import Typography from "../../atoms/Typography";
-import { FormattedMessage } from "react-intl";
 
 const SwitchIconCard = (props) => {
   const getTitleAndDescription = (type) => {

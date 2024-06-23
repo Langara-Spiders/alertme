@@ -1,4 +1,4 @@
-import { Card, HStack, VStack, View } from "@gluestack-ui/themed";
+import { Card, HStack, View, VStack } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Image from "../../atoms/Image";
 import Typography from "../../atoms/Typography";
@@ -22,10 +22,11 @@ const LoginAsCard = (props) => {
               <View style={styles.view}>
                 <VStack>
                   <Typography size="$4xl" style={styles.title}>
-                   I’m Civilian
+                    I’m Civilian
                   </Typography>
                   <Typography size="$md" style={styles.description}>
-                  Community civilians can select this option to proceed further
+                    Community civilians can select this option to proceed
+                    further
                   </Typography>
                 </VStack>
               </View>
@@ -42,10 +43,11 @@ const LoginAsCard = (props) => {
               <View style={styles.view}>
                 <VStack>
                   <Typography size="$lg" style={styles.title}>
-                  Construction Worker
+                    Construction Worker
                   </Typography>
                   <Typography size="body1" style={styles.description}>
-                  Construction employee can select this option to proceed further
+                    Construction employee can select this option to proceed
+                    further
                   </Typography>
                 </VStack>
               </View>
