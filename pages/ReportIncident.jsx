@@ -1,40 +1,20 @@
-import * as ImagePicker from "expo-image-picker";
-
+import { Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FormattedMessage, useIntl } from "react-intl";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Input } from "../components/atoms";
+import { IncidentImageUpload, ReadyToPostModal } from "../components/molecules";
 
 import { useNavigation } from "@react-navigation/native";
-import { ReadyToPostModal } from "../components/molecules";
 
 const ReportIncident = () => {
-  const [images, setImages] = useState([]);
+  const intl = useIntl();
   const [incidentCategory, setIncidentCategory] = useState("");
   const [incidentType, setIncidentType] = useState("");
   const [incidentLocation, setIncidentLocation] = useState("");
   const [incidentDescription, setIncidentDescription] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigation = useNavigation();
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setImages([...images, result.uri]);
-    }
-  };
 
   const handlePostIncident = () => {
     setShowConfirmation(true);
@@ -44,33 +24,17 @@ const ReportIncident = () => {
     setShowConfirmation(false);
   };
 
-  const handleConfirmPost = (confirm) => {
-    if (confirm) {
-      console.log({
-        images,
-        incidentCategory,
-        incidentType,
-        incidentLocation,
-        incidentDescription,
-      });
-
-      navigation.navigate("Home", { incidentPosted: true });
-    } else {
-      setShowConfirmation(false);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Report an Incident</Text>
-
-      <View style={styles.imagePicker}>
-        {images.map((image, index) => (
-          <Image key={index} source={{ uri: image }} style={styles.image} />
-        ))}
-        {images.length < 3 && <Button title="Add Image" onPress={pickImage} />}
+      <Text style={styles.title}>
+        <FormattedMessage
+          id="reportIncident.title"
+          defaultMessage="Report an Incident"
+        />
+      </Text>
+      <View>
+        <IncidentImageUpload />
       </View>
-
       <View style={styles.categoryButtons}>
         <TouchableOpacity
           style={[
@@ -79,7 +43,12 @@ const ReportIncident = () => {
           ]}
           onPress={() => setIncidentCategory("Category1")}
         >
-          <Text style={styles.buttonText}>Category 1</Text>
+          <Text style={styles.buttonText}>
+            <FormattedMessage
+              id="reportIncident.categoryBtn1"
+              defaultMessage="Category 1"
+            />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -88,7 +57,12 @@ const ReportIncident = () => {
           ]}
           onPress={() => setIncidentCategory("Category2")}
         >
-          <Text style={styles.buttonText}>Category 2</Text>
+          <Text style={styles.buttonText}>
+            <FormattedMessage
+              id="reportIncident.categoryBtn2"
+              defaultMessage="Category 2"
+            />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -97,31 +71,48 @@ const ReportIncident = () => {
           ]}
           onPress={() => setIncidentCategory("Category3")}
         >
-          <Text style={styles.buttonText}>Category 3</Text>
+          <Text style={styles.buttonText}>
+            <FormattedMessage
+              id="reportIncident.categoryBtn3"
+              defaultMessage="Category 3"
+            />
+          </Text>
         </TouchableOpacity>
       </View>
-
-      <TextInput
+      <Input
         style={styles.input}
-        placeholder="Incident Type"
+        placeholder={intl.formatMessage({
+          id: "reportIncident.input.incidentType",
+          defaultMessage: "Incident Type",
+        })}
         value={incidentType}
         onChangeText={setIncidentType}
       />
-
-      <TextInput
+      <Input
         style={styles.input}
-        placeholder="Incident Location"
+        placeholder={intl.formatMessage({
+          id: "reportIncident.input.incidentLocation",
+          defaultMessage: "Incident Location",
+        })}
         value={incidentLocation}
         onChangeText={setIncidentLocation}
       />
-      <TextInput
+      <Input
         style={styles.textArea}
-        placeholder="Incident Description"
+        placeholder={intl.formatMessage({
+          id: "reportIncident.input.incidentDescription",
+          defaultMessage: "Incident Description",
+        })}
         value={incidentDescription}
         onChangeText={setIncidentDescription}
         multiline
       />
-      <Button title="Post Incident" onPress={handlePostIncident} />
+      <Button onPress={handlePostIncident}>
+        <FormattedMessage
+          id="reportIncident.postBtn"
+          defaultMessage="Post Incident"
+        />
+      </Button>
       {showConfirmation && (
         <View>
           <ReadyToPostModal onCancel={handleCancelPostIncident} />

@@ -14,9 +14,11 @@ const ReadyToPostModal = (props) => {
       </Text>
       <View style={styles.confirmationButtons}>
         <Button style={styles.no} onPress={props.onCancel}>
-          <FormattedMessage id="readyModal.no" defaultMessage="No" />
+          <Text>
+            <FormattedMessage id="readyModal.no" defaultMessage="No" />
+          </Text>
         </Button>
-        <Button style={styles.yes}>
+        <Button style={styles.yes} onPress={() => props.onConfirm(true)}>
           <Text style={styles.buttonTextBlack}>
             <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
           </Text>

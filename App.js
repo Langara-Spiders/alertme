@@ -1,11 +1,14 @@
-import { GluestackUIProvider } from "@gluestack-ui/themed";
 import * as React from "react";
-import { IntlProvider } from "react-intl";
+
 import { SafeAreaView, StatusBar } from "react-native";
-import { configLight } from "./config/gluestack-ui.config";
 import { en, fr } from "./lang";
 import { AllowPermissions } from "./pages";
 
+
+import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { IntlProvider } from "react-intl";
+import { configLight } from "./config/gluestack-ui.config";
+import RootNavigator from "./navigation/RootNavigator";
 
 const messages = {
   en,
