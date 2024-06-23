@@ -8,18 +8,57 @@ import {
   SearchIcon,
   View,
 } from "@gluestack-ui/themed";
+import { StyleSheet, TouchableWithoutFeedback } from "react-native";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
 import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
+import { IncidentCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 
+const incidentsArray = [
+  {
+    title: "Incident Title",
+    description: "Oil Spilled on Main Street",
+    status: "Fixing",
+    location: "0.21 Km away",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+  {
+    title: "Incident Title",
+    description: "Incident Description",
+    status: "Active",
+    location: "Location",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+  {
+    title: "Incident Title",
+    description: "Incident Description",
+    status: "Active",
+    location: "Location",
+    date: "Date",
+    time: "Time",
+    image: "https://via.placeholder.com/150",
+    votes: "2",
+  },
+];
+
 const Home = (props) => {
   const { navigation } = props;
-  const panelRef = useRef(null);
+  const [isSheetVisible, setIsSheetVisible] = useState(false);
+
+  const handleCardPress = (incident) => {
+    setIsSheetVisible(false);
+    navigation.navigate(routes.INCIDENT_DETAIL, { incident });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -66,7 +105,7 @@ const Home = (props) => {
               defaultMessage="Report Incident"
             />
           </Button>
-          <Button onPress={() => panelRef.current.togglePanel()}>
+          <Button onPress={() => setIsSheetVisible(true)}>
             <FormattedMessage
               id="home.layout"
               defaultMessage="NearBy Incidents"
@@ -74,7 +113,30 @@ const Home = (props) => {
           </Button>
         </View>
       </View>
-      <DBottomSheet initialState={true} ref={panelRef} />
+      <DBottomSheet
+        isOpen={isSheetVisible}
+        onClose={() => setIsSheetVisible(false)}
+      >
+        {incidentsArray.map((incident, index) => (
+          <TouchableWithoutFeedback
+            key={index}
+            onPress={() => handleCardPress(incident)}
+          >
+            <View>
+              <IncidentCard
+                status={incident.status}
+                title={incident.title}
+                description={incident.description}
+                location={incident.location}
+                date={incident.date}
+                time={incident.time}
+                // image={{ uri: incident.image }}
+                upvote={incident.votes}
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
+      </DBottomSheet>
     </View>
   );
 };

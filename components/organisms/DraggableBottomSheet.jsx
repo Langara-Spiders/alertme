@@ -1,99 +1,32 @@
-import { View } from "@gluestack-ui/themed";
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import {
   Modal,
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
+
+import { View } from "@gluestack-ui/themed";
+import { useRef } from "react";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
-import { IncidentCard } from "../molecules";
-
-const AllIncidentsArrray = [
-  {
-    title: "Incident Title",
-    description: "Oil Spilled on Main Street",
-    status: "Fixing",
-    location: "0.21 Km away",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "2",
-  },
-  {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "2",
-  },
-  {
-    title: "Incident Title",
-    description: "Incident Description",
-    status: "Active",
-    location: "Location",
-    date: "Date",
-    time: "Time",
-    image: "https://via.placeholder.com/150",
-    votes: "2",
-  },
-];
-
-const DraggableBottomSheet = forwardRef(({ navigation }, ref) => {
+const DraggableBottomSheet = (props) => {
   const bottomSheetRef = useRef();
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  //its a custom hook that allows to expose certain function from the parent component
-
-  useImperativeHandle(ref, () => ({
-    togglePanel: () => {
-      setModalVisible(!isModalVisible);
-    },
-  }));
-
-  const handleCardPress = (incident) => {
-    setModalVisible(false);
-    navigation.navigate("IncidentDetail", { incident });
-  };
 
   return (
     <Modal
-      visible={isModalVisible}
+      visible={props.isOpen}
       transparent={true}
       animationType="slide"
-      onRequestClose={() => setModalVisible(false)}
+      onRequestClose={() => props.onClose()}
     >
-      <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+      <TouchableWithoutFeedback onPress={() => props.onClose()}>
         <View style={styles.modalOverlay}>
           <TouchableWithoutFeedback>
             <View style={styles.bottomSheetContainer}>
-              {/* This is Just a temporary place Holder  */}
-              <BottomSheet ref={bottomSheetRef} isOpen={true}>
+              <BottomSheet ref={bottomSheetRef} isOpen={props.isOpen}>
                 {(onScrollEndDrag) => (
                   <ScrollView onScrollEndDrag={onScrollEndDrag}>
-                    {AllIncidentsArrray.map((incident, index) => (
-                      <TouchableWithoutFeedback
-                        key={index}
-                        onPress={() => handleCardPress(incident)}
-                      >
-                        <View>
-                          <IncidentCard
-                            status={incident.status}
-                            title={incident.title}
-                            description={incident.description}
-                            location={incident.location}
-                            date={incident.date}
-                            time={incident.time}
-                            image={{ uri: incident.image }}
-                            upvote={incident.votes}
-                          />
-                        </View>
-                      </TouchableWithoutFeedback>
-                    ))}
+                    {props.children}
                   </ScrollView>
                 )}
               </BottomSheet>
@@ -103,7 +36,7 @@ const DraggableBottomSheet = forwardRef(({ navigation }, ref) => {
       </TouchableWithoutFeedback>
     </Modal>
   );
-});
+};
 
 export default DraggableBottomSheet;
 
@@ -114,7 +47,6 @@ const styles = StyleSheet.create({
   },
   bottomSheetContainer: {
     backgroundColor: "white",
-    paddingTop: 20,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     maxHeight: "60%",

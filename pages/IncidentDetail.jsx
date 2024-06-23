@@ -1,10 +1,11 @@
 import { Image, Text, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 import { StatusBadge } from "../components/atoms";
 import { PostedByCard } from "../components/molecules";
 import UpVoteCard from "../components/molecules/cards/UpVoteCard";
 
-const IncidentDetail = ({ route }) => {
+const INCIDENT_DETAIL = ({ route }) => {
   const { incident } = route.params;
 
   return (
@@ -36,7 +37,7 @@ const IncidentDetail = ({ route }) => {
   );
 };
 
-export default IncidentDetail;
+export default INCIDENT_DETAIL;
 
 const styles = StyleSheet.create({
   container: {

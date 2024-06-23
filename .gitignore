@@ -41,3 +41,6 @@ yarn-error.*
 
 # environment variables
 .env
+
+# vscode
+.vscode
