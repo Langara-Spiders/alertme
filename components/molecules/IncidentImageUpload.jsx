@@ -1,9 +1,7 @@
-import * as ImagePicker from "expo-image-picker";
-
 import { CloseIcon, DownloadIcon, View } from "@gluestack-ui/themed";
+import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-
 import Image from "../atoms/Image";
 import Typography from "../atoms/Typography";
 
@@ -28,7 +26,7 @@ const IncidentImageUpload = () => {
 
     if (!result.canceled) {
       const newImages = result.assets.map((asset) => ({ uri: asset.uri }));
-      setImages([...images, ...newImages]);
+      setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
 
@@ -40,22 +38,26 @@ const IncidentImageUpload = () => {
     });
 
     if (!result.canceled) {
-      const newImage = { uri: result.uri };
-      setImages([...images, newImage]);
+      const newImage = { uri: result.assets[0].uri };
+      setImages((prevImages) => [...prevImages, newImage]);
     }
   };
 
   const handleDeleteImage = (index) => {
-    setImages(images.filter((_, i) => i !== index));
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   const renderImagePlaceholders = () => {
     const placeholders = [];
     for (let i = 0; i < 3; i++) {
-      if (images[i]) {
+      if (images[i] && typeof images[i].uri === "string") {
         placeholders.push(
           <View key={i} style={styles.imageWrapper}>
-            <Image source={images[i].uri} style={styles.image} />
+            <Image
+              source={images[i].uri}
+              style={styles.image}
+              alt={`Incident image ${i + 1}`}
+            />
             <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => handleDeleteImage(i)}

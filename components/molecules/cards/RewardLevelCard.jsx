@@ -1,28 +1,46 @@
-import { Card, Image, View } from "@gluestack-ui/themed";
+import { Card, View } from "@gluestack-ui/themed";
+import { Image, StyleSheet } from "react-native";
 
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import RewardLevelIcon from "../../../assets/icons/RewardLevelIcon.jsx";
 import Typography from "../../atoms/Typography";
 
 const RewardLevelCard = (props) => {
   return (
     <Card style={styles.card}>
-      <View style={styles.textContainer}>
+      <View style={styles.leftContainer}>
         <Typography style={styles.levelText}>
-          <FormattedMessage>Level {props.level}</FormattedMessage>
+          <FormattedMessage
+            id="RewardLevelCard.levelText"
+            defaultMessage="Level"
+          />{" "}
+          {props.level}
         </Typography>
-        <Typography style={styles.subtitleText}>
-          <FormattedMessage>{props.subtitle}</FormattedMessage>
-        </Typography>
-        <Typography style={styles.completedText}>
-          <FormattedMessage>Completed {props.completed}</FormattedMessage>
-        </Typography>
-        <Typography style={styles.progressText}>
-          <FormattedMessage>Progress {props.progress}</FormattedMessage>
-        </Typography>
+        <Typography style={styles.subtitleText}>{props.subtitle}</Typography>
+        <View style={styles.statsContainer}>
+          <View style={styles.stat}>
+            <Typography style={styles.statLabel}>
+              <FormattedMessage
+                id="RewardLevelCard.earnedPoints"
+                defaultMessage="Earned Points"
+              />
+            </Typography>
+            <Typography style={styles.statValue}>{props.completed}</Typography>
+          </View>
+          <View style={styles.statAdjusted}>
+            <Typography style={styles.statLabel}>
+              <FormattedMessage
+                id="RewardLevelCard.issuesReported"
+                defaultMessage=" Issues Reported"
+              />
+            </Typography>
+            <Typography style={styles.statValue}>{props.progress}</Typography>
+          </View>
+        </View>
       </View>
-      <Image source={RewardLevelIcon} style={styles.image} />
+      <View style={styles.rightContainer}>
+        <Image source={props.icon} style={styles.icon} alt="level card icon" />
+        <Typography style={styles.viewProgressText}>View Progress</Typography>
+      </View>
     </Card>
   );
 };
@@ -31,44 +49,62 @@ export default RewardLevelCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#FDE8DF",
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
-  textContainer: {
-    flex: 1,
+  leftContainer: {
+    flex: 2,
   },
   levelText: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#FFF",
+    color: "#000",
     marginBottom: 5,
   },
   subtitleText: {
-    fontSize: 16,
-    color: "#FFF",
+    fontSize: 18,
+    color: "#000",
+    marginBottom: 15,
+  },
+  statsContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  stat: {
+    alignItems: "center",
+    marginRight: 20,
+  },
+  statAdjusted: {
+    alignItems: "center",
+    marginLeft: 8,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: "#FF6600",
     marginBottom: 5,
   },
-  view2: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  statValue: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000",
   },
-  viewInside: {
+  rightContainer: {
+    flex: 1,
     alignItems: "center",
   },
-  completedText: {
-    fontSize: 14,
-    color: "#FFF",
-    marginBottom: 5,
+  icon: {
+    width: 60,
+    height: 60,
+    marginBottom: 10,
   },
-  progressText: {
+  viewProgressText: {
     fontSize: 14,
-    color: "#FFF",
-  },
-  image: {
-    marginLeft: 10,
+    color: "#FF6600",
+    textAlign: "center",
   },
 });
