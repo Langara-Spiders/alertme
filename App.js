@@ -2,8 +2,6 @@ import * as React from "react";
 
 import { SafeAreaView, StatusBar } from "react-native";
 import { en, fr } from "./lang";
-import { AllowPermissions } from "./pages";
-
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { IntlProvider } from "react-intl";
@@ -27,8 +25,7 @@ export default function App() {
       <SafeAreaView style={{ flex: 1 }}>
         <GluestackUIProvider config={configLight}>
           <StatusBar barStyle="light-content" backgroundColor="black" />
-         {/*  <RootNavigator /> */}
-          <AllowPermissions />
+         <RootNavigator />
         </GluestackUIProvider>
       </SafeAreaView>
     </IntlProvider>
