@@ -16,14 +16,17 @@ const LeaderBoardCard = (props) => {
     <Card style={styles.card}>
       <View style={styles.leftContainer}>
         <Avatar style={styles.avatar}>
-          <AvatarImage
-            source={props.avatar}
-            style={styles.avatarImage}
-            alt="Avatar Image"
-          />
-          <AvatarFallbackText style={styles.avatarFallbackText}>
-            {props.name.charAt(0)}
-          </AvatarFallbackText>
+          {props.avatar ? (
+            <AvatarImage
+              source={props.avatar}
+              style={styles.avatarImage}
+              alt="Avatar Image"
+            />
+          ) : (
+            <AvatarFallbackText style={styles.avatarFallbackText}>
+              {props.name.charAt(0)}
+            </AvatarFallbackText>
+          )}
         </Avatar>
         <VStack style={styles.textContainer}>
           <Typography style={styles.nameText} size="sm">

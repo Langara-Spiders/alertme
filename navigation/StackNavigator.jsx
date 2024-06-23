@@ -1,7 +1,12 @@
-import { IncidentDetail, Notifications, ReportIncident } from "../pages";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
 import { routes } from "../constants";
+import {
+  IncidentDetail,
+  Leaderboard,
+  Notifications,
+  ReportIncident,
+} from "../pages";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +45,14 @@ const StackNavigator = (props) => {
       <Stack.Screen
         name={routes.INCIDENT_DETAIL}
         component={IncidentDetail}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={routes.LEADERBOARD}
+        component={Leaderboard}
         options={{
           headerShown: true,
           headerBackTitleVisible: false,
