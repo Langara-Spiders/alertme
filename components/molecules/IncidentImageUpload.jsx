@@ -26,7 +26,6 @@ const IncidentImageUpload = () => {
 
     if (!result.canceled) {
       const newImages = result.assets.map((asset) => ({ uri: asset.uri }));
-      console.log("New images from library:", newImages);
       setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
@@ -38,11 +37,8 @@ const IncidentImageUpload = () => {
       quality: 1,
     });
 
-    console.log("Camera capture result:", result);
-
     if (!result.canceled) {
       const newImage = { uri: result.assets[0].uri };
-      console.log("New image from camera:", newImage);
       setImages((prevImages) => [...prevImages, newImage]);
     }
   };
@@ -52,11 +48,9 @@ const IncidentImageUpload = () => {
   };
 
   const renderImagePlaceholders = () => {
-    console.log("Rendering image placeholders with images:", images);
     const placeholders = [];
     for (let i = 0; i < 3; i++) {
       if (images[i] && typeof images[i].uri === "string") {
-        console.log("Rendering image:", images[i].uri);
         placeholders.push(
           <View key={i} style={styles.imageWrapper}>
             <Image
