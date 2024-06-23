@@ -10,3 +10,5 @@ export { default as IncidentImageUpload } from "./IncidentImageUpload";
 export { default as Modal } from "./modals/Modal";
 export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as Search } from "./Search";
+export { default as SwitchIconCard } from "./cards/SwitchIconCard"
+export { default as LoginAsCard } from "./cards/LoginAsCard"

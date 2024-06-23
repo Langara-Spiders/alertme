@@ -1,22 +1,78 @@
 import { Card, View } from "@gluestack-ui/themed";
-
-import React from "react";
 import { StyleSheet } from "react-native";
-import Switch from "../../atoms/Switch";
+import { SwitchButton } from "../../atoms";
 import Typography from "../../atoms/Typography";
+import { FormattedMessage } from "react-intl";
 
 const SwitchIconCard = (props) => {
+  const getTitleAndDescription = (type) => {
+    switch (type) {
+      case "Location":
+        return {
+          title: (
+            <FormattedMessage
+              id="SwitchCard.title.location"
+              defaultMessage="Location"
+            />
+          ),
+          description: (
+            <FormattedMessage
+              id="SwitchCard.description.location"
+              defaultMessage="To send you location-based alerts and notifications."
+            />
+          ),
+        };
+      case "Notification":
+        return {
+          title: (
+            <FormattedMessage
+              id="SwitchCard.title.notification"
+              defaultMessage="Notification"
+            />
+          ),
+          description: (
+            <FormattedMessage
+              id="SwitchCard.description.notification"
+              defaultMessage="To send you notifications and alerts."
+            />
+          ),
+        };
+      case "Camera":
+        return {
+          title: (
+            <FormattedMessage
+              id="SwitchCard.title.camera"
+              defaultMessage="Camera"
+            />
+          ),
+          description: (
+            <FormattedMessage
+              id="SwitchCard.description.camera"
+              defaultMessage="To access your camera for taking photos and videos."
+            />
+          ),
+        };
+      default:
+        return {
+          title: "",
+          description: "",
+        };
+    }
+  };
+
+  const { title, description } = getTitleAndDescription(props.type);
+
   return (
     <Card style={styles.card}>
       <View style={styles.textContainer}>
         <Typography variant="h2" style={styles.title}>
-          {props.AllowAcessTitle}
+          {title}
         </Typography>
         <Typography variant="body2" style={styles.description}>
-          {props.AllowAcessDescription}
+          {description}
         </Typography>
       </View>
-      <Switch style={styles.switch} />
+      <SwitchButton style={styles.switch} />
     </Card>
   );
 };

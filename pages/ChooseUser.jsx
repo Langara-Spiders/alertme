@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { View, Text, AvatarImage, Heading, HStack } from '@gluestack-ui/themed';
+import { View, Text} from '@gluestack-ui/themed';
 import { FormattedMessage } from 'react-intl';
-import { Avatar } from '@gluestack-ui/themed';
-import { VStack } from '@gluestack-ui/themed';
+
+import LoginAsCard from '../components/molecules/cards/LoginAsCard';
 
 const ChooseUser = () => {
     return (
@@ -19,40 +19,17 @@ const ChooseUser = () => {
                     defaultMessage="Please select the user type to begin with"
                 />
             </Text>
-            <View style={styles.card}>
-                <HStack style={styles.hStack} space="md">
-                    <Avatar>
-                        <AvatarImage
-                            source={{
-                                uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-                            }}
-                            alt="Avatar Image"
-                        />
-                    </Avatar>
-                    <VStack style={styles.vStack}>
-                        <Heading size="sm" style={styles.heading}>I’m Civilian</Heading>
-                        <Text size="sm" style={styles.text}>Community civilians can select this option to proceed further</Text>
-                    </VStack>
-                </HStack>
+            <View>
+                <LoginAsCard userType="civilian" />
+                <LoginAsCard userType="Construction Worker"/>
+
             </View>
-            <View style={styles.card}>
-                <HStack space="md">
-                    <Avatar>
-                        <AvatarImage
-                            source={{
-                                uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-                            }}
-                            alt="Avatar Image" />
-                    </Avatar>
-                    <VStack style={styles.vStack}>
-                        <Heading size="sm" style={styles.heading}>Construction Worker</Heading>
-                        <Text size="sm" style={styles.text}>Construction employees can select this option to proceed further</Text>
-                    </VStack>
-                </HStack>
-            </View>
+            
         </View>
     );
 }
+
+export default ChooseUser;
 
 const styles = StyleSheet.create({
     content: {
@@ -68,30 +45,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 14,
         marginBottom: 20,
-    },
-    card: {
-        display: 'flex',
-        width: 328,
-        padding: 20,
-        backgroundColor: '#F3F4F4',
-        borderRadius: 8,
-        marginBottom: 10,
-    },
-    hStack: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    vStack: {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        marginLeft: 10,
-    },
-    heading: {
-        paddingBottom: 5,
-    },
-    text: {
-        paddingTop: 5,
-    },
+        addingTop: 5
+    }
 })
 
-export default ChooseUser;

@@ -4,8 +4,7 @@ import { IntlProvider } from "react-intl";
 import { SafeAreaView, StatusBar } from "react-native";
 import { configLight } from "./config/gluestack-ui.config";
 import { en, fr } from "./lang";
-import RootNavigator from "./navigation/RootNavigator";
-import ChooseUser from "./pages/ChooseUser";
+import { AllowPermissions } from "./pages";
 
 
 const messages = {
@@ -26,7 +25,7 @@ export default function App() {
         <GluestackUIProvider config={configLight}>
           <StatusBar barStyle="light-content" backgroundColor="black" />
          {/*  <RootNavigator /> */}
-          <ChooseUser />
+          <AllowPermissions />
         </GluestackUIProvider>
       </SafeAreaView>
     </IntlProvider>
