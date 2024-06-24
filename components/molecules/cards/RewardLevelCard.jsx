@@ -1,10 +1,14 @@
 import { Card, View } from "@gluestack-ui/themed";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Image, StyleSheet } from "react-native";
 
-import { FormattedMessage } from "react-intl";
 import Typography from "../../atoms/Typography";
 
+/* This component displays a reward level card with the user's level, 
+subtitle, earned points, issues reported, 
+and an icon with a view progress text. */
 const RewardLevelCard = (props) => {
+  const intl = useIntl();
   return (
     <Card style={styles.card}>
       <View style={styles.leftContainer}>
@@ -47,6 +51,9 @@ const RewardLevelCard = (props) => {
 
 export default RewardLevelCard;
 
+/* Styles for the RewardLevelCard component including the card layout,
+left and right containers, text styles,
+stats containers, and icon display. */
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#FDE8DF",
