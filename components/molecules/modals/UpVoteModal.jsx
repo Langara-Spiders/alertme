@@ -38,12 +38,12 @@ export default UpVoteModal;
 const styles = StyleSheet.create({
   confirmationCard: {
     display: "flex",
-    width: '100%', 
+    width: "100%",
     padding: 20,
     flexDirection: "column",
     alignItems: "center",
     position: "absolute",
-    bottom: 30,  
+    bottom: 30,
     backgroundColor: "#fff",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -83,6 +83,3 @@ const styles = StyleSheet.create({
     color: "#000",
   },
 });
-
-
-

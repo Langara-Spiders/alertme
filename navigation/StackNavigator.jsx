@@ -1,3 +1,4 @@
+import { Icon, StarIcon } from "@gluestack-ui/themed";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { routes } from "../constants";
@@ -9,8 +10,6 @@ import {
   ReportIncident,
 } from "../pages";
 import TabNavigator from "./TabNavigator";
-import { Icon } from "@gluestack-ui/themed";
-import { StarIcon } from "@gluestack-ui/themed";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,12 +66,9 @@ const StackNavigator = (props) => {
         options={{
           headerShown: true,
           headerBackTitleVisible: false,
-          headerRight: () => (
-            <Icon as={StarIcon} m="$2" w="$4" h="$4" />
-          ),
+          headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}
       />
-
     </Stack.Navigator>
   );
 };

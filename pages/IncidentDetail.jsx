@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { Image, Text, View } from "@gluestack-ui/themed";
-import { StyleSheet, Modal } from "react-native";
+import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { Modal, StyleSheet } from "react-native";
 import { Button, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { DateTime } from "../utils";
-import { FormattedMessage } from "react-intl";
 
 const INCIDENT_DETAIL = ({ route }) => {
   const { incident } = route.params;
@@ -15,7 +15,6 @@ const INCIDENT_DETAIL = ({ route }) => {
   const handleUpvotePress = () => {
     setModalVisible(true);
   };
-
 
   return (
     <View style={styles.container}>
@@ -74,7 +73,6 @@ const INCIDENT_DETAIL = ({ route }) => {
         >
           <UpVoteModal onClose={() => setModalVisible(false)} />
         </Modal>
-
       </View>
     </View>
   );
@@ -113,8 +111,8 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 20,
   },
 });
