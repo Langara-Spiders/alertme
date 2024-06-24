@@ -5,21 +5,22 @@ const SwitchButton = (props) => {
   return (
     <SwitchGS
       size={props.size ?? "md"}
-      color={props.color ?? "primary"}
+      color={props.color ?? "#FF9900"}
       variant={props.variant ?? "solid"}
       action={props.action ?? "primary"}
       isDisabled={props.isDisabled ?? false}
-      style={props.style ?? switchButtonDefaultStyle.button}
+      onValueChange={props.onValueChange}
+      value={props.value}
+      trackColor={props.trackColor}
+      style={props.style ?? style.button}
     />
   );
 };
 
 export default SwitchButton;
 
-const switchButtonDefaultStyle = StyleSheet.create({
+const style = StyleSheet.create({
   button: {
     borderRadius: 50,
-    width: 100,
-    height: 100,
   },
 });

@@ -1,15 +1,15 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import ABCD from "../assets/images/sample_user.png";
-
 import {
   LeaderBoardCard,
   RewardGreetingCard,
   RewardLevelCard,
 } from "../components/molecules";
+
+import { useNavigation } from "@react-navigation/native";
+import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
 
 /* The `mockData` constant is storing a mock data object 
