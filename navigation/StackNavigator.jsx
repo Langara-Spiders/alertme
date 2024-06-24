@@ -4,10 +4,13 @@ import { routes } from "../constants";
 import {
   IncidentDetail,
   Leaderboard,
+  NearByActiveIssues,
   Notifications,
   ReportIncident,
 } from "../pages";
 import TabNavigator from "./TabNavigator";
+import { Icon } from "@gluestack-ui/themed";
+import { StarIcon } from "@gluestack-ui/themed";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +61,18 @@ const StackNavigator = (props) => {
           headerBackTitleVisible: false,
         }}
       />
+      <Stack.Screen
+        name={routes.NEARBYACTIVEISSUES}
+        component={NearByActiveIssues}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+          headerRight: () => (
+            <Icon as={StarIcon} m="$2" w="$4" h="$4" />
+          ),
+        }}
+      />
+
     </Stack.Navigator>
   );
 };

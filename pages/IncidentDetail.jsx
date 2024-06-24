@@ -4,9 +4,12 @@ import { StyleSheet } from "react-native";
 import { StatusBadge } from "../components/atoms";
 import { PostedByCard } from "../components/molecules";
 import UpVoteCard from "../components/molecules/cards/UpVoteCard";
+import { DateTime } from "../utils";
+
 
 const INCIDENT_DETAIL = ({ route }) => {
   const { incident } = route.params;
+  const { date, time } = DateTime(incident.created_at);
 
   return (
     <View style={styles.container}>
@@ -17,21 +20,19 @@ const INCIDENT_DETAIL = ({ route }) => {
       />
       <View style={styles.detailsContainer}>
         <StatusBadge status={incident.status} />
-        <Text style={styles.title}>{incident.title}</Text>
-        <Text style={styles.title}>{incident.location}</Text>
+        <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.heading}>Incident Location</Text>
-        <Text>121,51A MainStreet,</Text>
+        <Text>{incident.address}</Text>
         <Text style={styles.heading}>Incident Type</Text>
-        <Text>Oil Spilled on Road</Text>
+        <Text>{incident.incident_category_name}</Text>
+        <Text style={styles.heading}>Description</Text>
         <Text>{incident.description}</Text>
-        <Text>nkdnknsdknknskdnkcnknsknkndsknkfnkndfknd</Text>
-        <Text style={styles.heading}>Posted by</Text>
         <PostedByCard
-          name="Karthik"
-          date={incident.date}
-          time={incident.time}
+          name={incident.user_reported}
+          date={date}
+          time={time}
         />
-        <UpVoteCard votes={incident.votes} />
+        <UpVoteCard votes={incident.upvote_count} />
       </View>
     </View>
   );
