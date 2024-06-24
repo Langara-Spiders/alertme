@@ -12,7 +12,7 @@ const Button = (props) => {
       onPress={props.onPress}
       style={props.style?.button ?? style.button}
     >
-      <ButtonText style={props.style?.buttonText ?? style.buttonText}>
+      <ButtonText style={props.style?.buttonText ?? styles.buttonText}>
         {props.children}
       </ButtonText>
     </ButtonGS>
