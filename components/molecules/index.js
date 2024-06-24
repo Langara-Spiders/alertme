@@ -16,4 +16,5 @@ export { default as Modal } from "./modals/Modal";
 export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as ProfileImageEdit } from "./ProfileImageEdit";
 export { default as ProfileitemsWithIcon } from "./ProfileItemsWithIcon";
+export { default as RewardLevel } from "./RewardLevel";
 export { default as Search } from "./Search";

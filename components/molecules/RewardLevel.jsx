@@ -7,22 +7,27 @@ import {
 
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import RewardLevelIcon from "../../assets/icons/RewardLevelIcon";
+import SvgUri from "react-native-svg-uri";
+import rewardlevel from "../../assets/images/rewardlevel.svg";
 
 const RewardLevel = (props) => {
+  const progressValue = props.reports ? parseInt(props.reports, 10) : 0;
+
   return (
-    <View>
-      <RewardLevelIcon />
-      <Progress value={props.value ?? "1"} style={styles.slider}>
-        <ProgressFilledTrack />
+    <View style={styles.mainView}>
+      <SvgUri width="100" height="100" source={rewardlevel} />
+      <Progress value={progressValue} style={styles.slider}>
+        <ProgressFilledTrack style={styles.sliderfilled} />
       </Progress>
-      <Text>
-        <FormattedMessage
-          id="reports.report"
-          defaultMessage={props.reports}
-          Reports
-        />
-      </Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>
+          {props.reports ?? "0"}
+          <FormattedMessage
+            id="rewardMolecule.reportlevel"
+            defaultMessage=" Reports"
+          />
+        </Text>
+      </View>
     </View>
   );
 };
@@ -30,10 +35,24 @@ const RewardLevel = (props) => {
 export default RewardLevel;
 
 const styles = StyleSheet.create({
+  mainView: {
+    alignItems: "center",
+    gap: 2,
+  },
+  sliderfilled: {
+    backgroundColor: "#FF6B00",
+  },
   slider: {
-    width: 100,
-    height: 10,
-    borderRadius: 10,
-    backgroundColor: "#D9D9D9",
+    height: 3,
+    borderRadius: 2,
+    strokeWidth: 2,
+    backgroundColor: "#FFDABF",
+    width: "30%",
+  },
+  textContainer: {
+    marginLeft: 10,
+  },
+  text: {
+    textAlign: "center",
   },
 });
