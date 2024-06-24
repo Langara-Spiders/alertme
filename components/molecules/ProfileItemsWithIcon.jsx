@@ -1,21 +1,16 @@
-import {
-  AddIcon,
-  ArrowRightIcon,
-  Icon,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { ArrowRightIcon, Text, View } from "@gluestack-ui/themed";
 
 import { StyleSheet } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
 const ProfileItemsWithIcon = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textIcon}>
-        <Icon as={props.icon ?? AddIcon} />
+        <SvgUri width="30" height="30" source={props.icon} />
         <Text style={styles.text}>{props.text}</Text>
       </View>
-      <ArrowRightIcon />
+      <ArrowRightIcon onPress={props.onPress} />
     </View>
   );
 };
@@ -27,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    margin: 10,
   },
   textIcon: {
     flexDirection: "row",

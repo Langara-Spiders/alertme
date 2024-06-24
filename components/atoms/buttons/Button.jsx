@@ -10,7 +10,7 @@ const Button = (props) => {
       action={props.action ?? "primary"}
       isDisabled={props.isDisabled ?? false}
       onPress={props.onPress}
-      style={props.style?.button ?? style.button}
+      style={props.style?.button ?? styles.button}
     >
       <ButtonText style={props.style?.buttonText ?? styles.buttonText}>
         {props.children}
@@ -21,7 +21,7 @@ const Button = (props) => {
 
 export default Button;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
     borderRadius: 50,
     height: 60,
