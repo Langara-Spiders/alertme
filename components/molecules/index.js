@@ -17,3 +17,4 @@ export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as ProfileImageEdit } from "./ProfileImageEdit";
 export { default as ProfileitemsWithIcon } from "./ProfileItemsWithIcon";
 export { default as Search } from "./Search";
+export { default as UpVoteCard } from "./cards/UpVoteCard";

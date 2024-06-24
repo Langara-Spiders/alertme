@@ -1,10 +1,10 @@
 import { Image, Text, View } from "@gluestack-ui/themed";
-
 import { StyleSheet } from "react-native";
-import { StatusBadge } from "../components/atoms";
-import { PostedByCard } from "../components/molecules";
-import UpVoteCard from "../components/molecules/cards/UpVoteCard";
+import { Button, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard } from "../components/molecules";
+
 import { DateTime } from "../utils";
+import { FormattedMessage } from "react-intl";
 
 
 const INCIDENT_DETAIL = ({ route }) => {
@@ -27,12 +27,38 @@ const INCIDENT_DETAIL = ({ route }) => {
         <Text>{incident.incident_category_name}</Text>
         <Text style={styles.heading}>Description</Text>
         <Text>{incident.description}</Text>
-        <PostedByCard
-          name={incident.user_reported}
-          date={date}
-          time={time}
-        />
+        <PostedByCard name={incident.user_reported} date={date} time={time} />
         <UpVoteCard votes={incident.upvote_count} />
+        {incident.reported_by === "USER" && (
+          <Button>
+            <Text>
+              <FormattedMessage
+                id="IncidentDetail.upvote"
+                defaultMessage="Upvote Issue"
+              />
+            </Text>
+          </Button>
+        )}
+        {incident.reported_by === "ORG" && incident.upvote_count < 3 && (
+          <View style={styles.buttonContainer}>
+            <Button>
+              <Text>
+                <FormattedMessage
+                  id="IncidentDetail.reject"
+                  defaultMessage="Reject"
+                />
+              </Text>
+            </Button>
+            <Button>
+              <Text>
+                <FormattedMessage
+                  id="IncidentDetail.approve"
+                  defaultMessage="Approve"
+                />
+              </Text>
+            </Button>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -66,8 +92,13 @@ const styles = StyleSheet.create({
   heading: {
     color: "#636C6E",
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: "400",
     paddingTop: 18,
     paddingBottom: 8,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
 });
