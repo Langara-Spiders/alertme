@@ -1,5 +1,6 @@
 const routes = {
   MAIN: "Main",
+  LOGIN: "Login",
 
   HOME: "Home",
   ROOT_HOME: "Root Home",

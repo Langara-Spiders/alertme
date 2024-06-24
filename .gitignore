@@ -44,3 +44,10 @@ yarn-error.*
 
 # vscode
 .vscode
+
+# ignore builds
+ios
+android
+
+# ignore app.json
+app.json
