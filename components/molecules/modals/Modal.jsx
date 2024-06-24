@@ -11,7 +11,7 @@ import {
   Text,
 } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
-import Button from "../../atoms";
+import { Button } from "../../atoms";
 
 const Modal = (props) => {
   return (
@@ -28,9 +28,7 @@ const Modal = (props) => {
       <ModalContent>
         <ModalHeader style={props.headerStyle}>
           <Heading size="lg">{props.title}</Heading>
-          <ModalCloseButton onPress={props.onClose}>
-            {/* <Icon as={CloseIcon} /> */}
-          </ModalCloseButton>
+          <ModalCloseButton onPress={props.onClose}></ModalCloseButton>
         </ModalHeader>
         <ModalBody style={props.bodyStyle}>
           <Text>{props.bodyText}</Text>

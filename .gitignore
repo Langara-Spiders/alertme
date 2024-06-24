@@ -38,3 +38,9 @@ yarn-error.*
 .gluestack
 
 .yarn
+
+# environment variables
+.env
+
+# vscode
+.vscode

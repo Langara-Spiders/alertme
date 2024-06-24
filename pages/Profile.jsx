@@ -1,6 +1,6 @@
 import { Text, View } from "@gluestack-ui/themed";
 
-import React from "react";
+
 import { StyleSheet } from "react-native";
 
 const Profile = () => {

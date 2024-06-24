@@ -1,7 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Button from "../../atoms";
+import { Button } from "../../atoms";
 
 const ReadyToPostModal = (props) => {
   return (
@@ -14,10 +14,14 @@ const ReadyToPostModal = (props) => {
       </Text>
       <View style={styles.confirmationButtons}>
         <Button style={styles.no} onPress={props.onCancel}>
-          <FormattedMessage id="readyModal.no" defaultMessage="No" />
+          <Text>
+            <FormattedMessage id="readyModal.no" defaultMessage="No" />
+          </Text>
         </Button>
-        <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
-          <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
+        <Button style={styles.yes} onPress={() => props.onConfirm(true)}>
+          <Text style={styles.buttonTextBlack}>
+            <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
+          </Text>
         </Button>
       </View>
     </View>

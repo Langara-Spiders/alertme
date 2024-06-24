@@ -1,8 +1,10 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
+
+import { Home, Incidents, Profile, Rewards } from "../pages";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { routes } from "../constants";
-import { Home, Incidents, Profile, Rewards } from "../pages";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +14,6 @@ const TabNavigator = (props) => {
       initialRouteName={routes.HOME}
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: styles.tabBarStyle,
       })}
@@ -32,6 +33,6 @@ const styles = StyleSheet.create({
     tintColor: "black",
   },
   tabBarStyle: {
-    backgroundColor: "black",
+    // backgroundColor: "black",
   },
 });

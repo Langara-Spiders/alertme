@@ -1,6 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
+import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Button from "../../atoms";
+import { Button } from "../../atoms";
 
 const UpVoteModal = (props) => {
   return (
@@ -22,8 +23,10 @@ const UpVoteModal = (props) => {
         <Button style={styles.no} onPress={props.onCancel}>
           <FormattedMessage id="upvoteModal.no" defaultMessage="No" />
         </Button>
-        <Button style={styles.yes} textStyle={styles.buttonTextBlack}>
-          <FormattedMessage id="upvoteModal.yes" defaultMessage="Confirm" />
+        <Button style={styles.yes}>
+          <Text textStyle={styles.buttonTextBlack}>
+            <FormattedMessage id="upvoteModal.yes" defaultMessage="Confirm" />
+          </Text>
         </Button>
       </View>
     </View>
