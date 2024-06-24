@@ -9,17 +9,18 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import {
+  Animated,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 
 import { Text } from "@gluestack-ui/themed";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
-import { IncidentCard } from "../components/molecules";
+import { IncidentCard, SuccessCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 import { DateTime } from "../utils";
@@ -163,9 +164,24 @@ const incidentsArray = [
   },
 ];
 
-const Home = (props) => {
-  const { navigation } = props;
+const Home = ({ navigation, route }) => {
   const [isSheetVisible, setIsSheetVisible] = useState(false);
+  const [showSuccessCard, setShowSuccessCard] = useState(false);
+
+  const { successType } = route?.params ?? {};
+
+  useEffect(() => {
+    if (
+      successType?.startsWith("confirm") ||
+      successType?.startsWith("approve") ||
+      successType?.startsWith("reject")
+    ) {
+      setShowSuccessCard(true);
+      setTimeout(() => {
+        setShowSuccessCard(false);
+      }, 2000);
+    }
+  }, [successType]);
 
   const handleCardPress = (incident) => {
     setIsSheetVisible(false);
@@ -174,6 +190,11 @@ const Home = (props) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
+      {showSuccessCard && (
+        <Animated.View style={styles.successCardContainer}>
+          <SuccessCard type={successType?.split("-")?.at(0)} />
+        </Animated.View>
+      )}
       <View style={styles.searchContainer}>
         <Input style={{ flex: 1, backgroundColor: "white" }}>
           <InputSlot pl="$3">
@@ -331,5 +352,12 @@ const styles = StyleSheet.create({
   viewAllText: {
     fontSize: 14,
     color: "#FF9900",
+  },
+  successCardContainer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    zIndex: 100,
+    padding: 16,
   },
 });

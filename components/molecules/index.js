@@ -7,6 +7,7 @@ export { default as NotificationCard } from "./cards/NotificationCard";
 export { default as PostedByCard } from "./cards/PostedByCard";
 export { default as RewardGreetingCard } from "./cards/RewardGreetingCard";
 export { default as RewardLevelCard } from "./cards/RewardLevelCard";
+export { default as SuccessCard } from "./cards/SuccessCard";
 export { default as SwitchIconCard } from "./cards/SwitchIconCard";
 export { default as TopThreeCard } from "./cards/TopThreeCard";
 export { default as UpVoteCard } from "./cards/UpVoteCard";

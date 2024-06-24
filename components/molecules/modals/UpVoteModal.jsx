@@ -3,32 +3,95 @@ import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import { Button } from "../../atoms";
 
-const UpVoteModal = (props) => {
+const UpVoteModal = ({ type, onConfirm, onClose }) => {
   return (
     <View style={styles.confirmationCard}>
-      <Text style={styles.confirmationText}>
-        <FormattedMessage
-          id="upvoteModal.upvote"
-          defaultMessage="👍Confirm Up-vote?"
-        />
-      </Text>
-
-      <Text style={styles.confirmationText}>
-        <FormattedMessage
-          id="upvoteModal.trust"
-          defaultMessage="We trust that your up-vote is genuine and based on the incident you reviewed. Please refrain from misusing this community application."
-        />
-      </Text>
-      <View style={styles.confirmationButtons}>
-        <Button style={styles.no} onPress={props.onClose}>
-          <FormattedMessage id="upvoteModal.no" defaultMessage="No" />
-        </Button>
-        <Button style={styles.yes} onPress={onConfirm}>
-          <Text textStyle={styles.buttonTextBlack}>
-            <FormattedMessage id="upvoteModal.yes" defaultMessage="Confirm" />
+      {type === "upVote" && (
+        <>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="upvoteModal.upvote"
+              defaultMessage="👍Confirm Up-vote?"
+            />
           </Text>
-        </Button>
-      </View>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="upvoteModal.trust"
+              defaultMessage="We trust that your up-vote is genuine and based on the incident you reviewed. Please refrain from misusing this community application."
+            />
+          </Text>
+          <View style={styles.confirmationButtons}>
+            <Button style={styles.no} onPress={onClose}>
+              <FormattedMessage id="common.no" defaultMessage="No" />
+            </Button>
+            <Button style={styles.yes} onPress={onConfirm}>
+              <Text textStyle={styles.buttonTextBlack}>
+                <FormattedMessage
+                  id="common.confirm"
+                  defaultMessage="Confirm"
+                />
+              </Text>
+            </Button>
+          </View>
+        </>
+      )}
+
+      {type === "approveIncident" && (
+        <>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="approveIncident.confirm"
+              defaultMessage="👍Approve an incident?"
+            />
+          </Text>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="approveIncident.description"
+              defaultMessage="You are approving this posted incident by a civilian as this is a genuine incident inspected by you. You want to post this on the map and inform others."
+            />
+          </Text>
+          <View style={styles.confirmationButtons}>
+            <Button style={styles.no} onPress={onClose}>
+              <FormattedMessage id="common.no" defaultMessage="No" />
+            </Button>
+            <Button style={styles.yes} onPress={onConfirm}>
+              <Text textStyle={styles.buttonTextBlack}>
+                <FormattedMessage
+                  id="common.approve"
+                  defaultMessage="Approve"
+                />
+              </Text>
+            </Button>
+          </View>
+        </>
+      )}
+
+      {type === "reject" && (
+        <>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="rejectIncident.confirm"
+              defaultMessage="🚫 Reject an incident"
+            />
+          </Text>
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="rejectIncident.description"
+              defaultMessage="Are you sure you want to reject this incident?"
+            />
+          </Text>
+          <View style={styles.confirmationButtons}>
+            <Button style={styles.no} onPress={onClose}>
+              <FormattedMessage id="common.no" defaultMessage="No" />
+            </Button>
+            <Button style={styles.yes} onPress={onConfirm}>
+              <Text textStyle={styles.buttonTextBlack}>
+                <FormattedMessage id="common.reject" defaultMessage="Reject" />
+              </Text>
+            </Button>
+          </View>
+        </>
+      )}
     </View>
   );
 };

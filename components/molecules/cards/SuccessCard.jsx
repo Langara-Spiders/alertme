@@ -17,6 +17,9 @@ const SuccessCard = ({ type }) => {
     heading = "You have approved Incident ";
     message =
       "Thank you for your response. We will post this incident on map to inform others";
+  } else if (type === "reject") {
+    heading = "You have rejected an Incident";
+    message = "Thank you for your response. Will make the updates on the app.";
   }
 
   return (

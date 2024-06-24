@@ -1,19 +1,46 @@
 import { Image, Text, View } from "@gluestack-ui/themed";
+import { uniqueId } from "lodash";
 import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Modal, StyleSheet } from "react-native";
 import { Button, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+import { routes } from "../constants";
 import { DateTime } from "../utils";
 
-const INCIDENT_DETAIL = ({ route }) => {
+const INCIDENT_DETAIL = ({ route, navigation }) => {
   const { incident } = route.params;
   const { date, time } = DateTime(incident.created_at);
-
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalType, setModalType] = useState("");
 
-  const handleUpvotePress = () => {
+  const handleModalOpen = (type) => {
+    setModalType(type);
     setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const onConfirm = () => {
+    handleModalClose();
+
+    let successType;
+
+    switch (modalType) {
+      case "upVote":
+        successType = `confirm-${uniqueId()}`;
+        break;
+      case "reject":
+        successType = `reject-${uniqueId()}`;
+        break;
+      case "approveIncident":
+        successType = `approve-${uniqueId()}`;
+        break;
+    }
+    console.log(successType);
+    navigation.navigate(routes.HOME, { successType });
   };
 
   return (
@@ -35,7 +62,7 @@ const INCIDENT_DETAIL = ({ route }) => {
         <PostedByCard name={incident.user_reported} date={date} time={time} />
         <UpVoteCard votes={incident.upvote_count} />
         {incident.reported_by === "USER" && (
-          <Button onPress={handleUpvotePress}>
+          <Button onPress={() => handleModalOpen("upVote")}>
             <Text>
               <FormattedMessage
                 id="IncidentDetail.upvote"
@@ -46,7 +73,7 @@ const INCIDENT_DETAIL = ({ route }) => {
         )}
         {incident.reported_by === "ORG" && incident.upvote_count < 3 && (
           <View style={styles.buttonContainer}>
-            <Button>
+            <Button onPress={() => handleModalOpen("reject")}>
               <Text>
                 <FormattedMessage
                   id="IncidentDetail.reject"
@@ -54,7 +81,7 @@ const INCIDENT_DETAIL = ({ route }) => {
                 />
               </Text>
             </Button>
-            <Button>
+            <Button onPress={() => handleModalOpen("approveIncident")}>
               <Text>
                 <FormattedMessage
                   id="IncidentDetail.approve"
@@ -67,11 +94,15 @@ const INCIDENT_DETAIL = ({ route }) => {
         <Modal
           visible={modalVisible}
           animationType="slide"
-          onRequestClose={() => setModalVisible(false)}
+          onRequestClose={handleModalClose}
           presentationStyle="overFullScreen"
           transparent={true}
         >
-          <UpVoteModal onClose={() => setModalVisible(false)} />
+          <UpVoteModal
+            onClose={handleModalClose}
+            onConfirm={onConfirm}
+            type={modalType}
+          />
         </Modal>
       </View>
     </View>
