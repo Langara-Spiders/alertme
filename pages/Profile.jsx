@@ -1,19 +1,25 @@
 import { Text, View } from "@gluestack-ui/themed";
 
 import { StyleSheet } from "react-native";
-import ProfileAppSettingItems from "../components/molecules/ProfileAppSettingItems";
+import { ProfileItemsList } from "../components/organisms";
 
 const Profile = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={StyleSheet.container}>
       <Text>Profile</Text>
       <View>
-        <ProfileAppSettingItems />
+        {/* <ProfileAppSettingItems /> */}
+        <ProfileItemsList />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+});
 
 export default Profile;
