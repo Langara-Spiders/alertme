@@ -1,4 +1,4 @@
-import { ButtonIcon, ChevronUpIcon, Text, View } from "@gluestack-ui/themed";
+import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { FormattedMessage } from "react-intl";
@@ -10,11 +10,10 @@ const UpvoteButton = (props) => {
       onPress={props.onPress}
     >
       <View style={styles.iconContainer}>
-        <ButtonIcon as={ChevronUpIcon}></ButtonIcon>
         <Text style={styles.text}>
           <FormattedMessage
             id="atom.upvotebuttontext"
-            defaultMessage="Upvote "
+            defaultMessage="🔺 Upvote"
           />
           {props.upvote}
         </Text>
