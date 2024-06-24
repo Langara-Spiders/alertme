@@ -5,7 +5,7 @@ import ProfileAppSettingItems from "../components/molecules/ProfileAppSettingIte
 
 const Profile = () => {
   return (
-    <View style={{ position: "absolute", top: 0, right: 0, left: 0 }}>
+    <View style={{ flex: 1 }}>
       <Text>Profile</Text>
       <View>
         <ProfileAppSettingItems />
