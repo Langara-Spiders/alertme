@@ -1,22 +1,28 @@
+import React, { useState } from 'react';
 import { Image, Text, View } from "@gluestack-ui/themed";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Modal } from "react-native";
 import { Button, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard } from "../components/molecules";
-
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { DateTime } from "../utils";
 import { FormattedMessage } from "react-intl";
-
 
 const INCIDENT_DETAIL = ({ route }) => {
   const { incident } = route.params;
   const { date, time } = DateTime(incident.created_at);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleUpvotePress = () => {
+    setModalVisible(true);
+  };
+
 
   return (
     <View style={styles.container}>
       <Image
         source={{ uri: incident.image }}
         style={styles.image}
-        alt="incident Image"
+        alt="Incident Image"
       />
       <View style={styles.detailsContainer}>
         <StatusBadge status={incident.status} />
@@ -30,7 +36,7 @@ const INCIDENT_DETAIL = ({ route }) => {
         <PostedByCard name={incident.user_reported} date={date} time={time} />
         <UpVoteCard votes={incident.upvote_count} />
         {incident.reported_by === "USER" && (
-          <Button>
+          <Button onPress={handleUpvotePress}>
             <Text>
               <FormattedMessage
                 id="IncidentDetail.upvote"
@@ -59,6 +65,16 @@ const INCIDENT_DETAIL = ({ route }) => {
             </Button>
           </View>
         )}
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          onRequestClose={() => setModalVisible(false)}
+          presentationStyle="overFullScreen"
+          transparent={true}
+        >
+          <UpVoteModal onClose={() => setModalVisible(false)} />
+        </Modal>
+
       </View>
     </View>
   );

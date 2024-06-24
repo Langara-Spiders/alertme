@@ -148,7 +148,7 @@ const incidentsArray = [
     is_accepted_by_org: true,
     is_internal_for_org: false,
     is_active: true,
-    reported_by: 'ORGr',
+    reported_by: 'ORG',
     created_at: '2023-06-17T14:00:00',
     updated_at: '2023-06-17T14:00:00',
     voters: ['601f191e810c19729de860ba', '601f191e810c19729de860bb'],
@@ -167,6 +167,7 @@ const Home = (props) => {
     setIsSheetVisible(false);
     navigation.navigate(routes.INCIDENT_DETAIL, { incident });
   };
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
