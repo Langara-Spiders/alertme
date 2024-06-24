@@ -1,37 +1,78 @@
 import { Image, Text, View } from "@gluestack-ui/themed";
-
-import { StyleSheet } from "react-native";
-import { StatusBadge } from "../components/atoms";
-import { PostedByCard } from "../components/molecules";
-import UpVoteCard from "../components/molecules/cards/UpVoteCard";
+import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { Modal, StyleSheet } from "react-native";
+import { Button, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+import { DateTime } from "../utils";
 
 const INCIDENT_DETAIL = ({ route }) => {
   const { incident } = route.params;
+  const { date, time } = DateTime(incident.created_at);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleUpvotePress = () => {
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.container}>
       <Image
         source={{ uri: incident.image }}
         style={styles.image}
-        alt="incident Image"
+        alt="Incident Image"
       />
       <View style={styles.detailsContainer}>
         <StatusBadge status={incident.status} />
-        <Text style={styles.title}>{incident.title}</Text>
-        <Text style={styles.title}>{incident.location}</Text>
+        <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.heading}>Incident Location</Text>
-        <Text>121,51A MainStreet,</Text>
+        <Text>{incident.address}</Text>
         <Text style={styles.heading}>Incident Type</Text>
-        <Text>Oil Spilled on Road</Text>
+        <Text>{incident.incident_category_name}</Text>
+        <Text style={styles.heading}>Description</Text>
         <Text>{incident.description}</Text>
-        <Text>nkdnknsdknknskdnkcnknsknkndsknkfnkndfknd</Text>
-        <Text style={styles.heading}>Posted by</Text>
-        <PostedByCard
-          name="Karthik"
-          date={incident.date}
-          time={incident.time}
-        />
-        <UpVoteCard votes={incident.votes} />
+        <PostedByCard name={incident.user_reported} date={date} time={time} />
+        <UpVoteCard votes={incident.upvote_count} />
+        {incident.reported_by === "USER" && (
+          <Button onPress={handleUpvotePress}>
+            <Text>
+              <FormattedMessage
+                id="IncidentDetail.upvote"
+                defaultMessage="Upvote Issue"
+              />
+            </Text>
+          </Button>
+        )}
+        {incident.reported_by === "ORG" && incident.upvote_count < 3 && (
+          <View style={styles.buttonContainer}>
+            <Button>
+              <Text>
+                <FormattedMessage
+                  id="IncidentDetail.reject"
+                  defaultMessage="Reject"
+                />
+              </Text>
+            </Button>
+            <Button>
+              <Text>
+                <FormattedMessage
+                  id="IncidentDetail.approve"
+                  defaultMessage="Approve"
+                />
+              </Text>
+            </Button>
+          </View>
+        )}
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          onRequestClose={() => setModalVisible(false)}
+          presentationStyle="overFullScreen"
+          transparent={true}
+        >
+          <UpVoteModal onClose={() => setModalVisible(false)} />
+        </Modal>
       </View>
     </View>
   );
@@ -65,8 +106,13 @@ const styles = StyleSheet.create({
   heading: {
     color: "#636C6E",
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: "400",
     paddingTop: 18,
     paddingBottom: 8,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
   },
 });
