@@ -17,6 +17,8 @@ const routes = {
 
   // Incidents
   MY_INCIDENTS: "My Incidents",
+  ALL_INCIDENTS_ORG: "All Issues",
+  SITE_INCIDENTS_ORG: "Site Issues",
   MY_INCIDENTS_ALL: "My Incidents All",
   MY_INCIDENTS_ACTIVE: "My Incidents Active",
   MY_INCIDENTS_PENDING: "My Incidents Pending",
