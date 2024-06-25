@@ -31,6 +31,7 @@ const Profile = () => {
       </View>
       <View style={styles.content}>
         <ProfileItemsList />
+        <GreatWorkCard />
       </View>
       <View style={styles.content}>
         <Link>
