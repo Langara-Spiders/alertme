@@ -3,24 +3,23 @@ import {
   Input as InputGS,
   InputField,
   InputSlot,
+  Text,
   View,
 } from "@gluestack-ui/themed";
 
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import Typography from "../atoms/Typography";
 
 const Input = (props) => {
   return (
     <View style={inputDefaultStyle.wrapper}>
       {props.label && (
-        <Typography>
+        <Text style={inputDefaultStyle.label}>
           <FormattedMessage
-            id="inputField.input"
-            style={inputDefaultStyle.label}
-            defaultMessage={props.label}
+            id={props.inputMessageId ?? "inputField.input"} // Use a dynamic id if provided
+            defaultMessage={props.inputDefaultMessage ?? props.label} // Fallback to label if defaultMessage is not provided
           />
-        </Typography>
+        </Text>
       )}
       <InputGS
         size={props.size ?? "md"}
@@ -32,14 +31,24 @@ const Input = (props) => {
         value={props.value}
       >
         {props.icon && (
-          <InputSlot>
-            <Icon as={props.icon} style={inputDefaultStyle.icon} />
+          <InputSlot style={props.iconSlotStyle}>
+            <Icon
+              as={props.icon}
+              style={[inputDefaultStyle.icon, props.iconStyle]}
+            />
           </InputSlot>
         )}
-        <InputField
-          placeholder={props.placeholder ?? "Search"}
-          style={inputDefaultStyle.field}
-        />
+        <FormattedMessage
+          id={props.placeholderMessageId ?? "inputField.placeholder"} // Use a dynamic id if provided
+          defaultMessage={props.placeholderDefaultMessage ?? "Search"} // Fallback to "Search" if defaultMessage is not provided
+        >
+          {(placeholder) => (
+            <InputField
+              placeholder={placeholder}
+              style={[inputDefaultStyle.field, props.fieldStyle]}
+            />
+          )}
+        </FormattedMessage>
         {props.children}
       </InputGS>
     </View>
