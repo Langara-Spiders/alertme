@@ -12,6 +12,9 @@ const routes = {
   REWARDS: "Rewards",
   PROFILE: "Profile",
 
+  // Profile
+  APP_SETTING: "App Setting",
+
   // Incidents
   MY_INCIDENTS: "My Incidents",
   MY_INCIDENTS_ALL: "My Incidents All",
