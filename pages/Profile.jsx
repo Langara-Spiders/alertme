@@ -6,7 +6,7 @@ import ProfileItemsList from "../components/organisms/ProfileItemsList";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -30,8 +30,8 @@ const Profile = () => {
         </View>
       </View>
       <View style={styles.content}>
-        <ProfileItemsList />
-        <GreatWorkCard />
+        <ProfileItemsList navigation={props.navigation} />
+        {/* <GreatWorkCard /> */}
       </View>
       <View style={styles.content}>
         <Link>
