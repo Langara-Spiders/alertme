@@ -1,6 +1,7 @@
 import { Text, View } from "@gluestack-ui/themed";
 
 import { StyleSheet } from "react-native";
+import { GreatWorkCard } from "../components/molecules";
 import { ProfileItemsList } from "../components/organisms";
 
 const Profile = () => {
@@ -10,6 +11,7 @@ const Profile = () => {
       <View>
         {/* <ProfileAppSettingItems /> */}
         <ProfileItemsList />
+        <GreatWorkCard />
       </View>
     </View>
   );
