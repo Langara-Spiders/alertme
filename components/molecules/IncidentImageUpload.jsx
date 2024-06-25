@@ -1,8 +1,11 @@
-import { CloseIcon, Image, View } from "@gluestack-ui/themed";
 import * as ImagePicker from "expo-image-picker";
-import { Camera } from "lucide-react-native";
-import React, { useEffect, useState } from "react";
+
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
+import { CloseIcon, Image, View } from "@gluestack-ui/themed";
+import React, { useEffect, useState } from "react";
+
+import { Camera } from "lucide-react-native";
+
 const ImagePickerComponent = () => {
   const [images, setImages] = useState([]);
 

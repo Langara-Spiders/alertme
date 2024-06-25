@@ -142,6 +142,60 @@ const ReportIncident = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  imagePicker: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    marginRight: 10,
+  },
+  categoryButtons: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  button: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "#ddd",
+    marginRight: 5,
+    alignItems: "center",
+  },
+  selectedButton: {
+    backgroundColor: "#aaa",
+  },
+  buttonText: {
+    color: "#000",
+  },
+  input: {
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
+  },
+  textArea: {
+    height: 80,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+});
+
 export default ReportIncident;
 
 const styles = StyleSheet.create({

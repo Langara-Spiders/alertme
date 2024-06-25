@@ -6,7 +6,6 @@ import {
   InputIcon,
   InputSlot,
   SearchIcon,
-  Text,
   View,
 } from "@gluestack-ui/themed";
 import { useEffect, useState } from "react";

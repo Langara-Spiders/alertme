@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import LocationIcon from "../../assets/icons/LocationIcon";
-import Input from "../atoms/Input"; // Update the path as necessary
+import { Input } from "../atoms";
 
 const LocationInput = (props) => {
   return (
     <Input
       label="Address*"
-      placeholder="Type address"
+      inputMessageId="inputField.address"
+      inputDefaultMessage="Address"
       icon={LocationIcon}
       fieldStyle={styles.inputField}
       iconSlotStyle={styles.iconSlot}

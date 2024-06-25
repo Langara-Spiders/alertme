@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import SearchIcon from "../../assets/icons/SearchIcon";
-import Input from "../atoms/Input";
+import { Input } from "../atoms";
 
 const Search = (props) => {
   return (
@@ -9,6 +9,8 @@ const Search = (props) => {
       value={props.value}
       style={searchStyle.input}
       icon={SearchIcon}
+      labelId="inputField.search"
+      placeholderId="inputField.searchPlaceholder"
       placeholder="Search"
     />
   );
