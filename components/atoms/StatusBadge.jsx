@@ -13,6 +13,9 @@ const StatusBadge = (props) => {
   } else if (props.status === "fixing" || props.status === "Fixing") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
+  } else if (props.status === "pending" || props.status === "Pending") {
+    backgroundColor = "#FFBF40";
+    textColor = "#0B0C0C";
   }
 
   const styles = StyleSheet.create({
