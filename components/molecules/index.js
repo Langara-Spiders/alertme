@@ -1,9 +1,6 @@
 // Cards
 
-export {
-  default as GreatWorkCard,
-  default as GreatWorkCard,
-} from "./cards/GreatWorkCard";
+export { default as GreatWorkCard } from "./cards/GreatWorkCard";
 export { default as IncidentCard } from "./cards/IncidentCard";
 export { default as LeaderBoardCard } from "./cards/LeaderBoardCard";
 export { default as LoginAsCard } from "./cards/LoginAsCard";

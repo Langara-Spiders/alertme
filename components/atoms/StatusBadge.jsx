@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 
 const StatusBadge = (props) => {
@@ -11,6 +12,9 @@ const StatusBadge = (props) => {
     backgroundColor = "#88D384";
     textColor = "#185215";
   } else if (props.status === "fixing" || props.status === "Fixing") {
+    backgroundColor = "#FFBF40";
+    textColor = "#0B0C0C";
+  } else if (props.status === "pending" || props.status === "Pending") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
   }

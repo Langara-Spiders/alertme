@@ -6,11 +6,9 @@ import { Input } from "../components/atoms";
 import { LocationInput } from "../components/molecules";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
 
-input;
-
 const { width: screenWidth } = Dimensions.get("window");
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

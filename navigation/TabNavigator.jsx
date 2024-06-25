@@ -9,6 +9,29 @@ import { routes } from "../constants";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (props) => {
+  const renderOrgBottomNav = () => {
+    if (user_type.type === "staff") {
+      return (
+        <>
+          <Tab.Screen
+            name={routes.ALL_INCIDENTS_ORG}
+            component={AllIncidentsOrg}
+          />
+          <Tab.Screen
+            name={routes.SITE_INCIDENTS_ORG}
+            component={SiteIncidentsOrg}
+          />
+        </>
+      );
+    }
+    return (
+      <>
+        <Tab.Screen name={routes.MY_INCIDENTS} component={Incidents} />
+        <Tab.Screen name={routes.REWARDS} component={Rewards} />
+      </>
+    );
+  };
+
   return (
     <Tab.Navigator
       initialRouteName={routes.HOME}
@@ -19,13 +42,11 @@ const TabNavigator = (props) => {
       })}
     >
       <Tab.Screen name={routes.HOME} component={Home} />
-      <Tab.Screen name={routes.MY_INCIDENTS} component={Incidents} />
-      <Tab.Screen name={routes.REWARDS} component={Rewards} />
+      {renderOrgBottomNav()}
       <Tab.Screen name={routes.PROFILE} component={Profile} />
     </Tab.Navigator>
   );
 };
-
 export default TabNavigator;
 
 const styles = StyleSheet.create({
