@@ -1,9 +1,11 @@
 import * as React from "react";
+import { Icon, StarIcon } from "@gluestack-ui/themed";
 
 import {
   AppSetting,
   IncidentDetail,
   Leaderboard,
+  NearByActiveIssues,
   Notifications,
   ReportIncident,
 } from "../pages";
@@ -67,6 +69,15 @@ const StackNavigator = (props) => {
         options={{
           headerShown: true,
           headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={routes.NEARBYACTIVEISSUES}
+        component={NearByActiveIssues}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+          headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}
       />
     </Stack.Navigator>

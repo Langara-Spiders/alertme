@@ -25,6 +25,7 @@ const routes = {
   MY_INCIDENTS_RESOLVED: "My Incidents Resolved",
 
   LEADERBOARD: "Leaderboard",
+  NEARBYACTIVEISSUES: "NearByActiveIssues",
 };
 
 export default routes;
