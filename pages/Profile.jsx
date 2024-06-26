@@ -1,12 +1,26 @@
 import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
 import { Dimensions, StyleSheet } from "react-native";
 
-import React from "react";
+import { logout } from "../api";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
+import { routes } from "../constants";
+import { useStore } from "../store";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 const Profile = (props) => {
+  const { navigation } = props;
+  const { getUser, resetUser } = useStore();
+  const { access_token } = getUser();
+
+  const logoutAPICall = async () => {
+    const response = await logout(access_token);
+    if (response.status === 200) {
+      resetUser();
+      navigation.navigate(routes.LOGIN);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -34,7 +48,7 @@ const Profile = (props) => {
         {/* <GreatWorkCard /> */}
       </View>
       <View style={styles.content}>
-        <Link>
+        <Link onPress={() => logoutAPICall()}>
           <LinkText style={styles.link}>Logout</LinkText>
         </Link>
       </View>

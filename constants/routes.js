@@ -17,7 +17,7 @@ const routes = {
   APP_SETTING: "App Setting",
 
   // Incidents
-  MY_INCIDENTS: "My Incidents",
+  MY_INCIDENTS: "My Issues",
   ALL_INCIDENTS_ORG: "All Issues",
   SITE_INCIDENTS_ORG: "Site Issues",
   MY_INCIDENTS_ALL: "My Incidents All",

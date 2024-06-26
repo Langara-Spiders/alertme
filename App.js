@@ -5,8 +5,11 @@ import { GluestackUIProvider } from "@gluestack-ui/themed";
 import axios from "axios";
 import { useState } from "react";
 import { IntlProvider } from "react-intl";
+import { LogBox } from "react-native";
 import { configLight } from "./config/gluestack-ui.config";
 import RootNavigator from "./navigation/RootNavigator";
+
+LogBox.ignoreAllLogs(); // suppress all warnings
 
 const messages = {
   en,
