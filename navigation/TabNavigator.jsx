@@ -12,6 +12,7 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { routes } from "../constants";
+import { useStore } from "../store";
 
 // Sample user_type data
 // ***************
@@ -23,28 +24,8 @@ const user_type = {
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (props) => {
-  const renderOrgBottomNav = () => {
-    if (user_type.type === "staff") {
-      return (
-        <>
-          <Tab.Screen
-            name={routes.ALL_INCIDENTS_ORG}
-            component={AllIncidentsOrg}
-          />
-          <Tab.Screen
-            name={routes.SITE_INCIDENTS_ORG}
-            component={SiteIncidentsOrg}
-          />
-        </>
-      );
-    }
-    return (
-      <>
-        <Tab.Screen name={routes.MY_INCIDENTS} component={Incidents} />
-        <Tab.Screen name={routes.REWARDS} component={Rewards} />
-      </>
-    );
-  };
+  const { getUser } = useStore();
+  const { isStaff } = getUser();
 
   return (
     <Tab.Navigator
@@ -56,7 +37,23 @@ const TabNavigator = (props) => {
       })}
     >
       <Tab.Screen name={routes.HOME} component={Home} />
-      {renderOrgBottomNav()}
+      {isStaff ? (
+        <>
+          <Tab.Screen
+            name={routes.ALL_INCIDENTS_ORG}
+            component={AllIncidentsOrg}
+          />
+          <Tab.Screen
+            name={routes.SITE_INCIDENTS_ORG}
+            component={SiteIncidentsOrg}
+          />
+        </>
+      ) : (
+        <>
+          <Tab.Screen name={routes.MY_INCIDENTS} component={Incidents} />
+          <Tab.Screen name={routes.REWARDS} component={Rewards} />
+        </>
+      )}
       <Tab.Screen name={routes.PROFILE} component={Profile} />
     </Tab.Navigator>
   );

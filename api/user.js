@@ -14,16 +14,18 @@ const login = async (token) => {
     );
     return res.data;
   } catch (error) {
-    console.error(error.response);
-    return error?.response?.data;
+    console.error(error);
+    return {};
   }
 };
 
-const logout = async (googleToken) => {
+const logout = async (access_token) => {
   try {
-    await axios.post(`${OAUTH_REVOKE_URL}?token=${googleToken}`);
+    const res = await axios.post(`${OAUTH_REVOKE_URL}?token=${access_token}`);
+    return res;
   } catch (error) {
-    console.error(error?.response?.data);
+    console.error(error);
+    return {};
   }
 };
 

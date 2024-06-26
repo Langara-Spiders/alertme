@@ -2,10 +2,10 @@ import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
 import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
 
 import { View } from "@gluestack-ui/themed";
 import Constants from "expo-constants";
+import { StyleSheet } from "react-native";
 import { login } from "../api";
 import { Button } from "../components/atoms";
 import { routes } from "../constants";
@@ -13,8 +13,9 @@ import { useStore } from "../store";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const Login = ({ navigation }) => {
-  const { setUser, getUser } = useStore();
+const Login = (props) => {
+  const { navigation } = props;
+  const { setUser } = useStore();
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: Constants.expoConfig.iosClientId,
     androidClientId: Constants.expoConfig.androidClientId,
@@ -34,7 +35,6 @@ const Login = ({ navigation }) => {
   useEffect(() => {
     if (response?.type === "success") {
       loginAPICall(response);
-      console.log(getUser());
     }
   }, [response]);
 
