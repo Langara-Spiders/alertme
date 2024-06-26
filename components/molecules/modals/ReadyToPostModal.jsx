@@ -1,6 +1,6 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet, Modal } from "react-native";
+import { Modal, StyleSheet } from "react-native";
 import { Button } from "../../atoms";
 
 const ReadyToPostModal = (props) => {
@@ -48,32 +48,32 @@ export default ReadyToPostModal;
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(11, 12, 12, 0.7)', // Semi-transparent backdrop
-    justifyContent: 'flex-end', // Aligns the modal at the bottom of the screen
-    alignItems: 'center', // Centers the modal horizontally
+    backgroundColor: "rgba(11, 12, 12, 0.7)", // Semi-transparent backdrop
+    justifyContent: "flex-end", // Aligns the modal at the bottom of the screen
+    alignItems: "center", // Centers the modal horizontally
     padding: 16,
   },
   confirmationCard: {
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
     padding: 24,
     backgroundColor: "#fff",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 16,
   },
   Heading: {
     fontSize: 20,
     marginBottom: 20,
     color: "#000",
-    textAlign: 'center',
+    textAlign: "center",
   },
   confirmationText: {
     fontSize: 18,
     marginBottom: 20,
     color: "#000",
-    textAlign: 'center',
-    paddingBottom: 24
+    textAlign: "center",
+    paddingBottom: 24,
   },
   confirmationButtons: {
     flexDirection: "row",

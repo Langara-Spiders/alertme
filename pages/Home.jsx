@@ -8,8 +8,13 @@ import {
   SearchIcon,
   View,
 } from "@gluestack-ui/themed";
-import { StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
 
+import { Text } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import MapView from "react-native-maps";
@@ -17,15 +22,10 @@ import { Button } from "../components/atoms";
 import { IncidentCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes, userGroups } from "../constants";
-import { Text } from "@gluestack-ui/themed";
-
-
-
 
 const user_type = {
   type: "staff",
 };
-
 
 const incidentsArray = [
   {
@@ -71,8 +71,8 @@ const Home = (props) => {
   };
 
   const handleGroupSelect = (group) => {
-    setAddIssueVisible(false);  
-    navigation.navigate(routes.REPORT_INCIDENT, { userGroup: group });  
+    setAddIssueVisible(false);
+    navigation.navigate(routes.REPORT_INCIDENT, { userGroup: group });
   };
 
   return (
@@ -175,12 +175,12 @@ const Home = (props) => {
             />
           </Text>
           {userGroups.map((group, index) => (
-            <TouchableOpacity key={index} onPress={() => handleGroupSelect(group)}>
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleGroupSelect(group)}
+            >
               <Text style={styles.itemText}>
-              <FormattedMessage
-                id={`home.${group}`}  
-                defaultMessage={group} 
-              />
+                <FormattedMessage id={`home.${group}`} defaultMessage={group} />
               </Text>
             </TouchableOpacity>
           ))}
@@ -236,15 +236,14 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: 600,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
-  itemText:{
+  itemText: {
     padding: 10,
     fontSize: 16,
     fontWeight: 400,
   },
   bottomContainer: {
     paddingBottom: 32,
-  }
-  
+  },
 });
