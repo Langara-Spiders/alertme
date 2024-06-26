@@ -55,6 +55,8 @@ const Profile = (props) => {
           <LinkText style={styles.link}>Logout</LinkText>
         </Link>
       </View>
+      <LocationInput />
+      {/* <Search/> */}
     </View>
   );
 };

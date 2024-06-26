@@ -23,6 +23,10 @@ const user_type = {
 
 const Tab = createBottomTabNavigator();
 
+const user_type = {
+  type: "staff",
+};
+
 const TabNavigator = (props) => {
   const { getUser } = useStore();
   const { isStaff } = getUser();

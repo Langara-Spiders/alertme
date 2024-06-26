@@ -1,33 +1,39 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import LocationIcon from "../../assets/icons/LocationIcon";
-import { Input } from "../atoms";
+import React, { useState } from "react";
 
-const LocationInput = (props) => {
+import { View } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
+import LocationIcon from "../../assets/icons/LocationIcon.svg";
+import Input from "../atoms/Input";
+
+const LocationInput = () => {
+  const [address, setAddress] = useState("");
+
+  const onAddressChange = (text) => {
+    setAddress(text);
+  };
+
   return (
-    <Input
-      label="Address*"
-      inputMessageId="inputField.address"
-      inputDefaultMessage="Address"
-      icon={LocationIcon}
-      fieldStyle={styles.inputField}
-      iconSlotStyle={styles.iconSlot}
-      iconStyle={styles.icon}
-    />
+    <View style={styles.container}>
+      <Input
+        label="Address *"
+        placeholder="Enter address"
+        onChange={onAddressChange}
+        value={address}
+        icon={LocationIcon}
+        iconSlotStyle={styles.iconSlot}
+      />
+    </View>
   );
 };
 
 export default LocationInput;
 
 const styles = StyleSheet.create({
-  label: {
-    marginBottom: 5,
-    color: "#fff",
-  },
-  inputField: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    color: "#fff",
+  iconSlot: {
+    position: "absolute",
+    right: 20,
+    top: "50%",
+    transform: [{ translateY: -10 }],
+    zIndex: 1,
   },
 });
