@@ -41,7 +41,7 @@ const StackNavigator = (props) => {
         name={routes.REPORT_INCIDENT}
         component={ReportIncident}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerBackTitleVisible: false,
         }}
       />

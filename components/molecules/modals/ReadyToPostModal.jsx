@@ -1,82 +1,91 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Modal } from "react-native";
 import { Button } from "../../atoms";
 
 const ReadyToPostModal = (props) => {
   return (
-    <View style={styles.confirmationCard}>
-      <Text style={styles.confirmationText}>
-        <FormattedMessage
-          id="readyModal.readytopost"
-          defaultMessage="Ready to post the Incident?"
-        />
-      </Text>
-      <View style={styles.confirmationButtons}>
-        <Button style={styles.no} onPress={props.onCancel}>
-          <Text>
-            <FormattedMessage id="readyModal.no" defaultMessage="No" />
+    <Modal
+      visible={props.visible}
+      transparent={true}
+      animationType="slide"
+      onRequestClose={props.onCancel}
+    >
+      <View style={styles.backdrop}>
+        <View style={styles.confirmationCard}>
+          <Text style={styles.Heading}>
+            <FormattedMessage
+              id="readyModal.readytopost"
+              defaultMessage="Ready to post the Incident?"
+            />
           </Text>
-        </Button>
-        <Button style={styles.yes} onPress={() => props.onConfirm(true)}>
-          <Text style={styles.buttonTextBlack}>
-            <FormattedMessage id="readyModal.yes" defaultMessage="Yes" />
+          <Text style={styles.confirmationText}>
+            <FormattedMessage
+              id="readyModal.confirmation"
+              defaultMessage="Here we can say two lines and ask them to confirm"
+            />
           </Text>
-        </Button>
+          <View style={styles.confirmationButtons}>
+            <Button style={styles.no} onPress={props.onCancel}>
+              <Text>
+                <FormattedMessage id="readyModal.no" defaultMessage="No" />
+              </Text>
+            </Button>
+            <Button style={styles.yes} onPress={props.onConfirm}>
+              <Text style={styles.buttonTextBlack}>
+                <FormattedMessage id="readyModal.yes" defaultMessage="Post" />
+              </Text>
+            </Button>
+          </View>
+        </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
 export default ReadyToPostModal;
 
 const styles = StyleSheet.create({
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(11, 12, 12, 0.7)', // Semi-transparent backdrop
+    justifyContent: 'flex-end', // Aligns the modal at the bottom of the screen
+    alignItems: 'center', // Centers the modal horizontally
+    padding: 16,
+  },
   confirmationCard: {
-    display: "flex",
-    width: 346,
-    padding: 64,
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: 10,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: [{ translateX: -173 }, { translateY: -150 }],
-    backgroundColor: "#212121",
+    width: '100%',
+    maxWidth: 400,
+    padding: 24,
+    backgroundColor: "#fff",
     borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  Heading: {
+    fontSize: 20,
+    marginBottom: 20,
+    color: "#000",
+    textAlign: 'center',
   },
   confirmationText: {
     fontSize: 18,
     marginBottom: 20,
-    color: "#FFF",
+    color: "#000",
+    textAlign: 'center',
+    paddingBottom: 24
   },
   confirmationButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-  },
-  confirmationButton: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#ddd",
-    marginRight: 10,
-    alignItems: "center",
+    paddingHorizontal: 10,
   },
   no: {
-    borderRadius: 90,
-    borderColor: "#FFF",
-    backgroundColor: "#212121",
-    borderWidth: 1,
-    borderColor: "#FFFFFF",
+    flex: 1,
   },
   yes: {
-    borderRadius: 90,
-    backgroundColor: "#FFF",
+    flex: 1,
   },
   buttonTextBlack: {
     color: "#000",

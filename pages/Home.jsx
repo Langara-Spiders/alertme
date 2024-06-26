@@ -8,7 +8,7 @@ import {
   SearchIcon,
   View,
 } from "@gluestack-ui/themed";
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
@@ -16,7 +16,16 @@ import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
 import { IncidentCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
-import { routes } from "../constants";
+import { routes, userGroups } from "../constants";
+import { Text } from "@gluestack-ui/themed";
+
+
+
+
+const user_type = {
+  type: "staff",
+};
+
 
 const incidentsArray = [
   {
@@ -54,10 +63,16 @@ const incidentsArray = [
 const Home = (props) => {
   const { navigation } = props;
   const [isSheetVisible, setIsSheetVisible] = useState(false);
+  const [AddIssueVisible, setAddIssueVisible] = useState(false);
 
   const handleCardPress = (incident) => {
     setIsSheetVisible(false);
     navigation.navigate(routes.INCIDENT_DETAIL, { incident });
+  };
+
+  const handleGroupSelect = (group) => {
+    setAddIssueVisible(false);  
+    navigation.navigate(routes.REPORT_INCIDENT, { userGroup: group });  
   };
 
   return (
@@ -98,20 +113,31 @@ const Home = (props) => {
             longitudeDelta: 0.03,
           }}
         />
-        <View style={styles.buttonsContainer}>
-          <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
-            <FormattedMessage
-              id="home.layout"
-              defaultMessage="Report Incident"
-            />
-          </Button>
-          <Button onPress={() => setIsSheetVisible(true)}>
-            <FormattedMessage
-              id="home.layout"
-              defaultMessage="NearBy Incidents"
-            />
-          </Button>
-        </View>
+        {user_type.type === "user" ? (
+          <View style={styles.buttonsContainer}>
+            <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
+              <FormattedMessage
+                id="home.report"
+                defaultMessage="Report Incident"
+              />
+            </Button>
+            <Button onPress={() => setIsSheetVisible(true)}>
+              <FormattedMessage
+                id="home.NearBy"
+                defaultMessage="NearBy Incidents"
+              />
+            </Button>
+          </View>
+        ) : (
+          <View style={styles.buttonsContainer}>
+            <Button onPress={() => setAddIssueVisible(true)}>
+              <FormattedMessage
+                id="home.AddIssue"
+                defaultMessage="Report Incident"
+              />
+            </Button>
+          </View>
+        )}
       </View>
       <DBottomSheet
         isOpen={isSheetVisible}
@@ -136,6 +162,29 @@ const Home = (props) => {
             </View>
           </TouchableWithoutFeedback>
         ))}
+      </DBottomSheet>
+      <DBottomSheet
+        isOpen={AddIssueVisible}
+        onClose={() => setAddIssueVisible(false)}
+      >
+        <View style={styles.bottomContainer}>
+          <Text style={styles.heading}>
+            <FormattedMessage
+              id="home.bottomsheetheading"
+              defaultMessage="Add Issue For"
+            />
+          </Text>
+          {userGroups.map((group, index) => (
+            <TouchableOpacity key={index} onPress={() => handleGroupSelect(group)}>
+              <Text style={styles.itemText}>
+              <FormattedMessage
+                id={`home.${group}`}  
+                defaultMessage={group} 
+              />
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </DBottomSheet>
     </View>
   );
@@ -184,4 +233,18 @@ const styles = StyleSheet.create({
     zIndex: 99,
     elevation: 99,
   },
+  heading: {
+    fontSize: 18,
+    fontWeight: 600,
+    paddingBottom: 10
+  },
+  itemText:{
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 400,
+  },
+  bottomContainer: {
+    paddingBottom: 32,
+  }
+  
 });

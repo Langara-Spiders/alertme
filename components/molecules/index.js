@@ -19,3 +19,4 @@ export { default as ProfileAppSettingItems } from "./ProfileAppSettingItems";
 export { default as ProfileImageEdit } from "./ProfileImageEdit";
 export { default as ProfileitemsWithIcon } from "./ProfileItemsWithIcon";
 export { default as Search } from "./Search";
+export { default as CategoriesModal } from "./modals/CategoriesModal"

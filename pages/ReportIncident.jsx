@@ -1,11 +1,20 @@
-import { Text, View } from "@gluestack-ui/themed";
+import { Icon, Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Input } from "../components/atoms";
-import { IncidentImageUpload, ReadyToPostModal } from "../components/molecules";
+import { CategoriesModal, IncidentImageUpload, ReadyToPostModal } from "../components/molecules";
 
 import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "@gluestack-ui/themed";
+import { ArrowLeftIcon } from "@gluestack-ui/themed";
+
+
+
+
+const user_type = {
+  type: "user",
+};
 
 const ReportIncident = () => {
   const intl = useIntl();
@@ -24,140 +33,137 @@ const ReportIncident = () => {
     setShowConfirmation(false);
   };
 
+  const handleCategorySelect = (category) => {
+    console.log("Selected Category:", category);
+    // Perform any additional actions with the selected category here
+  };
+
+  const handleConfirmPost = () => {
+  
+    navigation.navigate('Home');
+    setShowConfirmation(false);
+  };
+  
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        <FormattedMessage
-          id="reportIncident.title"
-          defaultMessage="Report an Incident"
-        />
-      </Text>
-      <View>
-        <IncidentImageUpload />
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.navigate("Home")}>
+          <Icon as={ArrowLeftIcon} />
+        </Pressable>
+        <Text style={styles.headerText}>Add Issue</Text>
       </View>
-      <View style={styles.categoryButtons}>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            incidentCategory === "Category1" && styles.selectedButton,
-          ]}
-          onPress={() => setIncidentCategory("Category1")}
-        >
-          <Text style={styles.buttonText}>
-            <FormattedMessage
-              id="reportIncident.categoryBtn1"
-              defaultMessage="Category 1"
-            />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            incidentCategory === "Category2" && styles.selectedButton,
-          ]}
-          onPress={() => setIncidentCategory("Category2")}
-        >
-          <Text style={styles.buttonText}>
-            <FormattedMessage
-              id="reportIncident.categoryBtn2"
-              defaultMessage="Category 2"
-            />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            incidentCategory === "Category3" && styles.selectedButton,
-          ]}
-          onPress={() => setIncidentCategory("Category3")}
-        >
-          <Text style={styles.buttonText}>
-            <FormattedMessage
-              id="reportIncident.categoryBtn3"
-              defaultMessage="Category 3"
-            />
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <Input
-        style={styles.input}
-        placeholder={intl.formatMessage({
-          id: "reportIncident.input.incidentType",
-          defaultMessage: "Incident Type",
-        })}
-        value={incidentType}
-        onChangeText={setIncidentType}
-      />
-      <Input
-        style={styles.input}
-        placeholder={intl.formatMessage({
-          id: "reportIncident.input.incidentLocation",
-          defaultMessage: "Incident Location",
-        })}
-        value={incidentLocation}
-        onChangeText={setIncidentLocation}
-      />
-      <Input
-        style={styles.textArea}
-        placeholder={intl.formatMessage({
-          id: "reportIncident.input.incidentDescription",
-          defaultMessage: "Incident Description",
-        })}
-        value={incidentDescription}
-        onChangeText={setIncidentDescription}
-        multiline
-      />
-      <Button onPress={handlePostIncident}>
-        <FormattedMessage
-          id="reportIncident.postBtn"
-          defaultMessage="Post Incident"
-        />
-      </Button>
-      {showConfirmation && (
-        <View>
-          <ReadyToPostModal onCancel={handleCancelPostIncident} />
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          <FormattedMessage
+            id="reportIncident.titleaddpics"
+            defaultMessage="Add Issues Pictures°"
+          />
+        </Text>
+        <View style={{ flex: 1}}>
+          <IncidentImageUpload />
         </View>
-      )}
+        <View style={styles.category}>
+          <Text style={styles.title}>
+            <FormattedMessage
+              id="reportIncident.categories"
+              defaultMessage="Incident Category:"
+            />
+          </Text>
+          <CategoriesModal onSelectCategory={handleCategorySelect} />
+        </View>
+        <Text style={styles.title}>
+          <FormattedMessage
+            id="reportIncident.incidentType"
+            defaultMessage="Incident Category:"
+          />
+        </Text>
+        <Input
+          style={styles.input}
+          placeholder={intl.formatMessage({
+            id: "reportIncident.input.incidentType",
+            defaultMessage: "Incident Type",
+          })}
+          value={incidentType}
+          onChangeText={setIncidentType}
+        />
+        <Text style={styles.title}>
+          <FormattedMessage
+            id="reportIncident.Location"
+            defaultMessage="Incident Type:"
+          />
+        </Text>
+        <Input
+          style={styles.input}
+          placeholder={intl.formatMessage({
+            id: "reportIncident.input.incidentLocation",
+            defaultMessage: "Location",
+          })}
+          value={incidentLocation}
+          onChangeText={setIncidentLocation}
+        />
+        <Text style={styles.title}>
+          <FormattedMessage
+            id="reportIncident.Description"
+            defaultMessage="Description"
+          />
+        </Text>
+        <Input
+          style={styles.textArea}
+          placeholder={intl.formatMessage({
+            id: "reportIncident.input.incidentDescription",
+            defaultMessage: "Incident Description",
+          })}
+          value={incidentDescription}
+          onChangeText={setIncidentDescription}
+          multiline
+        />
+        <Button onPress={handlePostIncident}>
+          <FormattedMessage
+            id="reportIncident.postBtn"
+            defaultMessage="Post Incident"
+          />
+        </Button>
+        {showConfirmation && (
+          <View>
+            <ReadyToPostModal
+              onCancel={handleCancelPostIncident}
+              onConfirm={handleConfirmPost}
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 };
 
+
+export default ReportIncident;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#fff",
+    padding: 16,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+  },
+  category: {
+    flex: 1,
+    marginTop: 16
+  },
+  headerText: {
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  imagePicker: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    marginRight: 10,
-  },
-  categoryButtons: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  button: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#ddd",
-    marginRight: 5,
-    alignItems: "center",
-  },
-  selectedButton: {
-    backgroundColor: "#aaa",
-  },
-  buttonText: {
-    color: "#000",
+    fontSize: 16,
+    fontWeight: 400,
+    marginBottom: 5,
   },
   input: {
     height: 40,
@@ -175,5 +181,3 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 });
-
-export default ReportIncident;
