@@ -1,9 +1,8 @@
-import { Alert, CloseIcon, Image, View } from "@gluestack-ui/themed";
+import {  CloseIcon, Image, View } from "@gluestack-ui/themed";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "lucide-react-native";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 const ImagePickerComponent = () => {
   const [images, setImages] = useState([]);
 
@@ -92,7 +91,7 @@ const ImagePickerComponent = () => {
         onPress={() => showImagePickerOptions(0)}
       >
         {images[0] ? (
-          <Image source={{ uri: images[0].uri }} style={styles.largeImage} />
+          <Image source={{ uri: images[0].uri }} style={styles.largeImage} alt="Large image placeholder"/>
         ) : (
           <Camera size={24} />
         )}
@@ -103,7 +102,7 @@ const ImagePickerComponent = () => {
           onPress={() => showImagePickerOptions(1)}
         >
           {images[1] ? (
-            <Image source={{ uri: images[1].uri }} style={styles.smallImage} />
+            <Image source={{ uri: images[1].uri }} style={styles.smallImage} alt="First image"/>
           ) : (
             <Camera size={24} />
           )}
@@ -113,7 +112,7 @@ const ImagePickerComponent = () => {
           onPress={() => showImagePickerOptions(2)}
         >
           {images[2] ? (
-            <Image source={{ uri: images[2].uri }} style={styles.smallImage} />
+            <Image source={{ uri: images[2].uri }} style={styles.smallImage} alt="Second small image"/>
           ) : (
             <Camera size={24} />
           )}

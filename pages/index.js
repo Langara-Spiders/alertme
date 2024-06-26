@@ -12,3 +12,4 @@ export { default as Profile } from "./Profile";
 export { default as ReportIncident } from "./ReportIncident";
 export { default as Rewards } from "./Rewards";
 export { default as SiteIncidentsOrg } from "./SiteIncidentsOrg";
+export { default as NearByActiveIssues } from "./NearByActiveIssues";
