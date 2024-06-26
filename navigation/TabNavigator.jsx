@@ -1,12 +1,23 @@
 import * as React from "react";
 
-import { Home, Incidents, Profile, Rewards } from "../pages";
+import {
+  AllIncidentsOrg,
+  Home,
+  Incidents,
+  Profile,
+  Rewards,
+  SiteIncidentsOrg,
+} from "../pages";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { routes } from "../constants";
 
 const Tab = createBottomTabNavigator();
+
+const user_type = {
+  type: "staff",
+};
 
 const TabNavigator = (props) => {
   const renderOrgBottomNav = () => {

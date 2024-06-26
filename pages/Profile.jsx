@@ -1,9 +1,8 @@
 import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
 import { Dimensions, StyleSheet } from "react-native";
+import { LocationInput } from "../components/molecules";
 
 import React from "react";
-import { Input } from "../components/atoms";
-import { LocationInput } from "../components/molecules";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
 
 const { width: screenWidth } = Dimensions.get("window");
@@ -12,8 +11,6 @@ const Profile = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <LocationInput />
-        <Input />
         <Image
           source={require("../assets/images/pattern.png")}
           style={styles.background}
@@ -42,6 +39,8 @@ const Profile = (props) => {
           <LinkText style={styles.link}>Logout</LinkText>
         </Link>
       </View>
+      <LocationInput />
+      {/* <Search/> */}
     </View>
   );
 };
