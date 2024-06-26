@@ -1,4 +1,12 @@
-import { Icon, Text, View } from "@gluestack-ui/themed";
+import {
+  ArrowLeftIcon,
+  Icon,
+  Pressable,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
+import { uniqueId } from "lodash";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet } from "react-native";
@@ -8,9 +16,7 @@ import {
   IncidentImageUpload,
   ReadyToPostModal,
 } from "../components/molecules";
-
-import { ArrowLeftIcon, Pressable } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
+import { routes } from "../constants";
 
 const user_type = {
   type: "user",
@@ -35,12 +41,13 @@ const ReportIncident = () => {
 
   const handleCategorySelect = (category) => {
     console.log("Selected Category:", category);
-    // Perform any additional actions with the selected category here
   };
 
   const handleConfirmPost = () => {
-    navigation.navigate("Home");
     setShowConfirmation(false);
+    successType = `post-${uniqueId()}`;
+
+    navigation.navigate(routes.HOME, { successType });
   };
 
   return (

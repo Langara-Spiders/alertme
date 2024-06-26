@@ -1,5 +1,5 @@
-import * as React from "react";
 import { Icon, StarIcon } from "@gluestack-ui/themed";
+import * as React from "react";
 
 import {
   AppSetting,
