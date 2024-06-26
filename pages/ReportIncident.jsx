@@ -1,16 +1,16 @@
 import { Icon, Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button, Input } from "../components/atoms";
-import { CategoriesModal, IncidentImageUpload, ReadyToPostModal } from "../components/molecules";
+import {
+  CategoriesModal,
+  IncidentImageUpload,
+  ReadyToPostModal,
+} from "../components/molecules";
 
+import { ArrowLeftIcon, Pressable } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
-import { Pressable } from "@gluestack-ui/themed";
-import { ArrowLeftIcon } from "@gluestack-ui/themed";
-
-
-
 
 const user_type = {
   type: "user",
@@ -39,11 +39,9 @@ const ReportIncident = () => {
   };
 
   const handleConfirmPost = () => {
-  
-    navigation.navigate('Home');
+    navigation.navigate("Home");
     setShowConfirmation(false);
   };
-  
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -60,7 +58,7 @@ const ReportIncident = () => {
             defaultMessage="Add Issues Pictures°"
           />
         </Text>
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
           <IncidentImageUpload />
         </View>
         <View style={styles.category}>
@@ -137,7 +135,6 @@ const ReportIncident = () => {
   );
 };
 
-
 export default ReportIncident;
 
 const styles = StyleSheet.create({
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
-    marginTop: 16
+    marginTop: 16,
   },
   headerText: {
     marginLeft: 10,

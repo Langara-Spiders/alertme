@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Camera } from 'lucide-react-native';
-import { Alert, CloseIcon, Image, View } from '@gluestack-ui/themed';
-
+import { Alert, CloseIcon, Image, View } from "@gluestack-ui/themed";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "lucide-react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 const ImagePickerComponent = () => {
   const [images, setImages] = useState([]);
@@ -49,12 +48,12 @@ const ImagePickerComponent = () => {
 
   const showImagePickerOptions = (index) => {
     Alert.alert(
-      'Upload Photo',
-      'Choose an option',
+      "Upload Photo",
+      "Choose an option",
       [
-        { text: 'Take Photo', onPress: () => handleUploadImage(index) },
-        { text: 'Choose from Gallery', onPress: () => handleAddImage(index) },
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' }
+        { text: "Take Photo", onPress: () => handleUploadImage(index) },
+        { text: "Choose from Gallery", onPress: () => handleAddImage(index) },
+        { text: "Cancel", onPress: () => {}, style: "cancel" },
       ],
       { cancelable: true }
     );
@@ -88,7 +87,10 @@ const ImagePickerComponent = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.largeImageBox} onPress={() => showImagePickerOptions(0)}>
+      <TouchableOpacity
+        style={styles.largeImageBox}
+        onPress={() => showImagePickerOptions(0)}
+      >
         {images[0] ? (
           <Image source={{ uri: images[0].uri }} style={styles.largeImage} />
         ) : (
@@ -96,14 +98,20 @@ const ImagePickerComponent = () => {
         )}
       </TouchableOpacity>
       <View style={styles.smallImageStack}>
-        <TouchableOpacity style={styles.smallImageBox} onPress={() => showImagePickerOptions(1)}>
+        <TouchableOpacity
+          style={styles.smallImageBox}
+          onPress={() => showImagePickerOptions(1)}
+        >
           {images[1] ? (
             <Image source={{ uri: images[1].uri }} style={styles.smallImage} />
           ) : (
             <Camera size={24} />
           )}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.smallImageBox} onPress={() => showImagePickerOptions(2)}>
+        <TouchableOpacity
+          style={styles.smallImageBox}
+          onPress={() => showImagePickerOptions(2)}
+        >
           {images[2] ? (
             <Image source={{ uri: images[2].uri }} style={styles.smallImage} />
           ) : (
@@ -119,8 +127,8 @@ export default ImagePickerComponent;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
   },
   largeImageBox: {
@@ -128,40 +136,39 @@ const styles = StyleSheet.create({
     height: 132,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    borderColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
   },
   largeImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   smallImageStack: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   smallImageBox: {
     width: 126,
     height: 60,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    borderColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
     marginBottom: 5,
   },
   smallImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   deleteButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 5,
     right: 5,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 15,
     padding: 2,
   },
 });
-
