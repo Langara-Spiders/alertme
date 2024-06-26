@@ -7,6 +7,7 @@ export { default as Home } from "./Home";
 export { default as IncidentDetail } from "./IncidentDetail";
 export { default as Incidents } from "./Incidents";
 export { default as Leaderboard } from "./Leaderboard";
+export { default as Login } from "./Login";
 export { default as NearByActiveIssues } from "./NearByActiveIssues";
 export { default as Notifications } from "./Notifications";
 export { default as Profile } from "./Profile";
