@@ -6,23 +6,23 @@ import {
   InputIcon,
   InputSlot,
   SearchIcon,
+  Text,
   View,
 } from "@gluestack-ui/themed";
+import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import {
+  Animated,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Text } from "@gluestack-ui/themed";
-import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
 import { IncidentCard, SuccessCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes, userGroups } from "../constants";
 import { DateTime } from "../utils";
-
 
 const user_type = {
   type: "user",
@@ -180,7 +180,6 @@ const Home = ({ navigation, route }) => {
       successType?.startsWith("approve") ||
       successType?.startsWith("reject") ||
       successType?.startsWith("post")
-
     ) {
       setShowSuccessCard(true);
       setTimeout(() => {
