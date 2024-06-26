@@ -17,6 +17,9 @@ const Profile = (props) => {
     const response = await logout(access_token);
     if (response.status === 200) {
       resetUser();
+      axios.defaults.headers.common = {
+        Authorization: ``,
+      };
       navigation.navigate(routes.LOGIN);
     }
   };

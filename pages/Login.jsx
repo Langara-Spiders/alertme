@@ -4,6 +4,7 @@ import * as WebBrowser from "expo-web-browser";
 import React, { useEffect } from "react";
 
 import { View } from "@gluestack-ui/themed";
+import axios from "axios";
 import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
 import { login } from "../api";
@@ -28,6 +29,10 @@ const Login = (props) => {
     if (!response.error) {
       const { token } = response?.data;
       setUser(token, access_token);
+      // add token to auth headers
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${token}`,
+      };
       navigation.navigate(routes.MAIN);
     }
   };
