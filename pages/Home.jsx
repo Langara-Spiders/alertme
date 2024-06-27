@@ -176,6 +176,7 @@ const Home = ({ navigation, route }) => {
 
   useEffect(() => {
     if (
+      successType?.startsWith("upvoted") ||
       successType?.startsWith("confirm") ||
       successType?.startsWith("approve") ||
       successType?.startsWith("reject") ||

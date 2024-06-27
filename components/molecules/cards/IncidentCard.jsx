@@ -1,37 +1,60 @@
-import { Card, Heading, Image, Text, View } from "@gluestack-ui/themed";
+import {
+  Card,
+  Heading,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import { routes } from "../../../constants";
 import { StatusBadge, UpvoteButton } from "../../atoms";
 
 const IncidentCard = (props) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate(routes.INCIDENT_DETAIL, { incident: props });
+  };
+
   return (
-    <Card style={styles.card}>
-      <View style={styles.infoContainer}>
-        <View style={styles.statusContainer}>
-          <StatusBadge status={props.status} />
-        </View>
-        <Heading style={styles.title}>{props.subject}</Heading>
-        <Text style={styles.description} numberOfLines={1} ellipsizeMode="tail">
-          {props.description}
-        </Text>
-        <View style={styles.footer}>
-          <View style={styles.locationContainer}>
-            <Text style={styles.locationIcon}>📍</Text>
-            <Text style={styles.locationText}>121, 51A Main Street</Text>
+    <Pressable onPress={handlePress}>
+      <Card style={styles.card}>
+        <View style={styles.infoContainer}>
+          <View style={styles.statusContainer}>
+            <StatusBadge status={props.status} />
           </View>
-          <Text style={styles.timeText}>
-            {new Date(props.created_at).toLocaleString()}
+          <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+            {props.subject}
+          </Heading>
+          <Text
+            style={styles.description}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {props.description}
           </Text>
+          <View style={styles.footer}>
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationIcon}>📍</Text>
+              <Text style={styles.locationText}>121, 51A Main Street</Text>
+            </View>
+            <Text style={styles.timeText}>
+              {new Date(props.created_at).toLocaleString()}
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: props.image ?? "https://picsum.photos/200/300" }}
-          style={styles.image}
-          alt="image"
-        />
-        <UpvoteButton style={styles.upvoteButton} upvote={props.upvote_count} />
-      </View>
-    </Card>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: props.image ?? "https://picsum.photos/200/300" }}
+            style={styles.image}
+            alt="image"
+          />
+          <UpvoteButton upvote={props.upvote_count} />
+        </View>
+      </Card>
+    </Pressable>
   );
 };
 
@@ -124,9 +147,5 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 5,
     marginBottom: 10,
-  },
-  upvoteButton: {
-    flexDirection: "row",
-    alignItems: "center",
   },
 });

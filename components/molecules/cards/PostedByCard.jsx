@@ -3,8 +3,8 @@ import { StyleSheet, View } from "react-native";
 
 const PostedByCard = (props) => {
   return (
-    <View>
-      <HStack space="md">
+    <View style={styles.container}>
+      <HStack space="md" style={styles.hStack}>
         <Image
           style={styles.avatar}
           source={{
@@ -12,10 +12,12 @@ const PostedByCard = (props) => {
           }}
           alt="avatar image"
         />
-        <VStack>
-          <Heading size="sm">{props.name}</Heading>
-          <Text size="sm">
-            {props.date} at {props.time}
+        <VStack style={styles.vStack}>
+          <Heading size="sm" style={styles.name}>
+            {props.name}
+          </Heading>
+          <Text size="sm" style={styles.date}>
+            {new Date(props.created_at).toLocaleString()}
           </Text>
         </VStack>
       </HStack>
@@ -24,10 +26,28 @@ const PostedByCard = (props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  hStack: {
+    alignItems: "center",
+  },
   avatar: {
     width: 48,
     height: 48,
-    borderRadius: 48,
+    borderRadius: 24,
+  },
+  vStack: {
+    marginLeft: 8,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  date: {
+    fontSize: 14,
+    color: "#636C6E",
   },
 });
 
