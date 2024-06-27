@@ -1,4 +1,5 @@
 import axios from "axios";
+import useStore from "../store/useStore";
 import { API_BASE_URL } from "./constants";
 
 const getNearbyIncident = async (lat, lng) => {
@@ -13,4 +14,19 @@ const getNearbyIncident = async (lat, lng) => {
   }
 };
 
-export { getNearbyIncident };
+const getMyIssues = async () => {
+  try {
+    const { token } = useStore.getState().getUser();
+    const res = await axios.get(`${API_BASE_URL}/incidents/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+export { getNearbyIncident, getMyIssues };

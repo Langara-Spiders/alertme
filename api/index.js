@@ -1,2 +1,2 @@
-export { getIncident } from "./incident";
-export { login, logout } from "./user";
+export { getMyIssues } from "./incident";
+export { getReward, login, logout } from "./user";

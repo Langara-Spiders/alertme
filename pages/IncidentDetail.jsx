@@ -5,11 +5,14 @@ import { Modal, StyleSheet } from "react-native";
 import { Button, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
+import useStore from "../store/useStore";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
+  const { id, name, isStaff } = useStore.getState().getUser();
+  const current_logged_in_user_id = id;
 
   const handleModalOpen = (type) => {
     setModalType(type);
@@ -44,30 +47,30 @@ const IncidentDetail = ({ route, navigation }) => {
   const showUpvoteButton = () => {
     return (
       incident.reported_by === "USER" &&
-      incident.user_id_id !== "User123" &&
-      !incident.is_staff
+      incident.user_id !== current_logged_in_user_id &&
+      !isStaff
     );
   };
 
   const showResolveButton = () => {
     return (
       incident.reported_by === "USER" &&
-      incident.user_id_id !== "User123" &&
-      incident.is_staff
+      incident.user_id !== current_logged_in_user_id &&
+      isStaff
     );
   };
 
   const showReportedBySectionUSER = () => {
-    return !incident.is_staff && incident.reported_by === "USER";
+    return !isStaff && incident.reported_by === "USER";
   };
 
   const showVerifiedBySectionUSER = () => {
-    return !incident.is_staff && incident.reported_by === "ORG";
+    return !isStaff && incident.reported_by === "ORG";
   };
 
   const showResolveBySectionORG = () => {
     return (
-      incident.is_staff &&
+      isStaff &&
       (incident.upvote_count > 3 || incident.is_accepted_by_org == true)
     );
   };
@@ -91,7 +94,7 @@ const IncidentDetail = ({ route, navigation }) => {
         <Text style={styles.title}>{incident.distance}</Text>
         <Text style={styles.heading}>Incident Location</Text>
         <Text>
-          {incident.address}, <Text style={styles.viewMap}>View Map</Text>
+          {incident.streetAddress}, <Text style={styles.viewMap}>View Map</Text>
         </Text>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
@@ -107,9 +110,9 @@ const IncidentDetail = ({ route, navigation }) => {
         {showReportedBySectionUSER() && (
           <>
             <Text style={styles.heading}>Reported by</Text>
-            <View style={styles.user_reported}>
+            <View style={styles.user_name}>
               <PostedByCard
-                name={incident.reported_by}
+                name={incident.user_name}
                 created_at={incident.created_at}
               />
             </View>
@@ -128,7 +131,7 @@ const IncidentDetail = ({ route, navigation }) => {
         {showVerifiedBySectionUSER() && (
           <>
             <Text style={styles.heading}>Verified by</Text>
-            <View style={styles.user_reported}>
+            <View style={styles.user_name}>
               <PostedByCard
                 name={incident.reported_by}
                 created_at={incident.created_at}
@@ -136,13 +139,12 @@ const IncidentDetail = ({ route, navigation }) => {
             </View>
           </>
         )}
-        {console.log("about to enter")}
         {showResolveBySectionORG() && (
           <>
             <Text style={styles.heading}>Reported by</Text>
             <View style={styles.user_reported}>
               <PostedByCard
-                name={incident.reported_by}
+                name={incident.user_name}
                 created_at={incident.created_at}
               />
             </View>

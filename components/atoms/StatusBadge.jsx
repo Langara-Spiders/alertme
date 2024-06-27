@@ -4,16 +4,16 @@ import { StyleSheet } from "react-native";
 const StatusBadge = (props) => {
   let backgroundColor, textColor;
 
-  if (props.status === "active" || props.status === "Active") {
+  if (props.status === "active" || props.status === "ACTIVE") {
     backgroundColor = "#FDA5A5";
     textColor = "#7E1E1C";
-  } else if (props.status === "resolved" || props.status === "Resolved") {
+  } else if (props.status === "resolved" || props.status === "RESOLVED") {
     backgroundColor = "#88D384";
     textColor = "#185215";
-  } else if (props.status === "fixing" || props.status === "Fixing") {
+  } else if (props.status === "fixing" || props.status === "FIXING") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
-  } else if (props.status === "pending" || props.status === "Pending") {
+  } else if (props.status === "pending" || props.status === "PENDING") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
   }

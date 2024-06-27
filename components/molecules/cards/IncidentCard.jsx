@@ -38,7 +38,7 @@ const IncidentCard = (props) => {
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
               <Text style={styles.locationIcon}>📍</Text>
-              <Text style={styles.locationText}>121, 51A Main Street</Text>
+              <Text style={styles.locationText}>{props.streetAddress}</Text>
             </View>
             <Text style={styles.timeText}>
               {new Date(props.created_at).toLocaleString()}
