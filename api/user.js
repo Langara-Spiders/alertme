@@ -18,8 +18,11 @@ const login = async (token) => {
 };
 
 const logout = async (access_token) => {
+  console.log(access_token);
   try {
-    const res = await axios.post(`${OAUTH_REVOKE_URL}?token=${access_token}`);
+    const res = await axios.post(`${OAUTH_REVOKE_URL}?token=${access_token}`, {
+      headers: {},
+    });
     return res;
   } catch (error) {
     console.error(error);

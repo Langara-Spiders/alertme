@@ -12,7 +12,7 @@ const useStore = create(
         projectId: "",
         isStaff: "",
         token: "",
-        googleToken: "",
+        access_token: "",
       },
       getUser: () => get().user,
 
@@ -40,7 +40,7 @@ const useStore = create(
             projectId: "",
             isStaff: "",
             token: "",
-            googleToken: "",
+            access_token: "",
           },
         })),
     }),
