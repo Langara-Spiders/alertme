@@ -1,181 +1,51 @@
 import * as Location from "expo-location";
 
 import {
+  ArrowUpIcon,
   BellIcon,
   ButtonIcon,
+  EditIcon,
+  Icon,
   Input,
   InputField,
   InputIcon,
   InputSlot,
+  MenuIcon,
   SearchIcon,
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Animated,
+  Dimensions,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { IncidentCard, SuccessCard } from "../components/molecules";
-import { routes, userGroups } from "../constants";
+import { routes } from "../constants";
 
 import { FormattedMessage } from "react-intl";
-import MapView from "react-native-maps";
+import { getNearbyIncident } from "../api/incident";
 import { Button } from "../components/atoms";
 import { DBottomSheet } from "../components/organisms";
-import { DateTime } from "../utils";
 
-const user_type = {
-  type: "user",
-};
-
-const incidentsArray = [
-  {
-    id: "601f1f77bcf86cd799439008",
-    user_id: "601f191e810c19729de860b2",
-    user_reported: "Henry Adams",
-    incident_category_id: "601f191e810c19729de860b2",
-    incident_category_name: "Littering",
-    subject: "Littering in Green Park",
-    description:
-      "Excessive littering observed in Green Park near the main entrance.",
-    coordinate: { lat: 40.712776, long: -74.005974 },
-    address: "345 E 55 Ave",
-    upvote_count: 1,
-    report_count: 1,
-    status: "active",
-    is_accepted_by_org: true,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "ORG",
-    created_at: "2023-06-17T09:00:00",
-    updated_at: "2023-06-17T09:00:00",
-    voters: ["601f191e810c19729de860b3"],
-    images: ["littering1.jpg"],
-  },
-  {
-    id: "601f1f77bcf86cd799439009",
-    user_id: "601f191e810c19729de860b3",
-    user_reported: "Irene Taylor",
-    incident_category_id: "601f191e810c19729de860b3",
-    incident_category_name: "Noise Complaint",
-    subject: "Noise Complaint at Night",
-    description:
-      "Loud parties at residential area causing disturbances at night.",
-    coordinate: { lat: 34.052235, long: -118.243683 },
-    address: "125 W 48 Ave",
-    upvote_count: 2,
-    report_count: 3,
-    status: "active",
-    is_accepted_by_org: false,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "USER",
-    created_at: "2023-06-17T10:30:00",
-    updated_at: "2023-06-17T10:30:00",
-    voters: ["601f191e810c19729de860b4"],
-    images: ["noise_complaint1.jpg"],
-  },
-  {
-    id: "601f1f77bcf86cd799439010",
-    user_id: "601f191e810c19729de860b4",
-    user_reported: "Jack Nelson",
-    incident_category_id: "601f191e810c19729de860b4",
-    incident_category_name: "Street Light Outage",
-    subject: "Multiple Street Lights Out on 3rd Street",
-    description:
-      "Several street lights are out on 3rd Street, causing poor visibility at night.",
-    coordinate: { lat: 51.507351, long: -0.127758 },
-    address: "320 3rd St",
-    upvote_count: 0,
-    report_count: 2,
-    status: "active",
-    is_accepted_by_org: true,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "USER",
-    created_at: "2023-06-17T11:00:00",
-    updated_at: "2023-06-17T11:00:00",
-    voters: [],
-    images: ["street_light_out1.jpg"],
-  },
-  {
-    id: "601f1f77bcf86cd799439011",
-    user_id: "601f191e810c19729de860b5",
-    user_reported: "Laura Mitchell",
-    incident_category_id: "601f191e810c19729de860b5",
-    incident_category_name: "Illegal Parking",
-    subject: "Illegal Parking on Maple Street",
-    description: "Cars parked illegally along Maple Street blocking driveways.",
-    coordinate: { lat: 34.052235, long: -118.243683 },
-    address: "234 Maple St",
-    upvote_count: 5,
-    report_count: 1,
-    status: "active",
-    is_accepted_by_org: false,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "ORG",
-    created_at: "2023-06-17T12:30:00",
-    updated_at: "2023-06-17T12:30:00",
-    voters: ["601f191e810c19729de860b6", "601f191e810c19729de860b7"],
-    images: ["illegal_parking1.jpg"],
-  },
-  {
-    id: "601f1f77bcf86cd799439012",
-    user_id: "601f191e810c19729de860b6",
-    user_reported: "Nathan Carter",
-    incident_category_id: "601f191e810c19729de860b6",
-    incident_category_name: "Public Intoxication",
-    subject: "Public Intoxication at City Square",
-    description:
-      "Groups of intoxicated individuals causing disturbances at City Square.",
-    coordinate: { lat: 51.507351, long: -0.127758 },
-    address: "100 City Square",
-    upvote_count: 7,
-    report_count: 4,
-    status: "active",
-    is_accepted_by_org: true,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "USER",
-    created_at: "2023-06-17T13:00:00",
-    updated_at: "2023-06-17T13:00:00",
-    voters: ["601f191e810c19729de860b8", "601f191e810c19729de860b9"],
-    images: ["public_intoxication1.jpg", "public_intoxication2.jpg"],
-  },
-  {
-    id: "601f1f77bcf86cd799439013",
-    user_id: "601f191e810c19729de860b7",
-    user_reported: "Megan Clark",
-    incident_category_id: "601f191e810c19729de860b7",
-    incident_category_name: "Pothole",
-    subject: "Large Pothole on Pine Avenue",
-    description: "A large pothole on Pine Avenue poses a risk to vehicles.",
-    coordinate: { lat: 40.712776, long: -74.005974 },
-    address: "500 Pine Ave",
-    upvote_count: 12,
-    report_count: 3,
-    status: "active",
-    is_accepted_by_org: true,
-    is_internal_for_org: false,
-    is_active: true,
-    reported_by: "ORG",
-    created_at: "2023-06-17T14:00:00",
-    updated_at: "2023-06-17T14:00:00",
-    voters: ["601f191e810c19729de860ba", "601f191e810c19729de860bb"],
-    images: ["pothole1.jpg", "pothole2.jpg"],
-  },
-];
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Home = ({ navigation, route }) => {
+  const [nearbyIssues, setNearbyIssues] = useState([]);
+  const [quickViewIssue, setQuickViewIssue] = useState({});
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
+  const mapRef = useRef(null);
 
   const { successType } = route?.params ?? {};
+
+  // ######################## USE EFFECTS ########################
 
   useEffect(() => {
     if (
@@ -192,6 +62,18 @@ const Home = ({ navigation, route }) => {
     }
   }, [successType]);
 
+  useEffect(() => {
+    getNearbyIncidentAPICall();
+    handleRecenter();
+    const interval = setInterval(() => {
+      getNearbyIncidentAPICall();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // ######################## USE EFFECTS ########################
+
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -202,10 +84,15 @@ const Home = ({ navigation, route }) => {
     return coords ?? {};
   };
 
-  // const getNearbyIncidentAPICall = async (lat, lng) => {
-  //   const response = await getNearbyIncident(lat, lng);
-  //   console.log(response);
-  // };
+  // ######################## API CALLS ########################
+
+  const getNearbyIncidentAPICall = async () => {
+    const { latitude, longitude } = await getLocation();
+    const response = await getNearbyIncident(latitude, longitude);
+    setNearbyIssues(response?.data ?? []);
+  };
+
+  // ######################## API CALLS ########################
 
   const handleCardPress = (incident) => {
     setIsSheetVisible(false);
@@ -215,6 +102,23 @@ const Home = ({ navigation, route }) => {
   const handleGroupSelect = (group) => {
     setAddIssueVisible(false);
     navigation.navigate(routes.REPORT_INCIDENT, { userGroup: group });
+  };
+
+  const handleMarkerPress = (issue) => {
+    setQuickViewIssue(issue);
+  };
+
+  const handleRecenter = async () => {
+    const { latitude, longitude } = await getLocation();
+    mapRef?.current?.animateToRegion(
+      {
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      1000
+    );
   };
 
   return (
@@ -239,6 +143,20 @@ const Home = ({ navigation, route }) => {
         >
           <ButtonIcon as={BellIcon} />
         </Button>
+        {Object.values(quickViewIssue).length ? (
+          <TouchableOpacity
+            onPress={() => setQuickViewIssue({})}
+            style={styles.incidentQuickViewContainer}
+          >
+            <IncidentCard
+              status={quickViewIssue?.status}
+              subject={quickViewIssue?.subject}
+              description={quickViewIssue?.description}
+              created_at={quickViewIssue?.created_at}
+              upvote_count={quickViewIssue?.upvote_count}
+            />
+          </TouchableOpacity>
+        ) : null}
       </View>
       <View
         style={{
@@ -250,6 +168,7 @@ const Home = ({ navigation, route }) => {
         }}
       >
         <MapView
+          ref={mapRef}
           style={styles.map}
           userInterfaceStyle="dark"
           provider={MapView.PROVIDER_GOOGLEr}
@@ -259,32 +178,55 @@ const Home = ({ navigation, route }) => {
             latitudeDelta: 0.02,
             longitudeDelta: 0.03,
           }}
-        />
-        {user_type.type === "user" ? (
-          <View style={styles.buttonsContainer}>
-            <Button onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}>
-              <FormattedMessage
-                id="home.report"
-                defaultMessage="Report Incident"
+        >
+          {nearbyIssues?.map((issue) => {
+            return (
+              <Marker
+                key={issue.id}
+                coordinate={{
+                  latitude: issue.coordinate.lat,
+                  longitude: issue.coordinate.lng,
+                }}
+                hideCallout
+                highlighted={false}
+                onPress={() => handleMarkerPress(issue)}
               />
-            </Button>
-            <Button onPress={() => setIsSheetVisible(true)}>
-              <FormattedMessage
-                id="home.NearBy"
-                defaultMessage="NearBy Incidents"
-              />
-            </Button>
-          </View>
-        ) : (
-          <View style={styles.buttonsContainer}>
-            <Button onPress={() => setAddIssueVisible(true)}>
-              <FormattedMessage
-                id="home.AddIssue"
-                defaultMessage="Report Incident"
-              />
-            </Button>
-          </View>
-        )}
+            );
+          })}
+        </MapView>
+        <View style={styles.buttonsContainerLeft}>
+          <TouchableOpacity onPress={() => handleRecenter()}>
+            <View>
+              <Icon as={ArrowUpIcon} color="#ffffff" />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonsContainerRight}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}
+          >
+            <View style={styles.addIssueButton}>
+              <Icon as={EditIcon} color="#ffffff" />
+              <Text style={styles.addIssueText}>
+                <FormattedMessage
+                  id="home.addIsuue"
+                  defaultMessage="Add Issue"
+                />
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
+            <View style={styles.nearbyIssueButton}>
+              <Icon as={MenuIcon} color="#ffffff" />
+              <Text style={styles.addIssueText}>
+                <FormattedMessage
+                  id="home.nearbyIssues"
+                  defaultMessage="Nearby Issues"
+                />
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
       <DBottomSheet
         isOpen={isSheetVisible}
@@ -308,51 +250,22 @@ const Home = ({ navigation, route }) => {
             <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>
-
-        {incidentsArray.map((incident, index) => {
-          const { date, time } = DateTime(incident.created_at);
-          return (
-            <TouchableWithoutFeedback
-              key={index}
-              onPress={() => handleCardPress(incident)}
-            >
-              <View>
-                <IncidentCard
-                  status={incident.status}
-                  title={incident.subject}
-                  description={incident.description}
-                  location={incident.address}
-                  date={date}
-                  time={time}
-                  upvote={incident.upvote_count}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        })}
-      </DBottomSheet>
-      <DBottomSheet
-        isOpen={AddIssueVisible}
-        onClose={() => setAddIssueVisible(false)}
-      >
-        <View style={styles.bottomContainer}>
-          <Text style={styles.heading}>
-            <FormattedMessage
-              id="home.bottomsheetheading"
-              defaultMessage="Add Issue For"
-            />
-          </Text>
-          {userGroups.map((group, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => handleGroupSelect(group)}
-            >
-              <Text style={styles.itemText}>
-                <FormattedMessage id={`home.${group}`} defaultMessage={group} />
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        {nearbyIssues?.map((issue) => (
+          <TouchableWithoutFeedback
+            key={issue.id}
+            onPress={() => handleCardPress(issue)}
+          >
+            <View>
+              <IncidentCard
+                status={issue?.status}
+                subject={issue?.subject}
+                description={issue?.description}
+                created_at={issue?.created_at}
+                upvote_count={issue?.upvote_count}
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
       </DBottomSheet>
     </View>
   );
@@ -380,12 +293,20 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
   },
-  buttonsContainer: {
+  buttonsContainerLeft: {
     position: "absolute",
-    left: 0,
+    left: 30,
+    bottom: 40,
+    gap: 20,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonsContainerRight: {
+    position: "absolute",
+    right: 0,
     bottom: 10,
     gap: 20,
-    width: "100%",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -435,5 +356,28 @@ const styles = StyleSheet.create({
     width: "100%",
     zIndex: 100,
     padding: 16,
+  },
+  incidentQuickViewContainer: {
+    position: "absolute",
+    padding: 10,
+    paddingTop: 5,
+    top: 0,
+    left: 0,
+    backgroundColor: "transparent",
+    width: screenWidth,
+    height: screenHeight,
+  },
+  addIssueText: {
+    color: "white",
+  },
+  addIssueButton: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  nearbyIssueButton: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

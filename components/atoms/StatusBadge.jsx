@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 
 const StatusBadge = (props) => {
