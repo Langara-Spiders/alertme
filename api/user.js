@@ -8,9 +8,7 @@ const login = async (token) => {
     const platform = Platform.OS;
     const res = await axios.post(
       `${API_BASE_URL}/users/login?platform=${platform}`,
-      {
-        token: token,
-      }
+      { token }
     );
     return res.data;
   } catch (error) {

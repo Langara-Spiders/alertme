@@ -51,3 +51,11 @@ android
 
 # ignore app.json
 app.json
+
+# yarn lock
+yarn.lock
+
+# Expo
+.expo
+dist/
+web-build/
