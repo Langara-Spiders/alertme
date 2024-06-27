@@ -15,6 +15,7 @@ const routes = {
 
   // Profile
   APP_SETTING: "App Setting",
+  PROFILE_DETAILS: "Profile Details",
 
   // Incidents
   MY_INCIDENTS: "My Issues",
