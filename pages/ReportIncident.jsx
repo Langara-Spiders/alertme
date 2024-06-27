@@ -5,17 +5,18 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
-import { uniqueId } from "lodash";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { StyleSheet } from "react-native";
 import { Button, Input } from "../components/atoms";
 import {
   CategoriesModal,
   IncidentImageUpload,
   ReadyToPostModal,
 } from "../components/molecules";
+
+import { useNavigation } from "@react-navigation/native";
+import { uniqueId } from "lodash";
+import { StyleSheet } from "react-native";
 import { routes } from "../constants";
 
 const user_type = {
@@ -197,45 +198,3 @@ const styles = StyleSheet.create({
 });
 
 export default ReportIncident;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 16,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-  },
-  category: {
-    flex: 1,
-    marginTop: 16,
-  },
-  headerText: {
-    marginLeft: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 400,
-    marginBottom: 5,
-  },
-  input: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 10,
-  },
-  textArea: {
-    height: 80,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 10,
-    paddingTop: 10,
-  },
-});

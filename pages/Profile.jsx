@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet } from "react-native";
 import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
+import { Dimensions, StyleSheet } from "react-native";
 
-import ProfileItemsList from "../components/organisms/ProfileItemsList";
 import { logout } from "../api";
+import ProfileItemsList from "../components/organisms/ProfileItemsList";
 import { routes } from "../constants";
 import { useStore } from "../store";
 
@@ -48,15 +48,12 @@ const Profile = (props) => {
       </View>
       <View style={styles.content}>
         <ProfileItemsList navigation={props.navigation} />
-        {/* <GreatWorkCard /> */}
       </View>
-      <View style={styles.content}>
+      <View style={styles.content2}>
         <Link onPress={() => logoutAPICall()}>
           <LinkText style={styles.link}>Logout</LinkText>
         </Link>
       </View>
-      <LocationInput />
-      {/* <Search/> */}
     </View>
   );
 };
@@ -108,12 +105,16 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 16,
     marginTop: 30,
+  },
+  content2: {
+    flex: 1,
+    marginTop: 40,
   },
   link: {
     color: "#FF6B00",
     textAlign: "start",
+    padding: 20,
     marginLeft: 16,
     textDecorationLine: "none",
   },

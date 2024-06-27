@@ -17,9 +17,6 @@ import { useStore } from "../store";
 // Sample user_type data
 // ***************
 // For now this is only for testing.
-const user_type = {
-  type: "staff",
-};
 
 const Tab = createBottomTabNavigator();
 

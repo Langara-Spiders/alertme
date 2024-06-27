@@ -1,8 +1,8 @@
 import * as ImagePicker from "expo-image-picker";
 
-import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { CloseIcon, Image, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 
 import { Camera } from "lucide-react-native";
 

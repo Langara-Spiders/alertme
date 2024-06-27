@@ -1,34 +1,58 @@
 import { View } from "@gluestack-ui/themed";
+import { useIntl } from "react-intl";
 import About from "../../assets/icons/Profile/About.svg";
 import Appearance from "../../assets/icons/Profile/Appearance.svg";
 import ProfileUser from "../../assets/icons/Profile/ProfileUser.svg";
 import Setting from "../../assets/icons/Profile/Setting.svg";
 import Share from "../../assets/icons/Profile/Share.svg";
+import { routes } from "../../constants";
 import ProfileItemsWithIcon from "../molecules/ProfileItemsWithIcon";
 
-const ProfileItemsList = () => {
+const ProfileItemsList = (props) => {
+  const { navigation } = props;
+  const intl = useIntl();
+
   const items = [
     {
+      text: intl.formatMessage({
+        id: "profiledetails.icon.message",
+        defaultMessage: "Profile Details",
+      }),
       icon: ProfileUser,
-      messageId: "profiledetails.icon.message",
-      defaultMessage: "Profile Details",
+      screen: "ProfileDetails",
     },
     {
+      text: intl.formatMessage({
+        id: "appsetting.icon.message",
+        defaultMessage: "App Setting",
+      }),
       icon: Setting,
-      messageId: "appsetting.icon.message",
-      defaultMessage: "App Setting",
+      screen: routes.APP_SETTING,
     },
     {
+      text: intl.formatMessage({
+        id: "sharewithfriends.icon.message",
+        defaultMessage: "Share with friends",
+      }),
       icon: Share,
-      messageId: "sharewithfriends.icon.message",
-      defaultMessage: "Share with friends",
+      screen: "ShareWithFriends",
     },
     {
+      text: intl.formatMessage({
+        id: "appearance.icon.message",
+        defaultMessage: "Appearance",
+      }),
       icon: Appearance,
-      messageId: "appearance.icon.message",
-      defaultMessage: "Appearance",
+      screen: "Appearance",
     },
-    { icon: About, messageId: "about.icon.message", defaultMessage: "About" },
+    {
+      text: intl.formatMessage({
+        id: "about.icon.message",
+        defaultMessage: "About",
+      }),
+      icon: About,
+      screen: "About",
+    },
   ];
 
   return (
@@ -37,8 +61,8 @@ const ProfileItemsList = () => {
         <ProfileItemsWithIcon
           key={index}
           icon={item.icon}
-          messageId={item.messageId}
-          defaultMessage={item.defaultMessage}
+          text={item.text}
+          onPress={() => navigation.navigate(item.screen)}
         />
       ))}
     </View>

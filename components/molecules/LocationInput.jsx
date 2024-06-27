@@ -1,11 +1,24 @@
 import React, { useState } from "react";
 
 import { View } from "@gluestack-ui/themed";
+import { useIntl } from "react-intl";
 import { StyleSheet } from "react-native";
 import LocationIcon from "../../assets/icons/LocationIcon.svg";
 import Input from "../atoms/Input";
 
 const LocationInput = () => {
+  const intl = useIntl();
+
+  const label = intl.formatMessage({
+    id: "input.addresscomponent.labelmessage",
+    defaultMessage: "Address *",
+  });
+
+  const placeholder = intl.formatMessage({
+    id: "input.addresscomponent.placeholdermessage",
+    defaultMessage: "Enter address",
+  });
+
   const [address, setAddress] = useState("");
 
   const onAddressChange = (text) => {
@@ -15,8 +28,8 @@ const LocationInput = () => {
   return (
     <View style={styles.container}>
       <Input
-        label="Address *"
-        placeholder="Enter address"
+        label={label}
+        placeholder={placeholder}
         onChange={onAddressChange}
         value={address}
         icon={LocationIcon}

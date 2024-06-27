@@ -9,18 +9,20 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import {
   Animated,
   StyleSheet,
+  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
+import { IncidentCard, SuccessCard } from "../components/molecules";
+import { routes, userGroups } from "../constants";
+
+import { FormattedMessage } from "react-intl";
 import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
-import { IncidentCard, SuccessCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
-import { routes, userGroups } from "../constants";
 import { DateTime } from "../utils";
 
 const user_type = {

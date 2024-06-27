@@ -1,5 +1,4 @@
 import {
-  ArrowLeftIcon,
   Card,
   ChevronDownIcon,
   Icon,
@@ -18,11 +17,11 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import { Button, SwitchButton, UnitSwitch } from "../atoms";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
+import { StyleSheet } from "react-native";
 
 const AppSettingArray = [
   { id: "applicationSound", text: "Application Sound" },
@@ -55,7 +54,7 @@ const ProfileAppSettingItems = () => {
 
   return (
     <ScrollView style={styles.scrollViewContent}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <ArrowLeftIcon
           onPress={() => {
             navigation.goBack();
@@ -67,7 +66,7 @@ const ProfileAppSettingItems = () => {
             defaultMessage="App Setting"
           />
         </Text>
-      </View>
+      </View> */}
 
       <View style={styles.settingItem}>
         <Text style={styles.settingItem}>

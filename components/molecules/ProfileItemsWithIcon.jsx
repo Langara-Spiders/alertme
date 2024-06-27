@@ -1,23 +1,17 @@
-import { ArrowRightIcon, Text, View } from "@gluestack-ui/themed";
+import { ArrowRightIcon, Button, Text, View } from "@gluestack-ui/themed";
 
-import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 const ProfileItemsWithIcon = (props) => {
   return (
-    <View style={styles.container}>
+    <Button style={styles.container} onPress={props.onPress}>
       <View style={styles.textIcon}>
         <SvgUri width="30" height="30" source={props.icon} />
-        <Text style={styles.text}>
-          <FormattedMessage
-            id={props.messageId}
-            defaultMessage={props.defaultMessage}
-          />
-        </Text>
+        <Text style={styles.text}>{props.text}</Text>
       </View>
-      <ArrowRightIcon onPress={props.onPress} />
-    </View>
+      <ArrowRightIcon />
+    </Button>
   );
 };
 
@@ -28,7 +22,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#fff",
   },
   textIcon: {
     flexDirection: "row",

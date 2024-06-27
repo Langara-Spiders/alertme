@@ -1,9 +1,6 @@
 // Cards
 
-export {
-  default as GreatWorkCard,
-  default as GreatWorkCard,
-} from "./cards/GreatWorkCard";
+export { default as GreatWorkCard } from "./cards/GreatWorkCard";
 export { default as IncidentCard } from "./cards/IncidentCard";
 export { default as LeaderBoardCard } from "./cards/LeaderBoardCard";
 export { default as LoginAsCard } from "./cards/LoginAsCard";
@@ -17,8 +14,8 @@ export { default as TopThreeCard } from "./cards/TopThreeCard";
 export { default as UpVoteCard } from "./cards/UpVoteCard";
 export { default as CheckboxWithText } from "./CheckboxWithText";
 export { default as IncidentImageUpload } from "./IncidentImageUpload";
-export { default as CategoriesModal } from "./modals/CategoriesModal";
 export { default as LocationInput } from "./LocationInput";
+export { default as CategoriesModal } from "./modals/CategoriesModal";
 export { default as Modal } from "./modals/Modal";
 export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as UpVoteModal } from "./modals/UpVoteModal";
