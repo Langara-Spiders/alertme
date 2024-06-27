@@ -1,12 +1,16 @@
 import { Card, Heading, Image, Text, View } from "@gluestack-ui/themed";
-import { StyleSheet } from "react-native";
 import { StatusBadge, UpvoteButton } from "../../atoms";
+
+import { StyleSheet } from "react-native";
 
 const IncidentCard = (props) => {
   return (
     <Card style={styles.card}>
       <View style={styles.infoContainer}>
         <View style={styles.statusContainer}>
+          <Text style={[styles.statusText, styles[props.status.toLowerCase()]]}>
+            {props.status}
+          </Text>
           <StatusBadge status={props.status} />
         </View>
         <Heading style={styles.title}>{props.subject}</Heading>

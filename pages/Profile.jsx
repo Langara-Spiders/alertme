@@ -47,7 +47,8 @@ const Profile = (props) => {
         </View>
       </View>
       <View style={styles.content}>
-        <ProfileItemsList navigation={props.navigation} />
+        <ProfileItemsList />
+        {/* <GreatWorkCard /> */}
       </View>
       <View style={styles.content2}>
         <Link onPress={() => logoutAPICall()}>
