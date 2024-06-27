@@ -25,12 +25,12 @@ import {
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { IncidentCard, SuccessCard } from "../components/molecules";
-import { routes } from "../constants";
 
 import { FormattedMessage } from "react-intl";
 import { getNearbyIncident } from "../api/incident";
 import { Button } from "../components/atoms";
 import { DBottomSheet } from "../components/organisms";
+import { routes } from "../constants";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -148,13 +148,21 @@ const Home = ({ navigation, route }) => {
             onPress={() => setQuickViewIssue({})}
             style={styles.incidentQuickViewContainer}
           >
-            <IncidentCard
-              status={quickViewIssue?.status}
-              subject={quickViewIssue?.subject}
-              description={quickViewIssue?.description}
-              created_at={quickViewIssue?.created_at}
-              upvote_count={quickViewIssue?.upvote_count}
-            />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(routes.INCIDENT_DETAIL, {
+                  incident: quickViewIssue,
+                })
+              }
+            >
+              <IncidentCard
+                status={quickViewIssue?.status}
+                subject={quickViewIssue?.subject}
+                description={quickViewIssue?.description}
+                created_at={quickViewIssue?.created_at}
+                upvote_count={quickViewIssue?.upvote_count}
+              />
+            </TouchableOpacity>
           </TouchableOpacity>
         ) : null}
       </View>
