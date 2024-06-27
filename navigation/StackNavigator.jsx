@@ -1,12 +1,13 @@
-import { Icon, StarIcon } from "@gluestack-ui/themed";
 import * as React from "react";
 
+import { Icon, StarIcon } from "@gluestack-ui/themed";
 import {
   AppSetting,
   IncidentDetail,
   Leaderboard,
   NearByActiveIssues,
   Notifications,
+  ProfileDetails,
   ReportIncident,
 } from "../pages";
 
@@ -66,6 +67,14 @@ const StackNavigator = (props) => {
       <Stack.Screen
         name={routes.APP_SETTING}
         component={AppSetting}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={routes.PROFILE_DETAILS}
+        component={ProfileDetails}
         options={{
           headerShown: true,
           headerBackTitleVisible: false,

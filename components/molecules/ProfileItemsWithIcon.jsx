@@ -1,4 +1,10 @@
-import { ArrowRightIcon, Pressable, Text, View } from "@gluestack-ui/themed";
+import {
+  ArrowRightIcon,
+  Button,
+  Pressable,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
@@ -12,7 +18,7 @@ const ProfileItemsWithIcon = (props) => {
     navigation.navigate(props.screen);
   };
   return (
-    <View style={styles.container}>
+    <Button style={styles.container} onPress={handlePress}>
       <View style={styles.textIcon}>
         <SvgUri width="30" height="30" source={props.icon} />
         <Text style={styles.text}>
@@ -22,10 +28,10 @@ const ProfileItemsWithIcon = (props) => {
           />
         </Text>
       </View>
-      <Pressable onPress={handlePress}>
+      <Pressable>
         <ArrowRightIcon style={styles.arrowIcon} />
       </Pressable>
-    </View>
+    </Button>
   );
 };
 
@@ -37,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     margin: 10,
+    backgroundColor: "transparent",
   },
   textIcon: {
     flexDirection: "row",

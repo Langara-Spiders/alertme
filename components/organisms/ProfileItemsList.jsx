@@ -12,7 +12,7 @@ const ProfileItemsList = (props) => {
       icon: ProfileUser,
       messageId: "profiledetails.icon.message",
       defaultMessage: "Profile Details",
-      screen: "ProfileDetails",
+      screen: "Profile Details",
     },
     {
       icon: Setting,

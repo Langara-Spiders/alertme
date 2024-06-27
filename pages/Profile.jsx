@@ -45,7 +45,7 @@ const Profile = (props) => {
           </View>
         </View>
       </View>
-      <View style={styles.content}>
+      <View style={styles.content1}>
         <ProfileItemsList navigation={props.navigation} />
         {/* <GreatWorkCard /> */}
       </View>
@@ -102,6 +102,10 @@ const styles = StyleSheet.create({
   phone: {
     fontSize: 14,
     color: "#000",
+  },
+  content1: {
+    margin: 0,
+    marginTop: 30,
   },
   content: {
     flex: 1,
