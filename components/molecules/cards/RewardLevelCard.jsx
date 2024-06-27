@@ -18,7 +18,7 @@ const RewardLevelCard = (props) => {
           />{" "}
           {props.level}
         </Typography>
-        <Typography style={styles.subtitleText}>{props.subtitle}</Typography>
+        <Typography style={styles.subtitleText}>Incident Reported</Typography>
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
             <Typography style={styles.statLabel}>
@@ -27,7 +27,7 @@ const RewardLevelCard = (props) => {
                 defaultMessage="Earned Points"
               />
             </Typography>
-            <Typography style={styles.statValue}>{props.completed}</Typography>
+            <Typography style={styles.statValue}>{props.earned}</Typography>
           </View>
           <View style={styles.statAdjusted}>
             <Typography style={styles.statLabel}>
@@ -36,7 +36,7 @@ const RewardLevelCard = (props) => {
                 defaultMessage=" Issues Reported"
               />
             </Typography>
-            <Typography style={styles.statValue}>{props.progress}</Typography>
+            <Typography style={styles.statValue}>{props.reported}</Typography>
           </View>
         </View>
       </View>

@@ -1,29 +1,22 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import { getReward } from "../api/user";
+import ABCD from "../assets/images/sample_user.png";
 import {
   LeaderBoardCard,
   RewardGreetingCard,
   RewardLevelCard,
 } from "../components/molecules";
-
-import { useNavigation } from "@react-navigation/native";
-import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
 
 /* The `mockData` constant is storing a mock data object 
 that represents user and leaderboard
 information. Here's a breakdown of the data structure: */
+
 const mockData = {
-  user: {
-    name: "Maya",
-    avatar: ABCD,
-    level: 3,
-    subtitle: "Incident Reported",
-    completed: 312,
-    progress: "05",
-  },
   leaderboard: [
     { avatar: ABCD, name: "Dulce Carder", level: 15, points: 13343 },
     { avatar: ABCD, name: "Craig Septimus", level: 14, points: 12104 },
@@ -46,10 +39,13 @@ const Rewards = (props) => {
 is used to perform side effects in a functional
 component. In this specific case: setData, setLoading*/
   useEffect(() => {
-    setTimeout(() => {
-      setData(mockData);
+    const fetchData = async () => {
+      const rewardData = await getReward();
+      setData(rewardData[0]);
       setLoading(false);
-    }, 2000);
+    };
+
+    fetchData();
   }, []);
 
   /* The `if (loading)` block in the `Rewards` component is a 
@@ -71,7 +67,10 @@ a level card, and a scrollable leaderboard.*/
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <RewardGreetingCard name={data.user.name} avatar={data.user.avatar} />
+        <RewardGreetingCard
+          name={data.name}
+          avatar={data.picture ?? "https://picsum.photos/200/300"}
+        />
       </View>
       <View>
         <Text style={styles.levelCardText}>
@@ -83,13 +82,7 @@ a level card, and a scrollable leaderboard.*/
         </Text>
       </View>
       <View style={styles.levelCardContainer}>
-        <RewardLevelCard
-          level={data.user.level}
-          subtitle={data.user.subtitle}
-          completed={data.user.completed.toString()}
-          progress={data.user.progress}
-          icon={ABCD}
-        />
+        <RewardLevelCard level="3" earned="214" reported="58" icon={ABCD} />
       </View>
       <View style={styles.leaderboardHeader}>
         <Text style={styles.leaderboardText}>
@@ -101,7 +94,7 @@ a level card, and a scrollable leaderboard.*/
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(routes.LEADERBOARD, {
-              leaderboard: data.leaderboard,
+              leaderboard: mockData.leaderboard,
             })
           }
         >
@@ -109,7 +102,7 @@ a level card, and a scrollable leaderboard.*/
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.leaderboardContainer}>
-        {data.leaderboard.map((leader, index) => (
+        {mockData.leaderboard.map((leader, index) => (
           <LeaderBoardCard
             key={index}
             avatar={leader.avatar}
