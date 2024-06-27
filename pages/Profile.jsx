@@ -1,6 +1,7 @@
 import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
 import { Dimensions, StyleSheet } from "react-native";
 
+import axios from "axios";
 import { logout } from "../api";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
 import { routes } from "../constants";
@@ -15,11 +16,9 @@ const Profile = (props) => {
 
   const logoutAPICall = async () => {
     const response = await logout(access_token);
-    if (response.status === 200) {
+    if (response.status == 200) {
       resetUser();
-      axios.defaults.headers.common = {
-        Authorization: ``,
-      };
+      axios.defaults.headers.common["Authorization"] = "";
       navigation.navigate(routes.LOGIN);
     }
   };

@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+
 import {
   BellIcon,
   ButtonIcon,
@@ -10,18 +12,19 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import {
   Animated,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
+import { IncidentCard, SuccessCard } from "../components/molecules";
+import { routes, userGroups } from "../constants";
+
+import { FormattedMessage } from "react-intl";
 import MapView from "react-native-maps";
 import { Button } from "../components/atoms";
-import { IncidentCard, SuccessCard } from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
-import { routes, userGroups } from "../constants";
 import { DateTime } from "../utils";
 
 const user_type = {
@@ -188,6 +191,21 @@ const Home = ({ navigation, route }) => {
       }, 2000);
     }
   }, [successType]);
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    const { coords } = location ?? {};
+    return coords ?? {};
+  };
+
+  // const getNearbyIncidentAPICall = async (lat, lng) => {
+  //   const response = await getNearbyIncident(lat, lng);
+  //   console.log(response);
+  // };
 
   const handleCardPress = (incident) => {
     setIsSheetVisible(false);

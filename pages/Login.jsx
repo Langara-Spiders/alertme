@@ -30,9 +30,7 @@ const Login = (props) => {
       const { token } = response?.data;
       setUser(token, access_token);
       // add token to auth headers
-      axios.defaults.headers.common = {
-        Authorization: `Bearer ${token}`,
-      };
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       navigation.navigate(routes.MAIN);
     }
   };
