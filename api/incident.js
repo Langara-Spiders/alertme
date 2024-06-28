@@ -23,4 +23,30 @@ const getMyIssues = async () => {
   }
 };
 
-export { getNearbyIncident, getMyIssues };
+const getCategories = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/incidents/category`);
+    return res.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+const postIssue = async (report) => {
+  try {
+    const formData = new FormData();
+    formData.append("report", JSON.stringify(report));
+    const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res.data.data;
+  } catch (error) {
+    console.error(error);
+    return {};
+  }
+};
+
+export { getNearbyIncident, getMyIssues, getCategories, postIssue };

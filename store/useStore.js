@@ -9,6 +9,7 @@ const useStore = create(
       user: {
         id: "",
         name: "",
+        email: "",
         projectId: "",
         isStaff: "",
         token: "",
@@ -24,6 +25,7 @@ const useStore = create(
             ...state.user,
             id: userInfo._id,
             name: userInfo.name,
+            email: userInfo.email,
             projectId: userInfo.project_id,
             isStaff: userInfo.is_staff,
             token,
@@ -37,6 +39,7 @@ const useStore = create(
           user: {
             id: "",
             name: "",
+            email: "",
             projectId: "",
             isStaff: "",
             token: "",

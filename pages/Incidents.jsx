@@ -9,6 +9,7 @@ import {
 } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+
 import { getMyIssues } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
 
@@ -20,17 +21,19 @@ const Incidents = (props) => {
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    const fetchIncidents = async () => {
-      const data = await getMyIssues();
-      if (Array.isArray(data)) {
-        setIncidents(data);
-      } else {
-        console.error("Data is not an array:", data);
-      }
-    };
-
     fetchIncidents();
+    const interval = setInterval(fetchIncidents, 5000);
+    return () => clearInterval(interval);
   }, []);
+
+  const fetchIncidents = async () => {
+    const data = await getMyIssues();
+    if (Array.isArray(data)) {
+      setIncidents(data);
+    } else {
+      console.error("Data is not an array:", data);
+    }
+  };
 
   const renderItem = ({ item }) => (
     <IncidentCard
@@ -40,7 +43,7 @@ const Incidents = (props) => {
       status={item.status}
       created_at={item.created_at}
       image={item.image}
-      streetAddress={item.address.street_address}
+      streetAddress={item.address.address_line1}
       distance={item.distance}
       incident_category_name={item.incident_category_name}
       reported_by={item.reported_by}
@@ -48,6 +51,7 @@ const Incidents = (props) => {
       user_id={item.user_id}
       is_accepted_by_org={item.is_accepted_by_org}
       user_name={item.user_name}
+      coordinate={item.coordinate}
     />
   );
 

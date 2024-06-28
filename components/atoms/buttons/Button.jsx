@@ -10,9 +10,9 @@ const Button = (props) => {
       action={props.action ?? "primary"}
       isDisabled={props.isDisabled ?? false}
       onPress={props.onPress}
-      style={props.style?.button ?? styles.button}
+      style={[styles.button, props.style?.button]}
     >
-      <ButtonText style={props.style?.buttonText ?? styles.buttonText}>
+      <ButtonText style={[styles.buttonText, props.style?.buttonText]}>
         {props.children}
       </ButtonText>
     </ButtonGS>

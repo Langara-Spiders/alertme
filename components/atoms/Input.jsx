@@ -19,15 +19,19 @@ const Input = (props) => {
         action={props.action ?? "primary"}
         isDisabled={props.isDisabled ?? false}
         style={[styles.container, props.style]}
-        onChange={props.onChange}
-        value={props.value}
+        isReadOnly={props.isReadOnly ?? false}
       >
         {props.icon && (
           <InputSlot style={props.iconSlotStyle}>
             <SvgUri source={props.icon} width="20" height="20" />
           </InputSlot>
         )}
-        <InputField placeholder={props.placeholder} style={styles.field} />
+        <InputField
+          value={props.value}
+          onChangeText={props.onChange}
+          placeholder={props.placeholder}
+          style={styles.field}
+        />
       </InputGS>
     </View>
   );

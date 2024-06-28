@@ -1,4 +1,12 @@
-import { Image, Link, LinkText, Text, View } from "@gluestack-ui/themed";
+import {
+  Avatar,
+  AvatarFallbackText,
+  Image,
+  Link,
+  LinkText,
+  Text,
+  View,
+} from "@gluestack-ui/themed";
 import { Dimensions, StyleSheet } from "react-native";
 
 import axios from "axios";
@@ -13,6 +21,7 @@ const Profile = (props) => {
   const { navigation } = props;
   const { getUser, resetUser } = useStore();
   const { access_token } = getUser();
+  const userInfo = getUser();
 
   const logoutAPICall = async () => {
     const response = await logout(access_token);
@@ -33,15 +42,13 @@ const Profile = (props) => {
         />
         <View style={styles.overlay}>
           <View style={styles.imageContainer}>
-            <Image
-              source={require("../assets/images/User.png")}
-              style={styles.profileImage}
-              alt="userimage"
-            />
+            <Avatar style={styles.avatar}>
+              <AvatarFallbackText>{userInfo.name.charAt(0)}</AvatarFallbackText>
+            </Avatar>
           </View>
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>Maya Bergsson</Text>
-            <Text style={styles.phone}>+12347483394</Text>
+            <Text style={styles.name}>{userInfo.name}</Text>
+            <Text style={styles.phone}>{userInfo.email}</Text>
           </View>
         </View>
       </View>
@@ -75,7 +82,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: screenWidth,
     height: 200,
-    zIndex: 5,
+    zIndex: 0,
   },
   overlay: {
     flex: 1,
@@ -83,11 +90,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     position: "absolute",
-    bottom: -25,
+    bottom: -40,
   },
   imageContainer: {
-    backgroundColor: "#FFDABF",
-    borderRadius: 10,
     zIndex: 10,
   },
   profileInfo: {
@@ -117,6 +122,10 @@ const styles = StyleSheet.create({
     textAlign: "start",
     marginLeft: 16,
     textDecorationLine: "none",
+  },
+  avatar: {
+    width: 100,
+    height: 100,
   },
 });
 

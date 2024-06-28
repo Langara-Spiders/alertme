@@ -84,6 +84,7 @@ const StackNavigator = (props) => {
         name={routes.NEARBYACTIVEISSUES}
         component={NearByActiveIssues}
         options={{
+          title: "Nearby Issues",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,

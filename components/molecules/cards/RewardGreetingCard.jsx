@@ -1,10 +1,6 @@
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarImage,
-  View,
-} from "@gluestack-ui/themed";
+import { Avatar, AvatarFallbackText, View } from "@gluestack-ui/themed";
 import { FormattedMessage, useIntl } from "react-intl";
+
 import { StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
@@ -34,17 +30,9 @@ const RewardsGreetingCard = (props) => {
       </View>
 
       <Avatar style={styles.avatar}>
-        {props.avatar ? (
-          <AvatarImage
-            source={props.avatar}
-            style={styles.avatarImage}
-            alt="greeting avatar"
-          />
-        ) : (
-          <AvatarFallbackText style={styles.avatarFallbackText}>
-            {props.name.charAt(0)}
-          </AvatarFallbackText>
-        )}
+        <AvatarFallbackText style={styles.avatarFallbackText}>
+          {props.name.charAt(0)}
+        </AvatarFallbackText>
       </Avatar>
     </View>
   );

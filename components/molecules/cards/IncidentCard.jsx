@@ -6,10 +6,20 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import { StatusBadge, UpvoteButton } from "../../atoms";
+
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { routes } from "../../../constants";
-import { StatusBadge, UpvoteButton } from "../../atoms";
+
+const dateOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true,
+};
 
 const IncidentCard = (props) => {
   const navigation = useNavigation();
@@ -38,10 +48,16 @@ const IncidentCard = (props) => {
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
               <Text style={styles.locationIcon}>📍</Text>
-              <Text style={styles.locationText}>{props.streetAddress}</Text>
+              <Text
+                style={styles.locationText}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {props.streetAddress}
+              </Text>
             </View>
             <Text style={styles.timeText}>
-              {new Date(props.created_at).toLocaleString()}
+              {new Date(props.created_at).toLocaleString("en-US", dateOptions)}
             </Text>
           </View>
         </View>
