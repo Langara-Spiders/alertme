@@ -38,7 +38,7 @@ export default function App() {
     >
       <SafeAreaView style={{ flex: 1 }}>
         <GluestackUIProvider config={configLight}>
-          <StatusBar barStyle="light-content" backgroundColor="black" />
+          <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
           <RootNavigator />
         </GluestackUIProvider>
       </SafeAreaView>

@@ -1,16 +1,10 @@
 import * as Location from "expo-location";
 
 import {
-  ArrowUpIcon,
-  BellIcon,
-  ButtonIcon,
-  EditIcon,
-  Icon,
   Input,
   InputField,
   InputIcon,
   InputSlot,
-  MenuIcon,
   SearchIcon,
   Text,
   View,
@@ -27,8 +21,12 @@ import MapView, { Marker } from "react-native-maps";
 import { IncidentCard, SuccessCard } from "../components/molecules";
 
 import { FormattedMessage } from "react-intl";
+import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
-import { Button } from "../components/atoms";
+import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
+import BellIcon from "../assets/icons/bell-icon.svg";
+import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
+import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 
@@ -129,20 +127,32 @@ const Home = ({ navigation, route }) => {
         </Animated.View>
       )}
       <View style={styles.searchContainer}>
-        <Input style={{ flex: 1, backgroundColor: "white" }}>
+        <Input
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            height: 48,
+            borderRadius: 12,
+            marginRight: 10,
+          }}
+        >
           <InputSlot pl="$3">
             <InputIcon as={SearchIcon} />
           </InputSlot>
           <InputField placeholder="Search..." />
         </Input>
-        <Button
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate(routes.NOTIFICATIONS);
-          }}
+        <TouchableOpacity
+          onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
-          <ButtonIcon as={BellIcon} />
-        </Button>
+          <View
+            style={styles.notificationButton}
+            onPress={() => {
+              navigation.navigate(routes.NOTIFICATIONS);
+            }}
+          >
+            <SvgUri width="16" height="18" source={BellIcon} />
+          </View>
+        </TouchableOpacity>
         {Object.values(quickViewIssue).length ? (
           <TouchableOpacity
             onPress={() => setQuickViewIssue({})}
@@ -204,8 +214,8 @@ const Home = ({ navigation, route }) => {
         </MapView>
         <View style={styles.buttonsContainerLeft}>
           <TouchableOpacity onPress={() => handleRecenter()}>
-            <View>
-              <Icon as={ArrowUpIcon} color="#ffffff" />
+            <View style={styles.locationIcon}>
+              <SvgUri width="48" height="48" source={CurrentLocationIcon} />
             </View>
           </TouchableOpacity>
         </View>
@@ -214,7 +224,9 @@ const Home = ({ navigation, route }) => {
             onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}
           >
             <View style={styles.addIssueButton}>
-              <Icon as={EditIcon} color="#ffffff" />
+              <View style={styles.addIssueIcon}>
+                <SvgUri width="28" height="28" source={AddIssueIcon} />
+              </View>
               <Text style={styles.addIssueText}>
                 <FormattedMessage
                   id="home.addIsuue"
@@ -225,7 +237,9 @@ const Home = ({ navigation, route }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
             <View style={styles.nearbyIssueButton}>
-              <Icon as={MenuIcon} color="#ffffff" />
+              <View style={styles.nearbyIssueIcon}>
+                <SvgUri width="28" height="28" source={NearbyIssuesIcon} />
+              </View>
               <Text style={styles.addIssueText}>
                 <FormattedMessage
                   id="home.nearbyIssues"
@@ -383,7 +397,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  addIssueIcon: {
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+  },
   nearbyIssueButton: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  nearbyIssueIcon: {
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+  },
+  addIssueIcon: {
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+  },
+  notificationButton: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    width: 48,
+    height: 48,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
