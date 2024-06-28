@@ -35,28 +35,27 @@ const screenHeight = Dimensions.get("window").height;
 
 const Home = ({ navigation, route }) => {
   const [nearbyIssues, setNearbyIssues] = useState([]);
+  const [showQuickView, setShowQuickView] = useState(false);
   const [quickViewIssue, setQuickViewIssue] = useState({});
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const mapRef = useRef(null);
 
-  const { successType } = route?.params ?? {};
+  const { successType, coordinate } = route?.params ?? {};
 
   // ######################## USE EFFECTS ########################
 
   useEffect(() => {
-    if (
-      successType?.startsWith("upvoted") ||
-      successType?.startsWith("confirm") ||
-      successType?.startsWith("approve") ||
-      successType?.startsWith("reject") ||
-      successType?.startsWith("post")
-    ) {
+    if (successType && !successType.startsWith("animate")) {
       setShowSuccessCard(true);
       setTimeout(() => {
         setShowSuccessCard(false);
       }, 2000);
+    }
+    if (successType?.startsWith("post") || successType?.startsWith("animate")) {
+      console.log(coordinate);
+      animateToMap(coordinate?.lat, coordinate?.lng);
     }
   }, [successType]);
 
@@ -93,7 +92,6 @@ const Home = ({ navigation, route }) => {
   // ######################## API CALLS ########################
 
   const handleCardPress = (incident) => {
-    setIsSheetVisible(false);
     navigation.navigate(routes.INCIDENT_DETAIL, { incident });
   };
 
@@ -103,11 +101,12 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleMarkerPress = (issue) => {
+    setQuickViewIssue({});
+    setShowQuickView(true);
     setQuickViewIssue(issue);
   };
 
-  const handleRecenter = async () => {
-    const { latitude, longitude } = await getLocation();
+  const animateToMap = (latitude, longitude) => {
     mapRef?.current?.animateToRegion(
       {
         latitude: latitude,
@@ -117,6 +116,11 @@ const Home = ({ navigation, route }) => {
       },
       1000
     );
+  };
+
+  const handleRecenter = async () => {
+    const { latitude, longitude } = await getLocation();
+    animateToMap(latitude, longitude);
   };
 
   return (
@@ -153,9 +157,9 @@ const Home = ({ navigation, route }) => {
             <SvgUri width="16" height="18" source={BellIcon} />
           </View>
         </TouchableOpacity>
-        {Object.values(quickViewIssue).length ? (
+        {showQuickView ? (
           <TouchableOpacity
-            onPress={() => setQuickViewIssue({})}
+            onPress={() => setShowQuickView(false)}
             style={styles.incidentQuickViewContainer}
           >
             <TouchableOpacity
@@ -169,6 +173,7 @@ const Home = ({ navigation, route }) => {
                 status={quickViewIssue?.status}
                 subject={quickViewIssue?.subject}
                 description={quickViewIssue?.description}
+                streetAddress={quickViewIssue?.address?.address_line1}
                 created_at={quickViewIssue?.created_at}
                 upvote_count={quickViewIssue?.upvote_count}
               />
@@ -213,7 +218,7 @@ const Home = ({ navigation, route }) => {
           })}
         </MapView>
         <View style={styles.buttonsContainerLeft}>
-          <TouchableOpacity onPress={() => handleRecenter()}>
+          <TouchableOpacity onPress={handleRecenter}>
             <View style={styles.locationIcon}>
               <SvgUri width="48" height="48" source={CurrentLocationIcon} />
             </View>
@@ -265,7 +270,7 @@ const Home = ({ navigation, route }) => {
             onPress={() => {
               setIsSheetVisible(false);
               navigation.navigate(routes.NEARBYACTIVEISSUES, {
-                incidents: incidentsArray,
+                incidents: nearbyIssues,
               });
             }}
           >
@@ -275,7 +280,10 @@ const Home = ({ navigation, route }) => {
         {nearbyIssues?.map((issue) => (
           <TouchableWithoutFeedback
             key={issue.id}
-            onPress={() => handleCardPress(issue)}
+            onPress={() => {
+              setIsSheetVisible(false);
+              handleCardPress(issue);
+            }}
           >
             <View>
               <IncidentCard

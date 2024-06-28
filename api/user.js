@@ -1,7 +1,7 @@
+import { API_BASE_URL, OAUTH_REVOKE_URL } from "./constants";
+
 import axios from "axios";
 import { Platform } from "react-native";
-import useStore from "../store/useStore";
-import { API_BASE_URL, OAUTH_REVOKE_URL } from "./constants";
 
 const login = async (token) => {
   try {
@@ -32,12 +32,7 @@ const logout = async (access_token) => {
 
 const getReward = async () => {
   try {
-    const { token } = useStore.getState().getUser();
-    const res = await axios.get(`${API_BASE_URL}/users/reward`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.get(`${API_BASE_URL}/users/reward`);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -45,4 +40,14 @@ const getReward = async () => {
   }
 };
 
-export { login, logout, getReward };
+const getProfile = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/users/profile`);
+    return res.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+export { login, logout, getReward, getProfile };

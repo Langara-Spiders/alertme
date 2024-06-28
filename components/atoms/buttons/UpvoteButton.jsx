@@ -13,7 +13,7 @@ const UpvoteButton = (props) => {
         <Text style={styles.text}>
           <FormattedMessage
             id="atom.upvotebuttontext"
-            defaultMessage="🔺 Upvote"
+            defaultMessage="🔺 Upvote "
           />
           {props.upvote}
         </Text>

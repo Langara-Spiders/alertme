@@ -1,44 +1,30 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-const CategoriesModal = ({ onSelectCategory }) => {
-  const categories = [
-    { name: "Hazard", image: require("../../../assets/images/User.png") },
-    {
-      name: "Heavy Machinery",
-      image: require("../../../assets/images/User.png"),
-    },
-    { name: "Construction", image: require("../../../assets/images/User.png") },
-    { name: "Oil", image: require("../../../assets/images/User.png") },
-    { name: "Ice on Road", image: require("../../../assets/images/User.png") },
-    {
-      name: "Electrical Fault",
-      image: require("../../../assets/images/User.png"),
-    },
-    {
-      name: "Chemical Spill",
-      image: require("../../../assets/images/User.png"),
-    },
-  ];
-
+const CategoriesModal = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {categories.map((category, index) => (
-          <View key={index} style={styles.buttonContainer}>
+        <View style={styles.container}>
+          {props?.categoriesList?.map((category) => (
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => onSelectCategory(category)}
+              key={category.id}
+              onPress={() => props?.onSelectCategory(category)}
             >
-              <Image
-                source={category.image}
-                style={styles.image}
-                alt="category image"
-              />
+              <View
+                style={[
+                  styles.button,
+                  props.selectedCategory?.id === category.id
+                    ? styles.highlight
+                    : null,
+                ]}
+              >
+                <Image width="24" height="24" source={{ uri: category.icon }} />
+                <Text style={styles.labelText}>{category.name}</Text>
+              </View>
             </TouchableOpacity>
-            <Text style={styles.labelText}>{category.name}</Text>
-          </View>
-        ))}
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -49,23 +35,20 @@ export default CategoriesModal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 10,
     alignItems: "center",
+    flexDirection: "row",
     justifyContent: "center",
-  },
-  buttonContainer: {
-    width: 65, // Fixed width for uniformity
-    alignItems: "center",
-    marginHorizontal: 10, // Consistent horizontal space
-    marginBottom: 20,
-    height: "100%",
+    paddingHorizontal: 5,
   },
   button: {
-    width: 62,
+    display: "flex",
+    alignItems: "center",
+    width: 70,
     height: 62,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#007bff",
-    borderRadius: 5,
+    borderRadius: 8,
+    backgroundColor: "#F3F4F4",
   },
   image: {
     width: "100%",
@@ -73,11 +56,15 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   labelText: {
-    width: "100%", // Ensure text width matches container width
+    width: "100%",
     fontSize: 10,
     marginTop: 8,
     color: "black",
     textAlign: "center",
     flexWrap: "wrap",
+  },
+  highlight: {
+    borderWidth: 2,
+    borderColor: "#FF6B00",
   },
 });

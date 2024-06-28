@@ -1,9 +1,10 @@
 import { Image, Text, View } from "@gluestack-ui/themed";
-import { uniqueId } from "lodash";
 import React, { useState } from "react";
-import { Modal, StyleSheet } from "react-native";
+import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+
+import { uniqueId } from "lodash";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
@@ -40,7 +41,6 @@ const IncidentDetail = ({ route, navigation }) => {
         successType = `resolve-${uniqueId()}`;
         break;
     }
-    console.log(successType);
     navigation.navigate(routes.HOME, { successType });
   };
 
@@ -93,13 +93,23 @@ const IncidentDetail = ({ route, navigation }) => {
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.title}>{incident.distance}</Text>
         <Text style={styles.heading}>Incident Location</Text>
-        <Text>
-          {incident.streetAddress}, <Text style={styles.viewMap}>View Map</Text>
-        </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.HOME, {
+              successType: `animateTo-${uniqueId()}`,
+              coordinate: incident?.coordinate,
+            })
+          }
+        >
+          <Text>
+            {incident.streetAddress},{" "}
+            <Text style={styles.viewMap}>View Map</Text>
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
           <Image
-            source={{ uri: "https://picsum.photos/200/300" }}
+            source={{ uri: "https://place-hold.it/300" }}
             style={styles.typeIcon}
             alt="category icon"
           />
@@ -146,6 +156,7 @@ const IncidentDetail = ({ route, navigation }) => {
               <PostedByCard
                 name={incident.user_name}
                 created_at={incident.created_at}
+                user_picture={incident.user_picture}
               />
             </View>
             <View style={styles.upvoteCardContainer}>

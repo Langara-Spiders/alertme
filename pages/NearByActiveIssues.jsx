@@ -1,4 +1,5 @@
 import { ScrollView, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 import { IncidentCard } from "../components/molecules";
 import { DateTime } from "../utils";
@@ -31,7 +32,7 @@ const NearByActiveIssues = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 20,
+    padding: 20,
   },
   cardContainer: {
     marginBottom: 10,

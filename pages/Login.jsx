@@ -95,14 +95,26 @@ const Login = (props) => {
             />
           </Text>
         </View>
-        <Button onPress={() => promptAsync()} style={styles.button}>
-          <Text>
+        <View
+          style={{
+            display: "flex",
+            padding: 20,
+          }}
+        >
+          <Button
+            onPress={() => promptAsync()}
+            style={{
+              button: {
+                backgroundColor: "#4687F5",
+              },
+            }}
+          >
             <FormattedMessage
               id="loginpage.loginwithgoogle"
               defaultMessage="Login with Google"
             />
-          </Text>
-        </Button>
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -166,6 +178,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
+    color: "white",
   },
 });
 

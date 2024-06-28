@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+
 import {
   ArrowLeftIcon,
   Icon,
@@ -5,9 +7,7 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
-import { uniqueId } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
   KeyboardAvoidingView,
@@ -15,12 +15,17 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import { getCategories, getReverseGeoCoding, postIssue } from "../api";
 import { Button, Input } from "../components/atoms";
 import {
   CategoriesModal,
   IncidentImageUpload,
+  LocationInput,
   ReadyToPostModal,
 } from "../components/molecules";
+
+import { useNavigation } from "@react-navigation/native";
+import { uniqueId } from "lodash";
 import { routes } from "../constants";
 
 const user_type = {
@@ -29,12 +34,43 @@ const user_type = {
 
 const ReportIncident = () => {
   const intl = useIntl();
-  const [incidentCategory, setIncidentCategory] = useState("");
-  const [incidentType, setIncidentType] = useState("");
-  const [incidentLocation, setIncidentLocation] = useState("");
+  const [address, setAddress] = useState({});
+  const [categoryList, setCategoryList] = useState([]);
+  const [incidentSubject, setIncidentSubject] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState({});
+  const [coords, setCoords] = useState({});
   const [incidentDescription, setIncidentDescription] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getCategoriesAPICall();
+  }, []);
+
+  const getCategoriesAPICall = async () => {
+    const response = await getCategories();
+    setCategoryList(response?.data ?? []);
+  };
+
+  const changeAddress = async () => {
+    const { latitude, longitude } = await getLocation();
+    setCoords({
+      lat: latitude,
+      lng: longitude,
+    });
+    const response = await getReverseGeoCoding(latitude, longitude);
+    setAddress(response);
+  };
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    const { coords } = location ?? {};
+    return coords ?? {};
+  };
 
   const handlePostIncident = () => {
     setShowConfirmation(true);
@@ -45,14 +81,26 @@ const ReportIncident = () => {
   };
 
   const handleCategorySelect = (category) => {
-    console.log("Selected Category:", category);
+    setSelectedCategory(category);
   };
 
-  const handleConfirmPost = () => {
-    setShowConfirmation(false);
-    successType = `post-${uniqueId()}`;
-
-    navigation.navigate(routes.HOME, { successType });
+  const handleConfirmPost = async () => {
+    const report = {
+      category_id: selectedCategory?.id,
+      subject: incidentSubject,
+      description: incidentDescription,
+      coordinate: coords,
+      address: {
+        address_line1: "",
+      },
+      is_internal_for_org: false,
+    };
+    const res = await postIssue(report);
+    const successType = `post-${uniqueId()}`;
+    navigation.navigate(routes.HOME, {
+      successType,
+      coordinate: res?.coordinate,
+    });
   };
 
   return (
@@ -83,55 +131,43 @@ const ReportIncident = () => {
               <Text style={styles.title}>
                 <FormattedMessage
                   id="reportIncident.categories"
-                  defaultMessage="Incident Category:"
+                  defaultMessage="Issue Category:"
                 />
               </Text>
-              <CategoriesModal onSelectCategory={handleCategorySelect} />
+              <CategoriesModal
+                selectedCategory={selectedCategory}
+                categoriesList={categoryList}
+                onSelectCategory={handleCategorySelect}
+              />
             </View>
-            <Text style={styles.title}>
-              <FormattedMessage
-                id="reportIncident.incidentType"
-                defaultMessage="Incident Type:"
-              />
-            </Text>
             <Input
-              style={styles.input}
-              placeholder={intl.formatMessage({
-                id: "reportIncident.input.incidentType",
-                defaultMessage: "Incident Type",
+              label={intl.formatMessage({
+                id: "reportIncident.inputLabel.incidentType",
+                defaultMessage: "Issue Type *",
               })}
-              value={incidentType}
-              onChangeText={setIncidentType}
-            />
-            <Text style={styles.title}>
-              <FormattedMessage
-                id="reportIncident.Location"
-                defaultMessage="Location:"
-              />
-            </Text>
-            <Input
-              style={styles.input}
               placeholder={intl.formatMessage({
-                id: "reportIncident.input.incidentLocation",
-                defaultMessage: "Location",
+                id: "reportIncident.inputPlaceholder.incidentSubject",
+                defaultMessage: "Issue Subject",
               })}
-              value={incidentLocation}
-              onChangeText={setIncidentLocation}
+              value={incidentSubject}
+              onChange={(text) => {
+                setIncidentSubject(text);
+              }}
             />
-            <Text style={styles.title}>
-              <FormattedMessage
-                id="reportIncident.Description"
-                defaultMessage="Description"
-              />
-            </Text>
+            <LocationInput value={address} onChange={changeAddress} />
             <Input
-              style={styles.textArea}
+              label={intl.formatMessage({
+                id: "reportIncident.description",
+                defaultMessage: "Description *",
+              })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.input.incidentDescription",
-                defaultMessage: "Incident Description",
+                defaultMessage: "Issue Description",
               })}
               value={incidentDescription}
-              onChangeText={setIncidentDescription}
+              onChange={(text) => {
+                setIncidentDescription(text);
+              }}
               multiline
             />
             <Button onPress={handlePostIncident}>
@@ -170,7 +206,6 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
-    marginTop: 16,
   },
   headerText: {
     marginLeft: 10,
@@ -180,7 +215,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "400",
-    marginBottom: 5,
+    color: "black",
+    marginLeft: 10,
   },
   input: {
     height: 40,

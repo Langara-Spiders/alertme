@@ -1,2 +1,3 @@
-export { getMyIssues } from "./incident";
-export { getReward, login, logout } from "./user";
+export { getReverseGeoCoding } from "./geoLocation";
+export { getCategories, getMyIssues, postIssue } from "./incident";
+export { getProfile, getReward, login, logout } from "./user";
