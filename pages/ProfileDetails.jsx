@@ -1,16 +1,18 @@
 import { Text, View } from "@gluestack-ui/themed";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
 
 import { StyleSheet } from "react-native";
+import { getProfile } from "../api/user";
 import Edit from "../assets/icons/Edit.svg";
 
 const ProfileDetails = () => {
   const intl = useIntl();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
   const handleImageChange = (newImage) => {
@@ -25,9 +27,29 @@ const ProfileDetails = () => {
     setEmail(value);
   };
 
+  const handleContactChange = (value) => {
+    setContact(value);
+  };
+
   const handleImagePress = () => {
     console.log("Image Pressed");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const profileData = await getProfile();
+      console.log(profileData);
+      const {
+        data: { user },
+      } = profileData;
+      setName(user.name);
+      setEmail(user.email);
+      setContact(user.phone ?? " ");
+      setProfileImage(user.picture);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -50,6 +72,7 @@ const ProfileDetails = () => {
           defaultMessage: "Enter your name",
         })}
         onChange={handleNameChange}
+        value={name}
       />
       <Input
         label={intl.formatMessage({
@@ -72,7 +95,8 @@ const ProfileDetails = () => {
           id: "ProfileDeatails.contactinput.placeholdermessage",
           defaultMessage: "Enter your number",
         })}
-        // value={contact}
+        value={contact}
+        onChange={handleContactChange}
       />
       <LocationInput />
 
