@@ -1,17 +1,21 @@
-import { Text, View } from "@gluestack-ui/themed";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { StyleSheet, Text, View } from "react-native";
+import { getProfile } from "../api/user";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
 
-import { StyleSheet } from "react-native";
+import { getReverseGeoCoding } from "../api";
 import Edit from "../assets/icons/Edit.svg";
 
 const ProfileDetails = () => {
   const intl = useIntl();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
+  const [contact, setContact] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [initialAddress, setInitialAddress] = useState("");
 
   const handleImageChange = (newImage) => {
     setProfileImage(newImage);
@@ -25,19 +29,43 @@ const ProfileDetails = () => {
     setEmail(value);
   };
 
-  const handleImagePress = () => {
-    console.log("Image Pressed");
+  const handleContactChange = (value) => {
+    setContact(value);
   };
+
+  const fetchProfileData = async () => {
+    setLoading(true);
+    const profileData = await getProfile();
+    const {
+      data: { user },
+    } = profileData;
+
+    setName(user.name);
+    setEmail(user.email);
+    setContact(user.phone ?? " ");
+    setLatitude(user.address.lat);
+    setLongitude(user.address.lng);
+
+    const addressData = await getReverseGeoCoding(
+      user.address.lat,
+      user.address.lng
+    );
+    const fullAddress =
+      addressData.street ||
+      `${addressData.city}, ${addressData.state}, ${addressData.country}`;
+    setInitialAddress(fullAddress);
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <ProfileImageEdit
-          image={profileImage}
-          onImageChange={handleImageChange}
-          icon={Edit}
-          style={styles.image}
-        />
+        <ProfileImageEdit onImageChange={handleImageChange} icon={Edit} />
       </View>
 
       <Input
@@ -49,7 +77,9 @@ const ProfileDetails = () => {
           id: "ProfileDeatails.nameinput.placeholdermessage",
           defaultMessage: "Enter your name",
         })}
-        onChange={handleNameChange}
+        onChangeText={handleNameChange}
+        value={name}
+        required={true}
       />
       <Input
         label={intl.formatMessage({
@@ -61,7 +91,8 @@ const ProfileDetails = () => {
           defaultMessage: "Enter your email ",
         })}
         value={email}
-        onChange={handleEmailChange}
+        onChangeText={handleEmailChange}
+        required={true}
       />
       <Input
         label={intl.formatMessage({
@@ -72,11 +103,16 @@ const ProfileDetails = () => {
           id: "ProfileDeatails.contactinput.placeholdermessage",
           defaultMessage: "Enter your number",
         })}
-        // value={contact}
+        value={contact}
+        onChangeText={handleContactChange}
       />
-      <LocationInput />
+      <LocationInput
+        latitude={latitude}
+        longitude={longitude}
+        value={{ address_line1: initialAddress }}
+      />
 
-      <View style={styles.buttonConatiner}>
+      <View style={styles.buttonContainer}>
         <Button style={styles.button}>
           <Text style={styles.buttonText}>
             <FormattedMessage
@@ -103,14 +139,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     width: 100,
-    backgroundColor: "#FFDABF",
-    borderRadius: 10,
-  },
-  image: {
-    width: 100,
     height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
-  buttonConatiner: {
+  buttonContainer: {
     marginTop: 30,
   },
   buttonText: {
