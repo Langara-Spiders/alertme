@@ -20,6 +20,7 @@ const Input = (props) => {
         isDisabled={props.isDisabled ?? false}
         style={[styles.container, props.style]}
         isReadOnly={props.isReadOnly ?? false}
+        required={props.required ?? false}
       >
         {props.icon && (
           <InputSlot style={props.iconSlotStyle}>
@@ -31,6 +32,8 @@ const Input = (props) => {
           onChangeText={props.onChange}
           placeholder={props.placeholder}
           style={styles.field}
+          multiline={true}
+          scrollEnabled={true}
         />
       </InputGS>
     </View>
