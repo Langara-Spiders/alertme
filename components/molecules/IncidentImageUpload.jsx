@@ -1,11 +1,11 @@
-import { CloseIcon, Image, View } from "@gluestack-ui/themed";
+import { Image, View } from "@gluestack-ui/themed";
 import * as ImagePicker from "expo-image-picker";
-import { Camera } from "lucide-react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
-const ImagePickerComponent = () => {
-  const [images, setImages] = useState([]);
+import SvgUri from "react-native-svg-uri";
+import Cameraimg from "../../assets/icons/TakePicture.svg";
 
+const ImagePickerComponent = ({ images, setImages }) => {
   useEffect(() => {
     (async () => {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -15,6 +15,10 @@ const ImagePickerComponent = () => {
     })();
   }, []);
 
+  const getFileExtension = (filename) => {
+    return filename.split(".").pop();
+  };
+
   const handleAddImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -23,7 +27,11 @@ const ImagePickerComponent = () => {
     });
 
     if (!result.canceled) {
-      const newImages = result.assets.map((asset) => ({ uri: asset.uri }));
+      const newImages = result.assets.map((asset) => ({
+        uri: asset.uri,
+        type: getFileExtension(asset.uri), // Use URI to extract file extension
+        filename: asset.uri.split("/").pop(), // Extract filename from URI
+      }));
       setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
@@ -36,7 +44,11 @@ const ImagePickerComponent = () => {
     });
 
     if (!result.canceled) {
-      const newImage = { uri: result.assets[0].uri };
+      const newImage = {
+        uri: result.assets[0].uri,
+        type: getFileExtension(result.assets[0].uri), // Use URI to extract file extension
+        filename: result.assets[0].uri.split("/").pop(), // Extract filename from URI
+      };
       setImages((prevImages) => [...prevImages, newImage]);
     }
   };
@@ -58,32 +70,6 @@ const ImagePickerComponent = () => {
     );
   };
 
-  const renderImagePlaceholders = () => {
-    const placeholders = [];
-    for (let i = 0; i < 3; i++) {
-      if (images[i] && typeof images[i].uri === "string") {
-        placeholders.push(
-          <View key={i} style={styles.imageWrapper}>
-            <Image
-              source={{ uri: images[i].uri }}
-              style={styles.image}
-              alt={`Incident image ${i + 1}`}
-            />
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => handleDeleteImage(i)}
-            >
-              <CloseIcon size="sm" color="#fff" />
-            </TouchableOpacity>
-          </View>
-        );
-      } else {
-        placeholders.push(<View key={i} style={styles.imageWrapper} />);
-      }
-    }
-    return placeholders;
-  };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -97,7 +83,7 @@ const ImagePickerComponent = () => {
             alt="Large image placeholder"
           />
         ) : (
-          <Camera size={24} />
+          <SvgUri width="24" height="24" source={Cameraimg} />
         )}
       </TouchableOpacity>
       <View style={styles.smallImageStack}>
@@ -112,7 +98,7 @@ const ImagePickerComponent = () => {
               alt="First image"
             />
           ) : (
-            <Camera size={24} />
+            <SvgUri width="24" height="24" source={Cameraimg} />
           )}
         </TouchableOpacity>
         <TouchableOpacity
@@ -126,7 +112,7 @@ const ImagePickerComponent = () => {
               alt="Second small image"
             />
           ) : (
-            <Camera size={24} />
+            <SvgUri width="24" height="24" source={Cameraimg} />
           )}
         </TouchableOpacity>
       </View>
@@ -161,7 +147,7 @@ const styles = StyleSheet.create({
   },
   smallImageBox: {
     width: 126,
-    height: 60,
+    height: 63,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ccc",

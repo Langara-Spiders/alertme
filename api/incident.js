@@ -33,16 +33,36 @@ const getCategories = async () => {
   }
 };
 
-const postIssue = async (report) => {
+const postIssue = async (report, pictures) => {
+  console.log("Hi");
+  console.log(pictures);
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
+
+    for (let i = 0; i < pictures.length; i++) {
+      let picture = pictures[i];
+      formData.append("file", {
+        uri: picture.uri,
+        type: picture.type || `image/jpeg`,
+        name: picture.fileName || `photo_${i}.jpg`,
+      });
+    }
+
+    // pictures.forEach((image) => {
+    //   formData.append('pictures', {
+    //     uri: image.uri,
+    //     type: image.type,
+    //     name: image.fileName || 'photo.jpg'
+    //   });
+    // });
+
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    return res.data.data;
+    console.log("Success:", response.data);
   } catch (error) {
     console.error(error);
     return {};

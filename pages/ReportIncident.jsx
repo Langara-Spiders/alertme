@@ -41,6 +41,7 @@ const ReportIncident = () => {
   const [coords, setCoords] = useState({});
   const [incidentDescription, setIncidentDescription] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [images, setImages] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ const ReportIncident = () => {
   const getCategoriesAPICall = async () => {
     const response = await getCategories();
     setCategoryList(response?.data ?? []);
+    // console.log(response)
   };
 
   const changeAddress = async () => {
@@ -82,6 +84,7 @@ const ReportIncident = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    console.log(images);
   };
 
   const handleConfirmPost = async () => {
@@ -95,7 +98,7 @@ const ReportIncident = () => {
       },
       is_internal_for_org: false,
     };
-    const res = await postIssue(report);
+    const res = await postIssue(report, images);
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
@@ -121,11 +124,11 @@ const ReportIncident = () => {
             <Text style={styles.title}>
               <FormattedMessage
                 id="reportIncident.titleaddpics"
-                defaultMessage="Add Issues Pictures°"
+                defaultMessage="Add Issues Pictures*"
               />
             </Text>
             <View style={{ flex: 1 }}>
-              <IncidentImageUpload />
+              <IncidentImageUpload images={images} setImages={setImages} />
             </View>
             <View style={styles.category}>
               <Text style={styles.title}>
@@ -143,7 +146,7 @@ const ReportIncident = () => {
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.inputLabel.incidentType",
-                defaultMessage: "Issue Type *",
+                defaultMessage: "Issue Type*",
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.inputPlaceholder.incidentSubject",
@@ -158,7 +161,7 @@ const ReportIncident = () => {
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.description",
-                defaultMessage: "Description *",
+                defaultMessage: "Description*",
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.input.incidentDescription",

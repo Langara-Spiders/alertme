@@ -19,9 +19,14 @@ const CategoriesModal = (props) => {
                     : null,
                 ]}
               >
-                <Image width="24" height="24" source={{ uri: category.icon }} />
-                <Text style={styles.labelText}>{category.name}</Text>
+                <Image
+                  width="24"
+                  height="24"
+                  source={{ uri: category.icon }}
+                  alt="category image"
+                />
               </View>
+              <Text style={styles.labelText}>{category.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
