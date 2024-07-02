@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Platform } from "react-native";
+import { ResizeImage } from "../utils";
 import { API_BASE_URL } from "./constants";
 
 const getNearbyIncident = async (lat, lng) => {
@@ -40,29 +42,38 @@ const postIssue = async (report, pictures) => {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
 
-    for (let i = 0; i < pictures.length; i++) {
-      let picture = pictures[i];
-      formData.append("file", {
-        uri: picture.uri,
-        type: picture.type || `image/jpeg`,
-        name: picture.fileName || `photo_${i}.jpg`,
+    for (const picture of pictures) {
+      const { uri, type, filename } = picture;
+      const name = filename || `photo_${Date.now()}.jpg`;
+
+      const resizedUri = await ResizeImage(uri);
+
+      formData.append("pictures", {
+        uri:
+          Platform.OS === "ios"
+            ? resizedUri.replace("file://", "")
+            : resizedUri,
+        type: type || "image/jpeg",
+        name: name,
       });
     }
 
-    // pictures.forEach((image) => {
-    //   formData.append('pictures', {
-    //     uri: image.uri,
-    //     type: image.type,
-    //     name: image.fileName || 'photo.jpg'
-    //   });
-    // });
+    // // Log FormData content for debugging
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        // Include your Authorization header if required
+        // 'Authorization': 'Bearer YOUR_TOKEN',
       },
     });
-    console.log("Success:", response.data);
+
+    console.log("IS THIS SUCCESS OR NOTTTT");
+    console.log("Success:", res.data);
+    return res.data;
   } catch (error) {
     console.error(error);
     return {};
