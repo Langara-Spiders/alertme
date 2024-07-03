@@ -25,7 +25,7 @@ const IncidentCard = (props) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(routes.INCIDENT_DETAIL, { incident: props });
+    navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
   };
 
   return (
@@ -38,13 +38,13 @@ const IncidentCard = (props) => {
           <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
             {props.subject}
           </Heading>
-          <Text
-            style={styles.description}
+          <Heading
+            style={styles.distance}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {props.description}
-          </Text>
+            {props.distance.toFixed(1)} km away
+          </Heading>
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
               <Text style={styles.locationIcon}>📍</Text>
@@ -53,7 +53,7 @@ const IncidentCard = (props) => {
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {props.streetAddress}
+                {props.address.street_address}
               </Text>
             </View>
             <Text style={styles.timeText}>
@@ -63,7 +63,7 @@ const IncidentCard = (props) => {
         </View>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: props.image ?? "https://picsum.photos/200/300" }}
+            source={{ uri: props.images[0] ?? "https://picsum.photos/200/300" }}
             style={styles.image}
             alt="image"
           />
@@ -124,12 +124,18 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
+    paddingBottom: 0,
+    marginBottom: 0,
+    lineHeight: 0,
+    marginTop: 5,
   },
-  description: {
-    color: "#808080",
-    fontSize: 16,
-    marginBottom: 5,
+  distance: {
+    color: "#000000",
+    fontSize: 18,
+    lineHeight: 0,
+    paddingTop: 0,
+    fontWeight: "bold",
+    marginBottom: 0,
   },
   footer: {
     flexDirection: "column",
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: 10,
   },
   locationIcon: {
     fontSize: 16,
@@ -153,6 +159,7 @@ const styles = StyleSheet.create({
   timeText: {
     color: "#808080",
     fontSize: 12,
+    marginTop: 5,
   },
   imageContainer: {
     alignItems: "center",
@@ -162,6 +169,6 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 40,
   },
 });

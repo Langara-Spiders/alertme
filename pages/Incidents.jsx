@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 
+import * as Location from "expo-location";
 import { getMyIssues } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
 
@@ -21,39 +22,37 @@ const Incidents = (props) => {
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    fetchIncidents();
-    const interval = setInterval(fetchIncidents, 5000);
+    getMyIncidentsNearBy();
+    // handleRecenter();
+    const interval = setInterval(() => {
+      getMyIncidentsNearBy();
+    }, 5000);
+
     return () => clearInterval(interval);
   }, []);
 
-  const fetchIncidents = async () => {
-    const data = await getMyIssues();
-    if (Array.isArray(data)) {
-      setIncidents(data);
-    } else {
-      console.error("Data is not an array:", data);
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return;
     }
+    let location = await Location.getCurrentPositionAsync({});
+    const { coords } = location ?? {};
+    return coords ?? {};
   };
 
-  const renderItem = ({ item }) => (
-    <IncidentCard
-      subject={item.subject}
-      description={item.description}
-      upvote_count={item.upvote_count}
-      status={item.status}
-      created_at={item.created_at}
-      image={item.image}
-      streetAddress={item.address.address_line1}
-      distance={item.distance}
-      incident_category_name={item.incident_category_name}
-      reported_by={item.reported_by}
-      isStaff={item.isStaff}
-      user_id={item.user_id}
-      is_accepted_by_org={item.is_accepted_by_org}
-      user_name={item.user_name}
-      coordinate={item.coordinate}
-    />
-  );
+  const getMyIncidentsNearBy = async () => {
+    const { latitude, longitude } = await getLocation();
+    const response = await getMyIssues(latitude, longitude);
+    const incidentsWithDistance = response ?? [];
+
+    // Sort incidents by distance
+    incidentsWithDistance.sort((a, b) => a.distance - b.distance);
+
+    setIncidents(incidentsWithDistance);
+  };
+
+  const renderItem = ({ item }) => <IncidentCard {...item} />;
 
   const ItemSeparator = () => <View style={styles.separator} />;
 
@@ -61,14 +60,12 @@ const Incidents = (props) => {
     setActiveButton(buttonType);
   };
 
-  const filteredIncidents = Array.isArray(incidents)
-    ? incidents.filter((incident) => {
-        if (activeButton === "all") {
-          return true;
-        }
-        return incident.status.toLowerCase() === activeButton;
-      })
-    : [];
+  const filteredIncidents = incidents.filter((incident) => {
+    if (activeButton === "all") {
+      return true;
+    }
+    return incident.status.toLowerCase() === activeButton;
+  });
 
   return (
     <View style={{ flex: 1 }}>
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
-    width: (screenWidth - 10) / 5,
+    width: (screenWidth - 10) / 4,
   },
   activeButton: {
     backgroundColor: "#ff6600",
