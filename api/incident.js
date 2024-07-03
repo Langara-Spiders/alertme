@@ -34,33 +34,18 @@ const getCategories = async () => {
 };
 
 const postIssue = async (report, pictures) => {
-  console.log("Hi");
-  console.log(pictures);
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
 
-    /* let files=[]
-    for (const picture of pictures) {
-
-      files.push({
-        uri: picture.uri,
-        type: picture.type || `image/jpeg`,
-        name: picture.filename || `photo.jpg`,
-      })
-
-    } */
-
-    formData.append("pictures", pictures);
+    for (const picture of pictures) formData.append("pictures", picture);
 
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        // Include your Authorization header if required
-        // 'Authorization': 'Bearer YOUR_TOKEN',
       },
     });
-    console.log("Success:", res.data);
+    return res.data;
   } catch (error) {
     console.error(error);
     return {};

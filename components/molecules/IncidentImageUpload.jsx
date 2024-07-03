@@ -1,7 +1,9 @@
-import { Image, View } from "@gluestack-ui/themed";
 import * as ImagePicker from "expo-image-picker";
+
+import { Image, View } from "@gluestack-ui/themed";
 import React, { useEffect } from "react";
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
+
 import SvgUri from "react-native-svg-uri";
 import Cameraimg from "../../assets/icons/TakePicture.svg";
 
@@ -15,10 +17,6 @@ const ImagePickerComponent = ({ images, setImages }) => {
     })();
   }, []);
 
-  const getFileExtension = (filename) => {
-    return filename.split(".").pop();
-  };
-
   const handleAddImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -29,8 +27,8 @@ const ImagePickerComponent = ({ images, setImages }) => {
     if (!result.canceled) {
       const newImages = result.assets.map((asset) => ({
         uri: asset.uri,
-        type: getFileExtension(asset.uri), // Use URI to extract file extension
-        filename: asset.uri.split("/").pop(), // Extract filename from URI
+        name: asset.fileName,
+        type: asset.mimeType,
       }));
       setImages((prevImages) => [...prevImages, ...newImages]);
     }
@@ -44,12 +42,12 @@ const ImagePickerComponent = ({ images, setImages }) => {
     });
 
     if (!result.canceled) {
-      const newImage = {
-        uri: result.assets[0].uri,
-        type: getFileExtension(result.assets[0].uri), // Use URI to extract file extension
-        filename: result.assets[0].uri.split("/").pop(), // Extract filename from URI
-      };
-      setImages((prevImages) => [...prevImages, newImage]);
+      const newImages = result.assets.map((asset) => ({
+        uri: asset.uri,
+        name: asset.fileName,
+        type: asset.mimeType,
+      }));
+      setImages((prevImages) => [...prevImages, ...newImage]);
     }
   };
 
