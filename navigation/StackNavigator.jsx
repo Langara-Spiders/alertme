@@ -9,6 +9,7 @@ import {
   Notifications,
   ProfileDetails,
   ReportIncident,
+  ShareWithFriends,
 } from "../pages";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -80,6 +81,15 @@ const StackNavigator = (props) => {
           headerBackTitleVisible: false,
         }}
       />
+      <Stack.Screen
+        name={routes.SHARE_WITH_FRIENDS}
+        component={ShareWithFriends}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
+      />
+
       <Stack.Screen
         name={routes.NEARBYACTIVEISSUES}
         component={NearByActiveIssues}

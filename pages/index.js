@@ -14,4 +14,5 @@ export { default as Profile } from "./Profile";
 export { default as ProfileDetails } from "./ProfileDetails";
 export { default as ReportIncident } from "./ReportIncident";
 export { default as Rewards } from "./Rewards";
+export { default as ShareWithFriends } from "./ShareWithFriends";
 export { default as SiteIncidentsOrg } from "./SiteIncidentsOrg";

@@ -24,7 +24,7 @@ const ProfileItemsList = (props) => {
       icon: Share,
       messageId: "sharewithfriends.icon.message",
       defaultMessage: "Share with friends",
-      screen: "ShareWithFriends",
+      screen: "Share With Friends",
     },
     {
       icon: Appearance,
