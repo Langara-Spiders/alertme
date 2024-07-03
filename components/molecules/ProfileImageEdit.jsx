@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 
-import { AddIcon, CloseIcon, Image, View } from "@gluestack-ui/themed";
+import { CloseIcon, Image, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 
@@ -9,6 +9,10 @@ import User from "../../assets/images/User.png";
 
 const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
   const [image, setImage] = useState(initialImage);
+
+  useEffect(() => {
+    setImage(initialImage);
+  }, [initialImage]);
 
   useEffect(() => {
     (async () => {
@@ -103,7 +107,7 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
             style={styles.deleteButton}
             onPress={handleDeleteImage}
           >
-            <SvgUri source={CloseIcon} color="#fff" />
+            <SvgUri source={CloseIcon} color="#fff" width="20" height="20" />
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={handleImagePress} style={styles.touch}>
@@ -111,6 +115,7 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
             source={icon ?? AddIcon}
             width="20"
             height="20"
+            fill="#000" // Add fill color for better visibility
             style={styles.iconStyle}
           />
         </TouchableOpacity>
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
   imageContainer: {
-    borderRadius: 4,
+    borderRadius: 10,
     width: "100%",
     height: "100%",
   },
@@ -141,13 +146,14 @@ const styles = StyleSheet.create({
     bottom: 4,
     right: 4,
     backgroundColor: "white",
-    borderRadius: 12,
+    borderRadius: 6,
     width: 24,
     height: 24,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 10,
   },
   iconStyle: {
-    zIndex: 1,
+    zIndex: 11,
   },
 });

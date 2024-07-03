@@ -50,4 +50,24 @@ const getProfile = async () => {
   }
 };
 
-export { login, logout, getReward, getProfile };
+const updateProfile = async (profileData) => {
+  try {
+    const res = await axios.post(`${API_BASE_URL}/users/profile`, profileData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Backend response:", res.data);
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      "Error updating profile:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+
+export { login, logout, getReward, getProfile, updateProfile };
