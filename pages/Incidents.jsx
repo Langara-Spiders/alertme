@@ -68,7 +68,7 @@ const Incidents = (props) => {
   });
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={[{ flex: 1 }, styles.screen]}>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.navigate("Home")}>
           <Icon as={ArrowLeftIcon} />
@@ -122,6 +122,9 @@ const Incidents = (props) => {
 export default Incidents;
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: "white",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",

@@ -6,13 +6,14 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { StatusBadge, UpvoteButton } from "../../atoms";
+import { StatusBadge } from "../../atoms";
 
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_Spot.svg";
 import { routes } from "../../../constants";
+import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 const dateOptions = {
   year: "numeric",
@@ -69,7 +70,11 @@ const IncidentCard = (props) => {
             style={styles.image}
             alt="image"
           />
-          <UpvoteButton upvote={props.upvote_count} style={styles.upvote} />
+          {props.reported_by === "ORG" ? (
+            <VerifiedBadge style={styles.verified} />
+          ) : (
+            <UpVotedBadge upvote={props.upvote_count} style={styles.upvote} />
+          )}
         </View>
       </Card>
     </Pressable>
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F3F4F4",
     borderRadius: 10,
     padding: 15,
     marginVertical: 5,
@@ -171,9 +176,12 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 40,
   },
   upvote: {
-    marginTop: 20,
+    marginTop: 40,
+  },
+  verified: {
+    marginTop: 40,
   },
 });

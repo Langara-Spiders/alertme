@@ -148,12 +148,7 @@ const Home = ({ navigation, route }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
-          <View
-            style={styles.notificationButton}
-            onPress={() => {
-              navigation.navigate(routes.NOTIFICATIONS);
-            }}
-          >
+          <View style={styles.notificationButton}>
             <SvgUri width="16" height="18" source={BellIcon} />
           </View>
         </TouchableOpacity>
@@ -194,7 +189,7 @@ const Home = ({ navigation, route }) => {
           ref={mapRef}
           style={styles.map}
           userInterfaceStyle="dark"
-          provider={MapView.PROVIDER_GOOGLEr}
+          provider={MapView.PROVIDER_GOOGLE}
           initialRegion={{
             latitude: 49.225,
             longitude: -123.1076,
@@ -278,23 +273,19 @@ const Home = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
         {nearbyIssues?.map((issue) => (
-          <TouchableWithoutFeedback
-            key={issue.id}
-            onPress={() => {
-              setIsSheetVisible(false);
-              handleCardPress(issue);
-            }}
-          >
-            <View>
-              <IncidentCard
-                status={issue?.status}
-                subject={issue?.subject}
-                description={issue?.description}
-                created_at={issue?.created_at}
-                upvote_count={issue?.upvote_count}
-              />
-            </View>
-          </TouchableWithoutFeedback>
+          <View key={issue.id}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setIsSheetVisible(false);
+                handleCardPress(issue);
+              }}
+            >
+              <View>
+                <IncidentCard {...issue} />
+              </View>
+            </TouchableWithoutFeedback>
+            <View style={styles.separator} />
+          </View>
         ))}
       </DBottomSheet>
     </View>
@@ -372,12 +363,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   bottomSText: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "600",
     color: "#1E1E1E",
   },
   viewAllText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: "600",
     color: "#FF9900",
   },
   successCardContainer: {
@@ -428,15 +420,6 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 16,
   },
-  addIssueIcon: {
-    backgroundColor: "white",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-  },
   notificationButton: {
     backgroundColor: "white",
     borderRadius: 12,
@@ -445,5 +428,8 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  separator: {
+    height: 10,
   },
 });

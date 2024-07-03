@@ -13,15 +13,7 @@ const NearByActiveIssues = ({ route }) => {
         const { date, time } = DateTime(incident.created_at);
         return (
           <View key={index} style={styles.cardContainer}>
-            <IncidentCard
-              status={incident.status}
-              title={incident.subject}
-              description={incident.description}
-              location={incident.address}
-              date={date}
-              time={time}
-              upvote={incident.upvote_count}
-            />
+            <IncidentCard {...incident} />
           </View>
         );
       })}
@@ -33,6 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: "white",
   },
   cardContainer: {
     marginBottom: 10,
