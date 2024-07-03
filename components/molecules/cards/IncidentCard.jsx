@@ -70,7 +70,7 @@ const IncidentCard = (props) => {
             style={styles.image}
             alt="image"
           />
-          {props.reported_by === "ORG" ? (
+          {props.reported_by === "ORG" || props.is_accepted_by_org ? (
             <VerifiedBadge style={styles.verified} />
           ) : (
             <UpVotedBadge upvote={props.upvote_count} style={styles.upvote} />
