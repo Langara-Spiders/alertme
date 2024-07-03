@@ -148,7 +148,7 @@ const IncidentDetail = ({ route, navigation }) => {
         </ScrollView>
         <View style={styles.dotsContainer}>
           {incident.images.map((_, index) => (
-            <SvgUri key={index} width="10" height="10" source={Scroll_Dot} />
+            <SvgUri key={index} width="16" height="16" source={Scroll_Dot} />
           ))}
         </View>
       </View>
