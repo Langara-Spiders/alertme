@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { Text, View } from "@gluestack-ui/themed";
 import { Alert, StyleSheet } from "react-native";
 import { getProfile, updateProfile } from "../api/user";
-import { Text, View } from "@gluestack-ui/themed";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
-
-import { getReverseGeoCoding } from "../api";
 
 import Edit from "../assets/icons/Edit.svg";
 
@@ -21,7 +19,6 @@ const ProfileDetails = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [initialAddress, setInitialAddress] = useState("");
-
 
   const handleImageChange = (newImage) => {
     // console.log("New image selected:", newImage);
@@ -93,7 +90,6 @@ const ProfileDetails = () => {
       setUploading(false);
     }
     setContact(value);
-
   };
 
   // const fetchProfileData = async () => {
@@ -144,7 +140,6 @@ const ProfileDetails = () => {
           id: "ProfileDeatails.nameinput.placeholdermessage",
           defaultMessage: "Enter your name",
         })}
-
         onChangeText={handleNameChange}
         value={name}
         required={true}
@@ -174,7 +169,7 @@ const ProfileDetails = () => {
         value={contact}
         onChangeText={handleContactChange}
       />
-          
+
       <LocationInput
         latitude={latitude}
         longitude={longitude}
