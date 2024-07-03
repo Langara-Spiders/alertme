@@ -11,7 +11,7 @@ import { StatusBadge } from "../../atoms";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Location_Spot from "../../../assets/icons/System_Icons/Location_Spot.svg";
+import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
