@@ -96,30 +96,30 @@ const ProfileDetails = () => {
 
   };
 
-  const fetchProfileData = async () => {
-    setLoading(true);
-    const profileData = await getProfile();
-    const {
-      data: { user },
-    } = profileData;
+  // const fetchProfileData = async () => {
+  //   setLoading(true);
+  //   const profileData = await getProfile();
+  //   const {
+  //     data: { user },
+  //   } = profileData;
 
-    setName(user.name);
-    setEmail(user.email);
-    setContact(user.phone ?? " ");
-    setLatitude(user.address.lat);
-    setLongitude(user.address.lng);
+  //   setName(user.name);
+  //   setEmail(user.email);
+  //   setContact(user.phone ?? " ");
+  //   setLatitude(user.address.lat);
+  //   setLongitude(user.address.lng);
 
-    const addressData = await getReverseGeoCoding(
-      user.address.lat,
-      user.address.lng
-    );
-    const fullAddress =
-      addressData.street ||
-      `${addressData.city}, ${addressData.state}, ${addressData.country}`;
-    setInitialAddress(fullAddress);
+  //   const addressData = await getReverseGeoCoding(
+  //     user.address.lat,
+  //     user.address.lng
+  //   );
+  //   const fullAddress =
+  //     addressData.street ||
+  //     `${addressData.city}, ${addressData.state}, ${addressData.country}`;
+  //   setInitialAddress(fullAddress);
 
-    setLoading(false);
-  };
+  //   setLoading(false);
+  // };
 
   useEffect(() => {
     fetchProfileData();
