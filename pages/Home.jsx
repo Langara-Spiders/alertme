@@ -89,6 +89,10 @@ const Home = ({ navigation, route }) => {
     setNearbyIssues(response?.data ?? []);
   };
 
+  // ######################## Nearest First ########################
+
+  nearbyIssues.sort((a, b) => a.distance - b.distance);
+
   // ######################## API CALLS ########################
 
   const handleCardPress = (incident) => {
