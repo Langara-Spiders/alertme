@@ -1,14 +1,9 @@
 import * as Location from "expo-location";
 
-import {
-  ArrowLeftIcon,
-  Icon,
-  Pressable,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+
 import {
   KeyboardAvoidingView,
   Platform,
@@ -26,6 +21,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
+import { ChevronLeft } from "lucide-react-native";
 import { routes } from "../constants";
 
 const user_type = {
@@ -108,15 +104,14 @@ const ReportIncident = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       enabled
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <View style={{ backgroundColor: "#fff" }}>
           <View style={styles.header}>
             <Pressable onPress={() => navigation.navigate("Home")}>
-              <Icon as={ArrowLeftIcon} />
+              <ChevronLeft color="black" size={48} />
             </Pressable>
             <Text style={styles.headerText}>Add Issue</Text>
           </View>
@@ -173,7 +168,14 @@ const ReportIncident = () => {
               }}
               multiline
             />
-            <Button onPress={handlePostIncident}>
+            <Button
+              onPress={handlePostIncident}
+              style={{
+                button: {
+                  marginTop: 40,
+                },
+              }}
+            >
               <FormattedMessage
                 id="reportIncident.postBtn"
                 defaultMessage="Post Incident"
@@ -206,6 +208,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
+    paddingTop: 30,
   },
   category: {
     flex: 1,
@@ -220,19 +223,20 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "black",
     marginLeft: 10,
+    marginBottom: 0,
   },
   input: {
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingLeft: 10,
+    marginTop: 8,
   },
   textArea: {
     height: 80,
     borderColor: "#ccc",
     borderWidth: 1,
-    marginBottom: 20,
     paddingLeft: 10,
     paddingTop: 10,
   },

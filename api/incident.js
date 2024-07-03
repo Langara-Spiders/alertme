@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Platform } from "react-native";
-import { ResizeImage } from "../utils";
 import { API_BASE_URL } from "./constants";
 
 const getNearbyIncident = async (lat, lng) => {
@@ -42,26 +40,18 @@ const postIssue = async (report, pictures) => {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
 
+    /* let files=[]
     for (const picture of pictures) {
-      const { uri, type, filename } = picture;
-      const name = filename || `photo_${Date.now()}.jpg`;
 
-      const resizedUri = await ResizeImage(uri);
+      files.push({
+        uri: picture.uri,
+        type: picture.type || `image/jpeg`,
+        name: picture.filename || `photo.jpg`,
+      })
 
-      formData.append("pictures", {
-        uri:
-          Platform.OS === "ios"
-            ? resizedUri.replace("file://", "")
-            : resizedUri,
-        type: type || "image/jpeg",
-        name: name,
-      });
-    }
+    } */
 
-    // // Log FormData content for debugging
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    formData.append("pictures", pictures);
 
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
@@ -70,10 +60,7 @@ const postIssue = async (report, pictures) => {
         // 'Authorization': 'Bearer YOUR_TOKEN',
       },
     });
-
-    console.log("IS THIS SUCCESS OR NOTTTT");
     console.log("Success:", res.data);
-    return res.data;
   } catch (error) {
     console.error(error);
     return {};

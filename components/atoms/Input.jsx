@@ -30,7 +30,7 @@ const Input = (props) => {
           value={props.value}
           onChangeText={props.onChange}
           placeholder={props.placeholder}
-          style={styles.field}
+          style={[styles.field, props.style?.inputbox]}
         />
       </InputGS>
     </View>
@@ -42,10 +42,12 @@ export default Input;
 const styles = StyleSheet.create({
   wrapper: {
     padding: 10,
+    marginTop: 1,
   },
   label: {
     color: "#333",
     fontSize: 16,
+    marginBottom: 8,
   },
   container: {
     borderRadius: 10,

@@ -40,8 +40,8 @@ export default LocationInput;
 const styles = StyleSheet.create({
   iconStyle: {
     position: "absolute",
-    right: 20,
-    top: "50%",
+    right: 30,
+    top: "59%",
     transform: [
       {
         translateY: -2,
