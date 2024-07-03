@@ -10,6 +10,8 @@ import { StatusBadge, UpvoteButton } from "../../atoms";
 
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import Location_Spot from "../../../assets/icons/System_Icons/Location_Spot.svg";
 import { routes } from "../../../constants";
 
 const dateOptions = {
@@ -47,7 +49,7 @@ const IncidentCard = (props) => {
           </Heading>
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
-              <Text style={styles.locationIcon}>📍</Text>
+              <SvgUri width="16" height="16" source={Location_Spot} />
               <Text
                 style={styles.locationText}
                 numberOfLines={1}
@@ -67,7 +69,7 @@ const IncidentCard = (props) => {
             style={styles.image}
             alt="image"
           />
-          <UpvoteButton upvote={props.upvote_count} />
+          <UpvoteButton upvote={props.upvote_count} style={styles.upvote} />
         </View>
       </Card>
     </Pressable>
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     color: "#ff6600",
   },
   locationText: {
-    color: "#ff6600",
+    color: "black",
     fontSize: 14,
     marginLeft: 5,
   },
@@ -162,13 +164,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   imageContainer: {
-    alignItems: "center",
-    marginLeft: 10,
+    alignItems: "flex-end",
+    justifyContent: "space-between",
   },
   image: {
     width: 60,
     height: 60,
     borderRadius: 5,
-    marginBottom: 40,
+    marginBottom: 20,
+  },
+  upvote: {
+    marginTop: 20,
   },
 });
