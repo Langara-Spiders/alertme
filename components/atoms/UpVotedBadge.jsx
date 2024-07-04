@@ -2,12 +2,17 @@ import { Text, View } from "@gluestack-ui/themed";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import UP_Icon from "../../assets/icons/System_Icons/UP_Icon.svg";
+import Upvot_Only_arrow from "../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
 
 const UpVotedBadge = (props) => {
   return (
     <View style={styles.card}>
-      <SvgUri width="24" height="24" source={UP_Icon} style={styles.icon} />
+      <SvgUri
+        width="22"
+        height="22"
+        source={Upvot_Only_arrow}
+        style={styles.icon}
+      />
       <Text style={styles.text}>
         <FormattedMessage
           id="atom.upvotebuttontext"
