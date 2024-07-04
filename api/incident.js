@@ -13,9 +13,25 @@ const getNearbyIncident = async (lat, lng) => {
   }
 };
 
-const getMyIssues = async () => {
+const getMyIssues = async (lat, lng) => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/incidents/user`);
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/user?lat=${lat}&lng=${lng}`
+    );
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+const getIncidentDetailsForUser = async (lat, lng, id) => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/report?lat=${lat}&lng=${lng}&id=${id}`
+    );
+    console.log("==========================");
+    console.log(res.data.data);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -49,4 +65,10 @@ const postIssue = async (report) => {
   }
 };
 
-export { getNearbyIncident, getMyIssues, getCategories, postIssue };
+export {
+  getNearbyIncident,
+  getMyIssues,
+  getCategories,
+  postIssue,
+  getIncidentDetailsForUser,
+};

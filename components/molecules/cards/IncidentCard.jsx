@@ -6,11 +6,14 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { StatusBadge, UpvoteButton } from "../../atoms";
+import { StatusBadge } from "../../atoms";
 
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
+import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 const dateOptions = {
   year: "numeric",
@@ -25,7 +28,7 @@ const IncidentCard = (props) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(routes.INCIDENT_DETAIL, { incident: props });
+    navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
   };
 
   return (
@@ -38,22 +41,22 @@ const IncidentCard = (props) => {
           <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
             {props.subject}
           </Heading>
-          <Text
-            style={styles.description}
+          <Heading
+            style={styles.distance}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {props.description}
-          </Text>
+            {props.distance.toFixed(1)} km away
+          </Heading>
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
-              <Text style={styles.locationIcon}>📍</Text>
+              <SvgUri width="16" height="16" source={Location_Spot} />
               <Text
                 style={styles.locationText}
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {props.streetAddress}
+                {props.address.street_address}
               </Text>
             </View>
             <Text style={styles.timeText}>
@@ -63,11 +66,15 @@ const IncidentCard = (props) => {
         </View>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: props.image ?? "https://picsum.photos/200/300" }}
+            source={{ uri: props.images[0] ?? "https://picsum.photos/200/300" }}
             style={styles.image}
             alt="image"
           />
-          <UpvoteButton upvote={props.upvote_count} />
+          {props.reported_by === "ORG" || props.is_accepted_by_org ? (
+            <VerifiedBadge style={styles.verified} />
+          ) : (
+            <UpVotedBadge upvote={props.upvote_count} style={styles.upvote} />
+          )}
         </View>
       </Card>
     </Pressable>
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F3F4F4",
     borderRadius: 10,
     padding: 15,
     marginVertical: 5,
@@ -124,12 +131,18 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
+    paddingBottom: 0,
+    marginBottom: 0,
+    lineHeight: 0,
+    marginTop: 5,
   },
-  description: {
-    color: "#808080",
-    fontSize: 16,
-    marginBottom: 5,
+  distance: {
+    color: "#000000",
+    fontSize: 18,
+    lineHeight: 0,
+    paddingTop: 0,
+    fontWeight: "bold",
+    marginBottom: 0,
   },
   footer: {
     flexDirection: "column",
@@ -139,29 +152,36 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: 10,
   },
   locationIcon: {
     fontSize: 16,
     color: "#ff6600",
   },
   locationText: {
-    color: "#ff6600",
+    color: "black",
     fontSize: 14,
     marginLeft: 5,
   },
   timeText: {
     color: "#808080",
     fontSize: 12,
+    marginTop: 5,
   },
   imageContainer: {
-    alignItems: "center",
-    marginLeft: 10,
+    alignItems: "flex-end",
+    justifyContent: "space-between",
   },
   image: {
     width: 60,
     height: 60,
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 40,
+  },
+  upvote: {
+    marginTop: 40,
+  },
+  verified: {
+    marginTop: 40,
   },
 });

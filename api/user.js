@@ -54,7 +54,11 @@ const updateProfile = async (profileData, newImage) => {
   try {
     const formData = new FormData();
     formData.append("user", JSON.stringify(profileData));
-    formData.append("picture", newImage);
+    formData.append("picture", {
+      uri: newImage.uri,
+      type: newImage.type,
+      name: newImage.name,
+    });
     const res = await axios.post(`${API_BASE_URL}/users/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -69,6 +73,15 @@ const updateProfile = async (profileData, newImage) => {
       "Error updating profile:",
       error.response ? error.response.data : error.message
     );
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+      console.error("Response headers:", error.response.headers);
+    } else if (error.request) {
+      console.error("Request data:", error.request);
+    } else {
+      console.error("Error message:", error.message);
+    }
     throw error;
   }
 };

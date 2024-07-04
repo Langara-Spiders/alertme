@@ -74,7 +74,7 @@ const ProfileDetails = () => {
   }, []);
 
   const handleSave = async () => {
-    // setUploading(true);
+    setUploading(true);
 
     const profileData = {
       id: id,
@@ -97,16 +97,6 @@ const ProfileDetails = () => {
 
     console.log("Backend response:", result);
     Alert.alert("Success", "Profile updated successfully");
-
-    // catch (error) {
-    //   console.error("Error saving profile:", error);
-    //   Alert.alert(
-    //     "Error",
-    //     "Failed to update profile. Please check the console for more details."
-    //   );
-    // } finally {
-    //   setUploading(false);
-    // }
   };
 
   return (
