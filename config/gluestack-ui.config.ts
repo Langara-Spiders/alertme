@@ -1,7 +1,9 @@
+import * as componentsTheme from "./theme";
+
+import { createComponents, createConfig } from "@gluestack-style/react";
+
 import { AnimationResolver } from "@gluestack-style/animation-resolver";
 import { MotionAnimationDriver } from "@gluestack-style/legend-motion-animation-driver";
-import { createComponents, createConfig } from "@gluestack-style/react";
-import * as componentsTheme from "./theme";
 
 export const gluestackUIConfig = createConfig({
   aliases: {
@@ -719,6 +721,15 @@ declare module "@gluestack-ui/themed" {
 
 export const configLight = {
   ...gluestackUIConfig,
+  tokens: {
+    ...gluestackUIConfig.tokens,
+    colors: {
+      ...gluestackUIConfig.tokens.colors,
+      background: "#FFFFFF",
+      text: "#000000",
+      primary: "#0077E6",
+    },
+  } as const,
   components: componentsConfig,
 };
 
@@ -726,6 +737,12 @@ export const configDark = {
   ...gluestackUIConfig,
   tokens: {
     ...gluestackUIConfig.tokens,
+    colors: {
+      ...gluestackUIConfig.tokens.colors,
+      background: "#000000",
+      text: "#FFFFFF",
+      primary: "#FF6B00",
+    },
   } as const,
   components: componentsConfig,
 };

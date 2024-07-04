@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Icon, StarIcon } from "@gluestack-ui/themed";
 import {
+  Appearance,
   AppSetting,
   IncidentDetail,
   Leaderboard,
@@ -75,6 +76,14 @@ const StackNavigator = (props) => {
       <Stack.Screen
         name={routes.PROFILE_DETAILS}
         component={ProfileDetails}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={routes.APPEARANCE}
+        component={Appearance}
         options={{
           headerShown: true,
           headerBackTitleVisible: false,
