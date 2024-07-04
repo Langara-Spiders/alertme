@@ -18,7 +18,7 @@ const Input = (props) => {
         variant={props.variant ?? "solid"}
         action={props.action ?? "primary"}
         isDisabled={props.isDisabled ?? false}
-        style={[styles.container, props.style]}
+        style={[styles.container, props.style?.inputbox]}
         isReadOnly={props.isReadOnly ?? false}
       >
         {props.icon && (
@@ -30,7 +30,7 @@ const Input = (props) => {
           value={props.value}
           onChangeText={props.onChange}
           placeholder={props.placeholder}
-          style={[styles.field, props.style?.inputbox]}
+          style={styles.field}
         />
       </InputGS>
     </View>

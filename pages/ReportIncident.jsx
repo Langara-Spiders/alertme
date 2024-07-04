@@ -47,7 +47,6 @@ const ReportIncident = () => {
   const getCategoriesAPICall = async () => {
     const response = await getCategories();
     setCategoryList(response?.data ?? []);
-    // console.log(response)
   };
 
   const changeAddress = async () => {
@@ -80,7 +79,6 @@ const ReportIncident = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    console.log(images);
   };
 
   const handleConfirmPost = async () => {
@@ -111,7 +109,7 @@ const ReportIncident = () => {
         <View style={{ backgroundColor: "#fff" }}>
           <View style={styles.header}>
             <Pressable onPress={() => navigation.navigate("Home")}>
-              <ChevronLeft color="black" size={48} />
+              <ChevronLeft color="black" size={36} />
             </Pressable>
             <Text style={styles.headerText}>Add Issue</Text>
           </View>
@@ -167,15 +165,13 @@ const ReportIncident = () => {
                 setIncidentDescription(text);
               }}
               multiline
-            />
-            <Button
-              onPress={handlePostIncident}
               style={{
-                button: {
-                  marginTop: 40,
+                inputbox: {
+                  height: 86,
                 },
               }}
-            >
+            />
+            <Button onPress={handlePostIncident}>
               <FormattedMessage
                 id="reportIncident.postBtn"
                 defaultMessage="Post Incident"
@@ -223,7 +219,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "black",
     marginLeft: 10,
-    marginBottom: 0,
   },
   input: {
     height: 40,
