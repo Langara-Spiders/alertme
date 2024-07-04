@@ -1,24 +1,14 @@
 import * as ImagePicker from "expo-image-picker";
 
-import { CloseIcon, Image, View } from "@gluestack-ui/themed";
+import { Image, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
-import User from "../../assets/images/User.png";
+import EditIcon from "../../assets/icons/Edit.svg";
 
 const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
-  const [image, setImage] = useState(null);
-
-  // useEffect(() => {
-  //   console.log("initialImage:", initialImage);
-  //   setImage(initialImage);
-  // }, [initialImage]);
-
-  const handleImageChange = (newImage) => {
-    setImage(newImage);
-    console.log("newImage:", newImage);
-  };
+  const [image, setImage] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -53,7 +43,6 @@ const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
             });
 
             if (!result.canceled) {
-              // const selectedImage = result.assets ? result.assets[0].uri : result;
               const selectedImage = result.assets[0];
               const profileImage = {
                 uri: selectedImage.uri,
@@ -83,11 +72,11 @@ const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
             });
 
             if (!result.canceled) {
-              const selectedImage = result.assets ? result.assets[0] : result;
+              const selectedImage = result.assets[0];
               const profileImage = {
                 uri: selectedImage.uri,
-                type: selectedImage.type ?? "image/jpeg",
-                name: selectedImage.uri.split("/").pop(),
+                type: selectedImage.mimeType,
+                name: selectedImage.fileName,
               };
               setImage(profileImage);
               if (onImageChange) onImageChange(profileImage);
@@ -112,20 +101,21 @@ const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
         <Image
-          source={initialImage ? { uri: initialImage ?? image.uri } : User}
+          source={image?.uri ? { uri: image?.uri } : initialImage}
           style={styles.imageContainer}
+          alt="User profile image"
         />
-        {image && (
+        {image?.uri && (
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={handleDeleteImage}
           >
-            <SvgUri source={CloseIcon} color="#fff" width="20" height="20" />
+            <SvgUri source={icon ?? EditIcon} width="20" height="20" />
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={handleImagePress} style={styles.touch}>
           <SvgUri
-            source={icon ?? AddIcon}
+            source={icon ?? EditIcon}
             width="20"
             height="20"
             style={styles.iconStyle}

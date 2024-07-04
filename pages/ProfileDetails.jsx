@@ -1,102 +1,67 @@
 import { Text, View } from "@gluestack-ui/themed";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Alert, StyleSheet } from "react-native";
 import { getProfile, updateProfile } from "../api/user";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
 
-import { getReverseGeoCoding } from "../api";
-import Edit from "../assets/icons/Edit.svg";
+import EditIcon from "../assets/icons/Edit.svg";
+import User from "../assets/images/User.png";
 
 const ProfileDetails = () => {
   const intl = useIntl();
-  const [id, setId] = useState(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
-  const [projectId, setProjectId] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [initialAddress, setInitialAddress] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  const handleImageChange = (newImage) => {
-    setProfileImage(newImage);
-    console.log("newImage:", newImage);
-  };
-
-  const handleNameChange = (value) => {
-    setName(value);
-  };
-
-  const handleEmailChange = (value) => {
-    setEmail(value);
-  };
-
-  const handleContactChange = (value) => {
-    setContact(value);
+  const reducerProfile = (state, action) => {
+    switch (action.type) {
+      case "CHANGE_PROFILE":
+        return action.payload;
+      case "CHANGE_NAME":
+        return {
+          ...state,
+          name: action.payload,
+        };
+      case "CHANGE_PHONE":
+        return {
+          ...state,
+          phone: action.payload,
+        };
+      case "CHANGE_COORDINATE":
+        return {
+          ...state,
+          coordinate: action.payload,
+        };
+      case "CHANGE_PROJECTID":
+        return {
+          ...state,
+          project_id: action.payload,
+        };
+    }
   };
 
   const fetchProfileData = async () => {
-    setLoading(true);
-    const profileData = await getProfile();
-    const {
-      data: { user },
-    } = profileData;
-
-    setId(user.id);
-    setName(user.name);
-    setEmail(user.email);
-    setContact(user.phone ?? " ");
-    setProjectId(user.project_id);
-    setProfileImage(user.picture);
-    console.log("picture:", user.picture);
-    setLatitude(user.address.lat);
-    setLongitude(user.address.lng);
-
-    const addressData = await getReverseGeoCoding(
-      user.address.lat,
-      user.address.lng
-    );
-
-    const fullAddress = addressData.address_line1;
-    //|| `${addressData.city}, ${addressData.state}, ${addressData.country}`;
-    setInitialAddress(fullAddress);
-
-    // console.log("addressData:", addressData);
-
-    setLoading(false);
+    const response = await getProfile();
+    dispatchProfile({
+      type: "CHANGE_PROFILE",
+      payload: response?.user ?? {},
+    });
   };
+
+  const [profile, dispatchProfile] = useReducer(reducerProfile, {});
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     fetchProfileData();
   }, []);
 
   const handleSave = async () => {
-    setUploading(true);
+    const response = await updateProfile(profile, image);
 
-    const profileData = {
-      id: id,
-      name: name,
-      email: email,
-      phone: contact,
-      project_id: projectId,
-      address: {
-        lat: latitude,
-        lng: longitude,
-      },
-      coordinate: {
-        lat: latitude,
-        lng: longitude,
-      },
-    };
-
-    const result = await updateProfile(profileData, profileImage);
-
-    console.log("Backend response:", result);
+    console.log("RESPONSE, ", response);
+    dispatchProfile({
+      type: "CHANGE_PROFILE",
+      payload: response?.user ?? {},
+    });
     Alert.alert("Success", "Profile updated successfully");
   };
 
@@ -104,13 +69,11 @@ const ProfileDetails = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <ProfileImageEdit
-          initialImage={profileImage}
-          // image={profileImage}
-          onImageChange={handleImageChange}
-          icon={Edit}
+          initialImage={profile.picture || User}
+          onImageChange={setImage}
+          icon={EditIcon}
         />
       </View>
-
       <Input
         label={intl.formatMessage({
           id: "ProfileDetails.nameinput.labelmessage",
@@ -120,21 +83,13 @@ const ProfileDetails = () => {
           id: "ProfileDetails.nameinput.placeholdermessage",
           defaultMessage: "Enter your name",
         })}
-        onChangeText={handleNameChange}
-        value={name}
-        required={true}
-      />
-      <Input
-        label={intl.formatMessage({
-          id: "ProfileDetails.emailinput.labelmessage",
-          defaultMessage: "Email *",
-        })}
-        placeholder={intl.formatMessage({
-          id: "ProfileDetails.emailinput.placeholdermessage",
-          defaultMessage: "Enter your email",
-        })}
-        value={email}
-        onChangeText={handleEmailChange}
+        onChange={(text) =>
+          dispatchProfile({
+            type: "CHANGE_NAME",
+            payload: text,
+          })
+        }
+        value={profile.name}
         required={true}
       />
       <Input
@@ -146,18 +101,21 @@ const ProfileDetails = () => {
           id: "ProfileDetails.contactinput.placeholdermessage",
           defaultMessage: "Enter your number",
         })}
-        value={contact}
-        onChangeText={handleContactChange}
+        value={profile.phone}
+        onChange={(text) =>
+          dispatchProfile({
+            type: "CHANGE_PHONE",
+            payload: text,
+          })
+        }
       />
-
       <LocationInput
-        latitude={latitude}
-        longitude={longitude}
-        value={{ address_line1: initialAddress }}
+        // latitude={latitude}
+        // longitude={longitude}
+        value={profile.address}
       />
-
       <View style={styles.buttonContainer}>
-        <Button style={styles.button} onPress={handleSave} disabled={uploading}>
+        <Button style={styles.button} onPress={handleSave}>
           <Text style={styles.buttonText}>
             <FormattedMessage
               id="ProfileDetails.savebutton.Buttonmessage"
