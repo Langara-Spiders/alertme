@@ -7,13 +7,13 @@ import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import User from "../../assets/images/User.png";
 
-const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
-  const [image, setImage] = useState(initialImage);
+const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
+  const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    console.log("initialImage:", initialImage);
-    setImage(initialImage);
-  }, [initialImage]);
+  // useEffect(() => {
+  //   console.log("initialImage:", initialImage);
+  //   setImage(initialImage);
+  // }, [initialImage]);
 
   const handleImageChange = (newImage) => {
     setImage(newImage);
@@ -54,13 +54,13 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
 
             if (!result.canceled) {
               // const selectedImage = result.assets ? result.assets[0].uri : result;
-              const selectedImage = { uri: result.assets[0].uri };
+              const selectedImage = result.assets[0];
               const profileImage = {
                 uri: selectedImage.uri,
-                type: selectedImage.type ?? "image/jpeg",
-                name: selectedImage.uri.split("/").pop(),
+                type: selectedImage.mimeType,
+                name: selectedImage.fileName,
               };
-              setImage(selectedImage);
+              setImage(profileImage);
               if (onImageChange) onImageChange(profileImage);
             }
           },
@@ -112,7 +112,7 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
         <Image
-          source={image ? { uri: image.uri ?? image } : User}
+          source={initialImage ? { uri: initialImage ?? image.uri } : User}
           style={styles.imageContainer}
         />
         {image && (

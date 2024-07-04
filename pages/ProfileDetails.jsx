@@ -61,10 +61,12 @@ const ProfileDetails = () => {
       user.address.lat,
       user.address.lng
     );
-    const fullAddress =
-      addressData.street ||
-      `${addressData.city}, ${addressData.state}, ${addressData.country}`;
+
+    const fullAddress = addressData.address_line1;
+    //|| `${addressData.city}, ${addressData.state}, ${addressData.country}`;
     setInitialAddress(fullAddress);
+
+    // console.log("addressData:", addressData);
 
     setLoading(false);
   };
@@ -79,7 +81,6 @@ const ProfileDetails = () => {
     const profileData = {
       id: id,
       name: name,
-      picture: "",
       email: email,
       phone: contact,
       project_id: projectId,
@@ -103,7 +104,8 @@ const ProfileDetails = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <ProfileImageEdit
-          image={profileImage}
+          initialImage={profileImage}
+          // image={profileImage}
           onImageChange={handleImageChange}
           icon={Edit}
         />
