@@ -11,8 +11,14 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
   const [image, setImage] = useState(initialImage);
 
   useEffect(() => {
+    console.log("initialImage:", initialImage);
     setImage(initialImage);
   }, [initialImage]);
+
+  const handleImageChange = (newImage) => {
+    setImage(newImage);
+    console.log("newImage:", newImage);
+  };
 
   useEffect(() => {
     (async () => {
@@ -47,11 +53,15 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
             });
 
             if (!result.canceled) {
-              const selectedImage = result.assets
-                ? result.assets[0].uri
-                : result.uri;
+              // const selectedImage = result.assets ? result.assets[0].uri : result;
+              const selectedImage = { uri: result.assets[0].uri };
+              const profileImage = {
+                uri: selectedImage.uri,
+                type: selectedImage.type ?? "image/jpeg",
+                name: selectedImage.uri.split("/").pop(),
+              };
               setImage(selectedImage);
-              if (onImageChange) onImageChange(selectedImage);
+              if (onImageChange) onImageChange(profileImage);
             }
           },
         },
@@ -73,11 +83,14 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
             });
 
             if (!result.canceled) {
-              const selectedImage = result.assets
-                ? result.assets[0].uri
-                : result.uri;
-              setImage(selectedImage);
-              if (onImageChange) onImageChange(selectedImage);
+              const selectedImage = result.assets ? result.assets[0] : result;
+              const profileImage = {
+                uri: selectedImage.uri,
+                type: selectedImage.type ?? "image/jpeg",
+                name: selectedImage.uri.split("/").pop(),
+              };
+              setImage(profileImage);
+              if (onImageChange) onImageChange(profileImage);
             }
           },
         },
@@ -99,7 +112,7 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
         <Image
-          source={image ? { uri: image } : User}
+          source={image ? { uri: image.uri ?? image } : User}
           style={styles.imageContainer}
         />
         {image && (
@@ -115,7 +128,6 @@ const ProfileImageEdit = ({ image: initialImage, onImageChange, icon }) => {
             source={icon ?? AddIcon}
             width="20"
             height="20"
-            fill="#000" // Add fill color for better visibility
             style={styles.iconStyle}
           />
         </TouchableOpacity>

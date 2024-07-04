@@ -11,10 +11,12 @@ import Edit from "../assets/icons/Edit.svg";
 
 const ProfileDetails = () => {
   const intl = useIntl();
+  const [id, setId] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [projectId, setProjectId] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -23,6 +25,7 @@ const ProfileDetails = () => {
 
   const handleImageChange = (newImage) => {
     setProfileImage(newImage);
+    console.log("newImage:", newImage);
   };
 
   const handleNameChange = (value) => {
@@ -44,10 +47,13 @@ const ProfileDetails = () => {
       data: { user },
     } = profileData;
 
+    setId(user.id);
     setName(user.name);
     setEmail(user.email);
     setContact(user.phone ?? " ");
+    setProjectId(user.project_id);
     setProfileImage(user.picture);
+    console.log("picture:", user.picture);
     setLatitude(user.address.lat);
     setLongitude(user.address.lng);
 
@@ -68,32 +74,39 @@ const ProfileDetails = () => {
   }, []);
 
   const handleSave = async () => {
-    try {
-      setUploading(true);
+    // setUploading(true);
 
-      const profileData = {
-        name,
-        email,
-        contact,
-        picture: profileImage,
-      };
+    const profileData = {
+      id: id,
+      name: name,
+      picture: "",
+      email: email,
+      phone: contact,
+      project_id: projectId,
+      address: {
+        lat: latitude,
+        lng: longitude,
+      },
+      coordinate: {
+        lat: latitude,
+        lng: longitude,
+      },
+    };
 
-      const result = await updateProfile(profileData);
+    const result = await updateProfile(profileData, profileImage);
 
-      Alert.alert("Success", "Profile updated successfully");
+    console.log("Backend response:", result);
+    Alert.alert("Success", "Profile updated successfully");
 
-      setTimeout(async () => {
-        await fetchProfileData();
-      }, 1000);
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      Alert.alert(
-        "Error",
-        "Failed to update profile. Please check the console for more details."
-      );
-    } finally {
-      setUploading(false);
-    }
+    // catch (error) {
+    //   console.error("Error saving profile:", error);
+    //   Alert.alert(
+    //     "Error",
+    //     "Failed to update profile. Please check the console for more details."
+    //   );
+    // } finally {
+    //   setUploading(false);
+    // }
   };
 
   return (

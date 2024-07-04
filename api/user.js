@@ -50,11 +50,14 @@ const getProfile = async () => {
   }
 };
 
-const updateProfile = async (profileData) => {
+const updateProfile = async (profileData, newImage) => {
   try {
-    const res = await axios.post(`${API_BASE_URL}/users/profile`, profileData, {
+    const formData = new FormData();
+    formData.append("user", JSON.stringify(profileData));
+    formData.append("picture", newImage);
+    const res = await axios.post(`${API_BASE_URL}/users/profile`, formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     });
 
