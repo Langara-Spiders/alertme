@@ -28,8 +28,8 @@ const Profile = (props) => {
     if (response.status == 200) {
       resetUser();
       axios.defaults.headers.common["Authorization"] = "";
-      navigation.navigate(routes.LOGIN);
     }
+    navigation.navigate(routes.LOGIN);
   };
 
   return (
