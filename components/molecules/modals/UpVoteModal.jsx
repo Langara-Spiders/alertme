@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { Button } from "../../atoms";
 
 const UpVoteModal = ({ type, onConfirm, onClose }) => {
+  console.log("WHERE THE FUCK AM I");
   return (
     <View style={styles.confirmationCard}>
       {type === "upVote" && (

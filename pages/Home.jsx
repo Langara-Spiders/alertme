@@ -280,8 +280,8 @@ const Home = ({ navigation, route }) => {
           <View key={issue.id}>
             <TouchableWithoutFeedback
               onPress={() => {
-                setIsSheetVisible(false);
                 handleCardPress(issue);
+                setIsSheetVisible(false);
               }}
             >
               <View>

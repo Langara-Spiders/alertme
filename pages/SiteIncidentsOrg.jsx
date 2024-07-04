@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     borderColor: "#ff6600",
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
   },
   activeButtonText: {
