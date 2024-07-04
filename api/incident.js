@@ -65,10 +65,23 @@ const postIssue = async (report) => {
   }
 };
 
+const getAllIssuesforOrg = async (lat, lng) => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/user?lat=${lat}&lng=${lng}`
+    );
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
 export {
   getNearbyIncident,
   getMyIssues,
   getCategories,
   postIssue,
   getIncidentDetailsForUser,
+  getAllIssuesforOrg,
 };
