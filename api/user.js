@@ -33,7 +33,7 @@ const logout = async (access_token) => {
 const getReward = async () => {
   try {
     const res = await axios.get(`${API_BASE_URL}/users/reward`);
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.error(error.response);
     return {};

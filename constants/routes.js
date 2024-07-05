@@ -28,6 +28,7 @@ const routes = {
 
   LEADERBOARD: "Leaderboard",
   NEARBYACTIVEISSUES: "NearByActiveIssues",
+  ISSUESREPORTEDAWARDS: "IssuesReportedAwards",
 };
 
 export default routes;

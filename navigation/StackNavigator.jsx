@@ -5,7 +5,6 @@ import {
   AppSetting,
   IncidentDetail,
   Leaderboard,
-  NearByActiveIssues,
   Notifications,
   ProfileDetails,
   ReportIncident,
@@ -13,6 +12,7 @@ import {
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routes } from "../constants";
+import { IssuesReportedAwards } from "../pages";
 import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -81,10 +81,10 @@ const StackNavigator = (props) => {
         }}
       />
       <Stack.Screen
-        name={routes.NEARBYACTIVEISSUES}
-        component={NearByActiveIssues}
+        name={routes.ISSUESREPORTEDAWARDS}
+        component={IssuesReportedAwards}
         options={{
-          title: "Nearby Issues",
+          title: "IssuesReportedAwards",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
