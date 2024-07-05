@@ -48,9 +48,9 @@ export default ReadyToPostModal;
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: "rgba(11, 12, 12, 0.7)", // Semi-transparent backdrop
-    justifyContent: "flex-end", // Aligns the modal at the bottom of the screen
-    alignItems: "center", // Centers the modal horizontally
+    backgroundColor: "rgba(11, 12, 12, 0.7)",
+    justifyContent: "flex-end",
+    alignItems: "center",
     padding: 16,
   },
   confirmationCard: {
