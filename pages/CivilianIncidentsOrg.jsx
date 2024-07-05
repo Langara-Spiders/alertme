@@ -7,25 +7,23 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-
-import * as Location from "expo-location";
-import { getMyIssues } from "../api/incident";
+import { getAllIssuesforOrg } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
-
 const screenWidth = Dimensions.get("window").width;
 
-const Incidents = (props) => {
+const CivilianIncidentsOrg = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    getMyIncidentsNearBy();
+    getAllIssues();
     // handleRecenter();
     const interval = setInterval(() => {
-      getMyIncidentsNearBy();
+      getAllIssues();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -41,9 +39,9 @@ const Incidents = (props) => {
     return coords ?? {};
   };
 
-  const getMyIncidentsNearBy = async () => {
+  const getAllIssues = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getMyIssues(latitude, longitude);
+    const response = await getAllIssuesforOrg(latitude, longitude);
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -51,6 +49,9 @@ const Incidents = (props) => {
 
     setIncidents(incidentsWithDistance);
   };
+
+  console.log("I guess this is incidents");
+  console.log(incidents);
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
 
@@ -119,7 +120,7 @@ const Incidents = (props) => {
   );
 };
 
-export default Incidents;
+export default CivilianIncidentsOrg;
 
 const styles = StyleSheet.create({
   screen: {
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
-    width: (screenWidth - 10) / 4,
+    width: (screenWidth - 10) / 5,
   },
   activeButton: {
     backgroundColor: "#ff6600",
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     borderColor: "#ff6600",
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
   },
   activeButtonText: {

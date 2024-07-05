@@ -12,7 +12,7 @@ import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
-const IncidentDetail = ({ route, navigation }) => {
+const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
   const [incident, setIncident] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -186,7 +186,7 @@ const IncidentDetail = ({ route, navigation }) => {
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <Button onPress={() => handleModalOpen("upVote")}>
-                Upvote Issue
+                <Text>Upvote Issue</Text>
               </Button>
             </View>
           )}
@@ -209,11 +209,7 @@ const IncidentDetail = ({ route, navigation }) => {
   );
 };
 
-IncidentDetail.navigationOptions = {
-  headerShown: false,
-};
-
-export default IncidentDetail;
+export default IncidentDetailOrg;
 
 const styles = StyleSheet.create({
   container: {
