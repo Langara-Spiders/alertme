@@ -25,10 +25,10 @@ const Rewards = (props) => {
       try {
         const response = await getReward();
         console.log("API response data:", response.data);
-        const { user_details, top_users } = response.data;
+        const { user_details, leaderboard } = response.data;
         setData({
           user: user_details,
-          topUsers: top_users,
+          leaderboard: leaderboard,
         });
         setLoading(false);
       } catch (error) {
@@ -68,9 +68,13 @@ const Rewards = (props) => {
     );
   }
 
-  const { user, topUsers } = data;
+  const { user, leaderboard } = data;
 
-  console.log("Processed top users data:", topUsers);
+  console.log("Processed leaderboard data:", leaderboard);
+
+  const calculateLevel = (points) => {
+    return Math.floor(points / 5);
+  };
 
   return (
     <View style={styles.container}>
@@ -90,9 +94,9 @@ const Rewards = (props) => {
       </View>
       <View style={styles.levelCardContainer}>
         <RewardLevelCard
-          level={user.level?.toString() ?? "N/A"}
+          level={calculateLevel(user.points).toString() ?? "N/A"}
           earned={user.points?.toString() ?? "0"}
-          reported={user.confirmed_issues?.toString() ?? "0"}
+          reported={user.points?.toString() ?? "0"} // Using points for issues reported
           icon={ABCD}
         />
       </View>
@@ -107,7 +111,7 @@ const Rewards = (props) => {
           onPress={() => {
             try {
               navigation.navigate(routes.LEADERBOARD, {
-                leaderboard: topUsers,
+                leaderboard: leaderboard,
               });
             } catch (error) {
               console.error("Error navigating to leaderboard:", error);
@@ -118,14 +122,14 @@ const Rewards = (props) => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.leaderboardContainer}>
-        {topUsers.map((leader, index) => {
+        {leaderboard.map((leader, index) => {
           console.log("Rendering leader:", leader);
           return (
             <LeaderBoardCard
               key={index}
               avatar={leader.picture ?? ABCD}
               name={leader.name ?? "Unknown"}
-              level={leader.level?.toString() ?? "N/A"}
+              level={calculateLevel(leader.points).toString() ?? "N/A"}
               points={leader.points?.toString() ?? "0"}
             />
           );

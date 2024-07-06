@@ -11,7 +11,12 @@ const RewardLevelCard = (props) => {
   const navigation = useNavigation();
 
   const handleViewProgress = () => {
-    navigation.navigate(routes.ISSUESREPORTEDAWARDS);
+    navigation.navigate(routes.ISSUESREPORTEDAWARDS, {
+      totalReported: props.reported,
+      earnedBadges: props.level, // Assuming badges are earned points
+      earnedPoints: props.earned,
+      achievedLevel: props.level,
+    });
   };
 
   return (

@@ -1,25 +1,21 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Badge from "../assets/badges/badge1.png"; // Use the same badge image
 
 const IssuesReportedAwards = () => {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  // Placeholder values for demonstration
-  const totalReported = 50;
-  const earnedBadges = 25;
-  const earnedPoints = 1000;
-  const achievedLevel = 3;
+  const { totalReported, earnedBadges, earnedPoints, achievedLevel } =
+    route.params;
 
   return (
     <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.backButton}>{"< Back"}</Text>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Issues Reported Awards</Text>
+        <Text style={styles.headerText}>Issues Reported Awards </Text>
       </View>
       <View style={styles.achievementContainer}>
         <Text style={styles.achievementTitle}>
@@ -46,11 +42,11 @@ const IssuesReportedAwards = () => {
           time.
         </Text>
         <View style={styles.badgesContainer}>
-          {Array.from({ length: totalReported }).map((_, index) => (
+          {Array.from({ length: earnedBadges }).map((_, index) => (
             <View key={index} style={styles.badgeItem}>
               <Image source={Badge} style={styles.badgeImage} />
               <Text style={styles.badgeText}>Level {achievedLevel}</Text>
-              <Text style={styles.badgeReports}>25 Reports</Text>
+              <Text style={styles.badgeReports}>5 Reports</Text>
             </View>
           ))}
         </View>
@@ -58,6 +54,8 @@ const IssuesReportedAwards = () => {
     </ScrollView>
   );
 };
+
+export default IssuesReportedAwards;
 
 const styles = StyleSheet.create({
   container: {
@@ -135,5 +133,3 @@ const styles = StyleSheet.create({
     color: "#888",
   },
 });
-
-export default IssuesReportedAwards;
