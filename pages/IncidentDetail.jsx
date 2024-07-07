@@ -1,20 +1,16 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
+import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { Modal, StyleSheet, TouchableOpacity } from "react-native";
+import { uniqueId } from "lodash";
 import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
 import { Button, StatusBadge } from "../components/atoms";
-import {
-  Modal,
-  PostedByCard,
-  UpVoteCard,
-  UpVoteModal,
-} from "../components/molecules";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
@@ -74,7 +70,7 @@ const IncidentDetail = ({ route, navigation }) => {
     let successType;
     switch (modalType) {
       case "upVote":
-        successType = `upvoted-${uniqueId()}`;
+        successType = `confirm-${uniqueId()}`;
         break;
       case "reject":
         successType = `reject-${uniqueId()}`;

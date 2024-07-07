@@ -26,6 +26,10 @@ import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import BellIcon from "../assets/icons/bell-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
+import Construction_Cap from "../assets/icons/Markers/Construction_Cap.svg";
+import Hazard_Sign from "../assets/icons/Markers/Hazard_Sign-1.svg";
+import Posted_Incident from "../assets/icons/Markers/Posted_Incident.svg";
+import Verified from "../assets/icons/Markers/Verified.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
@@ -105,9 +109,14 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleMarkerPress = (issue) => {
-    setQuickViewIssue({});
+    setQuickViewIssue(null);
     setShowQuickView(true);
     setQuickViewIssue(issue);
+    // Animated.timing(opacity, {
+    //   toValue: 1,
+    //   duration: 500,
+    //   useNativeDriver: true,
+    // }).start();
   };
 
   const animateToMap = (latitude, longitude) => {
@@ -125,6 +134,47 @@ const Home = ({ navigation, route }) => {
   const handleRecenter = async () => {
     const { latitude, longitude } = await getLocation();
     animateToMap(latitude, longitude);
+  };
+
+  // ######################## MARKERS (VERFIED OR NOT )########################
+
+  const whichMarker = (issue) => {
+    if (issue.reported_by === "USER" && issue.upvote_count < 3) {
+      return (
+        <View style={styles.markerStyles}>
+          <View style={styles.markerInner}>
+            <SvgUri width="38" height="36" source={Hazard_Sign} />
+          </View>
+        </View>
+      );
+    } else if (issue.reported_by === "USER" && issue.upvote_count >= 3) {
+      return (
+        <View style={styles.markerStyles}>
+          <View style={styles.markerInner}>
+            <SvgUri width="38" height="36" source={Posted_Incident} />
+          </View>
+        </View>
+      );
+    } else if (
+      issue.reported_by === "USER" &&
+      issue.is_accepted_by_org === true
+    ) {
+      return (
+        <View style={styles.markerStyles}>
+          <View style={styles.markerInner}>
+            <SvgUri width="38" height="36" source={Verified} />
+          </View>
+        </View>
+      );
+    } else if (issue.reported_by === "ORGANIZATION") {
+      return (
+        <View style={styles.markerStyles}>
+          <View style={styles.markerInner}>
+            <SvgUri width="38" height="36" source={Construction_Cap} />
+          </View>
+        </View>
+      );
+    }
   };
 
   return (
@@ -169,12 +219,23 @@ const Home = ({ navigation, route }) => {
               }
             >
               <IncidentCard
+                id={quickViewIssue?.id}
                 status={quickViewIssue?.status}
                 subject={quickViewIssue?.subject}
                 description={quickViewIssue?.description}
-                streetAddress={quickViewIssue?.address?.address_line1}
+                address={quickViewIssue?.address}
                 created_at={quickViewIssue?.created_at}
                 upvote_count={quickViewIssue?.upvote_count}
+                images={quickViewIssue?.images}
+                onPress={() => handleCardPress(quickViewIssue)}
+                style={{
+                  position: "absolute",
+                  top: 30,
+                  left: 20,
+                  right: 20,
+                  zIndex: 99,
+                  elevation: 99,
+                }}
               />
             </TouchableOpacity>
           </TouchableOpacity>
@@ -212,7 +273,9 @@ const Home = ({ navigation, route }) => {
                 hideCallout
                 highlighted={false}
                 onPress={() => handleMarkerPress(issue)}
-              />
+              >
+                {whichMarker(issue)}
+              </Marker>
             );
           })}
         </MapView>
@@ -435,5 +498,19 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 10,
+  },
+  markerStyles: {
+    borderColor: "rgba(0,0,0,.1)",
+    borderRadius: 50,
+    borderWidth: 15,
+  },
+  markerInner: {
+    borderRadius: 50,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 10,
+    borderColor: "rgba(0,0,0,.2)",
+    elevation: 5,
   },
 });

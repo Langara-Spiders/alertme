@@ -1,186 +1,124 @@
-import React, { useEffect, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-
 import { Text, View } from "@gluestack-ui/themed";
+import React, { useEffect, useReducer, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Alert, StyleSheet } from "react-native";
 import { getProfile, updateProfile } from "../api/user";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
 
-import Edit from "../assets/icons/Edit.svg";
+import EditIcon from "../assets/icons/Edit.svg";
+import User from "../assets/images/User.png";
 
 const ProfileDetails = () => {
   const intl = useIntl();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [initialAddress, setInitialAddress] = useState("");
 
-  const handleImageChange = (newImage) => {
-    // console.log("New image selected:", newImage);
-    setProfileImage(newImage);
-  };
-
-  const handleNameChange = (value) => {
-    // console.log("Name changed:", value);
-    setName(value);
-  };
-
-  const handleEmailChange = (value) => {
-    // console.log("Email changed:", value);
-    setEmail(value);
-  };
-
-  const handleContactChange = (value) => {
-    // console.log("Contact changed:", value);
-    setContact(value);
+  const reducerProfile = (state, action) => {
+    switch (action.type) {
+      case "CHANGE_PROFILE":
+        return action.payload;
+      case "CHANGE_NAME":
+        return {
+          ...state,
+          name: action.payload,
+        };
+      case "CHANGE_PHONE":
+        return {
+          ...state,
+          phone: action.payload,
+        };
+      case "CHANGE_COORDINATE":
+        return {
+          ...state,
+          coordinate: action.payload,
+        };
+      case "CHANGE_PROJECTID":
+        return {
+          ...state,
+          project_id: action.payload,
+        };
+    }
   };
 
   const fetchProfileData = async () => {
-    const profileData = await getProfile();
-    // console.log("Fetched profile data:", profileData);
-    const {
-      data: { user },
-    } = profileData;
-    setName(user.name);
-    setEmail(user.email);
-    setContact(user.phone ?? " ");
-    setProfileImage(user.picture);
+    const response = await getProfile();
+    dispatchProfile({
+      type: "CHANGE_PROFILE",
+      payload: response?.user ?? {},
+    });
   };
+
+  const [profile, dispatchProfile] = useReducer(reducerProfile, {});
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     fetchProfileData();
   }, []);
 
   const handleSave = async () => {
-    try {
-      setUploading(true);
-      // console.log("Saving profile...");
+    const response = await updateProfile(profile, image);
 
-      const profileData = {
-        name,
-        email,
-        contact,
-        picture: profileImage,
-      };
-
-      // console.log("Profile data to be sent:", profileData);
-
-      const result = await updateProfile(profileData);
-
-      // console.log('Profile update response:', result);
-
-      Alert.alert("Success", "Profile updated successfully");
-
-      //short delay before re-fetching the profile data
-      setTimeout(async () => {
-        await fetchProfileData();
-      }, 1000);
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      Alert.alert(
-        "Error",
-        "Failed to update profile. Please check the console for more details."
-      );
-    } finally {
-      setUploading(false);
-    }
-    setContact(value);
+    console.log("RESPONSE, ", response);
+    dispatchProfile({
+      type: "CHANGE_PROFILE",
+      payload: response?.user ?? {},
+    });
+    Alert.alert("Success", "Profile updated successfully");
   };
-
-  // const fetchProfileData = async () => {
-  //   setLoading(true);
-  //   const profileData = await getProfile();
-  //   const {
-  //     data: { user },
-  //   } = profileData;
-
-  //   setName(user.name);
-  //   setEmail(user.email);
-  //   setContact(user.phone ?? " ");
-  //   setLatitude(user.address.lat);
-  //   setLongitude(user.address.lng);
-
-  //   const addressData = await getReverseGeoCoding(
-  //     user.address.lat,
-  //     user.address.lng
-  //   );
-  //   const fullAddress =
-  //     addressData.street ||
-  //     `${addressData.city}, ${addressData.state}, ${addressData.country}`;
-  //   setInitialAddress(fullAddress);
-
-  //   setLoading(false);
-  // };
-
-  useEffect(() => {
-    fetchProfileData();
-  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <ProfileImageEdit
-          image={profileImage}
-          onImageChange={handleImageChange}
-          icon={Edit}
+          initialImage={profile.picture || User}
+          onImageChange={setImage}
+          icon={EditIcon}
         />
       </View>
-
       <Input
         label={intl.formatMessage({
-          id: "ProfileDeatails.nameinput.labelmessage",
+          id: "ProfileDetails.nameinput.labelmessage",
           defaultMessage: "Name *",
         })}
         placeholder={intl.formatMessage({
-          id: "ProfileDeatails.nameinput.placeholdermessage",
+          id: "ProfileDetails.nameinput.placeholdermessage",
           defaultMessage: "Enter your name",
         })}
-        onChangeText={handleNameChange}
-        value={name}
+        onChange={(text) =>
+          dispatchProfile({
+            type: "CHANGE_NAME",
+            payload: text,
+          })
+        }
+        value={profile.name}
         required={true}
       />
       <Input
         label={intl.formatMessage({
-          id: "ProfileDeatails.emailinput.labelmessage",
-          defaultMessage: "Email *",
-        })}
-        placeholder={intl.formatMessage({
-          id: "ProfileDeatails.emailinput.placeholdermessage",
-          defaultMessage: "Enter your email ",
-        })}
-        value={email}
-        onChangeText={handleEmailChange}
-        required={true}
-      />
-      <Input
-        label={intl.formatMessage({
-          id: "ProfileDeatails.contactinput.labelmessage",
+          id: "ProfileDetails.contactinput.labelmessage",
           defaultMessage: "Contact Number",
         })}
         placeholder={intl.formatMessage({
-          id: "ProfileDeatails.contactinput.placeholdermessage",
+          id: "ProfileDetails.contactinput.placeholdermessage",
           defaultMessage: "Enter your number",
         })}
-        value={contact}
-        onChangeText={handleContactChange}
+        value={profile.phone}
+        onChange={(text) =>
+          dispatchProfile({
+            type: "CHANGE_PHONE",
+            payload: text,
+          })
+        }
       />
-
       <LocationInput
-        latitude={latitude}
-        longitude={longitude}
-        value={{ address_line1: initialAddress }}
+        // latitude={latitude}
+        // longitude={longitude}
+        value={profile.address}
       />
-
       <View style={styles.buttonContainer}>
-        <Button style={styles.button} onPress={handleSave} disabled={uploading}>
+        <Button style={styles.button} onPress={handleSave}>
           <Text style={styles.buttonText}>
             <FormattedMessage
-              id="ProfileDeatails.savebutton.Buttonmessage"
+              id="ProfileDetails.savebutton.Buttonmessage"
               defaultMessage="Save"
             />
           </Text>
