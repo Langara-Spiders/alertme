@@ -1,5 +1,6 @@
 export { getReverseGeoCoding } from "./geoLocation";
 export {
+  getAllIssuesforOrg,
   getCategories,
   getIncidentDetailsForUser,
   getMyIssues,

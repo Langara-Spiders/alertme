@@ -1,9 +1,10 @@
 import * as Location from "expo-location";
-
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import { uniqueId } from "lodash";
+import { uniqueId } from "lodash";
+import React, { useEffect, useState } from "react";
+import BottomSheet from "react-native-simple-bottom-sheet";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
@@ -55,6 +56,9 @@ const IncidentDetail = ({ route, navigation }) => {
   const handleModalOpen = (type) => {
     setModalType(type);
     setModalVisible(true);
+    console.log("THESE ARE MODAL TYPES &&&&&&&&&&&&&");
+    console.log(modalType);
+    console.log(modalVisible);
   };
 
   const handleModalClose = () => {
@@ -89,31 +93,9 @@ const IncidentDetail = ({ route, navigation }) => {
     );
   };
 
-  const showResolveButton = () => {
-    return (
-      incident.reported_by === "USER" &&
-      incident.user_id !== current_logged_in_user_id &&
-      isStaff
-    );
-  };
-
   const showReportedBySectionUSER = () => {
     return !isStaff && incident.reported_by === "USER";
   };
-
-  const showVerifiedBySectionUSER = () => {
-    return !isStaff && incident.reported_by === "ORG";
-  };
-
-  const showResolveBySectionORG = () => {
-    return (
-      isStaff &&
-      (incident.upvote_count > 3 || incident.is_accepted_by_org == true)
-    );
-  };
-
-  console.log("HHGSDHHHHRYAYYY**************");
-  console.log(incident);
 
   if (loading) {
     return (
@@ -143,21 +125,27 @@ const IncidentDetail = ({ route, navigation }) => {
         </ScrollView>
         <View style={styles.dotsContainer}>
           {incident.images.map((_, index) => (
-            <SvgUri key={index} width="16" height="16" source={Scroll_Dot} />
+            <SvgUri
+              key={index}
+              width="16"
+              height="16"
+              source={Scroll_Dot}
+              style={styles.dot}
+            />
           ))}
         </View>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>←</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.detailsContainer}>
-        <View style={styles.header}>
-          <StatusBadge status={incident.status} />
-          <View style={styles.iconsContainer}>
-            <Text style={styles.iconButton}>🖋️</Text>
-            <Text style={styles.iconButton}>🛢️</Text>
-          </View>
-        </View>
+      <ScrollView style={styles.detailsContainer}>
+        <StatusBadge status={incident.status} style={styles.statusBadge} />
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.distance}>
-          {incident.distance.toFixed(1)} km away
+          {incident.distance.toFixed(2)} km away
         </Text>
         <Text style={styles.heading}>Incident Location</Text>
         <TouchableOpacity
@@ -167,6 +155,7 @@ const IncidentDetail = ({ route, navigation }) => {
               coordinate: incident?.coordinate,
             })
           }
+          style={styles.locationText}
         >
           <Text>
             {incident.address.street_address},{" "}
@@ -183,77 +172,73 @@ const IncidentDetail = ({ route, navigation }) => {
           <Text>{incident.category_name}</Text>
         </View>
         <Text style={styles.heading}>Description</Text>
-        <Text>{incident.description}</Text>
-        {showReportedBySectionUSER() && (
-          <>
-            <Text style={styles.heading}>Reported by</Text>
-            <View style={styles.user_name}>
-              <PostedByCard
-                name={incident.user_name}
-                created_at={incident.created_at}
-              />
-            </View>
-            <View style={styles.upvoteCardContainer}>
-              <UpVoteCard votes={incident.upvote_count} />
-            </View>
-            {showUpvoteButton() && (
-              <View>
-                <Button onPress={() => handleModalOpen("upVote")}>
-                  <Text>Upvote Issue</Text>
-                </Button>
-              </View>
-            )}
-          </>
-        )}
-        {showVerifiedBySectionUSER() && (
-          <>
-            <Text style={styles.heading}>Verified by</Text>
-            <View style={styles.user_name}>
-              <PostedByCard
-                name={incident.reported_by}
-                created_at={incident.created_at}
-              />
-            </View>
-          </>
-        )}
-        {showResolveBySectionORG() && (
-          <>
-            <Text style={styles.heading}>Reported by</Text>
-            <View style={styles.user_reported}>
-              <PostedByCard
-                name={incident.user_name}
-                created_at={incident.created_at}
-                user_picture={incident.user_picture}
-              />
-            </View>
-            <View style={styles.upvoteCardContainer}>
-              <UpVoteCard votes={incident.upvote_count} />
-            </View>
-            {showResolveButton() && (
-              <View>
-                <Button onPress={() => handleModalOpen("resolveIncident")}>
-                  <Text>Resolve Issue</Text>
-                </Button>
-              </View>
-            )}
-          </>
-        )}
-        <Modal
-          visible={modalVisible}
-          animationType="slide"
-          onRequestClose={handleModalClose}
-          presentationStyle="overFullScreen"
-          transparent={true}
-        >
-          <UpVoteModal
-            onClose={handleModalClose}
-            onConfirm={onConfirm}
-            type={modalType}
+        <Text style={styles.description}>{incident.description}</Text>
+        <Text style={styles.heading}>
+          {showReportedBySectionUSER() ? "Posted by" : "Verified by"}
+        </Text>
+        <View style={styles.user_name}>
+          <PostedByCard
+            name={incident.user_name}
+            created_at={incident.created_at}
           />
-        </Modal>
-      </View>
+        </View>
+      </ScrollView>
+      <BottomSheet sliderMinHeight={30} isOpen>
+        <View style={styles.bottomSheetContent}>
+          {showReportedBySectionUSER() ? (
+            <>
+              <View style={styles.upvoteCardContainer}>
+                <UpVoteCard votes={incident.upvote_count} />
+              </View>
+              {showUpvoteButton() && (
+                <View style={styles.upvoteButtonContainer}>
+                  <Button onPress={() => handleModalOpen("upVote")}>
+                    <Text>Upvote Issue</Text>
+                  </Button>
+                </View>
+              )}
+              <Modal
+                visible={modalVisible}
+                animationType="slide"
+                onRequestClose={handleModalClose}
+                presentationStyle="overFullScreen"
+                transparent={true}
+              >
+                <UpVoteModal
+                  onClose={handleModalClose}
+                  onConfirm={onConfirm}
+                  type={modalType}
+                />
+              </Modal>
+            </>
+          ) : (
+            <>
+              <View style={styles.upvoteCardContainer}>
+                <UpVoteCard votes={incident.upvote_count} />
+              </View>
+            </>
+          )}
+        </View>
+      </BottomSheet>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={handleModalClose}
+        presentationStyle="overFullScreen"
+        transparent={true}
+      >
+        <UpVoteModal
+          onClose={handleModalClose}
+          onConfirm={onConfirm}
+          type={modalType}
+        />
+      </Modal>
     </View>
   );
+};
+
+IncidentDetail.navigationOptions = {
+  headerShown: false,
 };
 
 export default IncidentDetail;
@@ -264,7 +249,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: "relative",
-    height: 200,
+    height: 250,
   },
   imageScrollContainer: {
     height: "100%",
@@ -276,10 +261,26 @@ const styles = StyleSheet.create({
   dotsContainer: {
     position: "absolute",
     bottom: 30,
-    left: "50%",
-    marginLeft: -10, // Adjust as needed for perfect centering
+    left: 0,
+    right: 0,
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
+  },
+  dot: {
+    marginHorizontal: 4,
+  },
+  backButton: {
+    position: "absolute",
+    top: 20,
+    left: 10,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    padding: 10,
+    borderRadius: 20,
+  },
+  backButtonText: {
+    color: "white",
+    fontSize: 18,
   },
   detailsContainer: {
     flex: 1,
@@ -290,37 +291,29 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginTop: -20,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  iconsContainer: {
-    flexDirection: "row",
-    marginTop: 3,
-  },
-  iconButton: {
-    marginLeft: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
+  statusBadge: {
+    alignSelf: "flex-start",
+    marginBottom: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
+    marginTop: 8,
   },
   distance: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
+    marginBottom: 8,
   },
   heading: {
-    color: "#636C6E",
+    color: "#888",
     fontSize: 14,
-    fontWeight: "400",
-    paddingTop: 18,
-    marginTop: 1,
-    paddingBottom: 4,
+    fontWeight: "500",
+    marginTop: 8,
+  },
+  locationText: {
+    marginTop: 4,
+    marginBottom: 8,
   },
   viewMap: {
     color: "#FF6600",
@@ -328,22 +321,28 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 4,
+    marginBottom: 8,
   },
   typeIcon: {
     width: 24,
     height: 24,
     marginRight: 8,
   },
+  description: {
+    marginTop: 4,
+    marginBottom: 8,
+  },
+  user_reported: {
+    marginTop: 4,
+  },
   upvoteCardContainer: {
     backgroundColor: "white",
     borderRadius: 10,
+    marginTop: 10,
   },
-  upvoteButton: {
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  user_reported: {
-    marginTop: 1,
+  upvoteButtonContainer: {
+    marginTop: 10,
   },
   loadingContainer: {
     flex: 1,
@@ -353,5 +352,8 @@ const styles = StyleSheet.create({
   loadingIcon: {
     width: 50,
     height: 50,
+  },
+  bottomSheetContent: {
+    padding: 0,
   },
 });
