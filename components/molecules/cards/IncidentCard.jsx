@@ -6,14 +6,14 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { StatusBadge } from "../../atoms";
+import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
-import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
+import { StatusBadge } from "../../atoms";
 
 const dateOptions = {
   year: "numeric",
@@ -27,6 +27,8 @@ const dateOptions = {
 const IncidentCard = (props) => {
   const navigation = useNavigation();
 
+  // console.log('IncidentCard props:', props);
+
   const handlePress = () => {
     navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
   };
@@ -39,14 +41,16 @@ const IncidentCard = (props) => {
             <StatusBadge status={props.status} />
           </View>
           <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {props.subject}
+            {props.subject ?? "No Subject"}
           </Heading>
           <Heading
             style={styles.distance}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {props.distance.toFixed(1)} km away
+            {props.distance
+              ? `${props.distance.toFixed(1)} km away`
+              : "Distance unavailable"}
           </Heading>
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
@@ -56,7 +60,7 @@ const IncidentCard = (props) => {
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {props.address.street_address}
+                {props.address?.street_address ?? "Address unavailable"}
               </Text>
             </View>
             <Text style={styles.timeText}>
@@ -135,6 +139,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     lineHeight: 0,
     marginTop: 5,
+    position: "absolute",
+    top: 0,
   },
   distance: {
     color: "#000000",

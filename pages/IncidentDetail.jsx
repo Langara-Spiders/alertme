@@ -1,13 +1,8 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
+
+import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
-import { uniqueId } from "lodash";
-import SvgUri from "react-native-svg-uri";
-import { getIncidentDetailsForUser } from "../api/incident";
-import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import ABCD from "../assets/images/sample_user.png";
 import { Button, StatusBadge } from "../components/atoms";
 import {
   Modal,
@@ -15,6 +10,12 @@ import {
   UpVoteCard,
   UpVoteModal,
 } from "../components/molecules";
+
+import { uniqueId } from "lodash";
+import SvgUri from "react-native-svg-uri";
+import { getIncidentDetailsForUser } from "../api/incident";
+import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
+import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
