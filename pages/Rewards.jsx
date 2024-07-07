@@ -24,7 +24,6 @@ const Rewards = (props) => {
     const fetchData = async () => {
       try {
         const response = await getReward();
-        console.log("API response data:", response.data);
         const { user_details, leaderboard } = response.data;
         setData({
           user: user_details,
@@ -32,7 +31,6 @@ const Rewards = (props) => {
         });
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching reward data:", error);
         setError(error);
         setLoading(false);
       }
@@ -69,8 +67,6 @@ const Rewards = (props) => {
   }
 
   const { user, leaderboard } = data;
-
-  console.log("Processed leaderboard data:", leaderboard);
 
   const calculateLevel = (points) => {
     return Math.floor(points / 5);
