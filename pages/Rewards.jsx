@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { getReward } from "../api/user";
+import badge1 from "../assets/badges/badge1.png";
+import badge2 from "../assets/badges/badge2.png";
+import badge3 from "../assets/badges/badge3.png";
 import ABCD from "../assets/images/sample_user.png";
 import {
   LeaderBoardCard,
@@ -11,6 +14,14 @@ import {
   RewardLevelCard,
 } from "../components/molecules";
 import { routes } from "../constants";
+// Add additional badge imports as needed
+
+const badges = {
+  1: badge1,
+  2: badge2,
+  3: badge3,
+  // Add additional badge mappings as needed
+};
 
 // Feature `Rewards`.
 const Rewards = (props) => {
@@ -72,6 +83,10 @@ const Rewards = (props) => {
     return Math.floor(points / 5);
   };
 
+  const getBadgeForLevel = (level) => {
+    return badges[level] || ABCD; // Default to ABCD if no badge is found
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -93,7 +108,7 @@ const Rewards = (props) => {
           level={calculateLevel(user.points).toString() ?? "N/A"}
           earned={user.points?.toString() ?? "0"}
           reported={user.points?.toString() ?? "0"} // Using points for issues reported
-          icon={ABCD}
+          icon={getBadgeForLevel(calculateLevel(user.points))}
         />
       </View>
       <View style={styles.leaderboardHeader}>
