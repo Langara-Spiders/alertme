@@ -139,8 +139,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     lineHeight: 0,
     marginTop: 5,
-    position: "absolute",
-    top: 0,
   },
   distance: {
     color: "#000000",

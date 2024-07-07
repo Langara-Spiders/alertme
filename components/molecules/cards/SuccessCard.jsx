@@ -1,8 +1,8 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import upVoteIcon from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
 import successIcon from "../../../assets/icons/SuccessFill.svg";
+import upVoteIcon from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
 const SuccessCard = ({ type }) => {
   let heading = "";
   let message = "";
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#0B0C0C",
     fontWeight: 600,
-    marginLeft: 5, 
+    marginLeft: 5,
     marginBottom: 0,
   },
   message: {

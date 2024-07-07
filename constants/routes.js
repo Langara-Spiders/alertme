@@ -9,6 +9,7 @@ const routes = {
   NOTIFICATIONS: "Notifications",
   REPORT_INCIDENT: "Report Incident",
   INCIDENT_DETAIL: "Incident Detail",
+  INCIDENT_DETAIL_ORG: "Incident Detail Org",
 
   REWARDS: "Rewards",
   PROFILE: "Profile",
@@ -20,8 +21,8 @@ const routes = {
 
   // Incidents
   MY_INCIDENTS: "My Issues",
-  ALL_INCIDENTS_ORG: "All Issues",
-  SITE_INCIDENTS_ORG: "Site Issues",
+  CIVILIAN_INCIDENTS_ORG: "Civilian",
+  SITE_INCIDENTS_ORG: "Site",
   MY_INCIDENTS_ALL: "My Incidents All",
   MY_INCIDENTS_ACTIVE: "My Incidents Active",
   MY_INCIDENTS_PENDING: "My Incidents Pending",

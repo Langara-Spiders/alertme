@@ -7,24 +7,25 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-import { getAllIssuesforOrg } from "../api/incident";
+
+import * as Location from "expo-location";
+import { getMyIssues } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
 
 const screenWidth = Dimensions.get("window").width;
 
-const AllIncidentsOrg = (props) => {
+const UserIncidents = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    getAllIssues();
+    getMyIncidentsNearBy();
     // handleRecenter();
     const interval = setInterval(() => {
-      getAllIssues();
+      getMyIncidentsNearBy();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -40,9 +41,9 @@ const AllIncidentsOrg = (props) => {
     return coords ?? {};
   };
 
-  const getAllIssues = async () => {
+  const getMyIncidentsNearBy = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getAllIssuesforOrg(latitude, longitude);
+    const response = await getMyIssues(latitude, longitude);
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -50,9 +51,6 @@ const AllIncidentsOrg = (props) => {
 
     setIncidents(incidentsWithDistance);
   };
-
-  console.log("I guess this is incidents");
-  console.log(incidents);
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
 
@@ -66,13 +64,7 @@ const AllIncidentsOrg = (props) => {
     if (activeButton === "all") {
       return true;
     }
-    if (activeButton === "construction site") {
-      return incident.reported_by === "site";
-    }
-    if (activeButton === "civilians") {
-      return incident.reported_by === "civilian";
-    }
-    return false;
+    return incident.status.toLowerCase() === activeButton;
   });
 
   return (
@@ -81,7 +73,7 @@ const AllIncidentsOrg = (props) => {
         <Pressable onPress={() => navigation.navigate("Home")}>
           <Icon as={ArrowLeftIcon} />
         </Pressable>
-        <Text style={styles.headerText}>All Incidents</Text>
+        <Text style={styles.headerText}>My Posted Issues</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -89,7 +81,7 @@ const AllIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "construction site", "civilians"].map((status) => (
+          {["all", "active", "pending", "resolved", "fixing"].map((status) => (
             <TouchableOpacity
               key={status}
               style={[
@@ -108,9 +100,7 @@ const AllIncidentsOrg = (props) => {
                     : styles.inactiveButtonText,
                 ]}
               >
-                {status === "construction site"
-                  ? "Construction site"
-                  : status.charAt(0).toUpperCase() + status.slice(1)}
+                {status.charAt(0).toUpperCase() + status.slice(1)}
               </Text>
             </TouchableOpacity>
           ))}
@@ -129,7 +119,7 @@ const AllIncidentsOrg = (props) => {
   );
 };
 
-export default AllIncidentsOrg;
+export default UserIncidents;
 
 const styles = StyleSheet.create({
   screen: {
@@ -157,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
-    width: (screenWidth - 50) / 3,
+    width: (screenWidth - 10) / 4,
   },
   activeButton: {
     backgroundColor: "#ff6600",
@@ -168,7 +158,7 @@ const styles = StyleSheet.create({
     borderColor: "#ff6600",
   },
   buttonText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "bold",
   },
   activeButtonText: {
