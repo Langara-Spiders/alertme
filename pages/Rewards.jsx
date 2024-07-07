@@ -25,19 +25,11 @@ const Rewards = (props) => {
       try {
         const response = await getReward();
         console.log("API response data:", response.data);
-
-        // Check if response.data exists and is not null
-        if (response.data) {
-          const { user_details, leaderboard } = response.data;
-          setData({
-            user: user_details,
-            leaderboard: leaderboard,
-          });
-        } else {
-          // Handle the case where response.data is null or undefined
-          throw new Error("No data found in the response");
-        }
-
+        const { user_details, leaderboard } = response.data;
+        setData({
+          user: user_details,
+          leaderboard: leaderboard,
+        });
         setLoading(false);
       } catch (error) {
         console.error("Error fetching reward data:", error);
