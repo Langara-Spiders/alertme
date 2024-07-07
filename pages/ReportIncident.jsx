@@ -1,14 +1,9 @@
 import * as Location from "expo-location";
 
-import {
-  ArrowLeftIcon,
-  Icon,
-  Pressable,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+
 import {
   KeyboardAvoidingView,
   Platform,
@@ -26,6 +21,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
+import { ChevronLeft } from "lucide-react-native";
 import { routes } from "../constants";
 
 const user_type = {
@@ -41,6 +37,7 @@ const ReportIncident = () => {
   const [coords, setCoords] = useState({});
   const [incidentDescription, setIncidentDescription] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [images, setImages] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -95,7 +92,7 @@ const ReportIncident = () => {
       },
       is_internal_for_org: false,
     };
-    const res = await postIssue(report);
+    const res = await postIssue(report, images);
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
@@ -105,15 +102,14 @@ const ReportIncident = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       enabled
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <View style={{ backgroundColor: "#fff" }}>
           <View style={styles.header}>
             <Pressable onPress={() => navigation.navigate("Home")}>
-              <Icon as={ArrowLeftIcon} />
+              <ChevronLeft color="black" size={36} />
             </Pressable>
             <Text style={styles.headerText}>Add Issue</Text>
           </View>
@@ -121,11 +117,11 @@ const ReportIncident = () => {
             <Text style={styles.title}>
               <FormattedMessage
                 id="reportIncident.titleaddpics"
-                defaultMessage="Add Issues Pictures°"
+                defaultMessage="Add Issues Pictures*"
               />
             </Text>
             <View style={{ flex: 1 }}>
-              <IncidentImageUpload />
+              <IncidentImageUpload images={images} setImages={setImages} />
             </View>
             <View style={styles.category}>
               <Text style={styles.title}>
@@ -143,7 +139,7 @@ const ReportIncident = () => {
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.inputLabel.incidentType",
-                defaultMessage: "Issue Type *",
+                defaultMessage: "Issue Type*",
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.inputPlaceholder.incidentSubject",
@@ -158,7 +154,7 @@ const ReportIncident = () => {
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.description",
-                defaultMessage: "Description *",
+                defaultMessage: "Description*",
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.input.incidentDescription",
@@ -169,6 +165,11 @@ const ReportIncident = () => {
                 setIncidentDescription(text);
               }}
               multiline
+              style={{
+                inputbox: {
+                  height: 86,
+                },
+              }}
             />
             <Button onPress={handlePostIncident}>
               <FormattedMessage
@@ -203,6 +204,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
+    paddingTop: 30,
   },
   category: {
     flex: 1,
@@ -222,14 +224,14 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingLeft: 10,
+    marginTop: 8,
   },
   textArea: {
     height: 80,
     borderColor: "#ccc",
     borderWidth: 1,
-    marginBottom: 20,
     paddingLeft: 10,
     paddingTop: 10,
   },

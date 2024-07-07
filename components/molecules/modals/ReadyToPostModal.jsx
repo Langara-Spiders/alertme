@@ -26,12 +26,30 @@ const ReadyToPostModal = (props) => {
             />
           </Text>
           <View style={styles.confirmationButtons}>
-            <Button style={styles.no} onPress={props.onCancel}>
-              <Text>
+            <Button
+              style={{
+                button: {
+                  backgroundColor: "#fff",
+                  paddingHorizontal: 64,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 64,
+                  borderWidth: 1,
+                  borderColor: "#222425",
+                  marginRight: 6,
+                },
+              }}
+              onPress={props.onCancel}
+            >
+              <Text style={{ color: "#000", fontSize: 16 }}>
                 <FormattedMessage id="readyModal.no" defaultMessage="No" />
               </Text>
             </Button>
-            <Button style={styles.yes} onPress={props.onConfirm}>
+
+            <Button
+              style={{ button: { paddingHorizontal: 60, marginLeft: 6 } }}
+              onPress={props.onConfirm}
+            >
               <Text style={styles.buttonTextBlack}>
                 <FormattedMessage id="readyModal.yes" defaultMessage="Post" />
               </Text>
@@ -78,14 +96,7 @@ const styles = StyleSheet.create({
   confirmationButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
     paddingHorizontal: 10,
-  },
-  no: {
-    flex: 1,
-  },
-  yes: {
-    flex: 1,
   },
   buttonTextBlack: {
     color: "#000",

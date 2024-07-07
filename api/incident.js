@@ -49,16 +49,19 @@ const getCategories = async () => {
   }
 };
 
-const postIssue = async (report) => {
+const postIssue = async (report, pictures) => {
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
+
+    for (const picture of pictures) formData.append("pictures", picture);
+
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.error(error);
     return {};

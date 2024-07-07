@@ -1,5 +1,6 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { ScrollView, Text, View } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
 const CategoriesModal = (props) => {
   return (
@@ -19,9 +20,13 @@ const CategoriesModal = (props) => {
                     : null,
                 ]}
               >
-                <Image width="24" height="24" source={{ uri: category.icon }} />
-                <Text style={styles.labelText}>{category.name}</Text>
+                <SvgUri
+                  width="24"
+                  height="24"
+                  source={{ uri: category.icon }}
+                />
               </View>
+              <Text style={styles.labelText}>{category.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -40,12 +45,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     paddingHorizontal: 5,
+    marginTop: 8,
+    marginBottom: 8,
   },
   button: {
-    display: "flex",
     alignItems: "center",
     width: 70,
-    height: 62,
+    height: 70,
     justifyContent: "center",
     borderRadius: 8,
     backgroundColor: "#F3F4F4",

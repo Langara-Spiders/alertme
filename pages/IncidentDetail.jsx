@@ -1,8 +1,8 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
+
+import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-
 import { uniqueId } from "lodash";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser } from "../api/incident";

@@ -2,12 +2,13 @@ import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import upVoteIcon from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
-
+import successIcon from "../../../assets/icons/SuccessFill.svg";
 const SuccessCard = ({ type }) => {
   let heading = "";
   let message = "";
 
   if (type === "post") {
+    icon = <SvgUri width="24" height="24" source={successIcon} />;
     heading = "Issue Posted Successfully";
     message =
       "Your incident posts to the map after 3 upvotes 🔼 or employee review and post!";
@@ -27,7 +28,10 @@ const SuccessCard = ({ type }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>{heading}</Text>
+      <View style={styles.row}>
+        {icon}
+        <Text style={styles.heading}>{heading}</Text>
+      </View>
       <Text style={styles.message}>{message}</Text>
     </View>
   );
@@ -50,15 +54,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
   },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+  },
   heading: {
     fontSize: 16,
     color: "#0B0C0C",
     fontWeight: 600,
-    marginBottom: 12,
+    marginLeft: 5, 
+    marginBottom: 0,
   },
   message: {
+    marginTop: 12,
     fontSize: 14,
     color: "#0B0C0C",
-    textAlign: "center",
   },
 });
