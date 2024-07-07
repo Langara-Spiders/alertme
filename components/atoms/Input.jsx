@@ -18,7 +18,7 @@ const Input = (props) => {
         variant={props.variant ?? "solid"}
         action={props.action ?? "primary"}
         isDisabled={props.isDisabled ?? false}
-        style={[styles.container, props.style]}
+        style={[styles.container, props.style?.inputbox]}
         isReadOnly={props.isReadOnly ?? false}
         required={props.required ?? false}
       >
@@ -45,10 +45,12 @@ export default Input;
 const styles = StyleSheet.create({
   wrapper: {
     padding: 10,
+    marginTop: 1,
   },
   label: {
     color: "#333",
     fontSize: 16,
+    marginBottom: 8,
   },
   container: {
     borderRadius: 10,

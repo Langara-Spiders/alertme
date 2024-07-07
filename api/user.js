@@ -43,30 +43,30 @@ const getReward = async () => {
 const getProfile = async () => {
   try {
     const res = await axios.get(`${API_BASE_URL}/users/profile`);
-    return res.data;
+    return res.data?.data;
   } catch (error) {
     console.error(error.response);
     return {};
   }
 };
 
-const updateProfile = async (profileData) => {
+const updateProfile = async (user, picture) => {
   try {
-    const res = await axios.post(`${API_BASE_URL}/users/profile`, profileData, {
+    const formData = new FormData();
+    formData.append("user", JSON.stringify(user));
+    if (picture) {
+      formData.append("picture", picture);
+    }
+    const res = await axios.post(`${API_BASE_URL}/users/profile`, formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     });
 
-    console.log("Backend response:", res.data);
-
-    return res.data;
+    return res.data?.data;
   } catch (error) {
-    console.error(
-      "Error updating profile:",
-      error.response ? error.response.data : error.message
-    );
-    throw error;
+    console.error(error.response);
+    return {};
   }
 };
 

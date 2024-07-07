@@ -1,3 +1,5 @@
+export { default as About } from "./About";
+export { default as AllIncidentsOrg } from "./AllIncidentsOrg";
 export { default as AllowPermissions } from "./AllowPermissions";
 export { default as AppSetting } from "./AppSetting";
 export { default as ChooseUser } from "./ChooseUser";

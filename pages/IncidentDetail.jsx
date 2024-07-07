@@ -65,7 +65,7 @@ const IncidentDetail = ({ route, navigation }) => {
     let successType;
     switch (modalType) {
       case "upVote":
-        successType = `upvoted-${uniqueId()}`;
+        successType = `confirm-${uniqueId()}`;
         break;
       case "reject":
         successType = `reject-${uniqueId()}`;
