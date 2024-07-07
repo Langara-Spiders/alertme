@@ -12,46 +12,42 @@ import {
 } from "../components/molecules";
 import { routes } from "../constants";
 
-/* The `mockData` constant is storing a mock data object 
-that represents user and leaderboard
-information. Here's a breakdown of the data structure: */
-
-const mockData = {
-  leaderboard: [
-    { avatar: ABCD, name: "Dulce Carder", level: 15, points: 13343 },
-    { avatar: ABCD, name: "Craig Septimus", level: 14, points: 12104 },
-    { avatar: ABCD, name: "Ann Dokidis", level: 12, points: 11048 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-  ],
-};
-
 // Feature `Rewards`.
 const Rewards = (props) => {
   const intl = useIntl();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigation = useNavigation();
 
-  /* The `useEffect` hook in the provided code snippet 
-is used to perform side effects in a functional
-component. In this specific case: setData, setLoading*/
   useEffect(() => {
     const fetchData = async () => {
-      const rewardData = await getReward();
-      setData(rewardData[0]);
-      setLoading(false);
+      try {
+        const response = await getReward();
+        console.log("API response data:", response.data);
+
+        // Check if response.data exists and is not null
+        if (response.data) {
+          const { user_details, leaderboard } = response.data;
+          setData({
+            user: user_details,
+            leaderboard: leaderboard,
+          });
+        } else {
+          // Handle the case where response.data is null or undefined
+          throw new Error("No data found in the response");
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching reward data:", error);
+        setError(error);
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, []);
-
-  /* The `if (loading)` block in the `Rewards` component is a 
-conditional check that is used to handle
-the rendering of a loading indicator while the data is being 
-fetched. */
 
   if (loading) {
     return (
@@ -61,20 +57,43 @@ fetched. */
     );
   }
 
-  /* This component displays the Rewards page with a greeting card, 
-a level card, and a scrollable leaderboard.*/
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>
+          Error loading data: {error.message}
+        </Text>
+      </View>
+    );
+  }
+
+  if (!data || !data.user) {
+    console.error("Data or user is undefined", { data });
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Error loading data</Text>
+      </View>
+    );
+  }
+
+  const { user, leaderboard } = data;
+
+  console.log("Processed leaderboard data:", leaderboard);
+
+  const calculateLevel = (points) => {
+    return Math.floor(points / 5);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <RewardGreetingCard
-          name={data.name}
-          avatar={data.picture ?? "https://picsum.photos/200/300"}
+          name={user.name ?? "Unknown"}
+          avatar={user.picture ?? "https://picsum.photos/200/300"}
         />
       </View>
       <View>
         <Text style={styles.levelCardText}>
-          {" "}
           <FormattedMessage
             id="Rewards.issueReported"
             defaultMessage="Issue Reported"
@@ -82,7 +101,12 @@ a level card, and a scrollable leaderboard.*/
         </Text>
       </View>
       <View style={styles.levelCardContainer}>
-        <RewardLevelCard level="3" earned="214" reported="58" icon={ABCD} />
+        <RewardLevelCard
+          level={calculateLevel(user.points).toString() ?? "N/A"}
+          earned={user.points?.toString() ?? "0"}
+          reported={user.points?.toString() ?? "0"} // Using points for issues reported
+          icon={ABCD}
+        />
       </View>
       <View style={styles.leaderboardHeader}>
         <Text style={styles.leaderboardText}>
@@ -92,32 +116,37 @@ a level card, and a scrollable leaderboard.*/
           />
         </Text>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(routes.LEADERBOARD, {
-              leaderboard: mockData.leaderboard,
-            })
-          }
+          onPress={() => {
+            try {
+              navigation.navigate(routes.LEADERBOARD, {
+                leaderboard: leaderboard,
+              });
+            } catch (error) {
+              console.error("Error navigating to leaderboard:", error);
+            }
+          }}
         >
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.leaderboardContainer}>
-        {mockData.leaderboard.map((leader, index) => (
-          <LeaderBoardCard
-            key={index}
-            avatar={leader.avatar}
-            name={leader.name}
-            level={leader.level.toString()}
-            points={leader.points.toString()}
-          />
-        ))}
+        {leaderboard.map((leader, index) => {
+          console.log("Rendering leader:", leader);
+          return (
+            <LeaderBoardCard
+              key={index}
+              avatar={leader.picture ?? ABCD}
+              name={leader.name ?? "Unknown"}
+              level={calculateLevel(leader.points).toString() ?? "N/A"}
+              points={leader.points?.toString() ?? "0"}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
 };
 
-/*Styles for the Rewards page components including the container,
-header, level card text, leaderboard, and loading state.*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -163,6 +192,15 @@ const styles = StyleSheet.create({
   loadingIcon: {
     width: 50,
     height: 50,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    color: "red",
   },
 });
 
