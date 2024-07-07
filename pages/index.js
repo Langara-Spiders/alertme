@@ -7,7 +7,6 @@ export { default as GetStarted } from "./GetStarted";
 export { default as Home } from "./Home";
 export { default as IncidentDetail } from "./IncidentDetail";
 export { default as IncidentDetailOrg } from "./IncidentDetailOrg";
-export { default as Incidents } from "./Incidents";
 export { default as IssuesReportedAwards } from "./IssuesReportedAwards";
 export { default as Leaderboard } from "./Leaderboard";
 export { default as Login } from "./Login";
