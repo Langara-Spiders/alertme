@@ -2,6 +2,7 @@ import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import successIcon from "../../../assets/icons/SuccessFill.svg";
+import upVoteIcon from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
 const SuccessCard = ({ type }) => {
   let heading = "";
   let message = "";
@@ -12,6 +13,7 @@ const SuccessCard = ({ type }) => {
     message =
       "Your incident posts to the map after 3 upvotes 🔼 or employee review and post!";
   } else if (type === "confirm") {
+    icon = <SvgUri width="24" height="24" source={upVoteIcon} />;
     heading = "You have upvoted an Incident";
     message =
       "Thank you for your response. We will update you on the incident status soon.";
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#0B0C0C",
     fontWeight: 600,
-    marginLeft: 5, // Added space between icon and text
+    marginLeft: 5,
     marginBottom: 0,
   },
   message: {

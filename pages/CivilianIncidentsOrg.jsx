@@ -14,7 +14,7 @@ import { getAllIssuesforOrg } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
 const screenWidth = Dimensions.get("window").width;
 
-const SiteIncidentsOrg = (props) => {
+const CivilianIncidentsOrg = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
@@ -120,7 +120,7 @@ const SiteIncidentsOrg = (props) => {
   );
 };
 
-export default SiteIncidentsOrg;
+export default CivilianIncidentsOrg;
 
 const styles = StyleSheet.create({
   screen: {

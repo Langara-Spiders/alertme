@@ -1,12 +1,12 @@
 import * as React from "react";
 
 import {
-  AllIncidentsOrg,
+  CivilianIncidentsOrg,
   Home,
-  Incidents,
   Profile,
   Rewards,
   SiteIncidentsOrg,
+  UserIncidents,
 } from "../pages";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -40,8 +40,8 @@ const TabNavigator = (props) => {
       {isStaff ? (
         <>
           <Tab.Screen
-            name={routes.ALL_INCIDENTS_ORG}
-            component={AllIncidentsOrg}
+            name={routes.CIVILIAN_INCIDENTS_ORG}
+            component={CivilianIncidentsOrg}
           />
           <Tab.Screen
             name={routes.SITE_INCIDENTS_ORG}
@@ -50,7 +50,7 @@ const TabNavigator = (props) => {
         </>
       ) : (
         <>
-          <Tab.Screen name={routes.MY_INCIDENTS} component={Incidents} />
+          <Tab.Screen name={routes.MY_INCIDENTS} component={UserIncidents} />
           <Tab.Screen name={routes.REWARDS} component={Rewards} />
         </>
       )}

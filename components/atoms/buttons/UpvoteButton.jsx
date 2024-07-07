@@ -1,21 +1,21 @@
 import { Text, View } from "@gluestack-ui/themed";
+import { FormattedMessage } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { FormattedMessage } from "react-intl";
-
 const UpvoteButton = (props) => {
+  console.log("UPVOTE BUTTON");
   return (
     <TouchableOpacity
       style={[styles.button, props.style]}
       onPress={props.onPress}
     >
+      {console.log("Button is pressed")}
       <View style={styles.iconContainer}>
         <Text style={styles.text}>
           <FormattedMessage
             id="atom.upvotebuttontext"
-            defaultMessage="🔺 Upvote "
+            defaultMessage="Upvote Issue"
           />
-          {props.upvote}
         </Text>
       </View>
     </TouchableOpacity>
@@ -26,14 +26,17 @@ export default UpvoteButton;
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    width: "100%",
+    height: 50,
+    borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 50,
+    backgroundColor: "#FF6600",
+  },
+  text: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   iconContainer: {
     flexDirection: "row",

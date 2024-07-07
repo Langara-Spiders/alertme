@@ -1,25 +1,18 @@
-import * as Location from "expo-location";
-
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Button, StatusBadge } from "../components/atoms";
-import {
-  Modal,
-  PostedByCard,
-  UpVoteCard,
-  UpVoteModal,
-} from "../components/molecules";
-
+import * as Location from "expo-location";
 import { uniqueId } from "lodash";
+import React, { useEffect, useState } from "react";
+import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
+import { Button, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
-const IncidentDetail = ({ route, navigation }) => {
+const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
   const [incident, setIncident] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -72,7 +65,7 @@ const IncidentDetail = ({ route, navigation }) => {
     let successType;
     switch (modalType) {
       case "upVote":
-        successType = `confirm-${uniqueId()}`;
+        successType = `upvoted-${uniqueId()}`;
         break;
       case "reject":
         successType = `reject-${uniqueId()}`;
@@ -193,7 +186,7 @@ const IncidentDetail = ({ route, navigation }) => {
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <Button onPress={() => handleModalOpen("upVote")}>
-                Upvote Issue
+                <Text>Upvote Issue</Text>
               </Button>
             </View>
           )}
@@ -216,11 +209,7 @@ const IncidentDetail = ({ route, navigation }) => {
   );
 };
 
-IncidentDetail.navigationOptions = {
-  headerShown: false,
-};
-
-export default IncidentDetail;
+export default IncidentDetailOrg;
 
 const styles = StyleSheet.create({
   container: {

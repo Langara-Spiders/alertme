@@ -16,7 +16,7 @@ import { IncidentCard } from "../components/molecules";
 
 const screenWidth = Dimensions.get("window").width;
 
-const Incidents = (props) => {
+const UserIncidents = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
@@ -119,7 +119,7 @@ const Incidents = (props) => {
   );
 };
 
-export default Incidents;
+export default UserIncidents;
 
 const styles = StyleSheet.create({
   screen: {
