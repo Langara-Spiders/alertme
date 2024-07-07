@@ -5,6 +5,7 @@ import {
   About,
   AppSetting,
   IncidentDetail,
+  IssuesReportedAwards,
   Leaderboard,
   NearByActiveIssues,
   Notifications,
@@ -94,6 +95,16 @@ const StackNavigator = (props) => {
         component={NearByActiveIssues}
         options={{
           title: "Nearby Issues",
+          headerShown: true,
+          headerBackTitleVisible: false,
+          headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
+        }}
+      />
+      <Stack.Screen
+        name={routes.ISSUESREPORTEDAWARDS}
+        component={IssuesReportedAwards}
+        options={{
+          title: "IssuesReportedAwards",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
