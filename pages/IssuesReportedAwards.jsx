@@ -12,7 +12,7 @@ const IssuesReportedAwards = () => {
     route.params;
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} fadingEdgeLength={150}>
       <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
       <View style={styles.header}>
         <Text style={styles.headerText}>Issues Reported Awards </Text>
