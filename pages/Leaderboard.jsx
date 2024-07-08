@@ -3,8 +3,19 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
+// Import top place banners
+import {
+  default as FirstPlaceBanner,
+  default as SecondPlaceBanner,
+  default as ThirdPlaceBanner,
+} from "../assets/icons/Reward_screen/sample.png";
+
 const Leaderboard = (props) => {
   const { leaderboard } = props.route.params;
+
+  const calculateLevel = (points) => {
+    return Math.floor(points / 5);
+  };
 
   if (!leaderboard || leaderboard.length < 3) {
     return (
@@ -17,36 +28,52 @@ const Leaderboard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.topThreeContainer}>
-        <TopThreeCard
-          rank={2}
-          name={leaderboard[1]?.name ?? "Unknown"}
-          level={leaderboard[1]?.level?.toString() ?? "N/A"}
-          avatar={leaderboard[1]?.picture ?? ""}
-        />
-        <TopThreeCard
-          rank={1}
-          name={leaderboard[0]?.name ?? "Unknown"}
-          level={leaderboard[0]?.level?.toString() ?? "N/A"}
-          avatar={leaderboard[0]?.picture ?? ""}
-        />
-        <TopThreeCard
-          rank={3}
-          name={leaderboard[2]?.name ?? "Unknown"}
-          level={leaderboard[2]?.level?.toString() ?? "N/A"}
-          avatar={leaderboard[2]?.picture ?? ""}
-        />
-      </View>
-      <ScrollView style={styles.leaderboardContainer}>
-        {leaderboard.map((leader, index) => (
-          <LeaderBoardCard
-            key={index}
-            avatar={leader?.picture ?? ""}
-            name={leader?.name ?? "Unknown"}
-            level={leader?.level?.toString() ?? "N/A"}
-            points={leader?.points?.toString() ?? "0"}
+        <View style={styles.secondPlace}>
+          <TopThreeCard
+            rank={2}
+            name={leaderboard[1]?.name ?? "Unknown"}
+            level={calculateLevel(leaderboard[1]?.points ?? 0).toString()}
+            avatar={leaderboard[1]?.picture ?? ""}
+            banner={SecondPlaceBanner}
           />
-        ))}
-      </ScrollView>
+        </View>
+        <View style={styles.firstPlace}>
+          <TopThreeCard
+            rank={1}
+            name={leaderboard[0]?.name ?? "Unknown"}
+            level={calculateLevel(leaderboard[0]?.points ?? 0).toString()}
+            avatar={leaderboard[0]?.picture ?? ""}
+            banner={FirstPlaceBanner}
+          />
+        </View>
+        <View style={styles.thirdPlace}>
+          <TopThreeCard
+            rank={3}
+            name={leaderboard[2]?.name ?? "Unknown"}
+            level={calculateLevel(leaderboard[2]?.points ?? 0).toString()}
+            avatar={leaderboard[2]?.picture ?? ""}
+            banner={ThirdPlaceBanner}
+          />
+        </View>
+      </View>
+      <View style={styles.leaderboardWrapper}>
+        <ScrollView style={styles.leaderboardContainer} fadingEdgeLength={150}>
+          {leaderboard.map((leader, index) => (
+            <LeaderBoardCard
+              key={index}
+              avatar={leader?.picture ?? ""}
+              name={leader?.name ?? "Unknown"}
+              level={calculateLevel(leader.points).toString()}
+              points={leader.points?.toString() ?? "0"}
+            />
+          ))}
+        </ScrollView>
+        <View style={styles.gradientContainer}>
+          <View style={styles.gradientPart1} />
+          <View style={styles.gradientPart2} />
+          <View style={styles.gradientPart3} />
+        </View>
+      </View>
     </View>
   );
 };
@@ -61,8 +88,29 @@ const styles = StyleSheet.create({
   },
   topThreeContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    alignItems: "flex-end",
     marginBottom: 20,
+    marginTop: 64,
+  },
+  firstPlace: {
+    alignItems: "center",
+    marginHorizontal: 10,
+    zIndex: 1,
+    position: "relative",
+    top: -50,
+  },
+  secondPlace: {
+    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  thirdPlace: {
+    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  leaderboardWrapper: {
+    flex: 1,
+    position: "relative",
   },
   leaderboardContainer: {
     flex: 1,
