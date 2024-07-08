@@ -18,7 +18,7 @@ const Input = (props) => {
         variant={props.variant ?? "solid"}
         action={props.action ?? "primary"}
         isDisabled={props.isDisabled ?? false}
-        style={[styles.container, props.style?.inputbox]}
+        style={[styles.container, props.inputbox]}
         isReadOnly={props.isReadOnly ?? false}
         required={props.required ?? false}
       >

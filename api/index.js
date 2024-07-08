@@ -1,4 +1,4 @@
-export { getReverseGeoCoding } from "./geoLocation";
+export { getAutocomplete, getReverseGeoCoding } from "./geoLocation";
 export {
   getAllIssuesforOrg,
   getCategories,
