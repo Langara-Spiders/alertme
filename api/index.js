@@ -5,5 +5,6 @@ export {
   getIncidentDetailsForUser,
   getMyIssues,
   postIssue,
+  upVoteIssue,
 } from "./incident";
 export { getProfile, getReward, login, logout } from "./user";
