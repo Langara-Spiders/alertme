@@ -145,7 +145,9 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   buttonContainer: {
-    marginTop: 30,
+    marginTop: 200,
+    width: "50%",
+    margin: "auto",
   },
   buttonText: {
     color: "white",

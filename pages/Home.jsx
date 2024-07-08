@@ -1,14 +1,6 @@
 import * as Location from "expo-location";
 
-import {
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  SearchIcon,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Text, View } from "@gluestack-ui/themed";
 import { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -18,7 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { IncidentCard, SuccessCard } from "../components/molecules";
+import { IncidentCard, Search, SuccessCard } from "../components/molecules";
 
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
@@ -44,6 +36,7 @@ const Home = ({ navigation, route }) => {
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const mapRef = useRef(null);
 
   const { successType, coordinate } = route?.params ?? {};
@@ -135,6 +128,27 @@ const Home = ({ navigation, route }) => {
     animateToMap(latitude, longitude);
   };
 
+  const handleSearchChange = (text) => {
+    setSearchValue(text);
+  };
+
+  const handleSearchSelect = (selectedValue) => {
+    console.log("Selected:", selectedValue);
+
+    const { lat, lon, formatted } = selectedValue;
+
+    setSearchValue(formatted);
+    mapRef.current.animateToRegion(
+      {
+        latitude: lat,
+        longitude: lon,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
+      1000
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       {showSuccessCard && (
@@ -143,20 +157,11 @@ const Home = ({ navigation, route }) => {
         </Animated.View>
       )}
       <View style={styles.searchContainer}>
-        <Input
-          style={{
-            flex: 1,
-            backgroundColor: "white",
-            height: 48,
-            borderRadius: 12,
-            marginRight: 10,
-          }}
-        >
-          <InputSlot pl="$3">
-            <InputIcon as={SearchIcon} />
-          </InputSlot>
-          <InputField placeholder="Search..." />
-        </Input>
+        <Search
+          value={searchValue}
+          onChange={handleSearchChange}
+          onSelect={handleSearchSelect}
+        />
         <TouchableOpacity
           onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
