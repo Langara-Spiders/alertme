@@ -4,10 +4,10 @@ import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { getIncidentDetailsForUser } from "../api/incident";
+import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { Button, StatusBadge } from "../components/atoms";
+import { StatusBadge, UpvoteButton } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
@@ -60,11 +60,12 @@ const IncidentDetail = ({ route, navigation }) => {
     setModalVisible(false);
   };
 
-  const onConfirm = () => {
+  const onConfirm = async () => {
     handleModalClose();
     let successType;
     switch (modalType) {
       case "upVote":
+        await upVoteIssue(incident.id);
         successType = `confirm-${uniqueId()}`;
         break;
       case "reject":
@@ -90,6 +91,12 @@ const IncidentDetail = ({ route, navigation }) => {
 
   const showReportedBySectionUSER = () => {
     return !isStaff && incident.reported_by === "USER";
+  };
+
+  const hasUserUpvoted = () => {
+    return incident.voters.some(
+      (voter) => voter.id === current_logged_in_user_id
+    );
   };
 
   if (loading) {
@@ -181,13 +188,18 @@ const IncidentDetail = ({ route, navigation }) => {
       <View style={styles.bottomFixedContainer}>
         <View style={styles.bottomModalContent}>
           <View style={styles.upvoteCardContainer}>
-            <UpVoteCard votes={incident.upvote_count} />
+            <UpVoteCard
+              upVotes={incident.upvote_count}
+              voters={incident.voters}
+            />
           </View>
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
-              <Button onPress={() => handleModalOpen("upVote")}>
-                Upvote Issue
-              </Button>
+              <UpvoteButton
+                onPress={() => !hasUserUpvoted() && handleModalOpen("upVote")}
+                buttonText={hasUserUpvoted() ? "Upvoted Issue" : "Upvote Issue"}
+                disabled={hasUserUpvoted()}
+              />
             </View>
           )}
         </View>

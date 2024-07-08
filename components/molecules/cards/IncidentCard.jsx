@@ -6,14 +6,13 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
-
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
 import { StatusBadge } from "../../atoms";
+import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 const dateOptions = {
   year: "numeric",
@@ -26,8 +25,6 @@ const dateOptions = {
 
 const IncidentCard = (props) => {
   const navigation = useNavigation();
-
-  // console.log('IncidentCard props:', props);
 
   const handlePress = () => {
     navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
