@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
   buttonsContainerLeft: {
     position: "absolute",
     left: 30,
-    bottom: 40,
+    bottom: 140,
     gap: 20,
     flexDirection: "column",
     alignItems: "center",
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
   buttonsContainerRight: {
     position: "absolute",
     right: 0,
-    bottom: 10,
+    bottom: 120,
     gap: 20,
     flexDirection: "column",
     alignItems: "center",
