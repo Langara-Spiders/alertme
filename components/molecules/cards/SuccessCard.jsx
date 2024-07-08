@@ -18,10 +18,12 @@ const SuccessCard = ({ type }) => {
     message =
       "Thank you for your response. We will update you on the incident status soon.";
   } else if (type === "approve") {
+    icon = <SvgUri width="24" height="24" source={successIcon} />;
     heading = "You have approved Incident ";
     message =
       "Thank you for your response. We will post this incident on map to inform others";
   } else if (type === "reject") {
+    icon = <SvgUri width="24" height="24" source={successIcon} />;
     heading = "You have rejected an Incident";
     message = "Thank you for your response. Will make the updates on the app.";
   }
