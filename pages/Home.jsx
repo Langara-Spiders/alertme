@@ -26,10 +26,10 @@ import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import BellIcon from "../assets/icons/bell-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
-import Construction_Cap from "../assets/icons/Markers/Construction_Cap.svg";
-import Hazard_Sign from "../assets/icons/Markers/Hazard_Sign-1.svg";
-import Posted_Incident from "../assets/icons/Markers/Posted_Incident.svg";
-import Verified from "../assets/icons/Markers/Verified.svg";
+import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
+import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_icon.svg";
+import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
+import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
@@ -136,47 +136,6 @@ const Home = ({ navigation, route }) => {
     animateToMap(latitude, longitude);
   };
 
-  // ######################## MARKERS (VERFIED OR NOT )########################
-
-  const whichMarker = (issue) => {
-    if (issue.reported_by === "USER" && issue.upvote_count < 3) {
-      return (
-        <View style={styles.markerStyles}>
-          <View style={styles.markerInner}>
-            <SvgUri width="38" height="36" source={Hazard_Sign} />
-          </View>
-        </View>
-      );
-    } else if (issue.reported_by === "USER" && issue.upvote_count >= 3) {
-      return (
-        <View style={styles.markerStyles}>
-          <View style={styles.markerInner}>
-            <SvgUri width="38" height="36" source={Posted_Incident} />
-          </View>
-        </View>
-      );
-    } else if (
-      issue.reported_by === "USER" &&
-      issue.is_accepted_by_org === true
-    ) {
-      return (
-        <View style={styles.markerStyles}>
-          <View style={styles.markerInner}>
-            <SvgUri width="38" height="36" source={Verified} />
-          </View>
-        </View>
-      );
-    } else if (issue.reported_by === "ORGANIZATION") {
-      return (
-        <View style={styles.markerStyles}>
-          <View style={styles.markerInner}>
-            <SvgUri width="38" height="36" source={Construction_Cap} />
-          </View>
-        </View>
-      );
-    }
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       {showSuccessCard && (
@@ -274,7 +233,24 @@ const Home = ({ navigation, route }) => {
                 highlighted={false}
                 onPress={() => handleMarkerPress(issue)}
               >
-                {whichMarker(issue)}
+                <View style={styles.markerStyles}>
+                  <View style={styles.markerInner}>
+                    <SvgUri
+                      width="38"
+                      height="36"
+                      source={
+                        issue.reported_by === "USER" && issue.is_accepted_by_org
+                          ? VerifiedHazardIcon
+                          : issue.reported_by === "USER" &&
+                              issue.upvote_count >= 3
+                            ? ConfirmedHazardIcon
+                            : issue.reported_by === "ORG"
+                              ? ConstructionHazardIcon
+                              : HazardIcon
+                      }
+                    />
+                  </View>
+                </View>
               </Marker>
             );
           })}
