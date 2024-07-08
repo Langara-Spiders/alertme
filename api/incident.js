@@ -49,30 +49,27 @@ const getCategories = async () => {
   }
 };
 
-const postIssue = async (report, pictures) => {
+const postIssue = async (report) => {
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
-
-    for (const picture of pictures) formData.append("pictures", picture);
-
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error(error);
     return {};
   }
 };
 
-const getAllIssuesforOrg = async (lat, lng) => {
+const upVoteIssue = async (id) => {
   try {
-    const res = await axios.get(
-      `${API_BASE_URL}/incidents/user?lat=${lat}&lng=${lng}`
-    );
+    const res = await axios.put(`${API_BASE_URL}/incidents/upvote?id=${id}`);
+    console.log("Upvote the incident!!!!");
+    console.log(res);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -83,8 +80,8 @@ const getAllIssuesforOrg = async (lat, lng) => {
 export {
   getNearbyIncident,
   getMyIssues,
+  upVoteIssue,
   getCategories,
   postIssue,
   getIncidentDetailsForUser,
-  getAllIssuesforOrg,
 };
