@@ -130,7 +130,7 @@ const Rewards = (props) => {
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.leaderboardContainer}>
+      <ScrollView style={styles.leaderboardContainer} fadingEdgeLength={150}>
         {leaderboard.map((leader, index) => {
           return (
             <LeaderBoardCard
