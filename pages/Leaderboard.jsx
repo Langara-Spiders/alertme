@@ -4,11 +4,9 @@ import { StyleSheet } from "react-native";
 import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
 // Import top place banners
-import {
-  default as FirstPlaceBanner,
-  default as SecondPlaceBanner,
-  default as ThirdPlaceBanner,
-} from "../assets/icons/Reward_screen/sample.png";
+import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg";
+import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
+import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
 
 const Leaderboard = (props) => {
   const { leaderboard } = props.route.params;
