@@ -58,7 +58,6 @@ const Home = ({ navigation, route }) => {
       }, 2000);
     }
     if (successType?.startsWith("post") || successType?.startsWith("animate")) {
-      console.log(coordinate);
       animateToMap(coordinate?.lat, coordinate?.lng);
     }
   }, [successType]);
@@ -417,7 +416,7 @@ const styles = StyleSheet.create({
   },
   successCardContainer: {
     position: "absolute",
-    bottom: 0,
+    bottom: 80,
     width: "100%",
     zIndex: 100,
     padding: 16,

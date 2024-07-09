@@ -1,5 +1,20 @@
+import { Text, View } from "@gluestack-ui/themed";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
-
+import { FormattedMessage } from "react-intl";
+import { StyleSheet } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import home1 from "../assets/icons/home-out.svg";
+import home from "../assets/icons/home.svg";
+import myIssue1 from "../assets/icons/MyIssue-Outline.svg";
+import myIssue from "../assets/icons/MyIssues.svg";
+import accountIcon1 from "../assets/icons/profile-outline.svg";
+import accountIcon from "../assets/icons/profile.svg";
+import rewards1 from "../assets/icons/rewards-outline.svg";
+import rewards from "../assets/icons/rewards.svg";
+import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
+import siteIssue from "../assets/icons/siteIssues.svg";
+import { routes } from "../constants";
 import {
   CivilianIncidentsOrg,
   Home,
@@ -8,17 +23,6 @@ import {
   SiteIncidentsOrg,
   UserIncidents,
 } from "../pages";
-
-import { Text, View } from "@gluestack-ui/themed";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import accountIcon1 from "../assets/icons/profile-outline.svg";
-import accountIcon from "../assets/icons/profile.svg";
-import rewards1 from "../assets/icons/rewards-outline.svg";
-import rewards from "../assets/icons/rewards.svg";
-import { routes } from "../constants";
 import { useStore } from "../store";
 
 // Sample user_type data
@@ -49,14 +53,12 @@ const TabNavigator = (props) => {
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={styles.container}>
-              <SvgUri
-                width="28"
-                height="28"
-                source={focused ? rewards : rewards1}
-              />
+            <View
+              style={[styles.container, focused && styles.focusedContainer]}
+            >
+              <SvgUri width="28" height="28" source={focused ? home1 : home} />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
-                <FormattedMessage id="Nav.rewards" defaultMessage="Home" />
+                <FormattedMessage id="Nav.home" defaultMessage="Home" />
               </Text>
             </View>
           ),
@@ -67,10 +69,52 @@ const TabNavigator = (props) => {
           <Tab.Screen
             name={routes.CIVILIAN_INCIDENTS_ORG}
             component={CivilianIncidentsOrg}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View
+                  style={[styles.container, focused && styles.focusedContainer]}
+                >
+                  <SvgUri
+                    width="28"
+                    height="28"
+                    source={focused ? myIssue1 : myIssue}
+                  />
+                  <Text
+                    style={focused ? styles.focusedText : styles.defaultText}
+                  >
+                    <FormattedMessage
+                      id="Nav.allIssues"
+                      defaultMessage="All Issues"
+                    />
+                  </Text>
+                </View>
+              ),
+            }}
           />
           <Tab.Screen
             name={routes.SITE_INCIDENTS_ORG}
             component={SiteIncidentsOrg}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View
+                  style={[styles.container, focused && styles.focusedContainer]}
+                >
+                  <SvgUri
+                    width="28"
+                    height="28"
+                    source={focused ? siteIssue1 : siteIssue}
+                  />
+                  <Text
+                    style={focused ? styles.focusedText : styles.defaultText}
+                  >
+                    <FormattedMessage
+                      id="Nav.siteIssues"
+                      defaultMessage="Site Issues"
+                    />
+                  </Text>
+                </View>
+              ),
+            }}
           />
         </>
       ) : (
@@ -80,18 +124,20 @@ const TabNavigator = (props) => {
             component={UserIncidents}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View style={styles.container}>
+                <View
+                  style={[styles.container, focused && styles.focusedContainer]}
+                >
                   <SvgUri
                     width="28"
                     height="28"
-                    source={focused ? rewards : rewards1}
+                    source={focused ? myIssue1 : myIssue}
                   />
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
                   >
                     <FormattedMessage
-                      id="Nav.rewards"
-                      defaultMessage="All Issues"
+                      id="Nav.myIssue"
+                      defaultMessage="My Issues"
                     />
                   </Text>
                 </View>
@@ -103,7 +149,9 @@ const TabNavigator = (props) => {
             component={Rewards}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View style={styles.container}>
+                <View
+                  style={[styles.container, focused && styles.focusedContainer]}
+                >
                   <SvgUri
                     width="28"
                     height="28"
@@ -128,7 +176,9 @@ const TabNavigator = (props) => {
         component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={styles.container}>
+            <View
+              style={[styles.container, focused && styles.focusedContainer]}
+            >
               <SvgUri
                 width="28"
                 height="28"
@@ -154,15 +204,25 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    width: "auto",
+    height: "auto",
+  },
+  focusedContainer: {
+    backgroundColor: "#FFF3EA",
+    width: 60,
+    height: 60,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
   },
   tabBarStyle: {
     position: "absolute",
-    bottom: 25,
+    bottom: 15,
     left: 16,
     right: 16,
     elevation: 5,
     borderRadius: 15,
-    height: 80,
+    height: 75,
     shadowColor: "gray",
     shadowOffset: {
       width: 0,

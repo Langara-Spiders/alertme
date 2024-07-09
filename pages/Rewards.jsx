@@ -23,7 +23,6 @@ const badges = {
   // Add additional badge mappings as needed
 };
 
-// Feature `Rewards`.
 const Rewards = (props) => {
   const intl = useIntl();
   const [data, setData] = useState(null);
@@ -69,7 +68,6 @@ const Rewards = (props) => {
   }
 
   if (!data || !data.user) {
-    console.error("Data or user is undefined", { data });
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>Error loading data</Text>
@@ -134,7 +132,6 @@ const Rewards = (props) => {
       </View>
       <ScrollView style={styles.leaderboardContainer} fadingEdgeLength={150}>
         {leaderboard.map((leader, index) => {
-          console.log("Rendering leader:", leader);
           return (
             <LeaderBoardCard
               key={index}
