@@ -11,6 +11,7 @@ import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
+import useStore from "../../../store/useStore";
 import { StatusBadge } from "../../atoms";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
@@ -25,9 +26,14 @@ const dateOptions = {
 
 const IncidentCard = (props) => {
   const navigation = useNavigation();
+  const { id, name, isStaff } = useStore.getState().getUser();
+  const current_logged_in_user_id = id;
 
   const handlePress = () => {
-    navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
+    const targetRoute = isStaff
+      ? routes.INCIDENT_DETAIL_ORG
+      : routes.INCIDENT_DETAIL;
+    navigation.navigate(targetRoute, { incident_id: props.id });
   };
 
   return (

@@ -4,15 +4,15 @@ import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { getIncidentDetailsForUser } from "../api/incident";
+import { getSiteIssuesForOrg } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { Button, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+import { StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
-const IncidentDetailOrg = ({ route, navigation }) => {
+const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
   const [incident, setIncident] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
 
   const fetchIncidentDetails = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getIncidentDetailsForUser(
+    const response = await getSiteIssuesForOrg(
       latitude,
       longitude,
       incident_id
@@ -60,13 +60,10 @@ const IncidentDetailOrg = ({ route, navigation }) => {
     setModalVisible(false);
   };
 
-  const onConfirm = () => {
+  const onConfirm = async () => {
     handleModalClose();
     let successType;
     switch (modalType) {
-      case "upVote":
-        successType = `upvoted-${uniqueId()}`;
-        break;
       case "reject":
         successType = `reject-${uniqueId()}`;
         break;
@@ -80,16 +77,91 @@ const IncidentDetailOrg = ({ route, navigation }) => {
     navigation.navigate(routes.HOME, { successType });
   };
 
-  const showUpvoteButton = () => {
-    return (
-      incident.reported_by === "USER" &&
-      incident.user_id !== current_logged_in_user_id &&
-      !isStaff
-    );
+  const showReportedBySectionUSER = () => {
+    return isStaff && incident.reported_by === "USER";
   };
 
-  const showReportedBySectionUSER = () => {
-    return !isStaff && incident.reported_by === "USER";
+  const renderActionButton = () => {
+    if (showReportedBySectionUSER()) {
+      if (!incident.is_accepted_by_org) {
+        switch (incident.status) {
+          case "ACTIVE":
+            return (
+              <View style={styles.buttonGroup}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleModalOpen("reject")}
+                >
+                  <Text style={styles.buttonText}>Reject</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleModalOpen("approveIncident")}
+                >
+                  <Text style={styles.buttonText}>Approve</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          case "PENDING":
+            return (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleModalOpen("resolveIncident")}
+              >
+                <Text style={styles.buttonText}>Resolve</Text>
+              </TouchableOpacity>
+            );
+          case "REJECTED":
+            return (
+              <TouchableOpacity style={styles.button} disabled>
+                <Text style={styles.buttonText}>Rejected</Text>
+              </TouchableOpacity>
+            );
+          default:
+            return null;
+        }
+      } else {
+        switch (incident.status) {
+          case "FIXING":
+            return (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleModalOpen("resolveIncident")}
+              >
+                <Text style={styles.buttonText}>Resolve</Text>
+              </TouchableOpacity>
+            );
+          case "RESOLVED":
+            return (
+              <TouchableOpacity style={styles.button} disabled>
+                <Text style={styles.buttonText}>Resolved</Text>
+              </TouchableOpacity>
+            );
+          default:
+            return null;
+        }
+      }
+    } else {
+      switch (incident.status) {
+        case "ACTIVE":
+          return (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleModalOpen("resolveIncident")}
+            >
+              <Text style={styles.buttonText}>Resolve</Text>
+            </TouchableOpacity>
+          );
+        case "RESOLVED":
+          return (
+            <TouchableOpacity style={styles.button} disabled>
+              <Text style={styles.buttonText}>Resolved</Text>
+            </TouchableOpacity>
+          );
+        default:
+          return null;
+      }
+    }
   };
 
   if (loading) {
@@ -179,18 +251,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
         </View>
       </ScrollView>
       <View style={styles.bottomFixedContainer}>
-        <View style={styles.bottomModalContent}>
-          <View style={styles.upvoteCardContainer}>
-            <UpVoteCard votes={incident.upvote_count} />
-          </View>
-          {showReportedBySectionUSER() && showUpvoteButton() && (
-            <View style={styles.upvoteButtonContainer}>
-              <Button onPress={() => handleModalOpen("upVote")}>
-                <Text>Upvote Issue</Text>
-              </Button>
-            </View>
-          )}
-        </View>
+        <View style={styles.bottomModalContent}>{renderActionButton()}</View>
       </View>
       <Modal
         visible={modalVisible}
@@ -209,7 +270,11 @@ const IncidentDetailOrg = ({ route, navigation }) => {
   );
 };
 
-export default IncidentDetailOrg;
+IncidentDetail.navigationOptions = {
+  headerShown: false,
+};
+
+export default IncidentDetail;
 
 const styles = StyleSheet.create({
   container: {
@@ -342,5 +407,22 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
+  },
+  button: {
+    backgroundColor: "#FF6600",
+    padding: 15,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

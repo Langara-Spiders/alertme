@@ -7,11 +7,13 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-import { getAllIssuesforOrg } from "../api/incident";
+
+import * as Location from "expo-location";
+import { getCivilianIssuesForOrg } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
+
 const screenWidth = Dimensions.get("window").width;
 
 const CivilianIncidentsOrg = (props) => {
@@ -20,10 +22,10 @@ const CivilianIncidentsOrg = (props) => {
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    getAllIssues();
+    getCivilianIncidentsAll();
     // handleRecenter();
     const interval = setInterval(() => {
-      getAllIssues();
+      getCivilianIncidentsAll();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -39,9 +41,9 @@ const CivilianIncidentsOrg = (props) => {
     return coords ?? {};
   };
 
-  const getAllIssues = async () => {
+  const getCivilianIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getAllIssuesforOrg(latitude, longitude);
+    const response = await getCivilianIssuesForOrg();
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -49,9 +51,6 @@ const CivilianIncidentsOrg = (props) => {
 
     setIncidents(incidentsWithDistance);
   };
-
-  console.log("I guess this is incidents");
-  console.log(incidents);
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
 
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
-    width: (screenWidth - 10) / 5,
+    width: (screenWidth - 10) / 4,
   },
   activeButton: {
     backgroundColor: "#ff6600",
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     borderColor: "#ff6600",
   },
   buttonText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "bold",
   },
   activeButtonText: {

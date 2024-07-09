@@ -59,6 +59,15 @@ const StackNavigator = (props) => {
         }}
       />
       <Stack.Screen
+        name={routes.INCIDENT_DETAIL_ORG}
+        component={IncidentDetail}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+        }}
+      />
+
+      <Stack.Screen
         name={routes.LEADERBOARD}
         component={Leaderboard}
         options={{

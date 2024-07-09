@@ -1,9 +1,10 @@
 export { getReverseGeoCoding } from "./geoLocation";
 export {
-  getAllIssuesforOrg,
   getCategories,
+  getCivilianIssuesForOrg,
   getIncidentDetailsForUser,
   getMyIssues,
+  getSiteIssuesForOrg,
   postIssue,
   upVoteIssue,
 } from "./incident";
