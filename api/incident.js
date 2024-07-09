@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "./constants";
 
+// API LOGICS FOR USER END
 const getNearbyIncident = async (lat, lng) => {
   try {
     const res = await axios.get(
@@ -77,6 +78,28 @@ const upVoteIssue = async (id) => {
   }
 };
 
+// API LOGICS FOR ORG END
+
+const getCivilianIssuesForOrg = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/incidents/site/user`);
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+const getSiteIssuesForOrg = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/incidents/site/org`);
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
 export {
   getNearbyIncident,
   getMyIssues,
@@ -84,4 +107,6 @@ export {
   getCategories,
   postIssue,
   getIncidentDetailsForUser,
+  getCivilianIssuesForOrg,
+  getSiteIssuesForOrg,
 };
