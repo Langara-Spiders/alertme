@@ -28,7 +28,7 @@ const SiteIncidentsOrg = (props) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeButton]);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -42,7 +42,10 @@ const SiteIncidentsOrg = (props) => {
 
   const getSiteIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getSiteIssuesForOrg();
+    const response = await getSiteIssuesForOrg(
+      activeButton === "all" ? null : activeButton
+    );
+
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -80,7 +83,7 @@ const SiteIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "resolved", "fixing"].map((status) => (
+          {["all", "internal", "active", "resolved"].map((status) => (
             <TouchableOpacity
               key={status}
               style={[
