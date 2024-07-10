@@ -32,8 +32,9 @@ const Input = (props) => {
           onChangeText={props.onChange}
           placeholder={props.placeholder}
           style={styles.field}
-          multiline={true}
-          scrollEnabled={true}
+          multiline={false}
+          numberOfLines={1}
+          ellipsizeMode="tail"
         />
       </InputGS>
     </View>
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
     height: 56,
     paddingHorizontal: 12,
     backgroundColor: "#F3F4F4",
+    alignItems: "center",
+    justifyContent: "start",
+    width: "100%",
   },
   icon: {
     marginLeft: 10,

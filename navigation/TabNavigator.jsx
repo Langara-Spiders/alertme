@@ -1,4 +1,15 @@
+import * as React from "react";
+
 import { Text, View } from "@gluestack-ui/themed";
+import {
+  CivilianIncidentsOrg,
+  Home,
+  Profile,
+  Rewards,
+  SiteIncidentsOrg,
+  UserIncidents,
+} from "../pages";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
@@ -15,14 +26,6 @@ import rewards from "../assets/icons/rewards.svg";
 import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
 import siteIssue from "../assets/icons/siteIssues.svg";
 import { routes } from "../constants";
-import {
-  CivilianIncidentsOrg,
-  Home,
-  Profile,
-  Rewards,
-  SiteIncidentsOrg,
-  UserIncidents,
-} from "../pages";
 import { useStore } from "../store";
 import {
   initializeSound,
@@ -65,6 +68,7 @@ const TabNavigator = (props) => {
       <Tab.Screen
         name={routes.HOME}
         component={Home}
+        initialParams={{ isStaff }}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
