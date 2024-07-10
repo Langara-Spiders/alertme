@@ -17,7 +17,6 @@ import {
 } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
-import { playClickSound } from "../utils/SoundManager";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -59,18 +58,15 @@ const IncidentDetailOrg = ({ route, navigation }) => {
   };
 
   const handleModalOpen = (type) => {
-    playClickSound();
     setModalType(type);
     setModalVisible(true);
   };
 
   const handleModalClose = () => {
-    playClickSound();
     setModalVisible(false);
   };
 
   const onConfirm = async () => {
-    playClickSound();
     handleModalClose();
     let successType;
     switch (modalType) {
@@ -106,10 +102,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                 </View>
                 <View style={styles.confirmationButtons}>
                   <Button
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("reject");
-                    }}
+                    onPress={() => handleModalOpen("reject")}
                     style={styles.rejectButton}
                   >
                     <FormattedMessage
@@ -120,10 +113,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                   </Button>
 
                   <Button
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("approveIncident");
-                    }}
+                    onPress={() => handleModalOpen("approveIncident")}
                     style={styles.approveButton}
                   >
                     <FormattedMessage
@@ -146,10 +136,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                 </View>
                 <View style={styles.largeButtonCardContainer}>
                   <LargeActionButton
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("resolveIncident");
-                    }}
+                    onPress={() => handleModalOpen("resolveIncident")}
                     buttonText="Resolve"
                     disabled={false}
                   />
@@ -167,10 +154,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                 </View>
                 <View style={styles.largeButtonCardContainer}>
                   <LargeActionButton
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("resolveIncident");
-                    }}
+                    onPress={() => handleModalOpen("resolveIncident")}
                     buttonText="Rejected"
                     disabled={true}
                   />
@@ -193,10 +177,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                 </View>
                 <View style={styles.largeButtonCardContainer}>
                   <LargeActionButton
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("resolveIncident");
-                    }}
+                    onPress={() => handleModalOpen("resolveIncident")}
                     buttonText="Resolve"
                     disabled={false}
                   />
@@ -214,10 +195,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
                 </View>
                 <View style={styles.largeButtonCardContainer}>
                   <LargeActionButton
-                    onPress={() => {
-                      playClickSound();
-                      handleModalOpen("resolveIncident");
-                    }}
+                    onPress={() => handleModalOpen("resolveIncident")}
                     buttonText="Resolved"
                     disabled={true}
                   />
@@ -234,10 +212,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           return (
             <View style={styles.largeButtonCardContainer}>
               <LargeActionButton
-                onPress={() => {
-                  playClickSound();
-                  handleModalOpen("resolveIncident");
-                }}
+                onPress={() => handleModalOpen("resolveIncident")}
                 buttonText="Resolve"
                 disabled={false}
               />
@@ -247,10 +222,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           return (
             <View style={styles.largeButtonCardContainer}>
               <LargeActionButton
-                onPress={() => {
-                  playClickSound();
-                  handleModalOpen("resolveIncident");
-                }}
+                onPress={() => handleModalOpen("resolveIncident")}
                 buttonText="Resolved"
                 disabled={true}
               />
@@ -301,10 +273,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => {
-            playClickSound();
-            navigation.goBack();
-          }}
+          onPress={() => navigation.goBack()}
         >
           <Text style={styles.backButtonText}>←</Text>
         </TouchableOpacity>
@@ -317,13 +286,12 @@ const IncidentDetailOrg = ({ route, navigation }) => {
         </Text>
         <Text style={styles.heading}>Incident Location</Text>
         <TouchableOpacity
-          onPress={() => {
-            playClickSound();
+          onPress={() =>
             navigation.navigate(routes.HOME, {
               successType: `animateTo-${uniqueId()}`,
               coordinate: incident?.coordinate,
-            });
-          }}
+            })
+          }
           style={styles.locationText}
         >
           <Text>
