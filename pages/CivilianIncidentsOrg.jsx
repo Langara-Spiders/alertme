@@ -29,7 +29,7 @@ const CivilianIncidentsOrg = (props) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeButton]);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -43,7 +43,10 @@ const CivilianIncidentsOrg = (props) => {
 
   const getCivilianIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getCivilianIssuesForOrg();
+    const response = await getCivilianIssuesForOrg(
+      activeButton === "all" ? null : activeButton
+    );
+
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -81,29 +84,31 @@ const CivilianIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "resolved", "fixing"].map((status) => (
-            <TouchableOpacity
-              key={status}
-              style={[
-                styles.button,
-                activeButton === status
-                  ? styles.activeButton
-                  : styles.inactiveButton,
-              ]}
-              onPress={() => handleButtonPress(status)}
-            >
-              <Text
+          {["all", "active", "pending", "resolved", "fixing", "rejected"].map(
+            (status) => (
+              <TouchableOpacity
+                key={status}
                 style={[
-                  styles.buttonText,
+                  styles.button,
                   activeButton === status
-                    ? styles.activeButtonText
-                    : styles.inactiveButtonText,
+                    ? styles.activeButton
+                    : styles.inactiveButton,
                 ]}
+                onPress={() => handleButtonPress(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={[
+                    styles.buttonText,
+                    activeButton === status
+                      ? styles.activeButtonText
+                      : styles.inactiveButtonText,
+                  ]}
+                >
+                  {status.charAt(0).toUpperCase() + status.slice(1)}
+                </Text>
+              </TouchableOpacity>
+            )
+          )}
         </ScrollView>
       </View>
       <View style={{ flex: 1, paddingHorizontal: 10 }}>

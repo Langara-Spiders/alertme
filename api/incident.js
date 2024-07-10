@@ -16,8 +16,8 @@ const getNearbyIncident = async (lat, lng) => {
 
 const getMyIssues = async (lat, lng, filter) => {
   try {
-    const filterQuery = filter ? `&filter_by=${filter.toUpperCase()}` : "";
-    console.log("CALLING FILTER MAY BE");
+    const filterQuery = filter ? `filter_by=${filter.toUpperCase()}` : "";
+    console.log("CALLING USER FILTER MAY BE");
     console.log(filterQuery);
     const res = await axios.get(
       `${API_BASE_URL}/incidents/user?${filterQuery}&lat=${lat}&lng=${lng}`
@@ -79,9 +79,14 @@ const upVoteIssue = async (id) => {
 
 // API LOGICS FOR ORG END
 
-const getCivilianIssuesForOrg = async () => {
+const getCivilianIssuesForOrg = async (filter) => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/incidents/site/user`);
+    const filterQuery = filter ? `?filter_by=${filter.toUpperCase()}` : "";
+    console.log("CALLING CIVILIAN FILTER MAY BE");
+    console.log(filterQuery);
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/site/user${filterQuery}`
+    );
     console.log("THIS IS FATAAA");
     console.log(res.data.data);
     return res.data.data;
