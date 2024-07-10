@@ -5,12 +5,14 @@ import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
+import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
 import { LargeActionButton, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
+import { playClickSound } from "../utils/SoundManager";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -52,15 +54,18 @@ const IncidentDetail = ({ route, navigation }) => {
   };
 
   const handleModalOpen = (type) => {
+    playClickSound();
     setModalType(type);
     setModalVisible(true);
   };
 
   const handleModalClose = () => {
+    playClickSound();
     setModalVisible(false);
   };
 
   const onConfirm = async () => {
+    playClickSound();
     handleModalClose();
     let successType;
     switch (modalType) {
@@ -138,7 +143,10 @@ const IncidentDetail = ({ route, navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            playClickSound();
+            navigation.goBack();
+          }}
         >
           <Text style={styles.backButtonText}>←</Text>
         </TouchableOpacity>
@@ -149,29 +157,38 @@ const IncidentDetail = ({ route, navigation }) => {
         <Text style={styles.distance}>
           {incident.distance.toFixed(2)} km away
         </Text>
+
         <Text style={styles.heading}>Incident Location</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(routes.HOME, {
-              successType: `animateTo-${uniqueId()}`,
-              coordinate: incident?.coordinate,
-            })
-          }
-          style={styles.locationText}
-        >
-          <Text>
-            {incident.address.street_address},{" "}
-            <Text style={styles.viewMap}>View Map</Text>
-          </Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              playClickSound();
+              navigation.navigate(routes.HOME, {
+                successType: `animateTo-${uniqueId()}`,
+                coordinate: incident?.coordinate,
+              });
+            }}
+            style={styles.locationText}
+          >
+            <Text>
+              <SvgUri width="16" height="16" source={Location_Spot} />
+              {"  "}
+              {incident.address.street_address},{" "}
+              <Text style={styles.viewMap}>View Map</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
-          <Image
-            source={{ uri: incident.category_icon }}
-            style={styles.typeIcon}
-            alt="category icon"
-          />
-          <Text>{incident.category_name}</Text>
+          <Text>
+            <SvgUri
+              width="16"
+              height="16"
+              source={{ uri: incident.category_icon }}
+            />
+            {"  "}
+            {incident.category_name}
+          </Text>
         </View>
         <Text style={styles.heading}>Description</Text>
         <Text style={styles.description}>{incident.description}</Text>
@@ -196,7 +213,12 @@ const IncidentDetail = ({ route, navigation }) => {
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <LargeActionButton
-                onPress={() => !hasUserUpvoted() && handleModalOpen("upVote")}
+                onPress={() => {
+                  if (!hasUserUpvoted()) {
+                    playClickSound();
+                    handleModalOpen("upVote");
+                  }
+                }}
                 buttonText={hasUserUpvoted() ? "Upvoted Issue" : "Upvote Issue"}
                 disabled={hasUserUpvoted()}
               />

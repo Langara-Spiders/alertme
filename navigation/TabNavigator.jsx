@@ -11,8 +11,9 @@ import {
 } from "../pages";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import home1 from "../assets/icons/home-out.svg";
 import home from "../assets/icons/home.svg";
@@ -26,19 +27,24 @@ import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
 import siteIssue from "../assets/icons/siteIssues.svg";
 import { routes } from "../constants";
 import { useStore } from "../store";
-
-// Sample user_type data
-// ***************
-// For now this is only for testing.
-const user_type = {
-  type: "xx",
-};
+import {
+  initializeSound,
+  playBottomNavSound,
+  releaseSound,
+} from "../utils/SoundManager";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (props) => {
   const { getUser } = useStore();
   const { isStaff } = getUser();
+
+  useEffect(() => {
+    initializeSound();
+    return () => {
+      releaseSound();
+    };
+  }, []);
 
   return (
     <Tab.Navigator
@@ -48,6 +54,15 @@ const TabNavigator = (props) => {
         tabBarInactiveTintColor: "gray",
         tabBarStyle: styles.tabBarStyle,
         tabBarShowLabel: false,
+        tabBarButton: (props) => (
+          <TouchableOpacity
+            {...props}
+            onPress={(e) => {
+              props.onPress(e);
+              playBottomNavSound();
+            }}
+          />
+        ),
       })}
     >
       <Tab.Screen

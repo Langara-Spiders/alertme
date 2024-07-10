@@ -9,6 +9,7 @@ import { LogBox } from "react-native";
 import { configLight } from "./config/gluestack-ui.config";
 import RootNavigator from "./navigation/RootNavigator";
 import { useStore } from "./store";
+import { initializeSound } from "./utils/SoundManager";
 
 LogBox.ignoreAllLogs(); // suppress all warnings
 
@@ -26,6 +27,7 @@ export default function App() {
   useEffect(() => {
     // axios language headers
     // need to change this later
+    initializeSound();
     axios.defaults.headers.common["Accept-Language"] = "en-CA";
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }, []);
