@@ -83,8 +83,8 @@ const TabNavigator = (props) => {
                     style={focused ? styles.focusedText : styles.defaultText}
                   >
                     <FormattedMessage
-                      id="Nav.allIssues"
-                      defaultMessage="All Issues"
+                      id="Nav.Civilian"
+                      defaultMessage="Civilian"
                     />
                   </Text>
                 </View>
@@ -107,10 +107,7 @@ const TabNavigator = (props) => {
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
                   >
-                    <FormattedMessage
-                      id="Nav.siteIssues"
-                      defaultMessage="Site Issues"
-                    />
+                    <FormattedMessage id="Nav.Site" defaultMessage="Site" />
                   </Text>
                 </View>
               ),

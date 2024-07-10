@@ -2,7 +2,6 @@ import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 const LargeActionButton = (props) => {
-  console.log(props);
   return (
     <TouchableOpacity
       style={[styles.button, props.disabled && styles.disabledButton]}
