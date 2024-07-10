@@ -78,7 +78,7 @@ const Rewards = (props) => {
   const { user, leaderboard } = data;
 
   const calculateLevel = (points) => {
-    return Math.floor(points / 5);
+    return Math.floor(points / 5) + 1;
   };
 
   const getBadgeForLevel = (level) => {
