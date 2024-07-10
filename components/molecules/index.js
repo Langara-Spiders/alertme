@@ -5,6 +5,7 @@ export { default as IncidentCard } from "./cards/IncidentCard";
 export { default as LeaderBoardCard } from "./cards/LeaderBoardCard";
 export { default as LoginAsCard } from "./cards/LoginAsCard";
 export { default as NotificationCard } from "./cards/NotificationCard";
+export { default as NumOfIssuesCard } from "./cards/NumOfIssuesCard";
 export { default as PostedByCard } from "./cards/PostedByCard";
 export { default as RewardGreetingCard } from "./cards/RewardGreetingCard";
 export { default as RewardLevelCard } from "./cards/RewardLevelCard";
