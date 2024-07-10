@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
+import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
 import { LargeActionButton, StatusBadge } from "../components/atoms";
@@ -149,29 +150,37 @@ const IncidentDetail = ({ route, navigation }) => {
         <Text style={styles.distance}>
           {incident.distance.toFixed(2)} km away
         </Text>
+
         <Text style={styles.heading}>Incident Location</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(routes.HOME, {
-              successType: `animateTo-${uniqueId()}`,
-              coordinate: incident?.coordinate,
-            })
-          }
-          style={styles.locationText}
-        >
-          <Text>
-            {incident.address.street_address},{" "}
-            <Text style={styles.viewMap}>View Map</Text>
-          </Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(routes.HOME, {
+                successType: `animateTo-${uniqueId()}`,
+                coordinate: incident?.coordinate,
+              })
+            }
+            style={styles.locationText}
+          >
+            <Text>
+              <SvgUri width="16" height="16" source={Location_Spot} />
+              {"  "}
+              {incident.address.street_address},{" "}
+              <Text style={styles.viewMap}>View Map</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
-          <Image
-            source={{ uri: incident.category_icon }}
-            style={styles.typeIcon}
-            alt="category icon"
-          />
-          <Text>{incident.category_name}</Text>
+          <Text>
+            <SvgUri
+              width="16"
+              height="16"
+              source={{ uri: incident.category_icon }}
+            />
+            {"  "}
+            {incident.category_name}
+          </Text>
         </View>
         <Text style={styles.heading}>Description</Text>
         <Text style={styles.description}>{incident.description}</Text>
