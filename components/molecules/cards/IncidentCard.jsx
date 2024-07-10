@@ -27,6 +27,8 @@ const dateOptions = {
 const IncidentCard = (props) => {
   const navigation = useNavigation();
   const { id, name, isStaff } = useStore.getState().getUser();
+  console.log("HERE CHECKING WHETHER IT IS IS STAFF OR NOT");
+  console.log(isStaff);
   const current_logged_in_user_id = id;
 
   const handlePress = () => {

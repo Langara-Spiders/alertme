@@ -3,39 +3,9 @@ import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import { Button } from "../../atoms";
 
-const RejectOrApproveModal = ({ type, onConfirm, onClose }) => {
+const OrgActionsModal = ({ type, onConfirm, onClose }) => {
   return (
     <View style={styles.confirmationCard}>
-      {type === "upVote" && (
-        <>
-          <Text style={styles.confirmationText}>
-            <FormattedMessage
-              id="upvoteModal.upvote"
-              defaultMessage="👍Confirm Up-vote?"
-            />
-          </Text>
-          <Text style={styles.confirmationText}>
-            <FormattedMessage
-              id="upvoteModal.trust"
-              defaultMessage="We trust that your up-vote is genuine and based on the incident you reviewed. Please refrain from misusing this community application."
-            />
-          </Text>
-          <View style={styles.confirmationButtons}>
-            <Button style={styles.no} onPress={onClose}>
-              <FormattedMessage id="common.no" defaultMessage="No" />
-            </Button>
-            <Button style={styles.yes} onPress={onConfirm}>
-              <Text textStyle={styles.buttonTextBlack}>
-                <FormattedMessage
-                  id="common.confirm"
-                  defaultMessage="Confirm"
-                />
-              </Text>
-            </Button>
-          </View>
-        </>
-      )}
-
       {type === "approveIncident" && (
         <>
           <Text style={styles.confirmationText}>
@@ -96,7 +66,7 @@ const RejectOrApproveModal = ({ type, onConfirm, onClose }) => {
   );
 };
 
-export default RejectOrApproveModal;
+export default OrgActionsModal;
 
 const styles = StyleSheet.create({
   confirmationCard: {

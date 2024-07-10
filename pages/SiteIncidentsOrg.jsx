@@ -42,7 +42,6 @@ const SiteIncidentsOrg = (props) => {
 
   const getSiteIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    console.log(latitude, longitude);
     const response = await getSiteIssuesForOrg();
     const incidentsWithDistance = response ?? [];
 

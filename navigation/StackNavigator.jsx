@@ -5,6 +5,7 @@ import {
   About,
   AppSetting,
   IncidentDetail,
+  IncidentDetailOrg,
   IssuesReportedAwards,
   Leaderboard,
   NearByActiveIssues,
@@ -60,7 +61,7 @@ const StackNavigator = (props) => {
       />
       <Stack.Screen
         name={routes.INCIDENT_DETAIL_ORG}
-        component={IncidentDetail}
+        component={IncidentDetailOrg}
         options={{
           headerShown: false,
           headerBackTitleVisible: false,

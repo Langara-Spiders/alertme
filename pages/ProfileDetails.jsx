@@ -56,8 +56,6 @@ const ProfileDetails = () => {
 
   const handleSave = async () => {
     const response = await updateProfile(profile, image);
-
-    console.log("RESPONSE, ", response);
     dispatchProfile({
       type: "CHANGE_PROFILE",
       payload: response?.user ?? {},

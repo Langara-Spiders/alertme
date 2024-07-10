@@ -2,17 +2,22 @@ import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
 import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { getSiteIssuesForOrg } from "../api/incident";
+import { getIncidentDetailsForUser } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteModal } from "../components/molecules";
+import { Button, LargeActionButton, StatusBadge } from "../components/atoms";
+import {
+  OrgActionsModal,
+  PostedByCard,
+  UpVoteCard,
+} from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
-const IncidentDetail = ({ route, navigation }) => {
+const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
   const [incident, setIncident] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +47,7 @@ const IncidentDetail = ({ route, navigation }) => {
 
   const fetchIncidentDetails = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getSiteIssuesForOrg(
+    const response = await getIncidentDetailsForUser(
       latitude,
       longitude,
       incident_id
@@ -87,35 +92,73 @@ const IncidentDetail = ({ route, navigation }) => {
         switch (incident.status) {
           case "ACTIVE":
             return (
-              <View style={styles.buttonGroup}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleModalOpen("reject")}
-                >
-                  <Text style={styles.buttonText}>Reject</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleModalOpen("approveIncident")}
-                >
-                  <Text style={styles.buttonText}>Approve</Text>
-                </TouchableOpacity>
-              </View>
+              <>
+                <View style={styles.upvoteCardContainer}>
+                  <UpVoteCard
+                    upVotes={incident.upvote_count}
+                    voters={incident.voters}
+                  />
+                </View>
+                <View style={styles.confirmationButtons}>
+                  <Button
+                    onPress={() => handleModalOpen("reject")}
+                    style={styles.rejectButton}
+                  >
+                    <FormattedMessage
+                      id="IncidentDetailOrg.Reject"
+                      defaultMessage="Reject"
+                      disabled={false}
+                    />
+                  </Button>
+
+                  <Button
+                    onPress={() => handleModalOpen("approveIncident")}
+                    style={styles.approveButton}
+                  >
+                    <FormattedMessage
+                      id="IncidentDetailOrg.Approve"
+                      defaultMessage="Approve"
+                      disabled={false}
+                    />
+                  </Button>
+                </View>
+              </>
             );
           case "PENDING":
             return (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleModalOpen("resolveIncident")}
-              >
-                <Text style={styles.buttonText}>Resolve</Text>
-              </TouchableOpacity>
+              <>
+                <View style={styles.upvoteCardContainer}>
+                  <UpVoteCard
+                    upVotes={incident.upvote_count}
+                    voters={incident.voters}
+                  />
+                </View>
+                <View style={styles.largeButtonCardContainer}>
+                  <LargeActionButton
+                    onPress={() => handleModalOpen("resolveIncident")}
+                    buttonText="Resolve"
+                    disabled={false}
+                  />
+                </View>
+              </>
             );
           case "REJECTED":
             return (
-              <TouchableOpacity style={styles.button} disabled>
-                <Text style={styles.buttonText}>Rejected</Text>
-              </TouchableOpacity>
+              <>
+                <View style={styles.upvoteCardContainer}>
+                  <UpVoteCard
+                    upVotes={incident.upvote_count}
+                    voters={incident.voters}
+                  />
+                </View>
+                <View style={styles.largeButtonCardContainer}>
+                  <LargeActionButton
+                    onPress={() => handleModalOpen("resolveIncident")}
+                    buttonText="Rejected"
+                    disabled={true}
+                  />
+                </View>
+              </>
             );
           default:
             return null;
@@ -124,18 +167,39 @@ const IncidentDetail = ({ route, navigation }) => {
         switch (incident.status) {
           case "FIXING":
             return (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleModalOpen("resolveIncident")}
-              >
-                <Text style={styles.buttonText}>Resolve</Text>
-              </TouchableOpacity>
+              <>
+                <View style={styles.upvoteCardContainer}>
+                  <UpVoteCard
+                    upVotes={incident.upvote_count}
+                    voters={incident.voters}
+                  />
+                </View>
+                <View style={styles.largeButtonCardContainer}>
+                  <LargeActionButton
+                    onPress={() => handleModalOpen("resolveIncident")}
+                    buttonText="Resolve"
+                    disabled={false}
+                  />
+                </View>
+              </>
             );
           case "RESOLVED":
             return (
-              <TouchableOpacity style={styles.button} disabled>
-                <Text style={styles.buttonText}>Resolved</Text>
-              </TouchableOpacity>
+              <>
+                <View style={styles.upvoteCardContainer}>
+                  <UpVoteCard
+                    upVotes={incident.upvote_count}
+                    voters={incident.voters}
+                  />
+                </View>
+                <View style={styles.largeButtonCardContainer}>
+                  <LargeActionButton
+                    onPress={() => handleModalOpen("resolveIncident")}
+                    buttonText="Resolved"
+                    disabled={true}
+                  />
+                </View>
+              </>
             );
           default:
             return null;
@@ -145,18 +209,23 @@ const IncidentDetail = ({ route, navigation }) => {
       switch (incident.status) {
         case "ACTIVE":
           return (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleModalOpen("resolveIncident")}
-            >
-              <Text style={styles.buttonText}>Resolve</Text>
-            </TouchableOpacity>
+            <View style={styles.largeButtonCardContainer}>
+              <LargeActionButton
+                onPress={() => handleModalOpen("resolveIncident")}
+                buttonText="Resolve"
+                disabled={false}
+              />
+            </View>
           );
         case "RESOLVED":
           return (
-            <TouchableOpacity style={styles.button} disabled>
-              <Text style={styles.buttonText}>Resolved</Text>
-            </TouchableOpacity>
+            <View style={styles.largeButtonCardContainer}>
+              <LargeActionButton
+                onPress={() => handleModalOpen("resolveIncident")}
+                buttonText="Resolved"
+                disabled={true}
+              />
+            </View>
           );
         default:
           return null;
@@ -260,7 +329,7 @@ const IncidentDetail = ({ route, navigation }) => {
         presentationStyle="overFullScreen"
         transparent={true}
       >
-        <UpVoteModal
+        <OrgActionsModal
           onClose={handleModalClose}
           onConfirm={onConfirm}
           type={modalType}
@@ -270,11 +339,7 @@ const IncidentDetail = ({ route, navigation }) => {
   );
 };
 
-IncidentDetail.navigationOptions = {
-  headerShown: false,
-};
-
-export default IncidentDetail;
+export default IncidentDetailOrg;
 
 const styles = StyleSheet.create({
   container: {
@@ -374,9 +439,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
   },
-  upvoteButtonContainer: {
-    marginTop: 10,
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
@@ -408,21 +470,40 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
-  button: {
-    backgroundColor: "#FF6600",
-    padding: 15,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  buttonGroup: {
+  confirmationButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 10,
+  },
+  largeButtonCardContainer: {
+    marginTop: 10,
+  },
+  rejectButton: {
+    button: {
+      borderWidth: 1,
+      borderColor: "#000",
+      backgroundColor: "white",
+      width: 166,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonText: {
+      color: "#000",
+      fontSize: 16,
+      fontWeight: "600",
+    },
+  },
+  approveButton: {
+    button: {
+      backgroundColor: "#FF6600",
+      width: 166,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonText: {
+      color: "#FFF",
+      fontSize: 16,
+      fontWeight: "600",
+    },
   },
 });
