@@ -34,7 +34,9 @@ const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
         </Avatar>
         {banner && <SvgUri source={banner} style={styles.banner} />}
       </View>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name} numberOfLines={1}>
+        {name}
+      </Text>
       <Text style={styles.level}>Level {level}</Text>
     </View>
   );
@@ -45,7 +47,9 @@ export default TopThreeCard;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginHorizontal: 10,
+    marginHorizontal: -10,
+    marginRight: 1,
+    marginLeft: 1,
   },
   avatarContainer: {
     position: "relative",
@@ -86,6 +90,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#1E1E1E",
     marginTop: 20,
+    textAlign: "center",
+    maxWidth: 150,
+    flexWrap: "wrap",
   },
   level: {
     fontSize: 14,
