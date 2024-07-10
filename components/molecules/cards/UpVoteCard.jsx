@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    width: "100%",
+    width: 344, // Set a fixed width
+    height: 52,
     padding: 10,
     justifyContent: "space-between",
     backgroundColor: "#F3F4F4",

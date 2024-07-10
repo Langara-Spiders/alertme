@@ -50,7 +50,7 @@ const ReadyToPostModal = (props) => {
               style={{ button: { paddingHorizontal: 60, marginLeft: 6 } }}
               onPress={props.onConfirm}
             >
-              <Text style={styles.buttonTextBlack}>
+              <Text style={{ color: "#fff", fontSize: 16 }}>
                 <FormattedMessage id="readyModal.yes" defaultMessage="Post" />
               </Text>
             </Button>
@@ -97,8 +97,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
-  },
-  buttonTextBlack: {
-    color: "#000",
   },
 });
