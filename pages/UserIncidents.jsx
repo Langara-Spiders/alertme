@@ -7,12 +7,17 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-
-import * as Location from "expo-location";
 import { getMyIssues } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
+import useStore from "../store/useStore";
+import {
+  initializeSound,
+  playClickSound,
+  releaseSound,
+} from "../utils/SoundManager";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -20,6 +25,14 @@ const UserIncidents = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
+  const { switchValues } = useStore();
+
+  useEffect(() => {
+    initializeSound();
+    return () => {
+      releaseSound();
+    };
+  }, []);
 
   useEffect(() => {
     getMyIncidentsNearBy();
@@ -61,6 +74,9 @@ const UserIncidents = (props) => {
   const ItemSeparator = () => <View style={styles.separator} />;
 
   const handleButtonPress = (buttonType) => {
+    if (switchValues.applicationSound) {
+      playClickSound();
+    }
     setActiveButton(buttonType);
   };
 

@@ -16,12 +16,13 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import React, { useState } from "react";
-import { Button, SwitchButton, UnitSwitch } from "../atoms";
-
 import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
+import useStore from "../../store/useStore";
+import { playClickSound, playSwitchSound } from "../../utils/SoundManager";
+import { Button, SwitchButton, UnitSwitch } from "../atoms";
 
 const AppSettingArray = [
   { id: "applicationSound", text: "Application Sound" },
@@ -33,23 +34,22 @@ const AppSettingArray = [
 const ProfileAppSettingItems = () => {
   const [isKm, setIsKm] = useState(false);
   const navigation = useNavigation();
-
-  const [switchValues, setSwitchValues] = useState({
-    applicationSound: false,
-    accessLocation: false,
-    accessCamera: false,
-    notification: false,
-  });
+  const { switchValues, setSwitchValue } = useStore();
 
   const handleSwitchChange = (id) => {
-    setSwitchValues((prevValues) => ({
-      ...prevValues,
-      [id]: !prevValues[id],
-    }));
+    playSwitchSound();
+    setSwitchValue(id, !switchValues[id]);
   };
 
   const handleUnitSwitchChange = (value) => {
     setIsKm(value);
+  };
+
+  const handleButtonClick = () => {
+    if (switchValues.applicationSound) {
+      playClickSound();
+    }
+    console.log("Save");
   };
 
   return (
@@ -117,12 +117,7 @@ const ProfileAppSettingItems = () => {
       ))}
 
       <View style={styles.savebutton}>
-        <Button
-          variant="primary"
-          onPress={() => {
-            console.log("Save");
-          }}
-        >
+        <Button variant="primary" onPress={handleButtonClick}>
           <FormattedMessage id="profile.appsettingSave" defaultMessage="Save" />
         </Button>
       </View>

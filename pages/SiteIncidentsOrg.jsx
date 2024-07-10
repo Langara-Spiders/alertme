@@ -13,12 +13,26 @@ import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 import * as Location from "expo-location";
 import { getSiteIssuesForOrg } from "../api/incident";
 import { IncidentCard } from "../components/molecules";
+import useStore from "../store/useStore";
+import {
+  initializeSound,
+  playClickSound,
+  releaseSound,
+} from "../utils/SoundManager";
 const screenWidth = Dimensions.get("window").width;
 
 const SiteIncidentsOrg = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
+  const { switchValues } = useStore();
+
+  useEffect(() => {
+    initializeSound();
+    return () => {
+      releaseSound();
+    };
+  }, []);
 
   useEffect(() => {
     getSiteIncidentsAll();
@@ -59,6 +73,9 @@ const SiteIncidentsOrg = (props) => {
   const ItemSeparator = () => <View style={styles.separator} />;
 
   const handleButtonPress = (buttonType) => {
+    if (switchValues.applicationSound) {
+      playClickSound();
+    }
     setActiveButton(buttonType);
   };
 
