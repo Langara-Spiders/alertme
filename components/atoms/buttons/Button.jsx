@@ -24,7 +24,7 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     borderRadius: 50,
-    height: 60,
+    height: 44,
     backgroundColor: "#FF6B00",
     color: "white",
   },

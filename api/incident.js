@@ -31,8 +31,6 @@ const getIncidentDetailsForUser = async (lat, lng, id) => {
     const res = await axios.get(
       `${API_BASE_URL}/incidents/report?lat=${lat}&lng=${lng}&id=${id}`
     );
-    console.log("==========================");
-    console.log(res.data.data);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -69,8 +67,6 @@ const postIssue = async (report) => {
 const upVoteIssue = async (id) => {
   try {
     const res = await axios.put(`${API_BASE_URL}/incidents/upvote?id=${id}`);
-    console.log("Upvote the incident!!!!");
-    console.log(res);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -83,6 +79,8 @@ const upVoteIssue = async (id) => {
 const getCivilianIssuesForOrg = async () => {
   try {
     const res = await axios.get(`${API_BASE_URL}/incidents/site/user`);
+    console.log("THIS IS FATAAA");
+    console.log(res.data.data);
     return res.data.data;
   } catch (error) {
     console.error(error.response);

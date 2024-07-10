@@ -7,7 +7,7 @@ import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { StatusBadge, UpvoteButton } from "../components/atoms";
+import { LargeActionButton, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
@@ -195,7 +195,7 @@ const IncidentDetail = ({ route, navigation }) => {
           </View>
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
-              <UpvoteButton
+              <LargeActionButton
                 onPress={() => !hasUserUpvoted() && handleModalOpen("upVote")}
                 buttonText={hasUserUpvoted() ? "Upvoted Issue" : "Upvote Issue"}
                 disabled={hasUserUpvoted()}

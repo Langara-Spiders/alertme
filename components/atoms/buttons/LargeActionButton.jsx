@@ -1,16 +1,14 @@
 import { Text, View } from "@gluestack-ui/themed";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-const UpvoteButton = (props) => {
-  console.log("UPVOTE BUTTON");
+const LargeActionButton = (props) => {
   console.log(props);
   return (
     <TouchableOpacity
-      style={[styles.button, styles.disabledButton]}
+      style={[styles.button, props.disabled && styles.disabledButton]}
       onPress={props.onPress}
       disabled={props.disabled}
     >
-      {console.log("Button is pressed")}
       <View style={styles.iconContainer}>
         <Text style={styles.text}>{props.buttonText}</Text>
       </View>
@@ -18,7 +16,7 @@ const UpvoteButton = (props) => {
   );
 };
 
-export default UpvoteButton;
+export default LargeActionButton;
 
 const styles = StyleSheet.create({
   button: {
