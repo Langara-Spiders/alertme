@@ -17,6 +17,9 @@ const StatusBadge = (props) => {
   } else if (props.status === "pending" || props.status === "PENDING") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
+  } else if (props.status === "rejected" || props.status === "REJECTED") {
+    backgroundColor = "gray";
+    textColor = "#0B0C0C";
   }
 
   const styles = StyleSheet.create({

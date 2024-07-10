@@ -4,6 +4,57 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { getReward } from "../api/user";
+const A1 = require("../assets/badges/A1.png");
+const A2 = require("../assets/badges/A2.png");
+const A3 = require("../assets/badges/A3.png");
+const A4 = require("../assets/badges/A4.png");
+const A5 = require("../assets/badges/A5.png");
+const A6 = require("../assets/badges/A6.png");
+const A7 = require("../assets/badges/A7.png");
+const A8 = require("../assets/badges/A8.png");
+const A9 = require("../assets/badges/A9.png");
+const A10 = require("../assets/badges/A10.png");
+const A11 = require("../assets/badges/A11.png");
+const A12 = require("../assets/badges/A12.png");
+const A13 = require("../assets/badges/A13.png");
+const A14 = require("../assets/badges/A14.png");
+const A15 = require("../assets/badges/A15.png");
+const A16 = require("../assets/badges/A16.png");
+const A17 = require("../assets/badges/A17.png");
+const A18 = require("../assets/badges/A18.png");
+const A19 = require("../assets/badges/A19.png");
+const A20 = require("../assets/badges/A20.png");
+const A21 = require("../assets/badges/A21.png");
+const A22 = require("../assets/badges/A22.png");
+const A23 = require("../assets/badges/A23.png");
+const A24 = require("../assets/badges/A24.png");
+const A25 = require("../assets/badges/A25.png");
+const A26 = require("../assets/badges/A26.png");
+const A27 = require("../assets/badges/A27.png");
+const A28 = require("../assets/badges/A28.png");
+const A29 = require("../assets/badges/A29.png");
+const A30 = require("../assets/badges/A30.png");
+const A31 = require("../assets/badges/A31.png");
+const A32 = require("../assets/badges/A32.png");
+const A33 = require("../assets/badges/A33.png");
+const A34 = require("../assets/badges/A34.png");
+const A35 = require("../assets/badges/A35.png");
+const A36 = require("../assets/badges/A36.png");
+const A37 = require("../assets/badges/A37.png");
+const A38 = require("../assets/badges/A38.png");
+const A39 = require("../assets/badges/A39.png");
+const A40 = require("../assets/badges/A40.png");
+const A41 = require("../assets/badges/A41.png");
+const A42 = require("../assets/badges/A42.png");
+const A43 = require("../assets/badges/A43.png");
+const A44 = require("../assets/badges/A44.png");
+const A45 = require("../assets/badges/A45.png");
+const A46 = require("../assets/badges/A46.png");
+const A47 = require("../assets/badges/A47.png");
+const A48 = require("../assets/badges/A48.png");
+const A49 = require("../assets/badges/A49.png");
+const A50 = require("../assets/badges/A50.png");
+
 import ABCD from "../assets/images/sample_user.png";
 import {
   LeaderBoardCard,
@@ -11,47 +62,86 @@ import {
   RewardLevelCard,
 } from "../components/molecules";
 import { routes } from "../constants";
+// Add additional badge imports as needed
 
-/* The `mockData` constant is storing a mock data object 
-that represents user and leaderboard
-information. Here's a breakdown of the data structure: */
-
-const mockData = {
-  leaderboard: [
-    { avatar: ABCD, name: "Dulce Carder", level: 15, points: 13343 },
-    { avatar: ABCD, name: "Craig Septimus", level: 14, points: 12104 },
-    { avatar: ABCD, name: "Ann Dokidis", level: 12, points: 11048 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-    { avatar: ABCD, name: "Ahmad Arcand", level: 11, points: 9958 },
-  ],
+const badges = {
+  1: A1,
+  2: A2,
+  3: A3,
+  4: A4,
+  5: A5,
+  6: A6,
+  7: A7,
+  8: A8,
+  9: A9,
+  10: A10,
+  11: A11,
+  12: A12,
+  13: A13,
+  14: A14,
+  15: A15,
+  16: A16,
+  17: A17,
+  18: A18,
+  19: A19,
+  20: A20,
+  21: A21,
+  22: A22,
+  23: A23,
+  24: A24,
+  25: A25,
+  26: A26,
+  27: A27,
+  28: A28,
+  29: A29,
+  30: A30,
+  31: A31,
+  32: A32,
+  33: A33,
+  34: A34,
+  35: A35,
+  36: A36,
+  37: A37,
+  38: A38,
+  39: A39,
+  40: A40,
+  41: A41,
+  42: A42,
+  43: A43,
+  44: A44,
+  45: A45,
+  46: A46,
+  47: A47,
+  48: A48,
+  49: A49,
+  50: A50,
 };
 
-// Feature `Rewards`.
 const Rewards = (props) => {
   const intl = useIntl();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigation = useNavigation();
 
-  /* The `useEffect` hook in the provided code snippet 
-is used to perform side effects in a functional
-component. In this specific case: setData, setLoading*/
   useEffect(() => {
     const fetchData = async () => {
-      const rewardData = await getReward();
-      setData(rewardData[0]);
-      setLoading(false);
+      try {
+        const response = await getReward();
+        const { user_details, leaderboard } = response.data;
+        setData({
+          user: user_details,
+          leaderboard: leaderboard,
+        });
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, []);
-
-  /* The `if (loading)` block in the `Rewards` component is a 
-conditional check that is used to handle
-the rendering of a loading indicator while the data is being 
-fetched. */
 
   if (loading) {
     return (
@@ -61,20 +151,44 @@ fetched. */
     );
   }
 
-  /* This component displays the Rewards page with a greeting card, 
-a level card, and a scrollable leaderboard.*/
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>
+          Error loading data: {error.message}
+        </Text>
+      </View>
+    );
+  }
+
+  if (!data || !data.user) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Error loading data</Text>
+      </View>
+    );
+  }
+
+  const { user, leaderboard } = data;
+
+  const calculateLevel = (points) => {
+    return Math.floor(points / 5) + 1;
+  };
+
+  const getBadgeForLevel = (level) => {
+    return badges[level] || ABCD; // Default to ABCD if no badge is found
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <RewardGreetingCard
-          name={data.name}
-          avatar={data.picture ?? "https://picsum.photos/200/300"}
+          name={user.name ?? "Unknown"}
+          avatar={user.picture ?? "https://picsum.photos/200/300"}
         />
       </View>
       <View>
         <Text style={styles.levelCardText}>
-          {" "}
           <FormattedMessage
             id="Rewards.issueReported"
             defaultMessage="Issue Reported"
@@ -82,7 +196,12 @@ a level card, and a scrollable leaderboard.*/
         </Text>
       </View>
       <View style={styles.levelCardContainer}>
-        <RewardLevelCard level="3" earned="214" reported="58" icon={ABCD} />
+        <RewardLevelCard
+          level={calculateLevel(user.points).toString() ?? "N/A"}
+          earned={user.points?.toString() ?? "0"}
+          reported={user.points?.toString() ?? "0"} // Using points for issues reported
+          icon={getBadgeForLevel(calculateLevel(user.points))}
+        />
       </View>
       <View style={styles.leaderboardHeader}>
         <Text style={styles.leaderboardText}>
@@ -92,32 +211,36 @@ a level card, and a scrollable leaderboard.*/
           />
         </Text>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(routes.LEADERBOARD, {
-              leaderboard: mockData.leaderboard,
-            })
-          }
+          onPress={() => {
+            try {
+              navigation.navigate(routes.LEADERBOARD, {
+                leaderboard: leaderboard,
+              });
+            } catch (error) {
+              console.error("Error navigating to leaderboard:", error);
+            }
+          }}
         >
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.leaderboardContainer}>
-        {mockData.leaderboard.map((leader, index) => (
-          <LeaderBoardCard
-            key={index}
-            avatar={leader.avatar}
-            name={leader.name}
-            level={leader.level.toString()}
-            points={leader.points.toString()}
-          />
-        ))}
+      <ScrollView style={styles.leaderboardContainer} fadingEdgeLength={150}>
+        {leaderboard.map((leader, index) => {
+          return (
+            <LeaderBoardCard
+              key={index}
+              avatar={leader.picture ?? ABCD}
+              name={leader.name ?? "Unknown"}
+              level={calculateLevel(leader.points).toString() ?? "N/A"}
+              points={leader.points?.toString() ?? "0"}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
 };
 
-/*Styles for the Rewards page components including the container,
-header, level card text, leaderboard, and loading state.*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -163,6 +286,15 @@ const styles = StyleSheet.create({
   loadingIcon: {
     width: 50,
     height: 50,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    color: "red",
   },
 });
 

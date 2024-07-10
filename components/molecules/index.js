@@ -17,6 +17,7 @@ export { default as IncidentImageUpload } from "./IncidentImageUpload";
 export { default as LocationInput } from "./LocationInput";
 export { default as CategoriesModal } from "./modals/CategoriesModal";
 export { default as Modal } from "./modals/Modal";
+export { default as OrgActionsModal } from "./modals/OrgActionsModal";
 export { default as ReadyToPostModal } from "./modals/ReadyToPostModal";
 export { default as UpVoteModal } from "./modals/UpVoteModal";
 export { default as ProfileAppSettingItems } from "./ProfileAppSettingItems";

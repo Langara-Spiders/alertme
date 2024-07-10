@@ -1,8 +1,9 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Verified from "../../assets/icons/System_Icons/Verified.svg";
+import Verified from "../../assets/icons/map_markers/verf_hazard_icon.svg";
 
 const VerifiedBadge = () => {
   return (

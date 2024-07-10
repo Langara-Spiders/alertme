@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "./constants";
 
+// API LOGICS FOR USER END
 const getNearbyIncident = async (lat, lng) => {
   try {
     const res = await axios.get(
@@ -13,10 +14,11 @@ const getNearbyIncident = async (lat, lng) => {
   }
 };
 
-const getMyIssues = async (lat, lng) => {
+const getMyIssues = async (lat, lng, filter) => {
   try {
+    const filterQuery = filter ? `filter_by=${filter.toUpperCase()}` : "";
     const res = await axios.get(
-      `${API_BASE_URL}/incidents/user?lat=${lat}&lng=${lng}`
+      `${API_BASE_URL}/incidents/user?${filterQuery}&lat=${lat}&lng=${lng}`
     );
     return res.data.data;
   } catch (error) {
@@ -30,8 +32,6 @@ const getIncidentDetailsForUser = async (lat, lng, id) => {
     const res = await axios.get(
       `${API_BASE_URL}/incidents/report?lat=${lat}&lng=${lng}&id=${id}`
     );
-    console.log("==========================");
-    console.log(res.data.data);
     return res.data.data;
   } catch (error) {
     console.error(error.response);
@@ -65,10 +65,51 @@ const postIssue = async (report) => {
   }
 };
 
+const upVoteIssue = async (id) => {
+  try {
+    const res = await axios.put(`${API_BASE_URL}/incidents/upvote?id=${id}`);
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+// API LOGICS FOR ORG END
+
+const getCivilianIssuesForOrg = async (filter) => {
+  try {
+    const filterQuery = filter ? `?filter_by=${filter.toUpperCase()}` : "";
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/site/user${filterQuery}`
+    );
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
+const getSiteIssuesForOrg = async (filter) => {
+  try {
+    const filterQuery = filter ? `?filter_by=${filter.toUpperCase()}` : "";
+    const res = await axios.get(
+      `${API_BASE_URL}/incidents/site/org${filterQuery}`
+    );
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
 export {
   getNearbyIncident,
   getMyIssues,
+  upVoteIssue,
   getCategories,
   postIssue,
   getIncidentDetailsForUser,
+  getCivilianIssuesForOrg,
+  getSiteIssuesForOrg,
 };

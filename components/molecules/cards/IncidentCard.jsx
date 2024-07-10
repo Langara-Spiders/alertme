@@ -6,13 +6,13 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { StatusBadge } from "../../atoms";
-
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
+import useStore from "../../../store/useStore";
+import { StatusBadge } from "../../atoms";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 const dateOptions = {
@@ -26,9 +26,14 @@ const dateOptions = {
 
 const IncidentCard = (props) => {
   const navigation = useNavigation();
+  const { id, name, isStaff } = useStore.getState().getUser();
+  const current_logged_in_user_id = id;
 
   const handlePress = () => {
-    navigation.navigate(routes.INCIDENT_DETAIL, { incident_id: props.id });
+    const targetRoute = isStaff
+      ? routes.INCIDENT_DETAIL_ORG
+      : routes.INCIDENT_DETAIL;
+    navigation.navigate(targetRoute, { incident_id: props.id });
   };
 
   return (
@@ -39,14 +44,16 @@ const IncidentCard = (props) => {
             <StatusBadge status={props.status} />
           </View>
           <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {props.subject}
+            {props.subject ?? "No Subject"}
           </Heading>
           <Heading
             style={styles.distance}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {props.distance.toFixed(1)} km away
+            {props.distance
+              ? `${props.distance.toFixed(1)} km away`
+              : "Distance unavailable"}
           </Heading>
           <View style={styles.footer}>
             <View style={styles.locationContainer}>
@@ -56,7 +63,7 @@ const IncidentCard = (props) => {
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {props.address.street_address}
+                {props.address?.street_address ?? "Address unavailable"}
               </Text>
             </View>
             <Text style={styles.timeText}>

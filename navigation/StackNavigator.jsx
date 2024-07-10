@@ -3,8 +3,11 @@ import * as React from "react";
 import { Icon, StarIcon } from "@gluestack-ui/themed";
 import {
   Appearance,
+  About,
   AppSetting,
   IncidentDetail,
+  IncidentDetailOrg,
+  IssuesReportedAwards,
   Leaderboard,
   NearByActiveIssues,
   Notifications,
@@ -53,10 +56,19 @@ const StackNavigator = (props) => {
         name={routes.INCIDENT_DETAIL}
         component={IncidentDetail}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerBackTitleVisible: false,
         }}
       />
+      <Stack.Screen
+        name={routes.INCIDENT_DETAIL_ORG}
+        component={IncidentDetailOrg}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+        }}
+      />
+
       <Stack.Screen
         name={routes.LEADERBOARD}
         component={Leaderboard}
@@ -90,10 +102,28 @@ const StackNavigator = (props) => {
         }}
       />
       <Stack.Screen
+        name={routes.ABOUT}
+        component={About}
+        options={{
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
         name={routes.NEARBYACTIVEISSUES}
         component={NearByActiveIssues}
         options={{
           title: "Nearby Issues",
+          headerShown: true,
+          headerBackTitleVisible: false,
+          headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
+        }}
+      />
+      <Stack.Screen
+        name={routes.ISSUESREPORTEDAWARDS}
+        component={IssuesReportedAwards}
+        options={{
+          title: "IssuesReportedAwards",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,

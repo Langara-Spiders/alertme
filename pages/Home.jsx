@@ -1,14 +1,6 @@
 import * as Location from "expo-location";
 
-import {
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  SearchIcon,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Text, View } from "@gluestack-ui/themed";
 import { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -18,7 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { IncidentCard, SuccessCard } from "../components/molecules";
+import { IncidentCard, Search, SuccessCard } from "../components/molecules";
 
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
@@ -26,6 +18,10 @@ import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import BellIcon from "../assets/icons/bell-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
+import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
+import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_icon.svg";
+import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
+import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
@@ -40,6 +36,7 @@ const Home = ({ navigation, route }) => {
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const mapRef = useRef(null);
 
   const { successType, coordinate } = route?.params ?? {};
@@ -54,7 +51,6 @@ const Home = ({ navigation, route }) => {
       }, 2000);
     }
     if (successType?.startsWith("post") || successType?.startsWith("animate")) {
-      console.log(coordinate);
       animateToMap(coordinate?.lat, coordinate?.lng);
     }
   }, [successType]);
@@ -105,9 +101,14 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleMarkerPress = (issue) => {
-    setQuickViewIssue({});
+    setQuickViewIssue(null);
     setShowQuickView(true);
     setQuickViewIssue(issue);
+    // Animated.timing(opacity, {
+    //   toValue: 1,
+    //   duration: 500,
+    //   useNativeDriver: true,
+    // }).start();
   };
 
   const animateToMap = (latitude, longitude) => {
@@ -127,6 +128,27 @@ const Home = ({ navigation, route }) => {
     animateToMap(latitude, longitude);
   };
 
+  const handleSearchChange = (text) => {
+    setSearchValue(text);
+  };
+
+  const handleSearchSelect = (selectedValue) => {
+    console.log("Selected:", selectedValue);
+
+    const { lat, lon, formatted } = selectedValue;
+
+    setSearchValue(formatted);
+    mapRef.current.animateToRegion(
+      {
+        latitude: lat,
+        longitude: lon,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
+      1000
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       {showSuccessCard && (
@@ -135,20 +157,11 @@ const Home = ({ navigation, route }) => {
         </Animated.View>
       )}
       <View style={styles.searchContainer}>
-        <Input
-          style={{
-            flex: 1,
-            backgroundColor: "white",
-            height: 48,
-            borderRadius: 12,
-            marginRight: 10,
-          }}
-        >
-          <InputSlot pl="$3">
-            <InputIcon as={SearchIcon} />
-          </InputSlot>
-          <InputField placeholder="Search..." />
-        </Input>
+        <Search
+          value={searchValue}
+          onChange={handleSearchChange}
+          onSelect={handleSearchSelect}
+        />
         <TouchableOpacity
           onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
@@ -169,12 +182,23 @@ const Home = ({ navigation, route }) => {
               }
             >
               <IncidentCard
+                id={quickViewIssue?.id}
                 status={quickViewIssue?.status}
                 subject={quickViewIssue?.subject}
                 description={quickViewIssue?.description}
-                streetAddress={quickViewIssue?.address?.address_line1}
+                address={quickViewIssue?.address}
                 created_at={quickViewIssue?.created_at}
                 upvote_count={quickViewIssue?.upvote_count}
+                images={quickViewIssue?.images}
+                onPress={() => handleCardPress(quickViewIssue)}
+                style={{
+                  position: "absolute",
+                  top: 30,
+                  left: 20,
+                  right: 20,
+                  zIndex: 99,
+                  elevation: 99,
+                }}
               />
             </TouchableOpacity>
           </TouchableOpacity>
@@ -212,7 +236,26 @@ const Home = ({ navigation, route }) => {
                 hideCallout
                 highlighted={false}
                 onPress={() => handleMarkerPress(issue)}
-              />
+              >
+                <View style={styles.markerStyles}>
+                  <View style={styles.markerInner}>
+                    <SvgUri
+                      width="38"
+                      height="36"
+                      source={
+                        issue.reported_by === "USER" && issue.is_accepted_by_org
+                          ? VerifiedHazardIcon
+                          : issue.reported_by === "USER" &&
+                              issue.upvote_count >= 3
+                            ? ConfirmedHazardIcon
+                            : issue.reported_by === "ORG"
+                              ? ConstructionHazardIcon
+                              : HazardIcon
+                      }
+                    />
+                  </View>
+                </View>
+              </Marker>
             );
           })}
         </MapView>
@@ -280,8 +323,8 @@ const Home = ({ navigation, route }) => {
           <View key={issue.id}>
             <TouchableWithoutFeedback
               onPress={() => {
-                setIsSheetVisible(false);
                 handleCardPress(issue);
+                setIsSheetVisible(false);
               }}
             >
               <View>
@@ -321,7 +364,7 @@ const styles = StyleSheet.create({
   buttonsContainerLeft: {
     position: "absolute",
     left: 30,
-    bottom: 40,
+    bottom: 140,
     gap: 20,
     flexDirection: "column",
     alignItems: "center",
@@ -330,7 +373,7 @@ const styles = StyleSheet.create({
   buttonsContainerRight: {
     position: "absolute",
     right: 0,
-    bottom: 10,
+    bottom: 120,
     gap: 20,
     flexDirection: "column",
     alignItems: "center",
@@ -378,7 +421,7 @@ const styles = StyleSheet.create({
   },
   successCardContainer: {
     position: "absolute",
-    bottom: 0,
+    bottom: 80,
     width: "100%",
     zIndex: 100,
     padding: 16,
@@ -435,5 +478,19 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 10,
+  },
+  markerStyles: {
+    borderColor: "rgba(0,0,0,.1)",
+    borderRadius: 50,
+    borderWidth: 15,
+  },
+  markerInner: {
+    borderRadius: 50,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 10,
+    borderColor: "rgba(0,0,0,.2)",
+    elevation: 5,
   },
 });
