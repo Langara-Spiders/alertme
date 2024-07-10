@@ -12,7 +12,7 @@ const Leaderboard = (props) => {
   const { leaderboard } = props.route.params;
 
   const calculateLevel = (points) => {
-    return Math.floor(points / 5);
+    return Math.floor(points / 5) + 1;
   };
 
   if (!leaderboard || leaderboard.length < 3) {
