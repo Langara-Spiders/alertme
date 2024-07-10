@@ -4,11 +4,11 @@ import { Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { getAutocomplete, getReverseGeoCoding } from "../../api";
+import { Debouce, TruncateAddress } from "../../utils";
 
 import { useIntl } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import LocationIcon from "../../assets/icons/LocationIcon.svg";
-import { Debouce } from "../../utils";
 import Input from "../atoms/Input";
 
 // Adjust the import if needed
@@ -35,9 +35,7 @@ const LocationInput = (props) => {
   useEffect(() => {
     if (props.value?.address_line1) {
       setAddress(props.value.address_line1);
-      setText(props.value.address_line1);
-    } else {
-      fetchAddress();
+      setText(TruncateAddress(props.value.address_line1));
     }
   }, [props.value]);
 
@@ -54,10 +52,11 @@ const LocationInput = (props) => {
         const { latitude, longitude } = location.coords;
         const addressData = await getReverseGeoCoding(latitude, longitude);
         const fullAddress =
-          addressData.street ||
+          addressData.formatted ||
           `${addressData.city}, ${addressData.state}, ${addressData.country}`;
+        const truncatedAddress = TruncateAddress(fullAddress);
         setAddress(fullAddress);
-        setText(fullAddress);
+        setText(truncatedAddress);
         setSuggestions([]);
         if (props.onSelect) {
           props.onSelect({
@@ -97,8 +96,9 @@ const LocationInput = (props) => {
   };
 
   const handleSelect = (item) => {
+    const truncatedAddress = TruncateAddress(item.formatted);
     setAddress(item.formatted);
-    setText(item.formatted);
+    setText(truncatedAddress);
     setSuggestions([]);
     if (props.onSelect) {
       props.onSelect(item);
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     position: "relative",
+    autoFocus: true,
   },
   input: {
     height: 80,
@@ -174,15 +175,16 @@ const styles = StyleSheet.create({
 
   suggestionsList: {
     position: "absolute",
-    top: 100,
+    top: 90,
     left: 0,
     right: 0,
     borderColor: "#000",
     backgroundColor: "#F3F4F4",
     borderRadius: 10,
-    maxWidth: 400,
-    zIndex: 1,
+    maxWidth: 357,
+    zIndex: 3,
     margin: 10,
+    autoFocus: true,
   },
   suggestion: {
     padding: 20,

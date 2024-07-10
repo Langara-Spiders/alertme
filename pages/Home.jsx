@@ -37,9 +37,12 @@ const Home = ({ navigation, route }) => {
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
   const mapRef = useRef(null);
 
   const { successType, coordinate } = route?.params ?? {};
+  const { isStaff } = route.params;
 
   // ######################## USE EFFECTS ########################
 
@@ -138,15 +141,25 @@ const Home = ({ navigation, route }) => {
     const { lat, lon, formatted } = selectedValue;
 
     setSearchValue(formatted);
-    mapRef.current.animateToRegion(
-      {
-        latitude: lat,
-        longitude: lon,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      },
-      1000
-    );
+    setSelectedLocation({
+      latitude: lat,
+      longitude: lon,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
+    console.log("Selected Location:", selectedLocation);
+
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(
+        {
+          latitude: lat,
+          longitude: lon,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        1000
+      );
+    }
   };
 
   return (
@@ -258,6 +271,23 @@ const Home = ({ navigation, route }) => {
               </Marker>
             );
           })}
+          {selectedLocation && (
+            <Marker
+              coordinate={{
+                latitude: selectedLocation.latitude,
+                longitude: selectedLocation.longitude,
+              }}
+              onPress={() => {
+                alert("direction");
+              }}
+            >
+              <View style={styles.markerStyles}>
+                <View style={styles.markerInner}>
+                  <SvgUri width="38" height="36" source={ConfirmedHazardIcon} />
+                </View>
+              </View>
+            </Marker>
+          )}
         </MapView>
         <View style={styles.buttonsContainerLeft}>
           <TouchableOpacity onPress={handleRecenter}>
@@ -282,19 +312,21 @@ const Home = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
-            <View style={styles.nearbyIssueButton}>
-              <View style={styles.nearbyIssueIcon}>
-                <SvgUri width="28" height="28" source={NearbyIssuesIcon} />
+          {!isStaff && (
+            <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
+              <View style={styles.nearbyIssueButton}>
+                <View style={styles.nearbyIssueIcon}>
+                  <SvgUri width="28" height="28" source={NearbyIssuesIcon} />
+                </View>
+                <Text style={styles.addIssueText}>
+                  <FormattedMessage
+                    id="home.nearbyIssues"
+                    defaultMessage="Nearby Issues"
+                  />
+                </Text>
               </View>
-              <Text style={styles.addIssueText}>
-                <FormattedMessage
-                  id="home.nearbyIssues"
-                  defaultMessage="Nearby Issues"
-                />
-              </Text>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <DBottomSheet
@@ -360,6 +392,7 @@ const styles = StyleSheet.create({
     gap: 2,
     width: "100%",
     paddingHorizontal: 10,
+    boxSizing: "border-box",
   },
   buttonsContainerLeft: {
     position: "absolute",
