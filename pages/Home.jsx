@@ -10,7 +10,12 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { IncidentCard, Search, SuccessCard } from "../components/molecules";
+import {
+  IncidentCard,
+  NumOfIssuesCard,
+  Search,
+  SuccessCard,
+} from "../components/molecules";
 
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
@@ -37,8 +42,8 @@ const Home = ({ navigation, route }) => {
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [currentLocation, setCurrentLocation] = useState(null);
   const mapRef = useRef(null);
 
   const { successType, coordinate } = route?.params ?? {};
@@ -65,7 +70,18 @@ const Home = ({ navigation, route }) => {
       getNearbyIncidentAPICall();
     }, 5000);
 
-    return () => clearInterval(interval);
+    // Show the card when the component mounts
+    setShowNumOfIssuesCard(true);
+
+    // Hide NumOfIssuesCard after 5 seconds
+    const timer = setTimeout(() => {
+      setShowNumOfIssuesCard(false);
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   }, []);
 
   // ######################## USE EFFECTS ########################
@@ -217,6 +233,11 @@ const Home = ({ navigation, route }) => {
           </TouchableOpacity>
         ) : null}
       </View>
+      {showNumOfIssuesCard && (
+        <View style={styles.numOfIssuesCardContainer}>
+          <NumOfIssuesCard numOfIssues={nearbyIssues.length} />
+        </View>
+      )}
       <View
         style={{
           flex: 1,
@@ -393,6 +414,14 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     boxSizing: "border-box",
+  },
+  numOfIssuesCardContainer: {
+    position: "absolute",
+    top: 110,
+    left: "50%",
+    transform: [{ translateX: -110 }],
+    zIndex: 98,
+    elevation: 98,
   },
   buttonsContainerLeft: {
     position: "absolute",
