@@ -12,6 +12,7 @@ import { LargeActionButton, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
+import { playClickSound } from "../utils/SoundManager";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -53,15 +54,18 @@ const IncidentDetail = ({ route, navigation }) => {
   };
 
   const handleModalOpen = (type) => {
+    playClickSound();
     setModalType(type);
     setModalVisible(true);
   };
 
   const handleModalClose = () => {
+    playClickSound();
     setModalVisible(false);
   };
 
   const onConfirm = async () => {
+    playClickSound();
     handleModalClose();
     let successType;
     switch (modalType) {
@@ -139,7 +143,10 @@ const IncidentDetail = ({ route, navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            playClickSound();
+            navigation.goBack();
+          }}
         >
           <Text style={styles.backButtonText}>←</Text>
         </TouchableOpacity>
@@ -154,12 +161,13 @@ const IncidentDetail = ({ route, navigation }) => {
         <Text style={styles.heading}>Incident Location</Text>
         <View>
           <TouchableOpacity
-            onPress={() =>
+            onPress={() => {
+              playClickSound();
               navigation.navigate(routes.HOME, {
                 successType: `animateTo-${uniqueId()}`,
                 coordinate: incident?.coordinate,
-              })
-            }
+              });
+            }}
             style={styles.locationText}
           >
             <Text>
@@ -205,7 +213,12 @@ const IncidentDetail = ({ route, navigation }) => {
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <LargeActionButton
-                onPress={() => !hasUserUpvoted() && handleModalOpen("upVote")}
+                onPress={() => {
+                  if (!hasUserUpvoted()) {
+                    playClickSound();
+                    handleModalOpen("upVote");
+                  }
+                }}
                 buttonText={hasUserUpvoted() ? "Upvoted Issue" : "Upvote Issue"}
                 disabled={hasUserUpvoted()}
               />

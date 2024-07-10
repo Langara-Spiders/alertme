@@ -15,6 +15,12 @@ const useStore = create(
         token: "",
         access_token: "",
       },
+      switchValues: {
+        applicationSound: false,
+        accessLocation: false,
+        accessCamera: false,
+        notification: false,
+      },
       getUser: () => get().user,
 
       setUser: (token, access_token) => {
@@ -44,6 +50,13 @@ const useStore = create(
             isStaff: "",
             token: "",
             access_token: "",
+          },
+        })),
+      setSwitchValue: (id, value) =>
+        set((state) => ({
+          switchValues: {
+            ...state.switchValues,
+            [id]: value,
           },
         })),
     }),
