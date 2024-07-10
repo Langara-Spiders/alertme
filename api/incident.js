@@ -14,10 +14,13 @@ const getNearbyIncident = async (lat, lng) => {
   }
 };
 
-const getMyIssues = async (lat, lng) => {
+const getMyIssues = async (lat, lng, filter) => {
   try {
+    const filterQuery = filter ? `&filter_by=${filter.toUpperCase()}` : "";
+    console.log("CALLING FILTER MAY BE");
+    console.log(filterQuery);
     const res = await axios.get(
-      `${API_BASE_URL}/incidents/user?lat=${lat}&lng=${lng}`
+      `${API_BASE_URL}/incidents/user?${filterQuery}&lat=${lat}&lng=${lng}`
     );
     return res.data.data;
   } catch (error) {

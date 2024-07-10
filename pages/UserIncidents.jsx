@@ -29,7 +29,7 @@ const UserIncidents = (props) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeButton]);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -43,7 +43,11 @@ const UserIncidents = (props) => {
 
   const getMyIncidentsNearBy = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getMyIssues(latitude, longitude);
+    const response = await getMyIssues(
+      latitude,
+      longitude,
+      activeButton === "all" ? null : activeButton
+    );
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
