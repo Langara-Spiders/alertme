@@ -27,11 +27,6 @@ const styles = StyleSheet.create({
     height: 44,
     backgroundColor: "#FF6B00",
     color: "white",
-    shadowColor: "#FF6B00",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 50,
-    elevation: 20,
   },
   buttonText: {
     color: "white",

@@ -1,11 +1,11 @@
 import { Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { Debouce, TruncateAddress } from "../../utils";
 
 import { useIntl } from "react-intl";
 import { getAutocomplete } from "../../api";
 import SearchIcon from "../../assets/icons/SearchIcon.svg";
-import { Debouce } from "../../utils";
 import Input from "../atoms/Input";
 
 const Search = ({ value, onChange, onSelect }) => {
@@ -28,7 +28,7 @@ const Search = ({ value, onChange, onSelect }) => {
         console.error("Error fetching autocomplete results:", error);
       }
     } else {
-      setSuggestions([]);
+      setSuggestions([]); // to clear the suggestions list
     }
   };
 
@@ -43,7 +43,8 @@ const Search = ({ value, onChange, onSelect }) => {
 
   const handleSelect = (item) => {
     onSelect(item);
-    setText(item.formatted);
+    const truncatedText = TruncateAddress(item.formatted);
+    setText(truncatedText);
     setSuggestions([]);
   };
 
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
     borderColor: "#333",
     borderWidth: 0.5,
     backgroundColor: "#fff",
-    height: 60,
+    width: "100%",
+    height: 50,
   },
   input: {
     marginBottom: 10,
@@ -102,12 +104,13 @@ const styles = StyleSheet.create({
     borderColor: "#F3F4F4",
     backgroundColor: "#fff",
     borderRadius: 10,
-    // maxWidth: 1000,
+    width: "100%",
     zIndex: 1,
     margin: 10,
   },
   suggestion: {
     padding: 20,
     color: "black",
+    width: "100%",
   },
 });
