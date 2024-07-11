@@ -3,7 +3,6 @@ import * as Location from "expo-location";
 import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
 import {
   KeyboardAvoidingView,
   Platform,
@@ -86,7 +85,7 @@ const ReportIncident = () => {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
       description: incidentDescription,
-      coordinate: coords,
+      coordinates: coords,
       address: {
         address_line1: "",
       },
@@ -96,7 +95,7 @@ const ReportIncident = () => {
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
-      coordinate: res?.coordinate,
+      coordinates: res?.coordinates,
     });
   };
 

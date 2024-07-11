@@ -1,15 +1,17 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
-import { uniqueId } from "lodash";
+
+import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
+import { LargeActionButton, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+
+import { uniqueId } from "lodash";
+import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { LargeActionButton, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 
@@ -148,7 +150,7 @@ const IncidentDetail = ({ route, navigation }) => {
         <StatusBadge status={incident.status} style={styles.statusBadge} />
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.distance}>
-          {incident.distance.toFixed(2)} km away
+          {incident.distance?.toFixed(2)} km away
         </Text>
 
         <Text style={styles.heading}>Incident Location</Text>
@@ -157,7 +159,7 @@ const IncidentDetail = ({ route, navigation }) => {
             onPress={() =>
               navigation.navigate(routes.HOME, {
                 successType: `animateTo-${uniqueId()}`,
-                coordinate: incident?.coordinate,
+                coordinates: incident?.coordinates,
               })
             }
             style={styles.locationText}

@@ -1,7 +1,5 @@
 import * as Location from "expo-location";
 
-import { Text, View } from "@gluestack-ui/themed";
-import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
@@ -9,28 +7,30 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
 import {
   IncidentCard,
   NumOfIssuesCard,
   Search,
   SuccessCard,
 } from "../components/molecules";
+import MapView, { Marker } from "react-native-maps";
+import React, { useEffect, useRef, useState } from "react";
+import { Text, View } from "@gluestack-ui/themed";
 
-import { useIsFocused } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import BellIcon from "../assets/icons/bell-icon.svg";
-import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
 import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
 import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_icon.svg";
-import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
-import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
-import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
 import { DBottomSheet } from "../components/organisms";
+import { FormattedMessage } from "react-intl";
+import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
+import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import SvgUri from "react-native-svg-uri";
+import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
+import { getNearbyIncident } from "../api/incident";
 import { routes } from "../constants";
+import { useIsFocused } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
