@@ -55,17 +55,17 @@ const IncidentCard = (props) => {
               ? `${props.distance.toFixed(1)} km away`
               : "Distance unavailable"}
           </Heading>
+          <View style={styles.locationContainer}>
+            <SvgUri width="16" height="16" source={Location_Spot} />
+            <Text
+              style={styles.locationText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {props.address?.street_address ?? "Address unavailable"}
+            </Text>
+          </View>
           <View style={styles.footer}>
-            <View style={styles.locationContainer}>
-              <SvgUri width="16" height="16" source={Location_Spot} />
-              <Text
-                style={styles.locationText}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {props.address?.street_address ?? "Address unavailable"}
-              </Text>
-            </View>
             <Text style={styles.timeText}>
               {new Date(props.created_at).toLocaleString("en-US", dateOptions)}
             </Text>
@@ -92,18 +92,22 @@ export default IncidentCard;
 
 const styles = StyleSheet.create({
   card: {
+    display: "flex",
+    padding: 12,
+    alignItems: "center",
+    gap: 16,
+    alignSelf: "stretch",
+    borderRadius: 8,
+    backgroundColor: "#F3F4F4",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#F3F4F4",
-    borderRadius: 10,
-    padding: 15,
     marginVertical: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+    height: 166,
   },
   infoContainer: {
     flex: 1,
@@ -111,59 +115,40 @@ const styles = StyleSheet.create({
   },
   statusContainer: {
     alignSelf: "flex-start",
-    marginBottom: 5,
-  },
-  statusText: {
-    paddingVertical: 2,
-    paddingHorizontal: 8,
-    borderRadius: 12,
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#fff",
-  },
-  active: {
-    backgroundColor: "#ff6600",
-  },
-  pending: {
-    backgroundColor: "#ffcc00",
-  },
-  resolved: {
-    backgroundColor: "#00cc00",
-  },
-  fixing: {
-    backgroundColor: "#ff9900",
+    marginBottom: 8,
   },
   title: {
-    color: "#000000",
+    alignSelf: "stretch",
+    color: "#0B0C0C",
+    fontFamily: "Public Sans",
     fontSize: 18,
-    fontWeight: "bold",
-    paddingBottom: 0,
-    marginBottom: 0,
+    fontStyle: "normal",
+    fontWeight: "600",
     lineHeight: 0,
-    marginTop: 5,
   },
   distance: {
-    color: "#000000",
+    color: "#0B0C0C",
+    fontFamily: "Public Sans",
     fontSize: 18,
+    fontStyle: "normal",
+    fontWeight: "600",
     lineHeight: 0,
-    paddingTop: 0,
-    fontWeight: "bold",
-    marginBottom: 0,
+    marginBottom: 16,
   },
   footer: {
+    display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    marginTop: 10,
+    gap: 12,
+    flex: 1,
+    alignSelf: "stretch",
   },
   locationContainer: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
-  },
-  locationIcon: {
-    fontSize: 16,
-    color: "#ff6600",
+    gap: 4,
+    marginBottom: 20,
   },
   locationText: {
     color: "black",
@@ -171,24 +156,32 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   timeText: {
-    color: "#808080",
+    flex: 1,
+    color: "#919A9C",
+    fontFamily: "Public Sans",
     fontSize: 12,
-    marginTop: 5,
+    fontStyle: "normal",
+    fontWeight: "400",
+    marginTop: 4,
   },
   imageContainer: {
     alignItems: "flex-end",
     justifyContent: "space-between",
   },
   image: {
-    width: 60,
-    height: 60,
+    display: "flex",
+    width: 56,
+    height: 56,
+    flexShrink: 0,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
-    marginBottom: 40,
+    marginBottom: 60,
   },
   upvote: {
-    marginTop: 40,
+    marginTop: 60,
   },
   verified: {
-    marginTop: 40,
+    marginTop: 60,
   },
 });
