@@ -1,5 +1,6 @@
 export { default as About } from "./About";
 export { default as AllowPermissions } from "./AllowPermissions";
+export { default as Appearance } from "./Appearance";
 export { default as AppSetting } from "./AppSetting";
 export { default as ChooseUser } from "./ChooseUser";
 export { default as CivilianIncidentsOrg } from "./CivilianIncidentsOrg";
