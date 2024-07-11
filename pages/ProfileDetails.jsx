@@ -29,7 +29,7 @@ const ProfileDetails = () => {
       case "CHANGE_COORDINATE":
         return {
           ...state,
-          coordinate: action.payload,
+          coordinates: action.payload,
         };
       case "CHANGE_PROJECTID":
         return {
