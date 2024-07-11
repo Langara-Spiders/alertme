@@ -6,14 +6,14 @@ const StatusBadge = (props) => {
   let backgroundColor, textColor;
 
   if (props.status === "active" || props.status === "ACTIVE") {
-    backgroundColor = "#FDA5A5";
+    backgroundColor = "#FECACA";
     textColor = "#7E1E1C";
   } else if (props.status === "resolved" || props.status === "RESOLVED") {
-    backgroundColor = "#88D384";
+    backgroundColor = "#A7F1A3";
     textColor = "#185215";
   } else if (props.status === "fixing" || props.status === "FIXING") {
     backgroundColor = "#FFBF40";
-    textColor = "#0B0C0C";
+    textColor = "#462F00";
   } else if (props.status === "pending" || props.status === "PENDING") {
     backgroundColor = "#FFBF40";
     textColor = "#0B0C0C";
@@ -39,7 +39,10 @@ const StatusBadge = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{props.status}</Text>
+      <Text style={styles.text}>
+        {props.status.charAt(0).toUpperCase() +
+          props.status.slice(1).toLowerCase()}
+      </Text>
     </View>
   );
 };
