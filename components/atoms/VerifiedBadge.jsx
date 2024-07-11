@@ -1,5 +1,4 @@
 import { Text, View } from "@gluestack-ui/themed";
-
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
@@ -8,11 +7,11 @@ import Verified from "../../assets/icons/map_markers/verf_hazard_icon.svg";
 const VerifiedBadge = () => {
   return (
     <View style={styles.card}>
-      <SvgUri width="18" height="18" source={Verified} style={styles.icon} />
+      <SvgUri width="14" height="14" source={Verified} style={styles.icon} />
       <Text style={styles.text}>
         <FormattedMessage
-          id="atom.upvotebuttontext"
-          defaultMessage="Verified Issue "
+          id="atom.verifiedbuttontext"
+          defaultMessage="Verified Issue"
         />
       </Text>
     </View>
@@ -23,25 +22,26 @@ export default VerifiedBadge;
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
+    display: "flex",
+    height: 24,
+    padding: 4,
+    paddingHorizontal: 8,
     alignItems: "center",
-    paddingVertical: 2,
-    paddingHorizontal: 4,
-    borderRadius: 25,
-    borderColor: "#333",
-    backgroundColor: "#DBDDDE",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    gap: 4,
+    borderRadius: 100,
+    backgroundColor: "#E6E7E8",
+    flexDirection: "row",
   },
   icon: {
-    marginRight: 5,
+    width: 14,
+    height: 14,
   },
   text: {
+    color: "#0B0C0C",
+    fontFamily: "Public Sans",
     fontSize: 12,
-    fontWeight: "bold",
-    color: "#333",
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 15.6, // 130% of 12px
   },
 });

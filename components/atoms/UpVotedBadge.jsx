@@ -8,15 +8,15 @@ const UpVotedBadge = (props) => {
   return (
     <View style={styles.card}>
       <SvgUri
-        width="22"
-        height="22"
+        width="16"
+        height="16"
         source={Upvot_Only_arrow}
         style={styles.icon}
       />
       <Text style={styles.text}>
         <FormattedMessage
           id="atom.upvotebuttontext"
-          defaultMessage="Upvoted "
+          defaultMessage="Upvoted • "
         />
         {props.upvote}
       </Text>
@@ -28,25 +28,29 @@ export default UpVotedBadge;
 
 const styles = StyleSheet.create({
   card: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 1,
-    paddingHorizontal: 4,
-    borderRadius: 25,
-    borderColor: "#333",
-    backgroundColor: "#DBDDDE",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    gap: 4,
+    borderRadius: 100,
+    backgroundColor: "#E6E7E8",
   },
   icon: {
-    marginRight: 5,
+    display: "flex",
+    width: 16,
+    height: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 2,
   },
   text: {
+    color: "#0B0C0C",
+    fontFamily: "Public Sans",
     fontSize: 12,
-    fontWeight: "bold",
-    color: "#333",
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 15.6, // 130% of 12px
   },
 });
