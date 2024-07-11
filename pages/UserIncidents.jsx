@@ -1,17 +1,16 @@
 import {
-  ArrowLeftIcon,
   FlatList,
-  Icon,
   Pressable,
   ScrollView,
   Text,
   View,
 } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-
-import * as Location from "expo-location";
+import SvgUri from "react-native-svg-uri";
 import { getMyIssues } from "../api/incident";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { IncidentCard } from "../components/molecules";
 
 const screenWidth = Dimensions.get("window").width;
@@ -73,8 +72,16 @@ const UserIncidents = (props) => {
   return (
     <View style={[{ flex: 1 }, styles.screen]}>
       <View style={styles.header}>
-        <Pressable onPress={() => navigation.navigate("Home")}>
-          <Icon as={ArrowLeftIcon} />
+        <Pressable
+          onPress={() => navigation.navigate("Home")}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
         </Pressable>
         <Text style={styles.headerText}>My Posted Issues</Text>
       </View>
@@ -111,7 +118,7 @@ const UserIncidents = (props) => {
           )}
         </ScrollView>
       </View>
-      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+      <View style={{ flex: 1, marginTop: 16 }}>
         <FlatList
           data={filteredIncidents}
           renderItem={renderItem}
@@ -129,24 +136,36 @@ export default UserIncidents;
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: "white",
+    padding: 16,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
   },
   headerText: {
-    marginLeft: 10,
     fontSize: 18,
     fontWeight: "bold",
   },
   filterContainer: {
-    paddingVertical: 10,
+    marginTop: 12,
   },
   scrollContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    paddingHorizontal: 10,
   },
   button: {
     alignItems: "center",
@@ -182,8 +201,5 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 10,
-  },
-  listContainer: {
-    paddingTop: 10,
   },
 });
