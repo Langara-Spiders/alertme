@@ -41,7 +41,7 @@ const getIncidentDetailsForUser = async (lat, lng, id) => {
 
 const getCategories = async () => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/incidents/category`);
+    const res = await axios.get(`${API_BASE_URL}/incidents/categories`);
     return res.data;
   } catch (error) {
     console.error(error.response);
