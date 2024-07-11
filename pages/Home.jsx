@@ -1,7 +1,7 @@
 import * as Location from "expo-location";
 
 import { Text, View } from "@gluestack-ui/themed";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
@@ -17,6 +17,7 @@ import {
   SuccessCard,
 } from "../components/molecules";
 
+import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
@@ -46,8 +47,9 @@ const Home = ({ navigation, route }) => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const mapRef = useRef(null);
 
-  const { successType, coordinate } = route?.params ?? {};
+  const { successType, coordinates } = route?.params ?? {};
   const { isStaff } = route.params;
+  const isFocused = useIsFocused();
 
   // ######################## USE EFFECTS ########################
 
@@ -59,7 +61,7 @@ const Home = ({ navigation, route }) => {
       }, 2000);
     }
     if (successType?.startsWith("post") || successType?.startsWith("animate")) {
-      animateToMap(coordinate?.lat, coordinate?.lng);
+      animateToMap(coordinates?.lat, coordinates?.lng);
     }
   }, [successType]);
 
@@ -85,6 +87,18 @@ const Home = ({ navigation, route }) => {
   }, []);
 
   // ######################## USE EFFECTS ########################
+
+  useEffect(() => {
+    if (!isFocused) {
+      setSearchValue("");
+      setSelectedLocation(null);
+    } else {
+      // Recenter the map to the current location
+      handleRecenter();
+    }
+  }, [isFocused]);
+
+  useEffect(() => {}, [searchValue]);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -152,8 +166,6 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleSearchSelect = (selectedValue) => {
-    console.log("Selected:", selectedValue);
-
     const { lat, lon, formatted } = selectedValue;
 
     setSearchValue(formatted);
@@ -163,19 +175,21 @@ const Home = ({ navigation, route }) => {
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     });
-    console.log("Selected Location:", selectedLocation);
 
-    if (mapRef.current) {
-      mapRef.current.animateToRegion(
-        {
-          latitude: lat,
-          longitude: lon,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        },
-        1000
-      );
-    }
+    // animation is based on the new state values
+    setTimeout(() => {
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(
+          {
+            latitude: lat,
+            longitude: lon,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          },
+          1000
+        );
+      }
+    }, 0);
   };
 
   return (
@@ -260,37 +274,47 @@ const Home = ({ navigation, route }) => {
           }}
         >
           {nearbyIssues?.map((issue) => {
-            return (
-              <Marker
-                key={issue.id}
-                coordinate={{
-                  latitude: issue.coordinate.lat,
-                  longitude: issue.coordinate.lng,
-                }}
-                hideCallout
-                highlighted={false}
-                onPress={() => handleMarkerPress(issue)}
-              >
-                <View style={styles.markerStyles}>
-                  <View style={styles.markerInner}>
-                    <SvgUri
-                      width="38"
-                      height="36"
-                      source={
-                        issue.reported_by === "USER" && issue.is_accepted_by_org
-                          ? VerifiedHazardIcon
-                          : issue.reported_by === "USER" &&
-                              issue.upvote_count >= 3
-                            ? ConfirmedHazardIcon
-                            : issue.reported_by === "ORG"
-                              ? ConstructionHazardIcon
-                              : HazardIcon
-                      }
-                    />
+            if (
+              issue.coordinates &&
+              issue.coordinates.lat &&
+              issue.coordinates.lng
+            ) {
+              return (
+                <Marker
+                  key={issue.id}
+                  coordinate={{
+                    latitude: issue.coordinates.lat,
+                    longitude: issue.coordinates.lng,
+                  }}
+                  hideCallout
+                  highlighted={false}
+                  onPress={() => handleMarkerPress(issue)}
+                >
+                  <View style={styles.markerStyles}>
+                    <View style={styles.markerInner}>
+                      <SvgUri
+                        width="38"
+                        height="36"
+                        source={
+                          issue.reported_by === "USER" &&
+                          issue.is_accepted_by_org
+                            ? VerifiedHazardIcon
+                            : issue.reported_by === "USER" &&
+                                issue.upvote_count >= 3
+                              ? ConfirmedHazardIcon
+                              : issue.reported_by === "ORG"
+                                ? ConstructionHazardIcon
+                                : HazardIcon
+                        }
+                      />
+                    </View>
                   </View>
-                </View>
-              </Marker>
-            );
+                </Marker>
+              );
+            } else {
+              console.warn(`Issue ${issue.id} has invalid coordinates`);
+              return null;
+            }
           })}
           {selectedLocation && (
             <Marker

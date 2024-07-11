@@ -1,5 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Debouce, TruncateAddress } from "../../utils";
 
@@ -22,7 +22,6 @@ const Search = ({ value, onChange, onSelect }) => {
     if (text.length > 0) {
       try {
         const results = await getAutocomplete(text);
-        console.log("Autocomplete results:", results);
         setSuggestions(results.slice(0, 3));
       } catch (error) {
         console.error("Error fetching autocomplete results:", error);
@@ -35,7 +34,6 @@ const Search = ({ value, onChange, onSelect }) => {
   const debouncedFetchSuggestions = Debouce(handleFetchSuggestions, 300);
 
   const handleChange = (text) => {
-    console.log("Input changed to:", text);
     setText(text);
     onChange(text);
     debouncedFetchSuggestions(text);
@@ -50,9 +48,13 @@ const Search = ({ value, onChange, onSelect }) => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleSelect(item)}>
-      <Text style={styles.suggestion}>{item.formatted}</Text>
+      <Text style={styles.suggestion}>{TruncateAddress(item.formatted)}</Text>
     </TouchableOpacity>
   );
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
   return (
     <View style={styles.container}>
