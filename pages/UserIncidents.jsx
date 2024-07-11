@@ -23,7 +23,6 @@ const UserIncidents = (props) => {
 
   useEffect(() => {
     getMyIncidentsNearBy();
-    // handleRecenter();
     const interval = setInterval(() => {
       getMyIncidentsNearBy();
     }, 5000);
@@ -145,33 +144,41 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   scrollContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
     paddingHorizontal: 10,
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
+    width: 90,
+    height: 32,
     paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 20,
-    marginRight: 10,
-    width: (screenWidth - 10) / 4,
+    marginRight: 6,
   },
   activeButton: {
     backgroundColor: "#ff6600",
   },
   inactiveButton: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F3F4F4",
     borderWidth: 1,
-    borderColor: "#ff6600",
+    borderColor: "#F3F4F4",
   },
   buttonText: {
-    fontSize: 14,
-    fontWeight: "bold",
+    color: "#FFF",
+    fontFamily: "Public Sans",
+    fontSize: 12,
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 14.4,
   },
   activeButtonText: {
-    color: "#ffffff",
+    color: "#FFF",
   },
   inactiveButtonText: {
-    color: "#ff6600",
+    color: "#636C6E",
   },
   separator: {
     height: 10,
