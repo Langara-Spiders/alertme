@@ -1,17 +1,16 @@
 import {
-  ArrowLeftIcon,
   FlatList,
-  Icon,
   Pressable,
   ScrollView,
   Text,
   View,
 } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-
-import * as Location from "expo-location";
+import SvgUri from "react-native-svg-uri";
 import { getCivilianIssuesForOrg } from "../api/incident";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { IncidentCard } from "../components/molecules";
 
 const screenWidth = Dimensions.get("window").width;
@@ -23,7 +22,6 @@ const CivilianIncidentsOrg = (props) => {
 
   useEffect(() => {
     getCivilianIncidentsAll();
-    // handleRecenter();
     const interval = setInterval(() => {
       getCivilianIncidentsAll();
     }, 5000);
@@ -73,8 +71,16 @@ const CivilianIncidentsOrg = (props) => {
   return (
     <View style={[{ flex: 1 }, styles.screen]}>
       <View style={styles.header}>
-        <Pressable onPress={() => navigation.navigate("Home")}>
-          <Icon as={ArrowLeftIcon} />
+        <Pressable
+          onPress={() => navigation.navigate("Home")}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
         </Pressable>
         <Text style={styles.headerText}>My Posted Issues</Text>
       </View>
@@ -111,7 +117,7 @@ const CivilianIncidentsOrg = (props) => {
           )}
         </ScrollView>
       </View>
-      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+      <View style={{ flex: 1, marginTop: 16 }}>
         <FlatList
           data={filteredIncidents}
           renderItem={renderItem}
@@ -129,53 +135,70 @@ export default CivilianIncidentsOrg;
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: "white",
+    padding: 16,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
   },
   headerText: {
-    marginLeft: 10,
     fontSize: 18,
     fontWeight: "bold",
   },
   filterContainer: {
-    paddingVertical: 10,
+    marginTop: 12,
   },
   scrollContainer: {
-    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
+    width: 90,
+    height: 32,
     paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 20,
-    marginRight: 10,
-    width: (screenWidth - 10) / 4,
+    marginRight: 6,
   },
   activeButton: {
     backgroundColor: "#ff6600",
   },
   inactiveButton: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F3F4F4",
     borderWidth: 1,
-    borderColor: "#ff6600",
+    borderColor: "#F3F4F4",
   },
   buttonText: {
-    fontSize: 14,
-    fontWeight: "bold",
+    color: "#FFF",
+    fontFamily: "Public Sans",
+    fontSize: 12,
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 14.4,
   },
   activeButtonText: {
-    color: "#ffffff",
+    color: "#FFF",
   },
   inactiveButtonText: {
-    color: "#ff6600",
+    color: "#636C6E",
   },
   separator: {
     height: 10,
-  },
-  listContainer: {
-    paddingTop: 10,
   },
 });
