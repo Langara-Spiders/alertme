@@ -51,6 +51,7 @@ const getCategories = async () => {
 
 const postIssue = async (report, pictures) => {
   try {
+    console.log(report, "REPORT");
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
     for (const picture of pictures) formData.append("pictures", picture);
