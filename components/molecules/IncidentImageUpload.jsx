@@ -47,7 +47,7 @@ const ImagePickerComponent = ({ images, setImages }) => {
         name: asset.fileName,
         type: asset.mimeType,
       }));
-      setImages((prevImages) => [...prevImages, ...newImage]);
+      setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
 
