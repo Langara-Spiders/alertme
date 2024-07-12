@@ -77,7 +77,6 @@ const LocationInput = (props) => {
     if (text.length > 0) {
       try {
         const results = await getAutocomplete(text);
-        console.log("Autocomplete results:", results);
         setSuggestions(results.slice(0, 2));
       } catch (error) {
         console.error("Error fetching autocomplete results:", error);
@@ -90,7 +89,6 @@ const LocationInput = (props) => {
   const debouncedFetchSuggestions = Debouce(handleFetchSuggestions, 300);
 
   const handleChange = (text) => {
-    console.log("Input changed to:", text);
     setText(text);
     debouncedFetchSuggestions(text);
   };
@@ -106,9 +104,11 @@ const LocationInput = (props) => {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleSelect(item)}>
-      <Text style={styles.suggestion}>{item.formatted}</Text>
-    </TouchableOpacity>
+    <View style={{ width: "100%", paddingVertical: 10, paddingHorizontal: 20 }}>
+      <TouchableOpacity onPress={() => handleSelect(item)}>
+        <Text style={styles.suggestion}>{item.formatted}</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -136,12 +136,14 @@ const LocationInput = (props) => {
         </TouchableOpacity>
       </View>
       {suggestions.length > 0 && (
-        <FlatList
-          data={suggestions}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
-          style={[styles.suggestionsList, { width: inputWidth }]}
-        />
+        <View style={styles.suggestionsListWrapper}>
+          <FlatList
+            data={suggestions}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderItem}
+            style={[styles.suggestionsList, { width: inputWidth }]}
+          />
+        </View>
       )}
     </View>
   );
@@ -151,8 +153,7 @@ export default LocationInput;
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    width: "100%",
+    zIndex: 999,
   },
   inputContainer: {
     position: "relative",
@@ -172,22 +173,23 @@ const styles = StyleSheet.create({
     ],
     zIndex: 1,
   },
-
-  suggestionsList: {
+  suggestionsListWrapper: {
+    padding: 10,
     position: "absolute",
-    top: 90,
+    top: 100,
     left: 0,
     right: 0,
     borderColor: "#000",
-    backgroundColor: "#F3F4F4",
     borderRadius: 10,
-    maxWidth: 357,
-    zIndex: 3,
-    margin: 10,
     autoFocus: true,
   },
+  suggestionsList: {
+    position: "absolute",
+    borderRadius: 10,
+    backgroundColor: "#F3F4F4",
+  },
   suggestion: {
-    padding: 20,
+    zIndex: 999,
     color: "black",
   },
 });
