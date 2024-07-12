@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
@@ -8,8 +9,8 @@ const UpVotedBadge = (props) => {
   return (
     <View style={styles.card}>
       <SvgUri
-        width="16"
-        height="16"
+        width="18"
+        height="18"
         source={Upvot_Only_arrow}
         style={styles.icon}
       />
@@ -29,18 +30,22 @@ export default UpVotedBadge;
 const styles = StyleSheet.create({
   card: {
     display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 4,
+    height: 32,
+    paddingTop: 4,
+    paddingBottom: 4,
     paddingHorizontal: 8,
-    gap: 4,
     borderRadius: 100,
     backgroundColor: "#E6E7E8",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 4,
+    fontWeight: "bold",
   },
   icon: {
     display: "flex",
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 2,
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#0B0C0C",
     fontFamily: "Public Sans",
-    fontSize: 12,
+    fontSize: 16,
     fontStyle: "normal",
     fontWeight: "600",
     lineHeight: 15.6, // 130% of 12px

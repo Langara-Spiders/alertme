@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
@@ -7,7 +8,7 @@ import Verified from "../../assets/icons/map_markers/verf_hazard_icon.svg";
 const VerifiedBadge = () => {
   return (
     <View style={styles.card}>
-      <SvgUri width="14" height="14" source={Verified} style={styles.icon} />
+      <SvgUri width="16" height="16" source={Verified} style={styles.icon} />
       <Text style={styles.text}>
         <FormattedMessage
           id="atom.verifiedbuttontext"
@@ -23,23 +24,27 @@ export default VerifiedBadge;
 const styles = StyleSheet.create({
   card: {
     display: "flex",
-    height: 24,
-    padding: 4,
+    height: 32,
+    paddingTop: 4,
+    paddingBottom: 4,
     paddingHorizontal: 8,
-    alignItems: "center",
-    gap: 4,
     borderRadius: 100,
     backgroundColor: "#E6E7E8",
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 4,
+    fontWeight: "bold",
   },
   icon: {
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
+    alignSelf: "center",
   },
   text: {
     color: "#0B0C0C",
     fontFamily: "Public Sans",
-    fontSize: 12,
+    fontSize: 16,
     fontStyle: "normal",
     fontWeight: "600",
     lineHeight: 15.6, // 130% of 12px

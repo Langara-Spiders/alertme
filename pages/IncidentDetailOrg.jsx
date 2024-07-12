@@ -7,6 +7,7 @@ import { FormattedMessage } from "react-intl";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser } from "../api/incident";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
@@ -19,7 +20,6 @@ import {
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 import { calculateDistance } from "../utils/CalculateDistance";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
