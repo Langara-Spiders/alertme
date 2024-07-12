@@ -53,14 +53,6 @@ const Home = ({ navigation, route }) => {
   // ######################## USE EFFECTS ########################
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
-      setIsSheetVisible(false);
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
     if (successType && !successType.startsWith("animate")) {
       setShowSuccessCard(true);
       setTimeout(() => {
@@ -132,15 +124,12 @@ const Home = ({ navigation, route }) => {
   // ######################## API CALLS ########################
 
   const handleCardPress = (incident) => {
-    setIsSheetVisible(false);
     navigation.navigate(routes.INCIDENT_DETAIL, { incident });
   };
 
-  const handleViewAllPress = () => {
-    setIsSheetVisible(false); // Close the bottom sheet when the "View All" button is pressed
-    navigation.navigate(routes.NEARBYACTIVEISSUES, {
-      incidents: nearbyIssues,
-    });
+  const handleGroupSelect = (group) => {
+    setAddIssueVisible(false);
+    navigation.navigate(routes.REPORT_INCIDENT, { userGroup: group });
   };
 
   const handleMarkerPress = (issue) => {
@@ -395,7 +384,14 @@ const Home = ({ navigation, route }) => {
               defaultMessage="Nearby Active Issues"
             />
           </Text>
-          <TouchableOpacity onPress={handleViewAllPress}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsSheetVisible(false);
+              navigation.navigate(routes.NEARBYACTIVEISSUES, {
+                incidents: nearbyIssues,
+              });
+            }}
+          >
             <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>

@@ -3,7 +3,6 @@ import * as Location from "expo-location";
 import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
 import {
   KeyboardAvoidingView,
   Platform,
@@ -55,7 +54,6 @@ const ReportIncident = () => {
       lat: latitude,
       lng: longitude,
     });
-
     const response = await getReverseGeoCoding(latitude, longitude);
     setAddress(response);
   };
@@ -83,13 +81,20 @@ const ReportIncident = () => {
   };
 
   const handleConfirmPost = async () => {
+    if (!Object.keys(coords).length) {
+      setCoords({
+        lat: 0,
+        lng: 0,
+      });
+    }
+
     const report = {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
       description: incidentDescription,
       coordinates: coords,
       address: {
-        address_line1: "",
+        address_line1: address?.at(0)?.formatted,
       },
       is_internal_for_org: false,
     };
@@ -97,9 +102,18 @@ const ReportIncident = () => {
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
-      coordinate: res?.coordinate,
+      coordinates: res?.coordinates,
     });
   };
+
+  useEffect(() => {
+    if (address[0]) {
+      setCoords({
+        lat: address?.at(0)?.lat,
+        lng: address?.at(0)?.lon,
+      });
+    }
+  }, [address]);
 
   return (
     <KeyboardAvoidingView
