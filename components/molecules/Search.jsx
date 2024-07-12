@@ -88,8 +88,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   customContainer: {
-    borderColor: "#333",
-    borderWidth: 0.5,
     backgroundColor: "#fff",
     width: "100%",
     height: 50,
