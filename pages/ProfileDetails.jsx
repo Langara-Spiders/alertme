@@ -41,6 +41,8 @@ const ProfileDetails = () => {
 
   const fetchProfileData = async () => {
     const response = await getProfile();
+    console.log(response, "PROFILE DETAIL");
+
     dispatchProfile({
       type: "CHANGE_PROFILE",
       payload: response?.user ?? {},

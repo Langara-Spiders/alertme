@@ -458,11 +458,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainerRight: {
     position: "absolute",
-    right: 0,
+    display: "flex",
+    alignItems: "center",
+    right: -15,
     bottom: 95,
     gap: 20,
     flexDirection: "column",
-    alignItems: "end",
     justifyContent: "center",
   },
   mapContainer: {
@@ -538,7 +539,7 @@ const styles = StyleSheet.create({
   },
   addIssueButton: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     marginRight: 20,
   },
   addIssueIcon: {
@@ -552,7 +553,7 @@ const styles = StyleSheet.create({
   },
   nearbyIssueButton: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     marginRight: 20,
   },
   nearbyIssueIcon: {

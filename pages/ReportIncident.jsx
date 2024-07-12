@@ -82,13 +82,6 @@ const ReportIncident = () => {
   };
 
   const handleConfirmPost = async () => {
-    if (!Object.keys(coords).length) {
-      setCoords({
-        lat: 0,
-        lng: 0,
-      });
-    }
-
     const report = {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
@@ -103,11 +96,8 @@ const ReportIncident = () => {
       is_internal_for_org: false,
     };
 
-    console.log("Report", report);
-
     const res = await postIssue(report, images);
 
-    console.log(res, "\n\n\n\n\nRESPONSE");
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
