@@ -1,34 +1,38 @@
+import React, { useRef } from "react";
 import {
+  Dimensions,
+  Easing,
   Modal,
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
-
-import { View } from "@gluestack-ui/themed";
-import { useRef } from "react";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
 const DraggableBottomSheet = (props) => {
-  const bottomSheetRef = useRef();
+  const bottomSheetRef = useRef(null);
+  const screenHeight = Dimensions.get("window").height;
 
   return (
     <Modal
       visible={props.isOpen}
       transparent={true}
       animationType="slide"
-      onRequestClose={() => props.onClose()}
+      onRequestClose={props.onClose}
     >
-      <TouchableWithoutFeedback onPress={() => props.onClose()}>
+      <TouchableWithoutFeedback onPress={props.onClose}>
         <View style={styles.modalOverlay}>
           <TouchableWithoutFeedback>
             <View style={styles.bottomSheetContainer}>
-              <BottomSheet ref={bottomSheetRef} isOpen={props.isOpen}>
-                {(onScrollEndDrag) => (
-                  <ScrollView onScrollEndDrag={onScrollEndDrag}>
-                    {props.children}
-                  </ScrollView>
-                )}
+              <BottomSheet
+                ref={bottomSheetRef}
+                isOpen={props.isOpen}
+                sliderMaxHeight={Math.min(screenHeight * 0.8, 600)}
+                animation={Easing.quad}
+                animationDuration={200}
+              >
+                <ScrollView>{props.children}</ScrollView>
               </BottomSheet>
             </View>
           </TouchableWithoutFeedback>
@@ -49,6 +53,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    maxHeight: "60%",
   },
 });
