@@ -7,11 +7,14 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
+import * as Location from "expo-location";
+import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
 import { routes } from "../../../constants";
 import useStore from "../../../store/useStore";
+import { calculateDistance } from "../../../utils/CalculateDistance";
 import { StatusBadge } from "../../atoms";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
@@ -28,6 +31,31 @@ const IncidentCard = (props) => {
   const navigation = useNavigation();
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
+  const [userCoords, setUserCoords] = useState({ latitude: 0, longitude: 0 });
+  const [distance, setDistance] = useState(null);
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    const { coords } = location ?? {};
+    setUserCoords(coords);
+    if (coords && props.coordinates) {
+      const calculatedDistance = calculateDistance(
+        coords.latitude,
+        coords.longitude,
+        props.coordinates.lat,
+        props.coordinates.lng
+      );
+      setDistance(calculatedDistance.toFixed(1));
+    }
+  };
 
   const handlePress = () => {
     const targetRoute = isStaff
@@ -51,9 +79,7 @@ const IncidentCard = (props) => {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {props.distance
-              ? `${props.distance.toFixed(1)} km away`
-              : "Distance unavailable"}
+            {distance ? `${distance} km away` : "Distance unavailable"}
           </Heading>
           <View style={styles.locationContainer}>
             <SvgUri width="16" height="16" source={Location_Spot} />
