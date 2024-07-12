@@ -1,9 +1,10 @@
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
-import { Text, View } from "@gluestack-ui/themed";
+import { Image, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect } from "react";
 import { Dimensions, StyleSheet } from "react-native";
+import { IconButton } from "../components/atoms";
 
 import axios from "axios";
 import Constants from "expo-constants";
@@ -12,10 +13,11 @@ import SvgUri from "react-native-svg-uri";
 import { login } from "../api";
 import black from "../assets/images/Login/black.svg";
 import dot from "../assets/images/Login/dot.svg";
-import Ellipse from "../assets/images/Login/Ellipse.svg";
+import Female from "../assets/images/Login/female.png";
+import GoogleIcon from "../assets/images/Login/google.png";
+import Male from "../assets/images/Login/male.png";
 import semi from "../assets/images/Login/semi.svg";
-import yellow from "../assets/images/Login/yellow.svg";
-import { Button } from "../components/atoms";
+import star from "../assets/images/Login/star.svg";
 import { routes } from "../constants";
 import { useStore } from "../store";
 
@@ -38,7 +40,6 @@ const Login = (props) => {
     if (!response.error) {
       const { token } = response?.data;
       setUser(token, access_token);
-      // add token to auth headers
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       navigation.navigate(routes.MAIN);
     }
@@ -57,10 +58,17 @@ const Login = (props) => {
           <SvgUri source={black} />
         </View>
         <View style={styles.yellow}>
-          <SvgUri source={yellow} />
+          <View style={styles.imageContainer}>
+            <Image source={Male} style={styles.maleImage} />
+          </View>
         </View>
         <View style={styles.ellipse}>
-          <SvgUri source={Ellipse} />
+          <View style={styles.ellipseImageContainer}>
+            <Image source={Female} style={styles.femaleImage} />
+          </View>
+        </View>
+        <View style={styles.star2}>
+          <SvgUri source={star} />
         </View>
         <View style={styles.inline}>
           <View style={styles.dot}>
@@ -77,6 +85,9 @@ const Login = (props) => {
           </View>
           <View style={styles.dot}>
             <SvgUri source={dot} />
+          </View>
+          <View style={styles.star}>
+            <SvgUri source={star} />
           </View>
         </View>
       </View>
@@ -101,19 +112,24 @@ const Login = (props) => {
             padding: 20,
           }}
         >
-          <Button
+          <IconButton
             onPress={() => promptAsync()}
             style={{
               button: {
-                backgroundColor: "#4687F5",
+                backgroundColor: "#131314",
+                borderRadius: 50,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               },
             }}
+            icon={GoogleIcon}
           >
             <FormattedMessage
               id="loginpage.loginwithgoogle"
-              defaultMessage="Login with Google"
+              defaultMessage="Sign up with Google"
             />
-          </Button>
+          </IconButton>
         </View>
       </View>
     </View>
@@ -128,6 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 30,
     paddingBottom: 80,
+    backgroundColor: "#fff",
   },
   illustrationContainer: {
     position: "relative",
@@ -144,13 +161,54 @@ const styles = StyleSheet.create({
   },
   yellow: {
     position: "absolute",
+    width: 165,
+    height: 205,
+    borderTopLeftRadius: 50,
     top: 50,
     right: 20,
+    backgroundColor: "#FFE894",
+    overflow: "hidden",
+    shadowColor: "#",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 30 },
+    shadowOpacity: 50,
+    shadowRadius: 40,
+    elevation: 4,
   },
   ellipse: {
     position: "absolute",
+    backgroundColor: "#FFC095",
+    width: 162,
+    height: 162,
+    borderRadius: 100,
     bottom: -80,
     left: 20,
+    overflow: "hidden",
+  },
+  imageContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ellipseImageContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  maleImage: {
+    marginLeft: 20,
+    marginTop: 30,
+    width: 230,
+    height: 210,
+  },
+  femaleImage: {
+    marginTop: 20,
+    width: 130,
+    height: 140,
   },
   inline: {
     flexDirection: "row",
@@ -179,6 +237,16 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     color: "white",
+  },
+  star: {
+    position: "absolute",
+    right: 130,
+    bottom: 40,
+  },
+  star2: {
+    position: "absolute",
+    top: 50,
+    left: 20,
   },
 });
 
