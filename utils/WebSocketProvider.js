@@ -1,5 +1,7 @@
 import * as Location from "expo-location";
+
 import React, { createContext, useEffect, useRef, useState } from "react";
+
 import { Alert } from "react-native";
 import useStore from "../store/useStore";
 
@@ -86,7 +88,12 @@ export const WebSocketProvider = ({ children }) => {
   const sendCoordinates = (latitude, longitude) => {
     const coordinates = { latitude, longitude };
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify(coordinates));
+      ws.current.send(
+        JSON.stringify({
+          lat: coordinates.latitude,
+          lng: coordinates.longitude,
+        })
+      );
       console.log("Sent coordinates:", coordinates);
     } else {
       console.log("WebSocket is not open. Cannot send coordinates.");
