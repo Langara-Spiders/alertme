@@ -4,6 +4,7 @@ export { default as GreatWorkCard } from "./cards/GreatWorkCard";
 export { default as IncidentCard } from "./cards/IncidentCard";
 export { default as LeaderBoardCard } from "./cards/LeaderBoardCard";
 export { default as LoginAsCard } from "./cards/LoginAsCard";
+export { default as NearbyIncidentCard } from "./cards/NearbyIncidentCard";
 export { default as NotificationCard } from "./cards/NotificationCard";
 export { default as NumOfIssuesCard } from "./cards/NumOfIssuesCard";
 export { default as PostedByCard } from "./cards/PostedByCard";
