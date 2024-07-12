@@ -340,11 +340,11 @@ const Home = ({ navigation, route }) => {
                 alert("direction");
               }}
             >
-              <View style={styles.markerStyles}>
+              {/* <View style={styles.markerStyles}>
                 <View style={styles.markerInner}>
                   <SvgUri width="38" height="36" source={ConfirmedHazardIcon} />
                 </View>
-              </View>
+              </View> */}
             </Marker>
           )}
         </MapView>
