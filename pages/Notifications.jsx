@@ -1,5 +1,5 @@
 import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { NotificationCard } from "../components/molecules";
@@ -9,12 +9,16 @@ const Notifications = (props) => {
   const { notifications } = useContext(WebSocketContext);
   const [activeButton, setActiveButton] = useState("all");
 
+  useEffect(() => {
+    console.log("Notifications updated:", notifications);
+  }, [notifications]);
+
   const handleButtonPress = (buttonType) => {
     setActiveButton(buttonType);
   };
 
   const filteredNotifications =
-    notifications?.data?.filter((notification) => {
+    notifications?.filter((notification) => {
       if (activeButton === "all") {
         return true;
       }

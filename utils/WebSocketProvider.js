@@ -1,5 +1,5 @@
 import * as Location from "expo-location";
-import React, { createContext, useRef, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Alert } from "react-native";
 import useStore from "../store/useStore";
 
@@ -11,40 +11,59 @@ export const WebSocketProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
   const ws = useRef(null);
 
-  const initializeWebSocket = async () => {
+  const initializeWebSocket = () => {
+    console.log("Initializing WebSocket connection...");
+
     ws.current = new WebSocket(WEBSOCKET_URL);
 
-    ws.current.onopen = async () => {
+    ws.current.onopen = () => {
       console.log("WebSocket is connected.");
-      const location = await getLocation();
-      if (location) {
-        sendCoordinates(location.latitude, location.longitude);
-      }
-
-      // Send coordinates every 5 seconds
-      setInterval(async () => {
-        const location = await getLocation();
-        if (location) {
-          sendCoordinates(location.latitude, location.longitude);
-        }
-      }, 5000);
     };
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("Received data:", data);
-      setNotifications(data.data); // Replace the state with the new notification list
+      if (data && data.data) {
+        setNotifications(data.data); // Set notifications state
+      } else {
+        console.log("Unexpected data structure:", data);
+      }
     };
 
     ws.current.onerror = (error) => {
       console.log("WebSocket error:", error.message);
     };
 
-    ws.current.onclose = () => {
-      console.log("WebSocket connection closed. Reconnecting...");
-      setTimeout(initializeWebSocket, 5000); // Reconnect after 5 seconds
+    ws.current.onclose = (e) => {
+      console.log("WebSocket connection closed. Reconnecting...", e.reason);
+      setTimeout(initializeWebSocket, 25000); // Reconnect after 5 seconds
     };
   };
+
+  useEffect(() => {
+    initializeWebSocket();
+
+    return () => {
+      if (ws.current) {
+        ws.current.close();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const sendLocationData = async () => {
+      const location = await getLocation();
+      if (location) {
+        sendCoordinates(location.latitude, location.longitude);
+      }
+    };
+
+    sendLocationData(); // Send initial location data
+
+    const intervalId = setInterval(sendLocationData, 10000); // Send location data every 10 seconds
+
+    return () => clearInterval(intervalId); // Clear interval on component unmount
+  }, []);
 
   const getLocation = async () => {
     try {
@@ -68,11 +87,11 @@ export const WebSocketProvider = ({ children }) => {
     const coordinates = { latitude, longitude };
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(JSON.stringify(coordinates));
+      console.log("Sent coordinates:", coordinates);
+    } else {
+      console.log("WebSocket is not open. Cannot send coordinates.");
     }
   };
-
-  // Initialize the WebSocket connection
-  initializeWebSocket();
 
   return (
     <WebSocketContext.Provider value={{ notifications }}>
