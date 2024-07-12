@@ -31,7 +31,7 @@ const Input = (props) => {
           value={props.value}
           onChangeText={props.onChange}
           placeholder={props.placeholder}
-          style={[styles.field, props.inputbox]}
+          style={styles.field}
           multiline={false}
           numberOfLines={1}
           ellipsizeMode="tail"
