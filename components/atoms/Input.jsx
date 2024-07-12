@@ -18,7 +18,7 @@ const Input = (props) => {
         variant={props.variant ?? "solid"}
         action={props.action ?? "primary"}
         isDisabled={props.isDisabled ?? false}
-        style={[styles.container, props.style?.inputbox]}
+        style={[styles.container, props.inputbox, props.style?.inputbox]}
         isReadOnly={props.isReadOnly ?? false}
         required={props.required ?? false}
       >
@@ -31,7 +31,7 @@ const Input = (props) => {
           value={props.value}
           onChangeText={props.onChange}
           placeholder={props.placeholder}
-          style={[styles.field, props.inputbox]}
+          style={[styles.field]}
           multiline={false}
           numberOfLines={1}
           ellipsizeMode="tail"
