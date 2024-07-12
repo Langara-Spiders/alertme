@@ -44,6 +44,15 @@ const ReportIncident = () => {
     getCategoriesAPICall();
   }, []);
 
+  useEffect(() => {
+    if (address[0]) {
+      setCoords({
+        lat: address?.at(0)?.lat,
+        lng: address?.at(0)?.lon,
+      });
+    }
+  }, [address]);
+
   const getCategoriesAPICall = async () => {
     const response = await getCategories();
     setCategoryList(response?.data ?? []);
@@ -83,21 +92,35 @@ const ReportIncident = () => {
   };
 
   const handleConfirmPost = async () => {
+    if (!Object.keys(coords).length) {
+      setCoords({
+        lat: 0,
+        lng: 0,
+      });
+    }
+
+    console.log("Karthik");
+
     const report = {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
       description: incidentDescription,
       coordinates: coords,
       address: {
-        address_line1: "",
+        address_line1: address?.at(0)?.formatted,
       },
       is_internal_for_org: false,
     };
+
+    console.log("Report before posting:", report);
+    console.log(images);
+
     const res = await postIssue(report, images);
+    console.log("Response after posting:", res);
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
-      coordinate: res?.coordinate,
+      coordinates: res?.coordinates,
     });
   };
 
