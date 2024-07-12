@@ -9,6 +9,7 @@ import { LogBox } from "react-native";
 import { configLight } from "./config/gluestack-ui.config";
 import RootNavigator from "./navigation/RootNavigator";
 import { useStore } from "./store";
+import { WebSocketProvider } from "./utils/WebSocketProvider";
 
 LogBox.ignoreAllLogs(); // suppress all warnings
 
@@ -37,10 +38,12 @@ export default function App() {
       defaultLocale="en"
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <GluestackUIProvider config={configLight}>
-          <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
-          <RootNavigator />
-        </GluestackUIProvider>
+        <WebSocketProvider>
+          <GluestackUIProvider config={configLight}>
+            <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
+            <RootNavigator />
+          </GluestackUIProvider>
+        </WebSocketProvider>
       </SafeAreaView>
     </IntlProvider>
   );
