@@ -1,47 +1,53 @@
 import * as Location from "expo-location";
-import React, { createContext, useEffect, useRef, useState } from "react";
-
-const WEBSOCKET_URL =
-  "ws://{{BASE_URL}}/api/notifications/?user_id=1b8d80e1-a1bd-4237-9902-c9564fe43ea4";
+import React, { createContext, useRef, useState } from "react";
+import { Alert } from "react-native";
+import useStore from "../store/useStore";
 
 export const WebSocketContext = createContext();
 
 export const WebSocketProvider = ({ children }) => {
+  const { id } = useStore.getState().getUser(); // Fetch user ID from Zustand store
+  const WEBSOCKET_URL = `ws://35.85.118.12:8000/api/notifications/?user_id=${id}`;
   const [notifications, setNotifications] = useState([]);
   const ws = useRef(null);
 
-  useEffect(() => {
-    const connectWebSocket = () => {
-      ws.current = new WebSocket(WEBSOCKET_URL);
+  const initializeWebSocket = async () => {
+    ws.current = new WebSocket(WEBSOCKET_URL);
 
-      ws.current.onopen = async () => {
-        console.log("WebSocket connection opened.");
-        // Send initial location data
+    ws.current.onopen = async () => {
+      console.log("WebSocket is connected.");
+      const location = await getLocation();
+      if (location) {
+        sendCoordinates(location.latitude, location.longitude);
+      }
+
+      // Send coordinates every 5 seconds
+      setInterval(async () => {
         const location = await getLocation();
         if (location) {
-          ws.current.send(JSON.stringify(location));
+          sendCoordinates(location.latitude, location.longitude);
         }
-      };
-
-      ws.current.onmessage = (event) => {
-        const newNotification = JSON.parse(event.data);
-        setNotifications((prevNotifications) => [
-          newNotification,
-          ...prevNotifications,
-        ]);
-      };
-
-      ws.current.onerror = (error) => {
-        console.log("WebSocket error:", error);
-      };
-
-      ws.current.onclose = () => {
-        console.log("WebSocket connection closed. Reconnecting...");
-        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      };
+      }, 5000);
     };
 
-    const getLocation = async () => {
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("Received data:", data);
+      setNotifications(data.data); // Replace the state with the new notification list
+    };
+
+    ws.current.onerror = (error) => {
+      console.log("WebSocket error:", error.message);
+    };
+
+    ws.current.onclose = () => {
+      console.log("WebSocket connection closed. Reconnecting...");
+      setTimeout(initializeWebSocket, 5000); // Reconnect after 5 seconds
+    };
+  };
+
+  const getLocation = async () => {
+    try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert("Permission to access location was denied");
@@ -51,25 +57,22 @@ export const WebSocketProvider = ({ children }) => {
       let location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
 
-      return { lat: latitude, lng: longitude };
-    };
+      return { latitude, longitude };
+    } catch (error) {
+      console.error("Error getting location:", error);
+      return null;
+    }
+  };
 
-    connectWebSocket();
+  const sendCoordinates = (latitude, longitude) => {
+    const coordinates = { latitude, longitude };
+    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+      ws.current.send(JSON.stringify(coordinates));
+    }
+  };
 
-    const locationInterval = setInterval(async () => {
-      const location = await getLocation();
-      if (location && ws.current.readyState === WebSocket.OPEN) {
-        ws.current.send(JSON.stringify(location));
-      }
-    }, 5000); // Send location data every 5 seconds
-
-    return () => {
-      if (ws.current) {
-        ws.current.close();
-      }
-      clearInterval(locationInterval);
-    };
-  }, []);
+  // Initialize the WebSocket connection
+  initializeWebSocket();
 
   return (
     <WebSocketContext.Provider value={{ notifications }}>

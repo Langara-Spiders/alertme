@@ -1,104 +1,30 @@
 import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { NotificationCard } from "../components/molecules";
+import { WebSocketContext } from "../utils/WebSocketProvider";
 
 const Notifications = (props) => {
-  const sampleData = [
-    {
-      title: "You have upvoted an incident",
-      description:
-        "You have upvoted 'oil spilled on main street' incident post",
-      timeAgo: "5 minutes ago",
-      read: true,
-    },
-    {
-      title: "New incident in your area",
-      description:
-        "There is a new incident 'traffic light malfunction at 5th Avenue'. Upvote if you see it.",
-      timeAgo: "10 minutes ago",
-      read: false,
-    },
-    {
-      title: "You have upvoted an incident",
-      description:
-        "You have upvoted 'road closure due to flooding' incident post",
-      timeAgo: "15 minutes ago",
-      read: true,
-    },
-    {
-      title: "Your incident got upvoted",
-      description:
-        "Your incident report 'broken street lamp at Oak Street' got upvoted",
-      timeAgo: "30 minutes ago",
-      read: false,
-    },
-    {
-      title: "Incident reported near you",
-      description:
-        "A new incident 'water main break on Pine Street' was reported near you.",
-      timeAgo: "45 minutes ago",
-      read: true,
-    },
-    {
-      title: "New incident alert",
-      description:
-        "Alert: New incident 'graffiti on city hall'. Upvote if you see it.",
-      timeAgo: "3 hours ago",
-      read: false,
-    },
-    {
-      title: "Incident reported",
-      description: "New incident reported: 'illegal dumping at River Park'.",
-      timeAgo: "5 hours ago",
-      read: true,
-    },
-    {
-      title: "Your incident got upvoted",
-      description:
-        "Your incident report 'broken water fountain in Central Park' got upvoted",
-      timeAgo: "6 hours ago",
-      read: false,
-    },
-    {
-      title: "Your incident was resolved",
-      description:
-        "Your incident report 'broken bench in Green Park' was resolved.",
-      timeAgo: "11 hours ago",
-      read: true,
-    },
-    {
-      title: "Incident upvoted by others",
-      description:
-        "The incident 'illegal dumping at River Park' has been upvoted by others.",
-      timeAgo: "14 hours ago",
-      read: false,
-    },
-  ];
-
-  const [notifications, setNotifications] = useState([]);
+  const { notifications } = useContext(WebSocketContext);
   const [activeButton, setActiveButton] = useState("all");
-
-  useEffect(() => {
-    setNotifications(sampleData);
-  }, []);
 
   const handleButtonPress = (buttonType) => {
     setActiveButton(buttonType);
   };
 
-  const filteredNotifications = notifications.filter((notification) => {
-    if (activeButton === "all") {
-      return true;
-    }
-    if (activeButton === "read") {
-      return notification.read;
-    }
-    if (activeButton === "unread") {
-      return !notification.read;
-    }
-  });
+  const filteredNotifications =
+    notifications?.data?.filter((notification) => {
+      if (activeButton === "all") {
+        return true;
+      }
+      if (activeButton === "read") {
+        return notification.read_flag; // Use read_flag based on your data structure
+      }
+      if (activeButton === "unread") {
+        return !notification.read_flag; // Use read_flag based on your data structure
+      }
+    }) || [];
 
   return (
     <View style={styles.container}>
@@ -173,11 +99,11 @@ const Notifications = (props) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         {filteredNotifications.map((notificationItem, index) => (
           <NotificationCard
-            key={index}
+            key={notificationItem.incident_id}
             title={notificationItem.title}
             description={notificationItem.description}
-            timeAgo={notificationItem.timeAgo}
-            read={notificationItem.read}
+            timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
+            read={notificationItem.read_flag} // Use read_flag based on your data structure
           />
         ))}
       </ScrollView>
