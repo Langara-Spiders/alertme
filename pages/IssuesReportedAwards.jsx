@@ -1,7 +1,8 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+
+import React from "react";
 
 // Import all active badges
 const A1 = require("../assets/badges/A1.png");
@@ -234,7 +235,7 @@ const IssuesReportedAwards = () => {
       <View key={index} style={styles.badgeItem}>
         <Image source={BadgeComponent} style={styles.badgeImage} />
         <Text style={styles.badgeText}>{badgeText}</Text>
-        <Text style={styles.badgeReports}>5 Reports</Text>
+        <Text style={styles.badgeReports}>{100} points</Text>
       </View>
     );
   };
@@ -270,7 +271,7 @@ const IssuesReportedAwards = () => {
           time.
         </Text>
         <View style={styles.badgesContainer}>
-          {Array.from({ length: 49 }).map((_, index) => renderBadge(index))}
+          {Array.from({ length: 48 }).map((_, index) => renderBadge(index))}
         </View>
       </View>
     </ScrollView>
@@ -342,8 +343,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   badgeImage: {
-    width: 50,
-    height: 50,
+    width: 85,
+    height: 85,
     marginBottom: 10,
   },
   badgeText: {

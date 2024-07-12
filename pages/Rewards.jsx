@@ -1,9 +1,18 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import {
+  LeaderBoardCard,
+  RewardGreetingCard,
+  RewardLevelCard,
+} from "../components/molecules";
+
+import { useNavigation } from "@react-navigation/native";
 import { getReward } from "../api/user";
+import ABCD from "../assets/images/sample_user.png";
+import { routes } from "../constants";
+
 const A1 = require("../assets/badges/A1.png");
 const A2 = require("../assets/badges/A2.png");
 const A3 = require("../assets/badges/A3.png");
@@ -55,13 +64,6 @@ const A48 = require("../assets/badges/A48.png");
 const A49 = require("../assets/badges/A49.png");
 const A50 = require("../assets/badges/A50.png");
 
-import ABCD from "../assets/images/sample_user.png";
-import {
-  LeaderBoardCard,
-  RewardGreetingCard,
-  RewardLevelCard,
-} from "../components/molecules";
-import { routes } from "../constants";
 // Add additional badge imports as needed
 
 const badges = {
@@ -128,9 +130,10 @@ const Rewards = (props) => {
     const fetchData = async () => {
       try {
         const response = await getReward();
-        const { user_details, leaderboard } = response.data;
+        const { user_details, leaderboard, top_users } = response.data;
         setData({
           user: user_details,
+          top_users: top_users,
           leaderboard: leaderboard,
         });
         setLoading(false);
@@ -169,10 +172,10 @@ const Rewards = (props) => {
     );
   }
 
-  const { user, leaderboard } = data;
+  const { user, leaderboard, top_users } = data;
 
   const calculateLevel = (points) => {
-    return Math.floor(points / 5) + 1;
+    return Math.floor(points / 100) + 1;
   };
 
   const getBadgeForLevel = (level) => {
@@ -182,10 +185,7 @@ const Rewards = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <RewardGreetingCard
-          name={user.name ?? "Unknown"}
-          avatar={user.picture ?? "https://picsum.photos/200/300"}
-        />
+        <RewardGreetingCard name={user.name} picture={user.picture} />
       </View>
       <View>
         <Text style={styles.levelCardText}>
@@ -198,8 +198,8 @@ const Rewards = (props) => {
       <View style={styles.levelCardContainer}>
         <RewardLevelCard
           level={calculateLevel(user.points).toString() ?? "N/A"}
-          earned={user.points?.toString() ?? "0"}
-          reported={user.points?.toString() ?? "0"} // Using points for issues reported
+          earned={user.points}
+          reported={user.total_issues}
           icon={getBadgeForLevel(calculateLevel(user.points))}
         />
       </View>
@@ -214,6 +214,7 @@ const Rewards = (props) => {
           onPress={() => {
             try {
               navigation.navigate(routes.LEADERBOARD, {
+                top_users: top_users,
                 leaderboard: leaderboard,
               });
             } catch (error) {
@@ -224,18 +225,24 @@ const Rewards = (props) => {
           <Text style={styles.viewAllText}>View All</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.leaderboardContainer} fadingEdgeLength={150}>
-        {leaderboard.map((leader, index) => {
-          return (
-            <LeaderBoardCard
-              key={index}
-              avatar={leader.picture ?? ABCD}
-              name={leader.name ?? "Unknown"}
-              level={calculateLevel(leader.points).toString() ?? "N/A"}
-              points={leader.points?.toString() ?? "0"}
-            />
-          );
-        })}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.leaderboardContainer}
+        fadingEdgeLength={150}
+      >
+        <View style={{ paddingBottom: 100 }}>
+          {leaderboard.slice(0, 3).map((leader, index) => {
+            return (
+              <LeaderBoardCard
+                key={index}
+                avatar={leader.picture ?? ABCD}
+                name={leader.name ?? "Unknown"}
+                level={calculateLevel(leader.points).toString() ?? "N/A"}
+                points={leader.points?.toString() ?? "0"}
+              />
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );
@@ -256,6 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 10,
   },
   levelCardContainer: {
     marginBottom: 20,
@@ -277,6 +285,7 @@ const styles = StyleSheet.create({
   },
   leaderboardContainer: {
     flex: 1,
+    paddingBottom: 200,
   },
   loadingContainer: {
     flex: 1,

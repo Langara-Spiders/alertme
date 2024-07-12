@@ -1,15 +1,15 @@
 import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React from "react";
-import { StyleSheet } from "react-native";
 import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
 // Import top place banners
+import React from "react";
+import { StyleSheet } from "react-native";
 import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg";
 import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
 import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
 
 const Leaderboard = (props) => {
-  const { leaderboard } = props.route.params;
+  const { leaderboard, top_users } = props.route.params;
 
   const calculateLevel = (points) => {
     return Math.floor(points / 5) + 1;
@@ -29,27 +29,27 @@ const Leaderboard = (props) => {
         <View style={styles.secondPlace}>
           <TopThreeCard
             rank={2}
-            name={leaderboard[1]?.name ?? "Unknown"}
+            name={top_users[1]?.name ?? "Unknown"}
             level={calculateLevel(leaderboard[1]?.points ?? 0).toString()}
-            avatar={leaderboard[1]?.picture ?? ""}
+            avatar={top_users[1]?.picture ?? ""}
             banner={SecondPlaceBanner}
           />
         </View>
         <View style={styles.firstPlace}>
           <TopThreeCard
             rank={1}
-            name={leaderboard[0]?.name ?? "Unknown"}
+            name={top_users[0]?.name ?? "Unknown"}
             level={calculateLevel(leaderboard[0]?.points ?? 0).toString()}
-            avatar={leaderboard[0]?.picture ?? ""}
+            avatar={top_users[0]?.picture ?? ""}
             banner={FirstPlaceBanner}
           />
         </View>
         <View style={styles.thirdPlace}>
           <TopThreeCard
             rank={3}
-            name={leaderboard[2]?.name ?? "Unknown"}
+            name={top_users[2]?.name ?? "Unknown"}
             level={calculateLevel(leaderboard[2]?.points ?? 0).toString()}
-            avatar={leaderboard[2]?.picture ?? ""}
+            avatar={top_users[2]?.picture ?? ""}
             banner={ThirdPlaceBanner}
           />
         </View>

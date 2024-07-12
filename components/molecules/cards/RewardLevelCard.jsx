@@ -1,9 +1,9 @@
 import { Card, View } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
-import { routes } from "../../../constants";
 
+import { useNavigation } from "@react-navigation/native";
+import { routes } from "../../../constants";
 import Typography from "../../atoms/Typography";
 
 const RewardLevelCard = (props) => {
@@ -65,7 +65,7 @@ export default RewardLevelCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FDE8DF",
+    backgroundColor: "white",
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 60,
-    height: 60,
+    width: 88,
+    height: 88,
     marginBottom: 10,
   },
   viewProgressText: {

@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallbackText, View } from "@gluestack-ui/themed";
 import { FormattedMessage, useIntl } from "react-intl";
+import { Image, StyleSheet } from "react-native";
 
-import { StyleSheet } from "react-native";
 import Typography from "../../atoms/Typography";
 
 /* This component displays a greeting card with the user's name,
@@ -17,9 +17,9 @@ const RewardsGreetingCard = (props) => {
         <Typography style={styles.greetingText}>
           <FormattedMessage
             id="RewardsGreetingCard.greeting"
-            defaultMessage="Hello 😎"
+            defaultMessage="Hello "
           />
-          {props.name}!
+          {props.name.split(" ")[0]}!
         </Typography>
         <Typography style={styles.subtitleText}>
           <FormattedMessage
@@ -29,11 +29,20 @@ const RewardsGreetingCard = (props) => {
         </Typography>
       </View>
 
-      <Avatar style={styles.avatar}>
-        <AvatarFallbackText style={styles.avatarFallbackText}>
-          {props.name.charAt(0)}
-        </AvatarFallbackText>
-      </Avatar>
+      {props.picture ? (
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: props.picture,
+          }}
+        />
+      ) : (
+        <Avatar style={styles.avatar}>
+          <AvatarFallbackText style={styles.avatarFallbackText}>
+            {props.name.charAt(0)}
+          </AvatarFallbackText>
+        </Avatar>
+      )}
     </View>
   );
 };
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: "100%",
     // alignSelf: "stretch",
-    borderRadius: 10,
+    borderRadius: 100,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",

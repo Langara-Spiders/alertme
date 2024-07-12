@@ -1,25 +1,26 @@
 import * as Location from "expo-location";
 
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import {
   getIncidentDetailsForUser,
   updateIncidentStatus,
 } from "../api/incident";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
-import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
-import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import ABCD from "../assets/images/sample_user.png";
 import { Button, LargeActionButton, StatusBadge } from "../components/atoms";
 import {
   OrgActionsModal,
   PostedByCard,
   UpVoteCard,
 } from "../components/molecules";
+
+import { uniqueId } from "lodash";
+import { FormattedMessage } from "react-intl";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
+import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
+import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 import { calculateDistance } from "../utils/CalculateDistance";
