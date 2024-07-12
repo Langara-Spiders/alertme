@@ -105,6 +105,21 @@ const getSiteIssuesForOrg = async (filter) => {
   }
 };
 
+const updateIncidentStatus = async (id, status) => {
+  try {
+    const res = await axios.put(
+      `${API_BASE_URL}/incidents/site/user?id=${id}&status=${status}`
+    );
+    console.log("WHILE", status);
+    console.log(id);
+    console.log(res);
+    return res.data.data;
+  } catch (error) {
+    console.error(error.response);
+    return {};
+  }
+};
+
 export {
   getNearbyIncident,
   getMyIssues,
@@ -114,4 +129,5 @@ export {
   getIncidentDetailsForUser,
   getCivilianIssuesForOrg,
   getSiteIssuesForOrg,
+  updateIncidentStatus,
 };
