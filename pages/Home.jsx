@@ -1,8 +1,7 @@
-import { Text, View } from "@gluestack-ui/themed";
-import { useIsFocused } from "@react-navigation/native";
 import * as Location from "expo-location";
+
+import { Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import {
   Animated,
   Dimensions,
@@ -11,6 +10,15 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import {
+  IncidentCard,
+  NumOfIssuesCard,
+  Search,
+  SuccessCard,
+} from "../components/molecules";
+
+import { useIsFocused } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
@@ -21,12 +29,6 @@ import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_ico
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
-import {
-  IncidentCard,
-  NumOfIssuesCard,
-  Search,
-  SuccessCard,
-} from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
@@ -169,6 +171,8 @@ const Home = ({ navigation, route }) => {
   const handleRecenter = async () => {
     const { latitude, longitude } = await getLocation();
     animateToMap(latitude, longitude);
+    setSearchValue(""); // Clear the search value
+    setSelectedLocation(null);
   };
 
   const handleSearchChange = (text) => {
@@ -219,7 +223,7 @@ const Home = ({ navigation, route }) => {
           onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
           <View style={styles.notificationButton}>
-            <SvgUri width="16" height="18" source={BellIcon} />
+            <SvgUri width="22" height="22" source={BellIcon} />
           </View>
         </TouchableOpacity>
         {showQuickView ? (
@@ -347,7 +351,7 @@ const Home = ({ navigation, route }) => {
         <View style={styles.buttonsContainerLeft}>
           <TouchableOpacity onPress={handleRecenter}>
             <View style={styles.locationIcon}>
-              <SvgUri width="48" height="48" source={CurrentLocationIcon} />
+              <SvgUri width="50" height="50" source={CurrentLocationIcon} />
             </View>
           </TouchableOpacity>
         </View>
@@ -357,7 +361,7 @@ const Home = ({ navigation, route }) => {
           >
             <View style={styles.addIssueButton}>
               <View style={styles.addIssueIcon}>
-                <SvgUri width="28" height="28" source={AddIssueIcon} />
+                <SvgUri width="32" height="32" source={AddIssueIcon} />
               </View>
               <Text style={styles.addIssueText}>
                 <FormattedMessage
@@ -371,7 +375,7 @@ const Home = ({ navigation, route }) => {
             <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
               <View style={styles.nearbyIssueButton}>
                 <View style={styles.nearbyIssueIcon}>
-                  <SvgUri width="28" height="28" source={NearbyIssuesIcon} />
+                  <SvgUri width="32" height="32" source={NearbyIssuesIcon} />
                 </View>
                 <Text style={styles.addIssueText}>
                   <FormattedMessage
@@ -431,16 +435,12 @@ const styles = StyleSheet.create({
   searchContainer: {
     position: "absolute",
     left: 0,
-    top: 20,
+    top: 10,
     zIndex: 99,
     elevation: 99,
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    gap: 2,
-    width: "100%",
-    paddingHorizontal: 10,
-    boxSizing: "border-box",
+    paddingRight: 20,
   },
   numOfIssuesCardContainer: {
     position: "absolute",
@@ -453,19 +453,16 @@ const styles = StyleSheet.create({
   buttonsContainerLeft: {
     position: "absolute",
     left: 30,
-    bottom: 140,
-    gap: 20,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    bottom: 105,
+    borderRadius: 50,
   },
   buttonsContainerRight: {
     position: "absolute",
     right: 0,
-    bottom: 120,
+    bottom: 95,
     gap: 20,
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "end",
     justifyContent: "center",
   },
   mapContainer: {
@@ -532,12 +529,17 @@ const styles = StyleSheet.create({
     height: screenHeight,
   },
   addIssueText: {
-    color: "white",
+    color: "black",
+    textShadowColor: "white",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+    fontWeight: "bold",
+    fontSize: 16,
   },
   addIssueButton: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-end",
+    marginRight: 20,
   },
   addIssueIcon: {
     backgroundColor: "white",
@@ -550,8 +552,8 @@ const styles = StyleSheet.create({
   },
   nearbyIssueButton: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-end",
+    marginRight: 20,
   },
   nearbyIssueIcon: {
     backgroundColor: "white",
@@ -565,8 +567,8 @@ const styles = StyleSheet.create({
   notificationButton: {
     backgroundColor: "white",
     borderRadius: 12,
-    width: 48,
-    height: 48,
+    width: 52,
+    height: 52,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
