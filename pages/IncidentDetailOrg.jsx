@@ -19,6 +19,7 @@ import {
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 import { calculateDistance } from "../utils/CalculateDistance";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;

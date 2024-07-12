@@ -30,6 +30,7 @@ const user_type = {
 const ReportIncident = () => {
   const intl = useIntl();
   const [address, setAddress] = useState({});
+  const [selectedAddress, setSelectedAddress] = useState({});
   const [categoryList, setCategoryList] = useState([]);
   const [incidentSubject, setIncidentSubject] = useState("");
   const [selectedCategory, setSelectedCategory] = useState({});
@@ -92,28 +93,27 @@ const ReportIncident = () => {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
       description: incidentDescription,
-      coordinates: coords,
+      coordinates: {
+        lat: selectedAddress?.lat,
+        lng: selectedAddress?.lon,
+      },
       address: {
-        address_line1: address?.at(0)?.formatted,
+        address_line1: selectedAddress?.formatted,
       },
       is_internal_for_org: false,
     };
+
+    console.log("Report", report);
+
     const res = await postIssue(report, images);
+
+    console.log(res, "\n\n\n\n\nRESPONSE");
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
       successType,
       coordinates: res?.coordinates,
     });
   };
-
-  useEffect(() => {
-    if (address[0]) {
-      setCoords({
-        lat: address?.at(0)?.lat,
-        lng: address?.at(0)?.lon,
-      });
-    }
-  }, [address]);
 
   return (
     <KeyboardAvoidingView
@@ -165,7 +165,11 @@ const ReportIncident = () => {
                 setIncidentSubject(text);
               }}
             />
-            <LocationInput value={address} onChange={changeAddress} />
+            <LocationInput
+              value={address}
+              onChange={changeAddress}
+              onSelect={(e) => setSelectedAddress(e)}
+            />
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.description",
