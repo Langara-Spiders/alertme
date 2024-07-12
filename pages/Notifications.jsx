@@ -1,17 +1,17 @@
 import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useContext, useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import React, { useContext, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+
+import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 import { NotificationCard } from "../components/molecules";
+import { routes } from "../constants";
 import { WebSocketContext } from "../utils/WebSocketProvider";
 
 const Notifications = (props) => {
   const { notifications } = useContext(WebSocketContext);
   const [activeButton, setActiveButton] = useState("all");
-
-  useEffect(() => {
-    console.log("Notifications updated:", notifications);
-  }, [notifications]);
+  const navigation = useNavigation();
 
   const handleButtonPress = (buttonType) => {
     setActiveButton(buttonType);
@@ -102,13 +102,22 @@ const Notifications = (props) => {
       </View>
       <ScrollView contentContainerStyle={styles.scrollView}>
         {filteredNotifications.map((notificationItem, index) => (
-          <NotificationCard
-            key={notificationItem.incident_id}
-            title={notificationItem.title}
-            description={notificationItem.description}
-            timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
-            read={notificationItem.read_flag} // Use read_flag based on your data structure
-          />
+          <TouchableOpacity
+            style={{ width: "100%" }}
+            onPress={() =>
+              navigation.navigate(routes.INCIDENT_DETAIL, {
+                incident_id: notificationItem.incident_id,
+              })
+            }
+          >
+            <NotificationCard
+              key={notificationItem.incident_id}
+              title={notificationItem.title}
+              description={notificationItem.description}
+              timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
+              read={notificationItem.read_flag} // Use read_flag based on your data structure
+            />
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

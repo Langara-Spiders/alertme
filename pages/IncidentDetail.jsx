@@ -1,17 +1,18 @@
 import * as Location from "expo-location";
 
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
+import { LargeActionButton, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+
+import { uniqueId } from "lodash";
+import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
-import { LargeActionButton, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 import { calculateDistance } from "../utils/CalculateDistance";
@@ -128,8 +129,8 @@ const IncidentDetail = ({ route, navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={styles.imageScrollContainer}
         >
-          {incident.images && incident.images.length > 0 ? (
-            incident.images.map((img, index) => (
+          {incident?.images && incident?.images.length > 0 ? (
+            incident?.images.map((img, index) => (
               <Image
                 key={index}
                 source={{ uri: img }}
@@ -146,7 +147,7 @@ const IncidentDetail = ({ route, navigation }) => {
           )}
         </ScrollView>
         <View style={styles.dotsContainer}>
-          {incident.images.map((_, index) => (
+          {incident?.images.map((_, index) => (
             <SvgUri
               key={index}
               width="16"

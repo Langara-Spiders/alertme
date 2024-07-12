@@ -23,10 +23,9 @@ export const WebSocketProvider = ({ children }) => {
     };
 
     ws.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Received data:", data);
-      if (data && data.data) {
-        setNotifications(data.data); // Set notifications state
+      const { data } = JSON.parse(event.data);
+      if (data) {
+        setNotifications(data); // Set notifications state
       } else {
         console.log("Unexpected data structure:", data);
       }
@@ -38,7 +37,7 @@ export const WebSocketProvider = ({ children }) => {
 
     ws.current.onclose = (e) => {
       console.log("WebSocket connection closed. Reconnecting...", e.reason);
-      setTimeout(initializeWebSocket, 25000); // Reconnect after 5 seconds
+      setTimeout(initializeWebSocket, 5000);
     };
   };
 
