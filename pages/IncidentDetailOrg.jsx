@@ -1,24 +1,24 @@
 import * as Location from "expo-location";
 
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import { getIncidentDetailsForUser } from "../api/incident";
+import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
+import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
+import ABCD from "../assets/images/sample_user.png";
 import { Button, LargeActionButton, StatusBadge } from "../components/atoms";
 import {
   OrgActionsModal,
   PostedByCard,
   UpVoteCard,
 } from "../components/molecules";
-
-import { uniqueId } from "lodash";
-import { FormattedMessage } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import { getIncidentDetailsForUser } from "../api/incident";
-import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
-import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
+import { calculateDistance } from "../utils/CalculateDistance";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -26,6 +26,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [userCoords, setUserCoords] = useState({ latitude: 0, longitude: 0 });
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
 
@@ -45,6 +46,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
     }
     let location = await Location.getCurrentPositionAsync({});
     const { coords } = location ?? {};
+    setUserCoords(coords);
     return coords ?? {};
   };
 
@@ -57,6 +59,18 @@ const IncidentDetailOrg = ({ route, navigation }) => {
     );
     setIncident(response);
     setLoading(false);
+  };
+
+  const calculateIncidentDistance = () => {
+    if (incident && userCoords.latitude && userCoords.longitude) {
+      return calculateDistance(
+        userCoords.latitude,
+        userCoords.longitude,
+        incident.coordinates.lat,
+        incident.coordinates.lng
+      );
+    }
+    return 0;
   };
 
   const handleModalOpen = (type) => {
@@ -274,17 +288,22 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           ))}
         </View>
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.iconContainer}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backButtonText}>←</Text>
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.detailsContainer}>
         <StatusBadge status={incident.status} style={styles.statusBadge} />
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.distance}>
-          {incident.distance.toFixed(2)} km away
+          {calculateIncidentDistance().toFixed(2)} km away
         </Text>
         <Text style={styles.heading}>Incident Location</Text>
         <TouchableOpacity
@@ -305,15 +324,14 @@ const IncidentDetailOrg = ({ route, navigation }) => {
         </TouchableOpacity>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
-          <Text>
+          <View style={styles.iconBackground}>
             <SvgUri
-              width="16"
-              height="16"
+              width="24"
+              height="24"
               source={{ uri: incident.category_icon }}
             />
-            {"  "}
-            {incident.category_name}
-          </Text>
+          </View>
+          <Text style={styles.categoryText}>{incident.category_name}</Text>
         </View>
         <Text style={styles.heading}>Description</Text>
         <Text style={styles.description}>{incident.description}</Text>
@@ -376,17 +394,21 @@ const styles = StyleSheet.create({
   dot: {
     marginHorizontal: 4,
   },
-  backButton: {
+  iconContainer: {
     position: "absolute",
     top: 20,
     left: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 10,
-    borderRadius: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  backButtonText: {
-    color: "white",
-    fontSize: 18,
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
   },
   detailsContainer: {
     flex: 1,
@@ -430,9 +452,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
   },
-  typeIcon: {
-    width: 24,
-    height: 24,
+  iconBackground: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 8,
   },
   description: {

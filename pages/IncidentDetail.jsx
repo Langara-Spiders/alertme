@@ -1,25 +1,27 @@
 import * as Location from "expo-location";
 
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { uniqueId } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
-import { LargeActionButton, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
-
-import { uniqueId } from "lodash";
 import SvgUri from "react-native-svg-uri";
+import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ABCD from "../assets/images/sample_user.png";
+import { LargeActionButton, StatusBadge } from "../components/atoms";
+import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
+import { calculateDistance } from "../utils/CalculateDistance";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
   const [incident, setIncident] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [userCoords, setUserCoords] = useState({ latitude: 0, longitude: 0 });
   const [modalType, setModalType] = useState("");
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
@@ -40,6 +42,7 @@ const IncidentDetail = ({ route, navigation }) => {
     }
     let location = await Location.getCurrentPositionAsync({});
     const { coords } = location ?? {};
+    setUserCoords(coords);
     return coords ?? {};
   };
 
@@ -52,6 +55,18 @@ const IncidentDetail = ({ route, navigation }) => {
     );
     setIncident(response);
     setLoading(false);
+  };
+
+  const calculateIncidentDistance = () => {
+    if (incident && userCoords.latitude && userCoords.longitude) {
+      return calculateDistance(
+        userCoords.latitude,
+        userCoords.longitude,
+        incident.coordinates.lat,
+        incident.coordinates.lng
+      );
+    }
+    return 0;
   };
 
   const handleModalOpen = (type) => {
@@ -96,12 +111,6 @@ const IncidentDetail = ({ route, navigation }) => {
     return !isStaff && incident.reported_by === "USER";
   };
 
-  const hasUserUpvoted = () => {
-    return incident.voters.some(
-      (voter) => voter.id === current_logged_in_user_id
-    );
-  };
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -119,14 +128,22 @@ const IncidentDetail = ({ route, navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={styles.imageScrollContainer}
         >
-          {incident.images.map((img, index) => (
+          {incident.images && incident.images.length > 0 ? (
+            incident.images.map((img, index) => (
+              <Image
+                key={index}
+                source={{ uri: img }}
+                style={styles.image}
+                alt={`Incident Image ${index + 1}`}
+              />
+            ))
+          ) : (
             <Image
-              key={index}
-              source={{ uri: img }}
+              source={{ uri: "https://picsum.photos/200/300" }}
               style={styles.image}
-              alt={`Incident Image ${index + 1}`}
+              alt="Default Incident Image"
             />
-          ))}
+          )}
         </ScrollView>
         <View style={styles.dotsContainer}>
           {incident.images.map((_, index) => (
@@ -140,17 +157,22 @@ const IncidentDetail = ({ route, navigation }) => {
           ))}
         </View>
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.iconContainer}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backButtonText}>←</Text>
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.detailsContainer}>
         <StatusBadge status={incident.status} style={styles.statusBadge} />
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.distance}>
-          {incident.distance?.toFixed(2)} km away
+          {calculateIncidentDistance().toFixed(2)} km away
         </Text>
 
         <Text style={styles.heading}>Incident Location</Text>
@@ -174,15 +196,14 @@ const IncidentDetail = ({ route, navigation }) => {
         </View>
         <Text style={styles.heading}>Incident Type</Text>
         <View style={styles.typeContainer}>
-          <Text>
+          <View style={styles.iconBackground}>
             <SvgUri
-              width="16"
-              height="16"
+              width="24"
+              height="24"
               source={{ uri: incident.category_icon }}
             />
-            {"  "}
-            {incident.category_name}
-          </Text>
+          </View>
+          <Text style={styles.categoryText}>{incident.category_name}</Text>
         </View>
         <Text style={styles.heading}>Description</Text>
         <Text style={styles.description}>{incident.description}</Text>
@@ -207,9 +228,15 @@ const IncidentDetail = ({ route, navigation }) => {
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <LargeActionButton
-                onPress={() => !hasUserUpvoted() && handleModalOpen("upVote")}
-                buttonText={hasUserUpvoted() ? "Upvoted Issue" : "Upvote Issue"}
-                disabled={hasUserUpvoted()}
+                onPress={() =>
+                  !incident.current_user_has_voted && handleModalOpen("upVote")
+                }
+                buttonText={
+                  incident.current_user_has_voted
+                    ? "Upvoted Issue"
+                    : "Upvote Issue"
+                }
+                disabled={incident.current_user_has_voted}
               />
             </View>
           )}
@@ -265,17 +292,21 @@ const styles = StyleSheet.create({
   dot: {
     marginHorizontal: 4,
   },
-  backButton: {
+  iconContainer: {
     position: "absolute",
     top: 20,
     left: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 10,
-    borderRadius: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  backButtonText: {
-    color: "white",
-    fontSize: 18,
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
   },
   detailsContainer: {
     flex: 1,
@@ -319,9 +350,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
   },
-  typeIcon: {
-    width: 24,
-    height: 24,
+  iconBackground: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 8,
   },
   description: {
