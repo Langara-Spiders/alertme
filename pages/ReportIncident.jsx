@@ -183,7 +183,6 @@ const ReportIncident = () => {
               style={{
                 inputbox: {
                   height: 86,
-                  marginBottom: 18,
                 },
               }}
             />
