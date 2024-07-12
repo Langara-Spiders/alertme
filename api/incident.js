@@ -50,7 +50,6 @@ const getCategories = async () => {
 };
 
 const postIssue = async (report, pictures) => {
-  console.log("Karthik100000");
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
@@ -60,7 +59,7 @@ const postIssue = async (report, pictures) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res);
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(error);
