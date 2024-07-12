@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { Icon, StarIcon } from "@gluestack-ui/themed";
 import {
-  Appearance,
   About,
+  Appearance,
   AppSetting,
   IncidentDetail,
   IncidentDetailOrg,

@@ -20,7 +20,6 @@ const routes = {
   APPEARANCE: "Appearance",
   ABOUT: "About",
 
-
   // Incidents
   MY_INCIDENTS: "My Issues",
   CIVILIAN_INCIDENTS_ORG: "Civilian",

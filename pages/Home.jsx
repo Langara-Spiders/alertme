@@ -1,7 +1,8 @@
-import * as Location from "expo-location";
-
 import { Text, View } from "@gluestack-ui/themed";
+import { useIsFocused } from "@react-navigation/native";
+import * as Location from "expo-location";
 import React, { useEffect, useRef, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import {
   Animated,
   Dimensions,
@@ -9,16 +10,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import {
-  IncidentCard,
-  NumOfIssuesCard,
-  Search,
-  SuccessCard,
-} from "../components/molecules";
-
-import { useIsFocused } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
@@ -29,8 +21,15 @@ import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_ico
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import {
+  IncidentCard,
+  NumOfIssuesCard,
+  Search,
+  SuccessCard,
+} from "../components/molecules";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
+import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -264,8 +263,8 @@ const Home = ({ navigation, route }) => {
         <MapView
           ref={mapRef}
           style={styles.map}
-          userInterfaceStyle="dark"
-          provider={MapView.PROVIDER_GOOGLE}
+          customMapStyle={mapStyle} // Apply custom map style here
+          provider={PROVIDER_GOOGLE}
           initialRegion={{
             latitude: 49.225,
             longitude: -123.1076,
@@ -465,9 +464,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  map: {
+  mapContainer: {
+    flex: 1,
     width: "100%",
     height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject, // Ensure the map takes the full container size
   },
   reportIncidentBtn: {
     position: "absolute",
