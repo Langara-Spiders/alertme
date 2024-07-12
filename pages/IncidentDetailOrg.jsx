@@ -1,29 +1,29 @@
 import * as Location from "expo-location";
 
-import { Button, LargeActionButton, StatusBadge } from "../components/atoms";
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  getIncidentDetailsForUser,
+  updateIncidentStatus,
+} from "../api/incident";
+import { Button, LargeActionButton, StatusBadge } from "../components/atoms";
 import {
   OrgActionsModal,
   PostedByCard,
   UpVoteCard,
 } from "../components/molecules";
-import React, { useEffect, useState } from "react";
-import {
-  getIncidentDetailsForUser,
-  updateIncidentStatus,
-} from "../api/incident";
 
-import ABCD from "../assets/images/sample_user.png";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import { uniqueId } from "lodash";
 import { FormattedMessage } from "react-intl";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import SvgUri from "react-native-svg-uri";
-import { calculateDistance } from "../utils/CalculateDistance";
+import ABCD from "../assets/images/sample_user.png";
 import { routes } from "../constants";
-import { uniqueId } from "lodash";
 import useStore from "../store/useStore";
+import { calculateDistance } from "../utils/CalculateDistance";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;

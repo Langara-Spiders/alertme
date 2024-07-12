@@ -92,6 +92,7 @@ const ReportIncident = () => {
       },
       address: {
         address_line1: selectedAddress?.formatted,
+        street_address: selectedAddress?.formatted,
       },
       is_internal_for_org: false,
     };
