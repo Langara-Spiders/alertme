@@ -2,7 +2,6 @@ import { Text, View } from "@gluestack-ui/themed";
 
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-import SelectUserType from "./Signup/SelectUserType";
 
 const About = () => {
   return (
@@ -10,7 +9,6 @@ const About = () => {
       <Text>
         <FormattedMessage id="About.title.message" defaultMessage="About Us" />
       </Text>
-      <SelectUserType />
     </View>
   );
 };
