@@ -2,10 +2,12 @@ import { Image as ImageGS } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 
 const Image = (props) => {
+  const source =
+    typeof props.source === "string" ? { uri: props.source } : props.source;
   return (
     <ImageGS
       size={props.size ?? "md"}
-      source={{ uri: props.source }}
+      source={source}
       alt={props.alt}
       height={props.height ?? 100}
       width={props.width ?? 100}
