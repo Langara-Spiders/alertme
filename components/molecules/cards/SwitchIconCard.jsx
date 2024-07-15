@@ -1,10 +1,14 @@
-import { Card, View } from "@gluestack-ui/themed";
+import { Card, Text, View } from "@gluestack-ui/themed";
+
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import { SwitchButton } from "../../atoms";
-import Typography from "../../atoms/Typography";
 
 const SwitchIconCard = (props) => {
+  const toggleSwitch = () => {
+    props.setValue(!props.value);
+  };
+
   const getTitleAndDescription = (type) => {
     switch (type) {
       case "Location":
@@ -65,14 +69,19 @@ const SwitchIconCard = (props) => {
   return (
     <Card style={styles.card}>
       <View style={styles.textContainer}>
-        <Typography variant="h2" style={styles.title}>
+        <Text variant="h2" style={styles.title}>
           {title}
-        </Typography>
-        <Typography variant="body2" style={styles.description}>
+        </Text>
+        <Text variant="body2" style={styles.description}>
           {description}
-        </Typography>
+        </Text>
       </View>
-      <SwitchButton style={styles.switch} />
+      <SwitchButton
+        value={props.value}
+        onValueChange={toggleSwitch}
+        trackColor={{ false: "#DBDDDE", true: "#FF6B00" }}
+        style={styles.switch}
+      />
     </Card>
   );
 };
@@ -83,7 +92,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 20,
     borderRadius: 10,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: "#F3F4F4",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -94,11 +103,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
-    color: "#fff",
+    // color: "#fff",
     fontWeight: "bold",
+    fontSize: 18,
   },
   description: {
-    color: "#bbb",
+    fontSize: 14,
   },
   switch: {
     marginLeft: 10,

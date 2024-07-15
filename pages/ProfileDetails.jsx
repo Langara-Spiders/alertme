@@ -83,7 +83,7 @@ const ProfileDetails = () => {
           id: "ProfileDetails.nameinput.placeholdermessage",
           defaultMessage: "Enter your name",
         })}
-        onChange={(text) =>
+        onChangeText={(text) =>
           dispatchProfile({
             type: "CHANGE_NAME",
             payload: text,
@@ -102,7 +102,7 @@ const ProfileDetails = () => {
           defaultMessage: "Enter your number",
         })}
         value={profile.phone}
-        onChange={(text) =>
+        onChangeText={(text) =>
           dispatchProfile({
             type: "CHANGE_PHONE",
             payload: text,

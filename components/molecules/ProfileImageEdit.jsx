@@ -105,14 +105,14 @@ const ProfileImageEdit = ({ initialImage, onImageChange, icon }) => {
           style={styles.imageContainer}
           alt="User profile image"
         />
-        {image?.uri && (
+        {/* {image?.uri && (
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={handleDeleteImage}
           >
             <SvgUri source={icon ?? EditIcon} width="20" height="20" />
           </TouchableOpacity>
-        )}
+        )} */}
         <TouchableOpacity onPress={handleImagePress} style={styles.touch}>
           <SvgUri
             source={icon ?? EditIcon}
