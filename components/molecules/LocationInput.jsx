@@ -11,11 +11,9 @@ import SvgUri from "react-native-svg-uri";
 import LocationIcon from "../../assets/icons/LocationIcon.svg";
 import Input from "../atoms/Input";
 
-// Adjust the import if needed
-// Adjust the import if needed
-
 const LocationInput = (props) => {
   const intl = useIntl();
+
   const [address, setAddress] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [text, setText] = useState("");
@@ -51,16 +49,20 @@ const LocationInput = (props) => {
       if (location) {
         const { latitude, longitude } = location.coords;
         const addressData = await getReverseGeoCoding(latitude, longitude);
+
         const fullAddress =
           addressData.formatted ||
-          `${addressData.city}, ${addressData.state}, ${addressData.country}`;
-        const truncatedAddress = TruncateAddress(fullAddress);
+          `${addressData.address_line1}, ${addressData.address_line2}`;
+        const truncatedAddress = TruncateAddress(fullAddress, 30);
+
         setAddress(fullAddress);
         setText(truncatedAddress);
+
         setSuggestions([]);
         if (props.onSelect) {
           props.onSelect({
-            formatted: fullAddress,
+            truncatedAddress: truncatedAddress,
+            fullAddress: fullAddress,
             lat: latitude,
             lon: longitude,
           });
@@ -94,12 +96,20 @@ const LocationInput = (props) => {
   };
 
   const handleSelect = (item) => {
-    const truncatedAddress = TruncateAddress(item.formatted);
-    setAddress(item.formatted);
+    const fullAddress = item.formatted;
+    const truncatedAddress = TruncateAddress(item.formatted, 30);
+
+    setAddress(fullAddress);
     setText(truncatedAddress);
     setSuggestions([]);
+
     if (props.onSelect) {
-      props.onSelect(item);
+      props.onSelect({
+        truncatedAddress: truncatedAddress,
+        fullAddress: fullAddress,
+        lat: item.lat,
+        lon: item.lon,
+      });
     }
   };
 
@@ -126,7 +136,7 @@ const LocationInput = (props) => {
           placeholder={placeholder}
           value={text}
           isReadOnly={props?.isReadOnly ?? false}
-          onChange={handleChange}
+          onChangeText={handleChange}
           style={styles.input}
           required={true}
           inputbox={styles.customContainer}
@@ -157,7 +167,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     position: "relative",
-    autoFocus: true,
   },
   input: {
     height: 80,
@@ -181,7 +190,6 @@ const styles = StyleSheet.create({
     right: 0,
     borderColor: "#000",
     borderRadius: 10,
-    autoFocus: true,
   },
   suggestionsList: {
     position: "absolute",

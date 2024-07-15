@@ -29,7 +29,7 @@ const Input = (props) => {
         )}
         <InputField
           value={props.value}
-          onChangeText={props.onChange}
+          onChangeText={props.onChangeText}
           placeholder={props.placeholder}
           style={[styles.field]}
           multiline={false}
