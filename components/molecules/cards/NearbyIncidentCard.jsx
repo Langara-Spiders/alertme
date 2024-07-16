@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "semi-bold",
     lineHeight: 22,
-    marginBottom: 8,
+    marginBottom: 5,
   },
   distance: {
     flex: 1,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "600",
     lineHeight: 0,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   footer: {
     display: "flex",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   locationText: {
     color: "black",

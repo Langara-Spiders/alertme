@@ -1,5 +1,5 @@
-import * as Location from "expo-location";
 import { Text, View } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import {
-  IncidentCard,
+  NearbyIncidentCard,
   NumOfIssuesCard,
   Search,
   SuccessCard,
@@ -30,7 +30,7 @@ import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
-import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
+import mapStyle from "../utils/mapStyle.json";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -411,7 +411,7 @@ const Home = ({ navigation, route }) => {
               }}
             >
               <View>
-                <IncidentCard {...issue} />
+                <NearbyIncidentCard {...issue} />
               </View>
             </TouchableWithoutFeedback>
             <View style={styles.separator} />

@@ -1,7 +1,8 @@
 import { ScrollView, View } from "@gluestack-ui/themed";
 
 import { StyleSheet } from "react-native";
-import { IncidentCard } from "../components/molecules";
+
+import { NearbyIncidentCard } from "../components/molecules";
 import { DateTime } from "../utils";
 
 const NearByActiveIssues = ({ route }) => {
@@ -13,7 +14,7 @@ const NearByActiveIssues = ({ route }) => {
         const { date, time } = DateTime(incident.created_at);
         return (
           <View key={index} style={styles.cardContainer}>
-            <IncidentCard {...incident} />
+            <NearbyIncidentCard {...incident} />
           </View>
         );
       })}
