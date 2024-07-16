@@ -1,5 +1,4 @@
 import * as Location from "expo-location";
-
 import { Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
 import {
