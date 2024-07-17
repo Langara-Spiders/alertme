@@ -1,6 +1,6 @@
-import * as React from "react";
-
 import { Icon, StarIcon } from "@gluestack-ui/themed";
+import * as React from "react";
+import { SafeAreaView } from "react-native";
 import {
   About,
   Appearance,
@@ -21,14 +21,15 @@ import TabNavigator from "./TabNavigator";
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = (props) => {
+const SafeAreaWrapper = ({ children }) => (
+  <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    {children}
+  </SafeAreaView>
+);
+
+const StackNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-      })}
-      initialRouteName={routes.MAP}
-    >
+    <Stack.Navigator initialRouteName={routes.MAP}>
       <Stack.Screen
         name={routes.ROOT_HOME}
         component={TabNavigator}
@@ -38,97 +39,124 @@ const StackNavigator = (props) => {
       />
       <Stack.Screen
         name={routes.NOTIFICATIONS}
-        component={Notifications}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <Notifications {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.REPORT_INCIDENT}
-        component={ReportIncident}
-        options={{
-          headerShown: false,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: false, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <ReportIncident {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.INCIDENT_DETAIL}
-        component={IncidentDetail}
-        options={{
-          headerShown: false,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: false, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <IncidentDetail {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.INCIDENT_DETAIL_ORG}
-        component={IncidentDetailOrg}
-        options={{
-          headerShown: false,
-          headerBackTitleVisible: false,
-        }}
-      />
-
+        options={{ headerShown: false, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <IncidentDetailOrg {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.LEADERBOARD}
-        component={Leaderboard}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <Leaderboard {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.APP_SETTING}
-        component={AppSetting}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <AppSetting {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.PROFILE_DETAILS}
-        component={ProfileDetails}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <ProfileDetails {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.APPEARANCE}
-        component={Appearance}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <Appearance {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.ABOUT}
-        component={About}
-        options={{
-          headerShown: true,
-          headerBackTitleVisible: false,
-        }}
-      />
+        options={{ headerShown: true, headerBackTitleVisible: false }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <About {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.NEARBYACTIVEISSUES}
-        component={NearByActiveIssues}
         options={{
           title: "Nearby Issues",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}
-      />
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <NearByActiveIssues {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={routes.ISSUESREPORTEDAWARDS}
-        component={IssuesReportedAwards}
         options={{
           title: "IssuesReportedAwards",
           headerShown: true,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}
-      />
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <IssuesReportedAwards {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };
