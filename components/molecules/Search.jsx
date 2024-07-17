@@ -8,7 +8,7 @@ import { getAutocomplete } from "../../api";
 import SearchIcon from "../../assets/icons/SearchIcon.svg";
 import Input from "../atoms/Input";
 
-const Search = ({ value, onChange, onSelect }) => {
+const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
   const intl = useIntl();
   const [text, setText] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
@@ -40,19 +40,29 @@ const Search = ({ value, onChange, onSelect }) => {
   };
 
   const handleSelect = (item) => {
-    onSelect(item);
-    const truncatedText = TruncateAddress(item.formatted);
+    const truncatedText = TruncateAddress(item.formatted, 25);
+    // console.log("Selected item:", item);
+    // console.log("Truncated text:", truncatedText);
+
     setText(truncatedText);
     setSuggestions([]);
+
+    if (onSelect) {
+      onSelect({
+        ...item,
+        formatted: truncatedText,
+      });
+    }
   };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleSelect(item)}>
-      <Text style={styles.suggestion}>{TruncateAddress(item.formatted)}</Text>
+      <Text style={styles.suggestion}>{item.formatted}</Text>
     </TouchableOpacity>
   );
 
   useEffect(() => {
+    // console.log("Component mounted or value prop changed. Current value:", value);
     setText(value);
   }, [value]);
 
@@ -60,7 +70,7 @@ const Search = ({ value, onChange, onSelect }) => {
     <View style={styles.container}>
       <Input
         value={text}
-        onChange={handleChange}
+        onChangeText={handleChange}
         style={styles.input}
         icon={SearchIcon}
         placeholder={placeholder}
@@ -71,7 +81,7 @@ const Search = ({ value, onChange, onSelect }) => {
           data={suggestions}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
-          style={[styles.suggestionsList, styles.customsuggestionsList]}
+          style={[styles.suggestionsList, { width: containerWidth }]}
         />
       )}
     </View>
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
   suggestionsList: {
     position: "absolute",
     top: 70,
-    left: 0,
+    left: 10, //works for android
     right: 0,
     borderColor: "#F3F4F4",
     backgroundColor: "#fff",
