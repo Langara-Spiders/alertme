@@ -10,9 +10,11 @@ const login = async (token) => {
       `${API_BASE_URL}/users/login?platform=${platform}`,
       { token }
     );
+
+    print(API_BASE_URL);
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return {};
   }
 };

@@ -1,15 +1,19 @@
 import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import { NotificationCard } from "../components/molecules";
 import { routes } from "../constants";
-import { WebSocketContext } from "../utils/WebSocketProvider";
+import { useStore } from "../store";
 
 const Notifications = (props) => {
-  const { notifications } = useContext(WebSocketContext);
+  const { getNotifications, setNotifications } = useStore();
+  const notifications = getNotifications();
+
+  console.log(notifications);
+
   const [activeButton, setActiveButton] = useState("all");
   const navigation = useNavigation();
 
@@ -56,29 +60,6 @@ const Notifications = (props) => {
         <TouchableOpacity
           style={[
             styles.button,
-            activeButton === "read"
-              ? styles.activeButton
-              : styles.inactiveButton,
-          ]}
-          onPress={() => handleButtonPress("read")}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              activeButton === "read"
-                ? styles.activeButtonText
-                : styles.inactiveButtonText,
-            ]}
-          >
-            <FormattedMessage
-              id="notifications.button2"
-              defaultMessage="Read"
-            />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
             activeButton === "unread"
               ? styles.activeButton
               : styles.inactiveButton,
@@ -99,23 +80,51 @@ const Notifications = (props) => {
             />
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            activeButton === "read"
+              ? styles.activeButton
+              : styles.inactiveButton,
+          ]}
+          onPress={() => handleButtonPress("read")}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              activeButton === "read"
+                ? styles.activeButtonText
+                : styles.inactiveButtonText,
+            ]}
+          >
+            <FormattedMessage
+              id="notifications.button2"
+              defaultMessage="Read"
+            />
+          </Text>
+        </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        {filteredNotifications.map((notificationItem, index) => (
+        {filteredNotifications.map((notification) => (
           <TouchableOpacity
             style={{ width: "100%" }}
-            onPress={() =>
+            onPress={() => {
+              setNotifications({
+                ...notification,
+                read_flag: true,
+              });
+
               navigation.navigate(routes.INCIDENT_DETAIL, {
-                incident_id: notificationItem.incident_id,
-              })
-            }
+                incident_id: notification.incident_id,
+              });
+            }}
           >
             <NotificationCard
-              key={notificationItem.incident_id}
-              title={notificationItem.title}
-              description={notificationItem.description}
-              timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
-              read={notificationItem.read_flag} // Use read_flag based on your data structure
+              key={notification.id}
+              title={notification.title}
+              description={notification.description}
+              timeAgo={notification.created_at}
+              read={notification.read_flag}
             />
           </TouchableOpacity>
         ))}
