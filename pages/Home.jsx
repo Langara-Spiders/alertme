@@ -354,7 +354,7 @@ const Home = ({ navigation, route }) => {
                 <Text style={styles.addIssueText}>
                   <FormattedMessage
                     id="home.addIsuue"
-                    defaultMessage="Add Issue"
+                    defaultMessage="Report"
                   />
                 </Text>
               </View>
@@ -368,7 +368,7 @@ const Home = ({ navigation, route }) => {
                   <Text style={styles.addIssueText}>
                     <FormattedMessage
                       id="home.nearbyIssues"
-                      defaultMessage="Nearby Issues"
+                      defaultMessage="Nearby"
                     />
                   </Text>
                 </View>
@@ -527,13 +527,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 12,
     marginTop: 5,
-    textAlign: "right",
-    alignContent: "right",
-    justifyContent: "right",
+    textAlign: "center",
+    alignContent: "center",
+    justifyContent: "center",
   },
   addIssueButton: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "column",
     marginRight: 0,
   },
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
   },
   nearbyIssueButton: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "column",
     marginRight: 0,
   },
