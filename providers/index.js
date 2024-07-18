@@ -1,4 +1,1 @@
-export {
-  default as NotificationContext,
-  NotificationProvider,
-} from "./NotificationProvider";
+export { NotificationContext, UpdateProvider } from "./UpdateProvider";

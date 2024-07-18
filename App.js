@@ -1,18 +1,26 @@
+import * as Notifications from "expo-notifications";
+
 import { useEffect, useState } from "react";
-import { SafeAreaView, StatusBar } from "react-native";
+import { LogBox, SafeAreaView, StatusBar } from "react-native";
 import { en, fr } from "./lang";
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import axios from "axios";
 import { IntlProvider } from "react-intl";
-import { LogBox } from "react-native";
-import { Notifications } from "react-native-notifications";
 import { configLight } from "./config/gluestack-ui.config";
 import RootNavigator from "./navigation/RootNavigator";
-import { NotificationProvider } from "./providers";
+import { UpdateProvider } from "./providers";
 import { useStore } from "./store";
 
 LogBox.ignoreAllLogs(); // suppress all warnings
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 const messages = {
   en,
@@ -30,17 +38,17 @@ export default function App() {
     axios.defaults.headers.common["Accept-Language"] = "en-CA";
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    Notifications.registerRemoteNotifications();
+    // Notifications.registerRemoteNotifications();
 
-    Notifications.events().registerNotificationReceivedForeground(
-      (notification, completion) => {
-        console.log(
-          "Notification received while app is in foreground:",
-          notification
-        );
-        completion({ alert: true, sound: false, badge: false });
-      }
-    );
+    // Notifications.events().registerNotificationReceivedForeground(
+    //   (notification, completion) => {
+    //     console.log(
+    //       "Notification received while app is in foreground:",
+    //       notification
+    //     );
+    //     completion({ alert: true, sound: false, badge: false });
+    //   }
+    // );
   }, []);
 
   return (
@@ -49,14 +57,14 @@ export default function App() {
       locale={locale}
       defaultLocale="en"
     >
-      <NotificationProvider>
+      <UpdateProvider>
         <SafeAreaView style={{ flex: 1 }}>
           <GluestackUIProvider config={configLight}>
             <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
             <RootNavigator />
           </GluestackUIProvider>
         </SafeAreaView>
-      </NotificationProvider>
+      </UpdateProvider>
     </IntlProvider>
   );
 }
