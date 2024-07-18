@@ -1,6 +1,5 @@
-import * as Location from "expo-location";
-
 import { Text, View } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -33,8 +32,8 @@ import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("screen").width; // Changed from "window" to "screen"
+const screenHeight = Dimensions.get("screen").height;
 
 const Home = ({ navigation, route }) => {
   const [nearbyIssues, setNearbyIssues] = useState([]);
@@ -46,7 +45,6 @@ const Home = ({ navigation, route }) => {
   const [searchValue, setSearchValue] = useState("");
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [searchContainerWidth, setSearchContainerWidth] = useState(screenWidth);
   const mapRef = useRef(null);
 
   const { successType, coordinates } = route?.params ?? {};
@@ -169,6 +167,8 @@ const Home = ({ navigation, route }) => {
     );
   };
 
+  const opacity = useRef(new Animated.Value(0)).current;
+
   const handleRecenter = async () => {
     const { latitude, longitude } = await getLocation();
     animateToMap(latitude, longitude);
@@ -208,227 +208,207 @@ const Home = ({ navigation, route }) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      {showSuccessCard && (
-        <Animated.View style={styles.successCardContainer}>
-          <SuccessCard type={successType?.split("-")?.at(0)} />
-        </Animated.View>
-      )}
-      <View
-        style={styles.searchContainer}
-        onLayout={(event) => {
-          const { width } = event.nativeEvent.layout;
-          const adjustedWidth = width - 40; // Subtracting pixels for left and right margins
-          setSearchContainerWidth(adjustedWidth);
-        }}
-      >
-        <Search
-          value={searchValue}
-          onChange={handleSearchChange}
-          onSelect={handleSearchSelect}
-          containerWidth={searchContainerWidth}
-        />
-        <TouchableOpacity
-          onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
-        >
-          <View style={styles.notificationButton}>
-            <SvgUri width="22" height="22" source={BellIcon} />
-          </View>
-        </TouchableOpacity>
-        {showQuickView ? (
+    <TouchableWithoutFeedback onPress={() => setShowQuickView(false)}>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        {showSuccessCard && (
+          <Animated.View style={styles.successCardContainer}>
+            <SuccessCard type={successType?.split("-")?.at(0)} />
+          </Animated.View>
+        )}
+        {showQuickView && (
+          <TouchableWithoutFeedback onPress={() => setShowQuickView(false)}>
+            <Animated.View style={styles.overlay} />
+          </TouchableWithoutFeedback>
+        )}
+        <View style={styles.searchContainer}>
+          <Search
+            value={searchValue}
+            onChange={handleSearchChange}
+            onSelect={handleSearchSelect}
+          />
           <TouchableOpacity
-            onPress={() => setShowQuickView(false)}
-            style={styles.incidentQuickViewContainer}
+            onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
           >
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(routes.INCIDENT_DETAIL, {
-                  incident: quickViewIssue,
-                })
-              }
-            >
-              <IncidentCard
-                id={quickViewIssue?.id}
-                status={quickViewIssue?.status}
-                subject={quickViewIssue?.subject}
-                description={quickViewIssue?.description}
-                address={quickViewIssue?.address}
-                created_at={quickViewIssue?.created_at}
-                upvote_count={quickViewIssue?.upvote_count}
-                images={quickViewIssue?.images}
-                onPress={() => handleCardPress(quickViewIssue)}
-                style={{
-                  position: "absolute",
-                  top: 30,
-                  left: 20,
-                  right: 20,
-                  zIndex: 99,
-                  elevation: 99,
-                }}
-              />
-            </TouchableOpacity>
+            <View style={styles.notificationButton}>
+              <SvgUri width="22" height="22" source={BellIcon} />
+            </View>
           </TouchableOpacity>
-        ) : null}
-      </View>
-      {showNumOfIssuesCard && (
-        <View style={styles.numOfIssuesCardContainer}>
-          <NumOfIssuesCard numOfIssues={nearbyIssues.length} />
+          {showQuickView ? (
+            <>
+              <View style={styles.incidentQuickViewContainer}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(routes.INCIDENT_DETAIL, {
+                      incident: quickViewIssue,
+                    })
+                  }
+                >
+                  <IncidentCard {...quickViewIssue} />
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : null}
         </View>
-      )}
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <MapView
-          ref={mapRef}
-          style={styles.map}
-          customMapStyle={mapStyle} // Apply custom map style here
-          provider={PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: 49.225,
-            longitude: -123.1076,
-            latitudeDelta: 0.02,
-            longitudeDelta: 0.03,
+        {showNumOfIssuesCard && (
+          <View style={styles.numOfIssuesCardContainer}>
+            <NumOfIssuesCard numOfIssues={nearbyIssues.length} />
+          </View>
+        )}
+        <View
+          style={{
+            flex: 1,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {nearbyIssues?.map((issue) => {
-            if (
-              issue.coordinates &&
-              issue.coordinates.lat &&
-              issue.coordinates.lng
-            ) {
-              return (
-                <Marker
-                  key={issue.id}
-                  coordinate={{
-                    latitude: issue.coordinates.lat,
-                    longitude: issue.coordinates.lng,
-                  }}
-                  hideCallout
-                  highlighted={false}
-                  onPress={() => handleMarkerPress(issue)}
-                >
-                  <View style={styles.markerStyles}>
-                    <View style={styles.markerInner}>
-                      <SvgUri
-                        width="38"
-                        height="36"
-                        source={
-                          issue.reported_by === "USER" &&
-                          issue.is_accepted_by_org
-                            ? VerifiedHazardIcon
-                            : issue.reported_by === "USER" &&
-                                issue.upvote_count >= 3
-                              ? ConfirmedHazardIcon
-                              : issue.reported_by === "ORG"
-                                ? ConstructionHazardIcon
-                                : HazardIcon
-                        }
-                      />
+          <MapView
+            ref={mapRef}
+            style={styles.map}
+            customMapStyle={mapStyle} // Apply custom map style here
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              latitude: 49.225,
+              longitude: -123.1076,
+              latitudeDelta: 0.02,
+              longitudeDelta: 0.03,
+            }}
+          >
+            {nearbyIssues?.map((issue) => {
+              if (
+                issue.coordinates &&
+                issue.coordinates.lat &&
+                issue.coordinates.lng
+              ) {
+                return (
+                  <Marker
+                    key={issue.id}
+                    coordinate={{
+                      latitude: issue.coordinates.lat,
+                      longitude: issue.coordinates.lng,
+                    }}
+                    hideCallout
+                    highlighted={false}
+                    onPress={() => handleMarkerPress(issue)}
+                  >
+                    <View style={styles.markerStyles}>
+                      <View style={styles.markerInner}>
+                        <SvgUri
+                          width="38"
+                          height="36"
+                          source={
+                            issue.reported_by === "USER" &&
+                            issue.is_accepted_by_org
+                              ? VerifiedHazardIcon
+                              : issue.reported_by === "USER" &&
+                                  issue.upvote_count >= 3
+                                ? ConfirmedHazardIcon
+                                : issue.reported_by === "ORG"
+                                  ? ConstructionHazardIcon
+                                  : HazardIcon
+                          }
+                        />
+                      </View>
                     </View>
-                  </View>
-                </Marker>
-              );
-            } else {
-              console.warn(`Issue ${issue.id} has invalid coordinates`);
-              return null;
-            }
-          })}
-          {selectedLocation && (
-            <Marker
-              coordinate={{
-                latitude: selectedLocation.latitude,
-                longitude: selectedLocation.longitude,
-              }}
-              onPress={() => {
-                alert("direction");
-              }}
-            >
-              {/* <View style={styles.markerStyles}>
+                  </Marker>
+                );
+              } else {
+                console.warn(`Issue ${issue.id} has invalid coordinates`);
+                return null;
+              }
+            })}
+            {selectedLocation && (
+              <Marker
+                coordinate={{
+                  latitude: selectedLocation.latitude,
+                  longitude: selectedLocation.longitude,
+                }}
+                onPress={() => {
+                  alert("direction");
+                }}
+              >
+                {/* <View style={styles.markerStyles}>
                 <View style={styles.markerInner}>
                   <SvgUri width="38" height="36" source={ConfirmedHazardIcon} />
                 </View>
               </View> */}
-            </Marker>
-          )}
-        </MapView>
-        <View style={styles.buttonsContainerLeft}>
-          <TouchableOpacity onPress={handleRecenter}>
-            <View style={styles.locationIcon}>
-              <SvgUri width="50" height="50" source={CurrentLocationIcon} />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonsContainerRight}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}
-          >
-            <View style={styles.addIssueButton}>
-              <View style={styles.addIssueIcon}>
-                <SvgUri width="32" height="32" source={AddIssueIcon} />
+              </Marker>
+            )}
+          </MapView>
+          <View style={styles.buttonsContainerLeft}>
+            <TouchableOpacity onPress={handleRecenter}>
+              <View style={styles.locationIcon}>
+                <SvgUri width="50" height="50" source={CurrentLocationIcon} />
               </View>
-              <Text style={styles.addIssueText}>
-                <FormattedMessage
-                  id="home.addIsuue"
-                  defaultMessage="Add Issue"
-                />
-              </Text>
-            </View>
-          </TouchableOpacity>
-          {!isStaff && (
-            <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
-              <View style={styles.nearbyIssueButton}>
-                <View style={styles.nearbyIssueIcon}>
-                  <SvgUri width="32" height="32" source={NearbyIssuesIcon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonsContainerRight}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(routes.REPORT_INCIDENT)}
+            >
+              <View style={styles.addIssueButton}>
+                <View style={styles.addIssueIcon}>
+                  <SvgUri width="32" height="32" source={AddIssueIcon} />
                 </View>
                 <Text style={styles.addIssueText}>
                   <FormattedMessage
-                    id="home.nearbyIssues"
-                    defaultMessage="Nearby Issues"
+                    id="home.addIsuue"
+                    defaultMessage="Add Issue"
                   />
                 </Text>
               </View>
             </TouchableOpacity>
-          )}
-        </View>
-      </View>
-      <DBottomSheet
-        isOpen={isSheetVisible}
-        onClose={() => setIsSheetVisible(false)}
-      >
-        <View style={styles.bottomSHeader}>
-          <Text style={styles.bottomSText}>
-            <FormattedMessage
-              id="Nearby.layout"
-              defaultMessage="Nearby Active Issues"
-            />
-          </Text>
-          <TouchableOpacity onPress={handleViewAllPress}>
-            <Text style={styles.viewAllText}>View All</Text>
-          </TouchableOpacity>
-        </View>
-        {nearbyIssues?.map((issue) => (
-          <View key={issue.id}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                handleCardPress(issue);
-                setIsSheetVisible(false);
-              }}
-            >
-              <View>
-                <IncidentCard {...issue} />
-              </View>
-            </TouchableWithoutFeedback>
-            <View style={styles.separator} />
+            {!isStaff && (
+              <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
+                <View style={styles.nearbyIssueButton}>
+                  <View style={styles.nearbyIssueIcon}>
+                    <SvgUri width="32" height="32" source={NearbyIssuesIcon} />
+                  </View>
+                  <Text style={styles.addIssueText}>
+                    <FormattedMessage
+                      id="home.nearbyIssues"
+                      defaultMessage="Nearby Issues"
+                    />
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
           </View>
-        ))}
-      </DBottomSheet>
-    </View>
+        </View>
+        <DBottomSheet
+          isOpen={isSheetVisible}
+          onClose={() => setIsSheetVisible(false)}
+        >
+          <View style={styles.bottomSHeader}>
+            <Text style={styles.bottomSText}>
+              <FormattedMessage
+                id="Nearby.layout"
+                defaultMessage="Nearby Active Issues"
+              />
+            </Text>
+            <TouchableOpacity onPress={handleViewAllPress}>
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          {nearbyIssues?.map((issue) => (
+            <View key={issue.id}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  handleCardPress(issue);
+                  setIsSheetVisible(false);
+                }}
+              >
+                <View>
+                  <IncidentCard {...issue} />
+                </View>
+              </TouchableWithoutFeedback>
+              <View style={styles.separator} />
+            </View>
+          ))}
+        </DBottomSheet>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -443,9 +423,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     position: "absolute",
-    left: 2,
-    right: 2,
-    top: 10,
+    left: 0,
+    top: 44,
     zIndex: 99,
     elevation: 99,
     flexDirection: "row",
@@ -454,7 +433,7 @@ const styles = StyleSheet.create({
   },
   numOfIssuesCardContainer: {
     position: "absolute",
-    top: 110,
+    top: 132,
     left: "50%",
     transform: [{ translateX: -110 }],
     zIndex: 98,
@@ -463,15 +442,15 @@ const styles = StyleSheet.create({
   buttonsContainerLeft: {
     position: "absolute",
     left: 30,
-    bottom: 105,
+    bottom: 132,
     borderRadius: 50,
   },
   buttonsContainerRight: {
     position: "absolute",
     display: "flex",
-    alignItems: "center",
-    right: -15,
-    bottom: 95,
+    alignItems: "flex-end", // Align items to the right
+    right: 16,
+    bottom: 120,
     gap: 20,
     flexDirection: "column",
     justifyContent: "center",
@@ -531,13 +510,14 @@ const styles = StyleSheet.create({
   },
   incidentQuickViewContainer: {
     position: "absolute",
-    padding: 10,
+    padding: 16,
     paddingTop: 5,
-    top: 0,
+    top: 10,
     left: 0,
     backgroundColor: "transparent",
     width: screenWidth,
     height: screenHeight,
+    zIndex: 3,
   },
   addIssueText: {
     color: "black",
@@ -545,12 +525,17 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 12,
+    marginTop: 5,
+    textAlign: "right",
+    alignContent: "right",
+    justifyContent: "right",
   },
   addIssueButton: {
     display: "flex",
-    alignItems: "center",
-    marginRight: 20,
+    alignItems: "flex-end",
+    flexDirection: "column",
+    marginRight: 0,
   },
   addIssueIcon: {
     backgroundColor: "white",
@@ -563,8 +548,9 @@ const styles = StyleSheet.create({
   },
   nearbyIssueButton: {
     display: "flex",
-    alignItems: "center",
-    marginRight: 20,
+    alignItems: "flex-end",
+    flexDirection: "column",
+    marginRight: 0,
   },
   nearbyIssueIcon: {
     backgroundColor: "white",
@@ -574,6 +560,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
+    color: "green",
   },
   notificationButton: {
     backgroundColor: "white",
@@ -600,5 +587,17 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     borderColor: "rgba(0,0,0,.2)",
     elevation: 5,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: screenWidth,
+    height: screenHeight,
+    backgroundColor: "black",
+    opacity: 0.5,
+    zIndex: 2, // Ensure it's below the quick view container
   },
 });
