@@ -1,6 +1,5 @@
-import * as Location from "expo-location";
-
 import { Text, View } from "@gluestack-ui/themed";
+import * as Location from "expo-location";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -46,7 +45,6 @@ const Home = ({ navigation, route }) => {
   const [searchValue, setSearchValue] = useState("");
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [searchContainerWidth, setSearchContainerWidth] = useState(screenWidth);
   const mapRef = useRef(null);
 
   const { successType, coordinates } = route?.params ?? {};
@@ -222,19 +220,11 @@ const Home = ({ navigation, route }) => {
             <Animated.View style={styles.overlay} />
           </TouchableWithoutFeedback>
         )}
-        <View
-          style={styles.searchContainer}
-          onLayout={(event) => {
-            const { width } = event.nativeEvent.layout;
-            const adjustedWidth = width - 40; // Subtracting pixels for left and right margins
-            setSearchContainerWidth(adjustedWidth);
-          }}
-        >
+        <View style={styles.searchContainer}>
           <Search
             value={searchValue}
             onChange={handleSearchChange}
             onSelect={handleSearchSelect}
-            containerWidth={searchContainerWidth}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
@@ -433,9 +423,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     position: "absolute",
-    left: 2,
-    right: 2,
-    top: 10,
+    left: 0,
+    top: 44,
     zIndex: 99,
     elevation: 99,
     flexDirection: "row",
