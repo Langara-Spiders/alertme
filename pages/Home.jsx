@@ -42,6 +42,7 @@ const Home = ({ navigation, route }) => {
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
+  const [searchContainerWidth, setSearchContainerWidth] = useState(screenWidth);
   const [searchValue, setSearchValue] = useState("");
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -220,11 +221,19 @@ const Home = ({ navigation, route }) => {
             <Animated.View style={styles.overlay} />
           </TouchableWithoutFeedback>
         )}
-        <View style={styles.searchContainer}>
+         <View
+          style={styles.searchContainer}
+          onLayout={(event) => {
+            const { width } = event.nativeEvent.layout;
+            const adjustedWidth = width - 40; // Subtracting pixels for left and right margins
+            setSearchContainerWidth(adjustedWidth);
+          }}
+        >
           <Search
             value={searchValue}
             onChange={handleSearchChange}
             onSelect={handleSearchSelect}
+            containerWidth={searchContainerWidth}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
