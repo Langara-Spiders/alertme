@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 import { en, fr } from "./lang";
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -37,14 +37,14 @@ export default function App() {
       locale={locale}
       defaultLocale="en"
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
         <WebSocketProvider>
           <GluestackUIProvider config={configLight}>
-            <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
-            <RootNavigator />
+            <StatusBar barStyle="dark-content" backgroundColor="white" />
+            <RootNavigator style={{ backgroundColor: "white" }} />
           </GluestackUIProvider>
         </WebSocketProvider>
-      </SafeAreaView>
+      </View>
     </IntlProvider>
   );
 }

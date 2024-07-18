@@ -1,17 +1,8 @@
 import { Text, View } from "@gluestack-ui/themed";
-import {
-  CivilianIncidentsOrg,
-  Home,
-  Profile,
-  Rewards,
-  SiteIncidentsOrg,
-  UserIncidents,
-} from "../pages";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import home1 from "../assets/icons/home-out.svg";
 import home from "../assets/icons/home.svg";
@@ -24,14 +15,23 @@ import rewards from "../assets/icons/rewards.svg";
 import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
 import siteIssue from "../assets/icons/siteIssues.svg";
 import { routes } from "../constants";
+import {
+  CivilianIncidentsOrg,
+  Home,
+  Profile,
+  Rewards,
+  SiteIncidentsOrg,
+  UserIncidents,
+} from "../pages";
 import { useStore } from "../store";
 
-// Sample user_type data
-// ***************
-// For now this is only for testing.
-const user_type = {
-  type: "xx",
-};
+const SafeAreaWrapper = ({ children, backgroundColor }) => (
+  <SafeAreaView
+    style={{ flex: 1, backgroundColor: backgroundColor || "white" }}
+  >
+    {children}
+  </SafeAreaView>
+);
 
 const Tab = createBottomTabNavigator();
 
@@ -42,12 +42,12 @@ const TabNavigator = (props) => {
   return (
     <Tab.Navigator
       initialRouteName={routes.HOME}
-      screenOptions={({ route }) => ({
+      screenOptions={{
         headerShown: false,
         tabBarInactiveTintColor: "gray",
         tabBarStyle: styles.tabBarStyle,
         tabBarShowLabel: false,
-      })}
+      }}
     >
       <Tab.Screen
         name={routes.HOME}
@@ -56,7 +56,7 @@ const TabNavigator = (props) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View
-              style={[styles.container, focused && styles.focusedContainer]}
+              style={[styles.iconContainer, focused && styles.focusedContainer]}
             >
               <SvgUri width="28" height="28" source={focused ? home1 : home} />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
@@ -70,11 +70,13 @@ const TabNavigator = (props) => {
         <>
           <Tab.Screen
             name={routes.CIVILIAN_INCIDENTS_ORG}
-            component={CivilianIncidentsOrg}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View
-                  style={[styles.container, focused && styles.focusedContainer]}
+                  style={[
+                    styles.iconContainer,
+                    focused && styles.focusedContainer,
+                  ]}
                 >
                   <SvgUri
                     width="28"
@@ -92,14 +94,22 @@ const TabNavigator = (props) => {
                 </View>
               ),
             }}
-          />
+          >
+            {(props) => (
+              <SafeAreaWrapper backgroundColor="white">
+                <CivilianIncidentsOrg {...props} />
+              </SafeAreaWrapper>
+            )}
+          </Tab.Screen>
           <Tab.Screen
             name={routes.SITE_INCIDENTS_ORG}
-            component={SiteIncidentsOrg}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View
-                  style={[styles.container, focused && styles.focusedContainer]}
+                  style={[
+                    styles.iconContainer,
+                    focused && styles.focusedContainer,
+                  ]}
                 >
                   <SvgUri
                     width="28"
@@ -114,17 +124,25 @@ const TabNavigator = (props) => {
                 </View>
               ),
             }}
-          />
+          >
+            {(props) => (
+              <SafeAreaWrapper backgroundColor="white">
+                <SiteIncidentsOrg {...props} />
+              </SafeAreaWrapper>
+            )}
+          </Tab.Screen>
         </>
       ) : (
         <>
           <Tab.Screen
             name={routes.MY_INCIDENTS}
-            component={UserIncidents}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View
-                  style={[styles.container, focused && styles.focusedContainer]}
+                  style={[
+                    styles.iconContainer,
+                    focused && styles.focusedContainer,
+                  ]}
                 >
                   <SvgUri
                     width="28"
@@ -142,14 +160,23 @@ const TabNavigator = (props) => {
                 </View>
               ),
             }}
-          />
+          >
+            {(props) => (
+              <SafeAreaWrapper backgroundColor="white">
+                <UserIncidents {...props} />
+              </SafeAreaWrapper>
+            )}
+          </Tab.Screen>
           <Tab.Screen
             name={routes.REWARDS}
             component={Rewards}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View
-                  style={[styles.container, focused && styles.focusedContainer]}
+                  style={[
+                    styles.iconContainer,
+                    focused && styles.focusedContainer,
+                  ]}
                 >
                   <SvgUri
                     width="28"
@@ -176,7 +203,7 @@ const TabNavigator = (props) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View
-              style={[styles.container, focused && styles.focusedContainer]}
+              style={[styles.iconContainer, focused && styles.focusedContainer]}
             >
               <SvgUri
                 width="28"
@@ -199,6 +226,14 @@ const styles = StyleSheet.create({
   icon: {
     tintColor: "black",
   },
+  iconContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "auto",
+    height: "auto",
+    marginTop: 30,
+  },
   container: {
     flexDirection: "column",
     alignItems: "center",
@@ -213,15 +248,16 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 30, // Ensure the centered position
   },
   tabBarStyle: {
     position: "absolute",
-    bottom: 15,
+    bottom: 32,
     left: 16,
     right: 16,
     elevation: 5,
     borderRadius: 15,
-    height: 75,
+    height: 76,
     shadowColor: "gray",
     shadowOffset: {
       width: 0,
@@ -234,10 +270,12 @@ const styles = StyleSheet.create({
   focusedText: {
     color: "#FF6B00",
     fontSize: 10,
-    fontWeight: 600,
+    fontWeight: "600",
+    marginTop: 5, // Ensure the centered position
   },
   defaultText: {
     color: "black",
     fontSize: 10,
+    marginTop: 5, // Ensure the centered position
   },
 });

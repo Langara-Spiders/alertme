@@ -152,13 +152,13 @@ const ReportIncident = () => {
                 defaultMessage: "Issue Subject",
               })}
               value={incidentSubject}
-              onChange={(text) => {
+              onChangeText={(text) => {
                 setIncidentSubject(text);
               }}
             />
             <LocationInput
               value={address}
-              onChange={changeAddress}
+              onChangeText={changeAddress}
               onSelect={(e) => setSelectedAddress(e)}
             />
             <Input
@@ -171,7 +171,7 @@ const ReportIncident = () => {
                 defaultMessage: "Issue Description",
               })}
               value={incidentDescription}
-              onChange={(text) => {
+              onChangeText={(text) => {
                 setIncidentDescription(text);
               }}
               multiline

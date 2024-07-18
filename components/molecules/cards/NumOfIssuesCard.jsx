@@ -12,18 +12,18 @@ const NumOfIssuesCard = (props) => {
 
   const textname = intl.formatMessage({
     id: "ComponentAtom.numOfIssuesCard.textMessage",
-    defaultMessage: "Issues Reported ",
+    defaultMessage: "Issues Reported",
   });
 
   const textnamesub = intl.formatMessage({
     id: "ComponentAtom.numOfIssuesCard.textMessage",
-    defaultMessage: "Around You",
+    defaultMessage: "Around you",
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <SvgUri width="40" height="40" source={HazardIcon} />
+        <SvgUri width="30" height="30" source={HazardIcon} />
       </View>
       <View style={styles.textDivide}>
         <Text style={styles.text1}>
@@ -41,35 +41,30 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#18191A",
-    padding: 10,
-    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    width: "auto",
   },
   iconContainer: {
     backgroundColor: "#6A5300",
-    margin: 5,
     borderRadius: 10,
-    width: 50,
-    height: 50,
-    flexDirection: "row",
-    alignItems: "center",
+    padding: 5,
+    marginRight: 10,
     justifyContent: "center",
-    textAlign: "center",
+    alignItems: "center",
   },
   textDivide: {
     flexDirection: "column",
-    alignItems: "start",
     justifyContent: "center",
   },
   text1: {
-    marginLeft: 10,
     fontSize: 16,
     fontWeight: "bold",
     color: "#C2C7C8",
   },
   text2: {
-    marginLeft: 10,
     fontSize: 14,
     color: "#C2C7C8",
   },
