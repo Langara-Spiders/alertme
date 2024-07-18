@@ -1,5 +1,6 @@
-import { Text, View } from "@gluestack-ui/themed";
 import * as Location from "expo-location";
+
+import { Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -46,9 +47,10 @@ const Home = ({ navigation, route }) => {
   const [searchValue, setSearchValue] = useState("");
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [highlightedMarkerId, setHighlightedMarkerId] = useState(null);
   const mapRef = useRef(null);
 
-  const { successType, coordinates } = route?.params ?? {};
+  const { successType, coordinates, markerId } = route?.params ?? {};
   const { isStaff } = route.params;
   const isFocused = useIsFocused();
 
@@ -71,6 +73,9 @@ const Home = ({ navigation, route }) => {
     }
     if (successType?.startsWith("post") || successType?.startsWith("animate")) {
       animateToMap(coordinates?.lat, coordinates?.lng);
+      setHighlightedMarkerId(markerId);
+      setShowQuickView(false);
+      setQuickViewIssue(null);
     }
   }, [successType]);
 
@@ -102,8 +107,10 @@ const Home = ({ navigation, route }) => {
       setSearchValue("");
       setSelectedLocation(null);
     } else {
-      // Recenter the map to the current location
-      handleRecenter();
+      // Recenter the map to the current location if coordinates are not provided
+      if (!coordinates) {
+        handleRecenter();
+      }
     }
   }, [isFocused]);
 
@@ -146,26 +153,23 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleMarkerPress = (issue) => {
-    setQuickViewIssue(null);
-    setShowQuickView(true);
     setQuickViewIssue(issue);
-    // Animated.timing(opacity, {
-    //   toValue: 1,
-    //   duration: 500,
-    //   useNativeDriver: true,
-    // }).start();
+    setShowQuickView(true);
+    setHighlightedMarkerId(issue.id); // Set the highlighted marker ID
   };
 
   const animateToMap = (latitude, longitude) => {
-    mapRef?.current?.animateToRegion(
-      {
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-      1000
-    );
+    if (latitude && longitude) {
+      mapRef?.current?.animateToRegion(
+        {
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        1000
+      );
+    }
   };
 
   const opacity = useRef(new Animated.Value(0)).current;
@@ -208,8 +212,13 @@ const Home = ({ navigation, route }) => {
     }, 0);
   };
 
+  const handleMapPress = () => {
+    setHighlightedMarkerId(null);
+    setShowQuickView(false);
+  };
+
   return (
-    <TouchableWithoutFeedback onPress={() => setShowQuickView(false)}>
+    <TouchableWithoutFeedback onPress={handleMapPress}>
       <View style={{ flex: 1, backgroundColor: "white" }}>
         {showSuccessCard && (
           <Animated.View style={styles.successCardContainer}>
@@ -221,7 +230,7 @@ const Home = ({ navigation, route }) => {
             <Animated.View style={styles.overlay} />
           </TouchableWithoutFeedback>
         )}
-         <View
+        <View
           style={styles.searchContainer}
           onLayout={(event) => {
             const { width } = event.nativeEvent.layout;
@@ -283,6 +292,7 @@ const Home = ({ navigation, route }) => {
               latitudeDelta: 0.02,
               longitudeDelta: 0.03,
             }}
+            onPress={handleMapPress} // Clear highlight and quick card when map is pressed
           >
             {nearbyIssues?.map((issue) => {
               if (
@@ -301,11 +311,23 @@ const Home = ({ navigation, route }) => {
                     highlighted={false}
                     onPress={() => handleMarkerPress(issue)}
                   >
-                    <View style={styles.markerStyles}>
-                      <View style={styles.markerInner}>
+                    <View
+                      style={[
+                        styles.markerStyles,
+                        highlightedMarkerId === issue.id &&
+                          styles.highlightedMarkerOuter,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.markerInner,
+                          highlightedMarkerId === issue.id &&
+                            styles.highlightedMarkerInner, // highlighting style
+                        ]}
+                      >
                         <SvgUri
-                          width="38"
-                          height="36"
+                          width="30"
+                          height="28"
                           source={
                             issue.reported_by === "USER" &&
                             issue.is_accepted_by_org
@@ -586,7 +608,7 @@ const styles = StyleSheet.create({
   markerStyles: {
     borderColor: "rgba(0,0,0,.1)",
     borderRadius: 50,
-    borderWidth: 15,
+    borderWidth: 10,
   },
   markerInner: {
     borderRadius: 50,
@@ -594,8 +616,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 10,
+    padding: 5,
     borderColor: "rgba(0,0,0,.2)",
     elevation: 5,
+  },
+  highlightedMarkerOuter: {
+    borderColor: "rgba(255, 145, 64, 0.2)",
+    borderRadius: 50,
+    borderWidth: 15,
+  },
+  highlightedMarkerInner: {
+    borderRadius: 50,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 10,
+    elevation: 5,
+    borderColor: "rgba(255, 145, 64, 0.5)",
   },
   overlay: {
     position: "absolute",
