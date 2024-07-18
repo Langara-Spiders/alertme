@@ -10,7 +10,12 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { NumOfIssuesCard, Search, SuccessCard } from "../components/molecules";
+import {
+  NearbyIncidentCard,
+  NumOfIssuesCard,
+  Search,
+  SuccessCard,
+} from "../components/molecules";
 
 import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
@@ -426,7 +431,7 @@ const Home = ({ navigation, route }) => {
                 }}
               >
                 <View>
-                  <IncidentCard {...issue} />
+                  <NearbyIncidentCard {...issue} />
                 </View>
               </TouchableWithoutFeedback>
               <View style={styles.separator} />
