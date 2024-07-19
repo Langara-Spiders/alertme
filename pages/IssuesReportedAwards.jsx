@@ -1,8 +1,9 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import InfoSheet from "../components/organisms/InfoSheet";
 
-import React from "react";
+import React, { useState } from "react";
 
 // Import all active badges
 const A1 = require("../assets/badges/A1.png");
@@ -219,6 +220,7 @@ export { activeBadges, inactiveBadges };
 const IssuesReportedAwards = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const { totalReported, earnedBadges, earnedPoints, achievedLevel } =
     route.params;
@@ -235,7 +237,7 @@ const IssuesReportedAwards = () => {
       <View key={index} style={styles.badgeItem}>
         <Image source={BadgeComponent} style={styles.badgeImage} />
         <Text style={styles.badgeText}>{badgeText}</Text>
-        <Text style={styles.badgeReports}>{100} points</Text>
+        <Text style={styles.badgeReports}>100 points</Text>
       </View>
     );
   };
@@ -245,6 +247,12 @@ const IssuesReportedAwards = () => {
       <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
       <View style={styles.header}>
         <Text style={styles.headerText}>Issues Reported Awards</Text>
+        <TouchableOpacity onPress={() => setIsSheetOpen(true)}>
+          <Image
+            source={require("../assets/icons/InfoIcon.png")} // Replace with actual path to your info icon
+            style={styles.infoIcon}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.achievementContainer}>
         <Text style={styles.achievementTitle}>
@@ -274,6 +282,7 @@ const IssuesReportedAwards = () => {
           {Array.from({ length: 48 }).map((_, index) => renderBadge(index))}
         </View>
       </View>
+      <InfoSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} />
     </ScrollView>
   );
 };
@@ -292,12 +301,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   header: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
   },
   headerText: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  infoIcon: {
+    width: 24,
+    height: 24,
   },
   achievementContainer: {
     backgroundColor: "#F5F5F5",
