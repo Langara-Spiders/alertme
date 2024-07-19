@@ -91,7 +91,7 @@ const IncidentCard = (props) => {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {props.address?.street_address ?? "Address unavailable"}
+              {props.address?.fullAddress ?? "Address unavailable"}
             </Text>
           </View>
           <View style={styles.footer}>
@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    height: 166,
   },
   infoContainer: {
     flex: 1,
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "#919A9C",
     fontFamily: "Public Sans",
-    fontSize: 12,
+    fontSize: 10,
     fontStyle: "normal",
     fontWeight: "400",
     marginTop: 4,

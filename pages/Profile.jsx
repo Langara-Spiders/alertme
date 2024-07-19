@@ -31,6 +31,8 @@ const Profile = (props) => {
       resetUser();
       axios.defaults.headers.common["Authorization"] = "";
     }
+
+    navigation.reset({ index: 1, routes: [{ name: routes.HOME }] });
     navigation.navigate(routes.LOGIN);
   };
 
