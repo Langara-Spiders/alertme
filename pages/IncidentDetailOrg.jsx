@@ -324,6 +324,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
             navigation.navigate(routes.HOME, {
               successType: `animateTo-${uniqueId()}`,
               coordinates: incident?.coordinates,
+              markerId: incident_id,
             })
           }
           style={styles.locationText}
