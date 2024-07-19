@@ -92,7 +92,7 @@ const Home = ({ navigation, route }) => {
     handleRecenter();
     const interval = setInterval(() => {
       getNearbyIncidentAPICall();
-    }, 30000);
+    }, 5000);
 
     // Show the card when the component mounts
     setShowNumOfIssuesCard(true);
