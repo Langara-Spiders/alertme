@@ -27,7 +27,7 @@ export default NotificationCard;
 const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F3F4F4",
     padding: 15,
     marginVertical: 5,
     marginHorizontal: 10,

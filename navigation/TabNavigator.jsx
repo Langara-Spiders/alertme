@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30, // Ensure the centered position
+    marginTop: 30,
   },
   tabBarStyle: {
     position: "absolute",
@@ -271,11 +271,11 @@ const styles = StyleSheet.create({
     color: "#FF6B00",
     fontSize: 10,
     fontWeight: "600",
-    marginTop: 5, // Ensure the centered position
+    marginTop: 5,
   },
   defaultText: {
     color: "black",
     fontSize: 10,
-    marginTop: 5, // Ensure the centered position
+    marginTop: 5,
   },
 });

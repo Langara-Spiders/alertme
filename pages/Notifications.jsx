@@ -1,9 +1,10 @@
-import { ScrollView, Text, View } from "@gluestack-ui/themed";
-import React, { useContext, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-
+import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { NotificationCard } from "../components/molecules";
 import { routes } from "../constants";
 import { WebSocketContext } from "../utils/WebSocketProvider";
@@ -33,93 +34,112 @@ const Notifications = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            activeButton === "all"
-              ? styles.activeButton
-              : styles.inactiveButton,
-          ]}
-          onPress={() => handleButtonPress("all")}
+        <Pressable
+          onPress={() => navigation.navigate("Home")}
+          style={styles.iconContainer}
         >
-          <Text
-            style={[
-              styles.buttonText,
-              activeButton === "all"
-                ? styles.activeButtonText
-                : styles.inactiveButtonText,
-            ]}
-          >
-            <FormattedMessage id="notifications.button1" defaultMessage="All" />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            activeButton === "read"
-              ? styles.activeButton
-              : styles.inactiveButton,
-          ]}
-          onPress={() => handleButtonPress("read")}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              activeButton === "read"
-                ? styles.activeButtonText
-                : styles.inactiveButtonText,
-            ]}
-          >
-            <FormattedMessage
-              id="notifications.button2"
-              defaultMessage="Read"
-            />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            activeButton === "unread"
-              ? styles.activeButton
-              : styles.inactiveButton,
-          ]}
-          onPress={() => handleButtonPress("unread")}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              activeButton === "unread"
-                ? styles.activeButtonText
-                : styles.inactiveButtonText,
-            ]}
-          >
-            <FormattedMessage
-              id="notifications.button3"
-              defaultMessage="Unread"
-            />
-          </Text>
-        </TouchableOpacity>
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
+        <Text style={styles.headerText}>Notifications</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        {filteredNotifications.map((notificationItem, index) => (
+      <View style={styles.filterContainer}>
+        <View style={styles.header}>
           <TouchableOpacity
-            style={{ width: "100%" }}
-            onPress={() =>
-              navigation.navigate(routes.INCIDENT_DETAIL, {
-                incident_id: notificationItem.incident_id,
-              })
-            }
+            style={[
+              styles.button,
+              activeButton === "all"
+                ? styles.activeButton
+                : styles.inactiveButton,
+            ]}
+            onPress={() => handleButtonPress("all")}
           >
-            <NotificationCard
-              key={notificationItem.incident_id}
-              title={notificationItem.title}
-              description={notificationItem.description}
-              timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
-              read={notificationItem.read_flag} // Use read_flag based on your data structure
-            />
+            <Text
+              style={[
+                styles.buttonText,
+                activeButton === "all"
+                  ? styles.activeButtonText
+                  : styles.inactiveButtonText,
+              ]}
+            >
+              <FormattedMessage
+                id="notifications.button1"
+                defaultMessage="All"
+              />
+            </Text>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              activeButton === "read"
+                ? styles.activeButton
+                : styles.inactiveButton,
+            ]}
+            onPress={() => handleButtonPress("read")}
+          >
+            <Text
+              style={[
+                styles.buttonText,
+                activeButton === "read"
+                  ? styles.activeButtonText
+                  : styles.inactiveButtonText,
+              ]}
+            >
+              <FormattedMessage
+                id="notifications.button2"
+                defaultMessage="Read"
+              />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              activeButton === "unread"
+                ? styles.activeButton
+                : styles.inactiveButton,
+            ]}
+            onPress={() => handleButtonPress("unread")}
+          >
+            <Text
+              style={[
+                styles.buttonText,
+                activeButton === "unread"
+                  ? styles.activeButtonText
+                  : styles.inactiveButtonText,
+              ]}
+            >
+              <FormattedMessage
+                id="notifications.button3"
+                defaultMessage="Unread"
+              />
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          {filteredNotifications.map((notificationItem, index) => (
+            <TouchableOpacity
+              style={{ width: "100%" }}
+              onPress={() =>
+                navigation.navigate(routes.INCIDENT_DETAIL, {
+                  incident_id: notificationItem.incident_id,
+                })
+              }
+            >
+              <NotificationCard
+                key={notificationItem.incident_id}
+                title={notificationItem.title}
+                description={notificationItem.description}
+                timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
+                read={notificationItem.read_flag} // Use read_flag based on your data structure
+              />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -129,40 +149,69 @@ export default Notifications;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#ffffff",
+    padding: 16,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
-    backgroundColor: "#ffffff",
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 90,
+    height: 32,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 20,
-    marginRight: 10,
+    marginRight: 6,
+  },
+  filterContainer: {
+    marginTop: 12,
   },
   activeButton: {
     backgroundColor: "#ff6600",
   },
   inactiveButton: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F3F4F4",
     borderWidth: 1,
-    borderColor: "#ff6600",
+    borderColor: "#F3F4F4",
   },
   buttonText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    color: "#FFF",
+    fontFamily: "Public Sans",
+    fontSize: 12,
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: 14.4,
   },
   activeButtonText: {
     color: "#ffffff",
   },
   inactiveButtonText: {
-    color: "#ff6600",
+    color: "#636C6E",
   },
   scrollView: {
     alignItems: "center",
+    justifyContent: "center",
     paddingBottom: 20,
     marginTop: 25,
   },

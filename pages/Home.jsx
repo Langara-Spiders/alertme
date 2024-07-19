@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import {
-  IncidentCard,
+  NearbyIncidentCard,
   NumOfIssuesCard,
   Search,
   SuccessCard,
@@ -31,7 +31,7 @@ import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
-import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
+import mapStyle from "../utils/mapStyle.json";
 
 const screenWidth = Dimensions.get("screen").width; // Changed from "window" to "screen"
 const screenHeight = Dimensions.get("screen").height;
@@ -410,18 +410,20 @@ const Home = ({ navigation, route }) => {
         <DBottomSheet
           isOpen={isSheetVisible}
           onClose={() => setIsSheetVisible(false)}
+          fixedHeader={
+            <View style={styles.bottomSHeader}>
+              <Text style={styles.bottomSText}>
+                <FormattedMessage
+                  id="Nearby.layout"
+                  defaultMessage="Nearby Active Issues"
+                />
+              </Text>
+              <TouchableOpacity onPress={handleViewAllPress}>
+                <Text style={styles.viewAllText}>View All</Text>
+              </TouchableOpacity>
+            </View>
+          }
         >
-          <View style={styles.bottomSHeader}>
-            <Text style={styles.bottomSText}>
-              <FormattedMessage
-                id="Nearby.layout"
-                defaultMessage="Nearby Active Issues"
-              />
-            </Text>
-            <TouchableOpacity onPress={handleViewAllPress}>
-              <Text style={styles.viewAllText}>View All</Text>
-            </TouchableOpacity>
-          </View>
           {nearbyIssues?.map((issue) => (
             <View key={issue.id}>
               <TouchableWithoutFeedback
@@ -431,7 +433,7 @@ const Home = ({ navigation, route }) => {
                 }}
               >
                 <View>
-                  <IncidentCard {...issue} />
+                  <NearbyIncidentCard {...issue} />
                 </View>
               </TouchableWithoutFeedback>
               <View style={styles.separator} />
