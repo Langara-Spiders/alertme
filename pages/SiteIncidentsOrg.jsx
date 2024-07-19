@@ -92,7 +92,7 @@ const SiteIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "fixing", "resolved"].map((status) => (
+          {["all", "active", "resolved"].map((status) => (
             <TouchableOpacity
               key={status}
               style={[
