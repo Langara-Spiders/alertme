@@ -28,6 +28,7 @@ import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.sv
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import NotificationBellActiveIcon from "../assets/icons/notification-bell-active.svg";
 import NotificationBellIcon from "../assets/icons/notification-bell.svg";
 import LoadingGif from "../assets/loading.gif";
 import IncidentCard from "../components/molecules/cards/IncidentCard";
@@ -272,7 +273,15 @@ const Home = ({ navigation, route }) => {
             onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
           >
             <View style={styles.notificationButton}>
-              <SvgUri width="22" height="22" source={NotificationBellIcon} />
+              <SvgUri
+                width="22"
+                height="22"
+                source={
+                  notificationUpdate
+                    ? NotificationBellActiveIcon
+                    : NotificationBellIcon
+                }
+              />
             </View>
           </TouchableOpacity>
           {showQuickView ? (

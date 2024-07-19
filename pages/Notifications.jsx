@@ -145,7 +145,7 @@ const Notifications = (props) => {
               <NotificationCard
                 key={notificationItem.incident_id}
                 title={notificationItem.title}
-                description={notificationItem.description}
+                description={`${notificationItem.subject}${notificationItem.description ? " - " : ""}${notificationItem.description}`}
                 timeAgo={timeAgo(notificationItem.created_at)}
                 read={notificationItem.read_flag}
               />

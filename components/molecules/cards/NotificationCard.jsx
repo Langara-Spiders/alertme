@@ -13,7 +13,7 @@ const NotificationCard = ({ title, description, timeAgo, read }) => {
       </View>
       <Text
         style={styles.descriptionText}
-        numberOfLines={2}
+        numberOfLines={1}
         ellipsizeMode="tail"
       >
         {description}
