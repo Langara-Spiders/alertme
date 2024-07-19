@@ -1,15 +1,19 @@
-import { ScrollView, Text, View } from "@gluestack-ui/themed";
+import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
 // Import top place banners
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
+import SvgUri from "react-native-svg-uri";
 import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg";
 import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
 import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
+  const navigation = useNavigation();
 
   const calculateLevel = (points) => {
     return Math.floor(points / 5) + 1;
@@ -25,6 +29,20 @@ const Leaderboard = (props) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
+        <Text style={styles.headerText}>Leaderboard</Text>
+      </View>
       <View style={styles.topThreeContainer}>
         <View style={styles.secondPlace}>
           <TopThreeCard
@@ -84,12 +102,36 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF0E5",
     padding: 20,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
+    color: "#0B0C0C",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#0B0C0C",
+  },
   topThreeContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "flex-end",
     marginBottom: 20,
-    marginTop: 64,
+    marginTop: 84,
   },
   firstPlace: {
     alignItems: "center",

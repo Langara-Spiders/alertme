@@ -151,7 +151,7 @@ const LocationInput = (props) => {
             data={suggestions}
             keyExtractor={(item, index) => index.toString()}
             renderItem={renderItem}
-            style={[styles.suggestionsList, { width: inputWidth }]}
+            style={[styles.suggestionsList, { width: inputWidth - 20 }]}
           />
         </View>
       )}
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F3F4F4",
   },
   suggestion: {
-    zIndex: 999,
+    paddingVertical: 10,
     color: "black",
+    zIndex: 999,
   },
 });

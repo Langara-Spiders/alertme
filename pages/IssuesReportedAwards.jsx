@@ -1,8 +1,10 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { Image, Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
-import React from "react";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import InfoSheet from "../components/organisms/InfoSheet";
 
 // Import all active badges
 const A1 = require("../assets/badges/A1.png");
@@ -219,6 +221,7 @@ export { activeBadges, inactiveBadges };
 const IssuesReportedAwards = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const { totalReported, earnedBadges, earnedPoints, achievedLevel } =
     route.params;
@@ -235,16 +238,32 @@ const IssuesReportedAwards = () => {
       <View key={index} style={styles.badgeItem}>
         <Image source={BadgeComponent} style={styles.badgeImage} />
         <Text style={styles.badgeText}>{badgeText}</Text>
-        <Text style={styles.badgeReports}>{100} points</Text>
+        <Text style={styles.badgeReports}>100 points</Text>
       </View>
     );
   };
 
   return (
     <ScrollView style={styles.container} fadingEdgeLength={150}>
-      <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
       <View style={styles.header}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
         <Text style={styles.headerText}>Issues Reported Awards</Text>
+        <TouchableOpacity onPress={() => setIsSheetOpen(true)}>
+          <Image
+            source={require("../assets/icons/InfoIcon.png")} // Replace with actual path to your info icon
+            style={styles.infoIcon}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.achievementContainer}>
         <Text style={styles.achievementTitle}>
@@ -274,6 +293,7 @@ const IssuesReportedAwards = () => {
           {Array.from({ length: 48 }).map((_, index) => renderBadge(index))}
         </View>
       </View>
+      <InfoSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} />
     </ScrollView>
   );
 };
@@ -292,12 +312,32 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   header: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
   },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
+  },
   headerText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
+  },
+  infoIcon: {
+    width: 24,
+    height: 24,
   },
   achievementContainer: {
     backgroundColor: "#F5F5F5",

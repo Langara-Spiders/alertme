@@ -49,11 +49,46 @@ const getCategories = async () => {
   }
 };
 
+const getMimeType = (fileName) => {
+  const extension = fileName.split(".").pop().toLowerCase();
+  switch (extension) {
+    case "jpg":
+    case "jpeg":
+      return "image/jpeg";
+    case "png":
+      return "image/png";
+    case "gif":
+      return "image/gif";
+    case "bmp":
+      return "image/bmp";
+    case "webp":
+      return "image/webp";
+    case "heic":
+    case "heif":
+      return "image/heif";
+    // Add more cases as needed in future..
+    default:
+      return "application/octet-stream"; // Default binary type, any image will be sent in binary format
+  }
+};
+
 const postIssue = async (report, pictures) => {
   try {
     const formData = new FormData();
     formData.append("report", JSON.stringify(report));
-    for (const picture of pictures) formData.append("pictures", picture);
+
+    for (const picture of pictures) {
+      const fileName = picture.name || `photo_${Date.now()}`;
+      const mimeType = picture.type || getMimeType(fileName);
+
+      const file = {
+        uri: picture.uri,
+        type: mimeType, // MIME type of the file
+        name: fileName,
+      };
+      formData.append("pictures", file);
+    }
+
     const res = await axios.post(`${API_BASE_URL}/incidents/report`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",

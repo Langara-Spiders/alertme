@@ -20,7 +20,8 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
-import { ChevronLeft } from "lucide-react-native";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { routes } from "../constants";
 
 const user_type = {
@@ -114,8 +115,16 @@ const ReportIncident = () => {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={{ backgroundColor: "#fff" }}>
           <View style={styles.header}>
-            <Pressable onPress={() => navigation.navigate("Home")}>
-              <ChevronLeft color="black" size={36} />
+            <Pressable
+              onPress={() => navigation.navigate("Home")}
+              style={styles.iconContainer}
+            >
+              <SvgUri
+                width="24"
+                height="24"
+                source={Back_Icon}
+                style={styles.icon}
+              />
             </Pressable>
             <Text style={styles.headerText}>Add Issue</Text>
           </View>
@@ -152,13 +161,13 @@ const ReportIncident = () => {
                 defaultMessage: "Issue Subject",
               })}
               value={incidentSubject}
-              onChange={(text) => {
+              onChangeText={(text) => {
                 setIncidentSubject(text);
               }}
             />
             <LocationInput
               value={address}
-              onChange={changeAddress}
+              onChangeText={changeAddress}
               onSelect={(e) => setSelectedAddress(e)}
             />
             <Input
@@ -171,7 +180,7 @@ const ReportIncident = () => {
                 defaultMessage: "Issue Description",
               })}
               value={incidentDescription}
-              onChange={(text) => {
+              onChangeText={(text) => {
                 setIncidentDescription(text);
               }}
               multiline
@@ -216,6 +225,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     paddingTop: 30,
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   category: {
     flex: 1,
