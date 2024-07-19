@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+
 import {
   FlatList,
   Pressable,
@@ -5,9 +7,9 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+
 import SvgUri from "react-native-svg-uri";
 import { getCivilianIssuesForOrg } from "../api/incident";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
@@ -82,7 +84,7 @@ const CivilianIncidentsOrg = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>My Posted Issues</Text>
+        <Text style={styles.headerText}>Civilian Reports</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView

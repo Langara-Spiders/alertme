@@ -12,7 +12,7 @@ import { useStore } from "../store";
 import { timeAgo } from "../utils";
 
 const Notifications = (props) => {
-  const { getNotifications } = useStore();
+  const { getNotifications, setNotifications } = useStore();
   const notifications = getNotifications();
 
   const [activeButton, setActiveButton] = useState("all");
@@ -132,11 +132,15 @@ const Notifications = (props) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                setNotifications({
+                  ...notificationItem,
+                  read_flag: true,
+                });
                 navigation.navigate(routes.INCIDENT_DETAIL, {
                   incident_id: notificationItem.incident_id,
-                })
-              }
+                });
+              }}
             >
               <NotificationCard
                 key={notificationItem.incident_id}

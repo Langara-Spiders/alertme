@@ -95,10 +95,7 @@ const ReportIncident = () => {
         lat: selectedAddress?.lat,
         lng: selectedAddress?.lon,
       },
-      address: {
-        address_line1: selectedAddress?.formatted,
-        street_address: selectedAddress?.formatted,
-      },
+      address: selectedAddress,
       is_internal_for_org: false,
     };
 

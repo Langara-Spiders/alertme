@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+
 import {
   FlatList,
   Pressable,
@@ -5,9 +7,9 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+
 import SvgUri from "react-native-svg-uri";
 import { getSiteIssuesForOrg } from "../api/incident";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
@@ -82,7 +84,7 @@ const SiteIncidentsOrg = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>My Posted Issues</Text>
+        <Text style={styles.headerText}>Site Reports</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -90,7 +92,7 @@ const SiteIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "internal", "active", "resolved"].map((status) => (
+          {["all", "active", "fixing", "resolved"].map((status) => (
             <TouchableOpacity
               key={status}
               style={[

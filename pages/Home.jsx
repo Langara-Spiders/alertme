@@ -90,9 +90,9 @@ const Home = ({ navigation, route }) => {
   useEffect(() => {
     getNearbyIncidentAPICall();
     handleRecenter();
-    // const interval = setInterval(() => {
-    //   getNearbyIncidentAPICall();
-    // }, 5000);
+    const interval = setInterval(() => {
+      getNearbyIncidentAPICall();
+    }, 30000);
 
     // Show the card when the component mounts
     setShowNumOfIssuesCard(true);
@@ -102,10 +102,10 @@ const Home = ({ navigation, route }) => {
       setShowNumOfIssuesCard(false);
     }, 5000);
 
-    // return () => {
-    //   clearInterval(interval);
-    //   clearTimeout(timer);
-    // };
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {

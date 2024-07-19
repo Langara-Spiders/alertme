@@ -331,7 +331,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           <Text>
             <SvgUri width="16" height="16" source={Location_Spot} />
             {"  "}
-            {incident.address.street_address},{" "}
+            {incident.address.fullAddress},{" "}
             <Text style={styles.viewMap}>View Map</Text>
           </Text>
         </TouchableOpacity>
