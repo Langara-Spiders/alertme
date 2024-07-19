@@ -1,6 +1,6 @@
-import { Icon, StarIcon } from "@gluestack-ui/themed";
 import * as React from "react";
-import { SafeAreaView } from "react-native";
+
+import { Icon, StarIcon } from "@gluestack-ui/themed";
 import {
   About,
   Appearance,
@@ -16,6 +16,7 @@ import {
 } from "../pages";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native";
 import { routes } from "../constants";
 import TabNavigator from "./TabNavigator";
 

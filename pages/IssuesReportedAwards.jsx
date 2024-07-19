@@ -2,6 +2,7 @@ import { Image, Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import InfoSheet from "../components/organisms/InfoSheet";
@@ -238,7 +239,9 @@ const IssuesReportedAwards = () => {
       <View key={index} style={styles.badgeItem}>
         <Image source={BadgeComponent} style={styles.badgeImage} />
         <Text style={styles.badgeText}>{badgeText}</Text>
-        <Text style={styles.badgeReports}>100 points</Text>
+        {index ? (
+          <Text style={styles.badgeReports}>{100 * (index * 1.5)} points</Text>
+        ) : null}
       </View>
     );
   };
@@ -257,7 +260,7 @@ const IssuesReportedAwards = () => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>Issues Reported Awards</Text>
+        <Text style={styles.headerText}>Reward Progress</Text>
         <TouchableOpacity onPress={() => setIsSheetOpen(true)}>
           <Image
             source={require("../assets/icons/InfoIcon.png")} // Replace with actual path to your info icon
@@ -290,7 +293,7 @@ const IssuesReportedAwards = () => {
           time.
         </Text>
         <View style={styles.badgesContainer}>
-          {Array.from({ length: 48 }).map((_, index) => renderBadge(index))}
+          {Array.from({ length: 40 }).map((_, index) => renderBadge(index))}
         </View>
       </View>
       <InfoSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} />
@@ -358,7 +361,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   detailText: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#888",
   },
   detailValue: {

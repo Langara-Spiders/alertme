@@ -193,12 +193,12 @@ const Rewards = (props) => {
         <RewardGreetingCard name={user.name} picture={user.picture} />
       </View>
       <View>
-        <Text style={styles.levelCardText}>
+        {/* <Text style={styles.levelCardText}>
           <FormattedMessage
             id="Rewards.issueReported"
             defaultMessage="Issue Reported"
           />
-        </Text>
+        </Text> */}
       </View>
       <View style={styles.levelCardContainer}>
         <RewardLevelCard

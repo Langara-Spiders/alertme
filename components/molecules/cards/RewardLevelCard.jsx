@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   viewProgressText: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#FF6600",
     textAlign: "center",
   },
