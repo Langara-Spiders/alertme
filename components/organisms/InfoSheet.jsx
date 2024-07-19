@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import {
   Dimensions,
   Easing,
+  Image,
   Modal,
   ScrollView,
   StyleSheet,
@@ -36,31 +37,32 @@ const InfoSheet = ({ isOpen, onClose }) => {
                 animationDuration={200}
               >
                 <ScrollView>
-                  <View style={styles.sheetContent}>
-                    <Text style={styles.title}>
+                  <View style={styles.header}>
+                    <Text style={styles.headerTitle}>
                       Alertme Rewards System Information
                     </Text>
+                    <Image
+                      source={require("../../assets/icons/Reward_screen/InfoSheetBadge.png")} // Replace with your icon URL
+                      style={styles.headerIcon}
+                    />
+                  </View>
+                  <View style={styles.sheetContent}>
                     <Text style={styles.paragraph}>
                       Welcome to the AlertMe rewards system! By participating,
                       you agree to the following terms:
                     </Text>
                     <Text style={styles.subTitle}>1. Reporting Incidents:</Text>
                     <Text style={styles.paragraph}>
-                      • Each time a player reports an incident, they receive 100
-                      points, which equals one badge. • If the reported incident
-                      is upvoted by at least 3 other users, the reporting player
-                      receives an additional 5 points. • If the reported
-                      incident is approved by a construction site worker before
-                      being upvoted by other users, the reporting player
-                      receives an additional 10 points.
+                      • Each time a player reports an incident, they receive 50
+                      points.
                     </Text>
                     <Text style={styles.subTitle}>
                       2. Scam or False Reports:
                     </Text>
                     <Text style={styles.paragraph}>
                       • If a reported incident is found to be untrue or a scam
-                      and is rejected by construction site workers, the
-                      reporting player loses 20 points.
+                      and is rejected by construction site workers no points
+                      awarded.
                     </Text>
                     <Text style={styles.subTitle}>3. High-Impact Reports:</Text>
                     <Text style={styles.paragraph}>
@@ -96,6 +98,26 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFF8E1",
+    padding: 15,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    flex: 1,
+    textAlign: "center",
+    marginRight: 5,
+  },
+  headerIcon: {
+    width: 100,
+    height: 100,
+    marginLeft: 10,
+  },
   sheetContent: {
     padding: 20,
   },
@@ -120,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
     marginHorizontal: 20,
-    marginVertical: 0,
+    marginVertical: 10,
   },
   understoodButtonText: {
     color: "#FFA500",
