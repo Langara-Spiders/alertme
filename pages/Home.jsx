@@ -255,40 +255,6 @@ const Home = ({ navigation, route }) => {
             <SuccessCard type={successType?.split("-")?.at(0)} />
           </Animated.View>
         )}
-        {/* {showQuickView ? (
-          <TouchableOpacity
-            onPress={() => setShowQuickView(false)}
-            style={styles.incidentQuickViewContainer}
-          >
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(routes.INCIDENT_DETAIL, {
-                  incident: quickViewIssue,
-                })
-              }
-            >
-              <IncidentCard
-                id={quickViewIssue?.id}
-                status={quickViewIssue?.status}
-                subject={quickViewIssue?.subject}
-                description={quickViewIssue?.description}
-                address={quickViewIssue?.address}
-                created_at={quickViewIssue?.created_at}
-                upvote_count={quickViewIssue?.upvote_count}
-                images={quickViewIssue?.images}
-                onPress={() => handleCardPress(quickViewIssue)}
-                style={{
-                  position: "absolute",
-                  top: 30,
-                  left: 20,
-                  right: 20,
-                  zIndex: 99,
-                  elevation: 99,
-                }}
-              />
-            </TouchableOpacity>
-          </TouchableOpacity>
-        ) : null} */}
         <View
           style={styles.searchContainer}
           onLayout={(event) => {
