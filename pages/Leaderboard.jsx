@@ -1,8 +1,6 @@
 import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
-// Import top place banners
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
@@ -10,13 +8,15 @@ import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg
 import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
 import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+// Import top place banners
+import { useNavigation } from "@react-navigation/native";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
   const navigation = useNavigation();
 
   const calculateLevel = (points) => {
-    return Math.floor(points / 5) + 1;
+    return Math.floor(points / 150) + 1;
   };
 
   if (!leaderboard || leaderboard.length < 3) {

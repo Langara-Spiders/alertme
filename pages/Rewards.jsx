@@ -180,7 +180,7 @@ const Rewards = (props) => {
   const { user, leaderboard, top_users } = data;
 
   const calculateLevel = (points) => {
-    return Math.floor(points / 100) + 1;
+    return Math.floor(points / 150) + 1;
   };
 
   const getBadgeForLevel = (level) => {
