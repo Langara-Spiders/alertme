@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    width: 160,
-    height: 40,
+    width: 140,
+    height: 30,
     backgroundColor: "#e0e0e0",
     borderRadius: 25,
     padding: 5,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   label: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "bold",
   },
   activeLabel: {

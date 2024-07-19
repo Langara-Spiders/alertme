@@ -1,5 +1,4 @@
 import {
-  Card,
   ChevronDownIcon,
   Icon,
   ScrollView,
@@ -22,6 +21,7 @@ import { Button, SwitchButton, UnitSwitch } from "../atoms";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
+import NotificationAlertDistance from "./cards/NotificationAlertDistance";
 
 const AppSettingArray = [
   { id: "applicationSound", text: "Application Sound" },
@@ -55,14 +55,14 @@ const ProfileAppSettingItems = () => {
   return (
     <ScrollView style={styles.scrollViewContent}>
       <View style={styles.settingItem}>
-        <Text style={styles.settingItem}>
+        <Text style={styles.textLang}>
           <FormattedMessage
             id="profile.appsettingLanguageText"
             defaultMessage="Language"
           />
         </Text>
         <Select>
-          <SelectTrigger variant="outline" size="md">
+          <SelectTrigger style={styles.select} size="md">
             <SelectInput placeholder="English" />
             <SelectIcon mr="$3">
               <Icon as={ChevronDownIcon} />
@@ -81,23 +81,25 @@ const ProfileAppSettingItems = () => {
         </Select>
       </View>
 
-      <View style={{ marginTop: "5%" }}>
-        <Card style={styles.settingItem2}>
-          <Text>
-            <FormattedMessage
-              id="profile.appsettingDistanceUnitText"
-              defaultMessage="Distance Unit"
-            />
-          </Text>
-          <UnitSwitch isKm={isKm} onValueChange={handleUnitSwitchChange} />
-        </Card>
+      <View style={{ marginBottom: 20 }}>
+        <NotificationAlertDistance />
+      </View>
+
+      <View style={styles.settingItem2}>
+        <Text style={styles.text}>
+          <FormattedMessage
+            id="profile.appsettingDistanceUnitText"
+            defaultMessage="Distance Unit"
+          />
+        </Text>
+        <UnitSwitch isKm={isKm} onValueChange={handleUnitSwitchChange} />
       </View>
 
       {AppSettingArray.map((item) => (
         <View key={item.id}>
-          <Card style={styles.settingItem2}>
+          <View style={styles.settingItem2}>
             <View>
-              <Text>
+              <Text style={styles.text}>
                 <FormattedMessage
                   id={`profile.appsettingTextOption.${item.id}`}
                   defaultMessage={item.text}
@@ -109,10 +111,10 @@ const ProfileAppSettingItems = () => {
               <SwitchButton
                 onValueChange={() => handleSwitchChange(item.id)}
                 value={switchValues[item.id]}
-                trackColor={{ false: "#F1F1F1", true: "#FF9900" }}
+                trackColor={{ false: "#e0e0e0", true: "#FF6B00" }}
               />
             </View>
-          </Card>
+          </View>
         </View>
       ))}
 
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   headerText: {
     marginLeft: 10,
@@ -151,15 +153,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
-  },
-  settingItem: {
-    marginBottom: 10,
+    backgroundColor: "#F3F4F4",
+    borderRadius: 10,
+    height: 56,
+    fontSize: 18,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   savebutton: {
-    width: "70%",
-    height: "50%",
+    width: "50%",
     margin: "auto",
-    marginTop: 20,
+  },
+  select: {
+    backgroundColor: "#F3F4F4",
+    height: 56,
+    border: 0,
+    borderWidth: 0,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  switchButtonContainer: {
+    backgroundColor: "#F3F4F4",
+  },
+  textLang: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  text: {
+    fontSize: 18,
   },
 });
 

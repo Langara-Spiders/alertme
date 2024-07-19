@@ -5,7 +5,7 @@ const SwitchButton = (props) => {
   return (
     <SwitchGS
       size={props.size ?? "md"}
-      color={props.color ?? "#FF9900"}
+      color={props.color ?? "#FF6B00"}
       variant={props.variant ?? "solid"}
       action={props.action ?? "primary"}
       isDisabled={props.isDisabled ?? false}
