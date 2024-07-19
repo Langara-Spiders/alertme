@@ -15,6 +15,7 @@ const useStore = create(
         token: "",
         access_token: "",
       },
+      notifications: {},
       getUser: () => get().user,
 
       setUser: (token, access_token) => {
@@ -46,6 +47,18 @@ const useStore = create(
             access_token: "",
           },
         })),
+
+      getNotifications: () => Object.values(get().notifications).reverse(),
+
+      setNotifications: (notification) => {
+        set((state) => {
+          const notifications = {
+            ...state.notifications,
+          };
+          notifications[notification.id] = notification;
+          return { notifications };
+        });
+      },
     }),
     {
       name: "app-storage",

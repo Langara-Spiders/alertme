@@ -10,7 +10,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { getReward } from "../api/user";
-import ABCD from "../assets/images/sample_user.png";
+import LoadingGif from "../assets/loading.gif";
 import { routes } from "../constants";
 
 const A1 = require("../assets/badges/A1.png");
@@ -149,7 +149,12 @@ const Rewards = (props) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <Image source={ABCD} style={styles.loadingIcon} alt="loader image" />
+        <Image
+          source={LoadingGif}
+          style={styles.loadingIcon}
+          alt="loader image"
+        />
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -289,12 +294,13 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   loadingIcon: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
   },
   errorContainer: {
     flex: 1,

@@ -35,7 +35,7 @@ const RewardLevelCard = (props) => {
             <Typography style={styles.statLabel}>
               <FormattedMessage
                 id="RewardLevelCard.earnedPoints"
-                defaultMessage="Earned Points"
+                defaultMessage="Points"
               />
             </Typography>
             <Typography style={styles.statValue}>{props.earned}</Typography>
@@ -44,7 +44,7 @@ const RewardLevelCard = (props) => {
             <Typography style={styles.statLabel}>
               <FormattedMessage
                 id="RewardLevelCard.issuesReported"
-                defaultMessage="Issues Reported"
+                defaultMessage="Reportes"
               />
             </Typography>
             <Typography style={styles.statValue}>{props.reported}</Typography>

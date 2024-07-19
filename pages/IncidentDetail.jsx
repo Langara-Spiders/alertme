@@ -8,11 +8,13 @@ import { LargeActionButton, StatusBadge } from "../components/atoms";
 import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 
 import { uniqueId } from "lodash";
+import { Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import ABCD from "../assets/images/sample_user.png";
+import ImagePlaceHolder from "../assets/icons/TakePicture.svg";
+import LoadingGif from "../assets/loading.gif";
 import { routes } from "../constants";
 import useStore from "../store/useStore";
 import { calculateDistance } from "../utils/CalculateDistance";
@@ -115,7 +117,12 @@ const IncidentDetail = ({ route, navigation }) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <Image source={ABCD} style={styles.loadingIcon} alt="loader image" />
+        <Image
+          source={LoadingGif}
+          style={styles.loadingIcon}
+          alt="loader image"
+        />
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -139,11 +146,16 @@ const IncidentDetail = ({ route, navigation }) => {
               />
             ))
           ) : (
-            <Image
-              source={{ uri: "https://picsum.photos/200/300" }}
-              style={styles.image}
-              alt="Default Incident Image"
-            />
+            <View
+              style={{
+                flex: 1,
+                width: Dimensions.get("window").width,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <SvgUri source={ImagePlaceHolder} alt="Default Incident Image" />
+            </View>
           )}
         </ScrollView>
         <View style={styles.dotsContainer}>
@@ -382,8 +394,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loadingIcon: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
   },
   bottomFixedContainer: {
     position: "absolute",

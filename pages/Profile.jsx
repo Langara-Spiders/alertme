@@ -7,10 +7,11 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import { useEffect, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 
 import axios from "axios";
-import { logout } from "../api";
+import { getProfile, logout } from "../api";
 import ProfileItemsList from "../components/organisms/ProfileItemsList";
 import { routes } from "../constants";
 import { useStore } from "../store";
@@ -20,6 +21,7 @@ const { width: screenWidth } = Dimensions.get("window");
 const Profile = (props) => {
   const { navigation } = props;
   const { getUser, resetUser } = useStore();
+  const [profileImg, setProfileImg] = useState("");
   const { access_token } = getUser();
   const userInfo = getUser();
 
@@ -32,6 +34,15 @@ const Profile = (props) => {
     navigation.navigate(routes.LOGIN);
   };
 
+  const fetchProfileData = async () => {
+    const response = await getProfile();
+    setProfileImg(response?.user?.picture);
+  };
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,9 +53,15 @@ const Profile = (props) => {
         />
         <View style={styles.overlay}>
           <View style={styles.imageContainer}>
-            <Avatar style={styles.avatar}>
-              <AvatarFallbackText>{userInfo.name.charAt(0)}</AvatarFallbackText>
-            </Avatar>
+            {profileImg ? (
+              <Image style={styles.avatar} source={{ uri: profileImg }} />
+            ) : (
+              <Avatar style={styles.avatar}>
+                <AvatarFallbackText>
+                  {userInfo.name.charAt(0)}
+                </AvatarFallbackText>
+              </Avatar>
+            )}
           </View>
           <View style={styles.profileInfo}>
             <Text style={styles.name}>{userInfo.name}</Text>
@@ -124,6 +141,17 @@ const styles = StyleSheet.create({
     textDecorationLine: "none",
   },
   avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingIcon: {
     width: 100,
     height: 100,
   },

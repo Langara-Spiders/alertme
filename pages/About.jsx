@@ -7,7 +7,13 @@ const About = () => {
   return (
     <View style={styles.container}>
       <Text>
-        <FormattedMessage id="About.title.message" defaultMessage="About Us" />
+        <FormattedMessage
+          id="About.title.message"
+          defaultMessage="
+            AlertMe is a
+            community driven app
+            developed by team Spiders v1.0.0"
+        />
       </Text>
     </View>
   );
@@ -18,7 +24,7 @@ export default About;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    padding: 40,
     backgroundColor: "#fff",
   },
 });

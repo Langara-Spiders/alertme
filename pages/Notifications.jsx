@@ -1,16 +1,19 @@
 import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
-import React, { useContext, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+
+import { useNavigation } from "@react-navigation/native";
+import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { NotificationCard } from "../components/molecules";
 import { routes } from "../constants";
-import { WebSocketContext } from "../utils/WebSocketProvider";
+import { useStore } from "../store";
 
 const Notifications = (props) => {
-  const { notifications } = useContext(WebSocketContext);
+  const { getNotifications, setNotifications } = useStore();
+  const notifications = getNotifications();
+
   const [activeButton, setActiveButton] = useState("all");
   const navigation = useNavigation();
 

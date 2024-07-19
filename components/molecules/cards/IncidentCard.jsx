@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+
 import {
   Card,
   Heading,
@@ -6,17 +8,18 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import { useNavigation } from "@react-navigation/native";
-import * as Location from "expo-location";
 import { useEffect, useState } from "react";
+import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
+
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
+import ImagePlaceHolder from "../../../assets/icons/TakePicture.svg";
 import { routes } from "../../../constants";
 import useStore from "../../../store/useStore";
 import { calculateDistance } from "../../../utils/CalculateDistance";
 import { StatusBadge } from "../../atoms";
-import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 const dateOptions = {
   year: "numeric",
@@ -98,11 +101,19 @@ const IncidentCard = (props) => {
           </View>
         </View>
         <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: props.images[0] ?? "https://picsum.photos/200/300" }}
-            style={styles.image}
-            alt="image"
-          />
+          {props.images[0] ? (
+            <Image
+              source={{ uri: props.images[0] ?? ImagePlaceHolder }}
+              style={styles.image}
+              alt="Incident Image"
+            />
+          ) : (
+            <SvgUri
+              source={ImagePlaceHolder}
+              style={styles.image}
+              alt="Incident Image Placeholder"
+            />
+          )}
           {props.reported_by === "ORG" || props.is_accepted_by_org ? (
             <VerifiedBadge style={styles.verified} />
           ) : (

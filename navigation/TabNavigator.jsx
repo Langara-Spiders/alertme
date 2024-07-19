@@ -1,8 +1,18 @@
-import { Text, View } from "@gluestack-ui/themed";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+
+import { Text, View } from "@gluestack-ui/themed";
 import { SafeAreaView, StyleSheet } from "react-native";
+import {
+  CivilianIncidentsOrg,
+  Home,
+  Profile,
+  Rewards,
+  SiteIncidentsOrg,
+  UserIncidents,
+} from "../pages";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import home1 from "../assets/icons/home-out.svg";
 import home from "../assets/icons/home.svg";
@@ -15,14 +25,6 @@ import rewards from "../assets/icons/rewards.svg";
 import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
 import siteIssue from "../assets/icons/siteIssues.svg";
 import { routes } from "../constants";
-import {
-  CivilianIncidentsOrg,
-  Home,
-  Profile,
-  Rewards,
-  SiteIncidentsOrg,
-  UserIncidents,
-} from "../pages";
 import { useStore } from "../store";
 
 const SafeAreaWrapper = ({ children, backgroundColor }) => (
@@ -169,7 +171,6 @@ const TabNavigator = (props) => {
           </Tab.Screen>
           <Tab.Screen
             name={routes.REWARDS}
-            component={Rewards}
             options={{
               tabBarIcon: ({ focused }) => (
                 <View
@@ -194,7 +195,13 @@ const TabNavigator = (props) => {
                 </View>
               ),
             }}
-          />
+          >
+            {(props) => (
+              <SafeAreaWrapper backgroundColor="#FFF0E5">
+                <Rewards />
+              </SafeAreaWrapper>
+            )}
+          </Tab.Screen>
         </>
       )}
       <Tab.Screen
