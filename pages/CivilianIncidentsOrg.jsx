@@ -92,7 +92,7 @@ const CivilianIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "resolved", "fixing", "rejected"].map(
+          {["all", "active", "pending", "fixing", "resolved", "rejected"].map(
             (status) => (
               <TouchableOpacity
                 key={status}
