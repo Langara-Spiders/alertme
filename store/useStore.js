@@ -48,11 +48,9 @@ const useStore = create(
           },
         })),
 
-      getNotifications: () => Object.values(get().notifications),
+      getNotifications: () => Object.values(get().notifications).reverse(),
 
       setNotifications: (notification) => {
-        console.log(notification, "NOTIF\n\n\n");
-
         set((state) => {
           const notifications = {
             ...state.notifications,

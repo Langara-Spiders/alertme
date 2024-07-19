@@ -7,12 +7,11 @@ import { FormattedMessage } from "react-intl";
 import { NotificationCard } from "../components/molecules";
 import { routes } from "../constants";
 import { useStore } from "../store";
+import timeAgo from "../utils/timeAgo";
 
 const Notifications = (props) => {
   const { getNotifications, setNotifications } = useStore();
   const notifications = getNotifications();
-
-  console.log(notifications);
 
   const [activeButton, setActiveButton] = useState("all");
   const navigation = useNavigation();
@@ -123,7 +122,7 @@ const Notifications = (props) => {
               key={notification.id}
               title={notification.title}
               description={notification.description}
-              timeAgo={notification.created_at}
+              timeAgo={timeAgo(notification.created_at)}
               read={notification.read_flag}
             />
           </TouchableOpacity>

@@ -3,13 +3,16 @@ import * as Notifications from "expo-notifications";
 
 import React, { createContext, useEffect } from "react";
 
+import { useNavigation } from "@react-navigation/native";
 import { Platform } from "react-native";
 import { API_WS_UPDATES_URL } from "../api/constants";
+import { routes } from "../constants";
 import { useStore } from "../store";
 
 export const UpdateContext = createContext();
 
 export const UpdateProvider = ({ children }) => {
+  const navigation = useNavigation();
   const { getUser, setNotifications } = useStore();
   const { token } = getUser();
 
@@ -27,12 +30,27 @@ export const UpdateProvider = ({ children }) => {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: notification.title,
-        body: notification.subject,
-        data: {},
+        body: `${notification.subject} - ${notification.description}`,
+        data: notification,
       },
       trigger: null,
     });
   };
+
+  // Onclick of push notification
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        const data = response?.notification?.request?.content?.data ?? {};
+        navigation.navigate(routes.INCIDENT_DETAIL, {
+          incident_id: data.incident_id,
+        });
+      }
+    );
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -60,14 +78,6 @@ export const UpdateProvider = ({ children }) => {
 
         if (res.notification) {
           const notification = res.notification;
-
-          // Notifications.postLocalNotification({
-          //   title: notification.title,
-          //   body: `${notification.subject} - ${notification.description}`,
-          //   extra: JSON.stringify(notification),
-          // });
-
-          console.log(notification);
 
           setNotifications({
             ...notification,

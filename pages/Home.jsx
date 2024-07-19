@@ -22,26 +22,30 @@ import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
-import BellIcon from "../assets/icons/bell-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
 import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
 import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_icon.svg";
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import NotificationBellActiveIcon from "../assets/icons/notification-bell-active.svg";
+import NotificationBellIcon from "../assets/icons/notification-bell.svg";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
+import { useStore } from "../store";
 import mapStyle from "../utils/mapStyle.json"; // Import the custom map style
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Home = ({ navigation, route }) => {
+  const { getNotifications } = useStore();
   const [nearbyIssues, setNearbyIssues] = useState([]);
   const [showQuickView, setShowQuickView] = useState(false);
   const [quickViewIssue, setQuickViewIssue] = useState({});
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [AddIssueVisible, setAddIssueVisible] = useState(false);
+  const [notificationUpdate, setNotificationUpdate] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
@@ -51,6 +55,7 @@ const Home = ({ navigation, route }) => {
   const { successType, coordinates } = route?.params ?? {};
   const { isStaff } = route.params;
   const isFocused = useIsFocused();
+  const notifications = getNotifications();
 
   // ######################## USE EFFECTS ########################
 
@@ -94,6 +99,13 @@ const Home = ({ navigation, route }) => {
     //   clearTimeout(timer);
     // };
   }, []);
+
+  useEffect(() => {
+    const unreadNotificationPresent = notifications.some(
+      (notification) => !notification.read_flag
+    );
+    setNotificationUpdate(unreadNotificationPresent);
+  }, [notifications]);
 
   // ######################## USE EFFECTS ########################
 
@@ -223,7 +235,15 @@ const Home = ({ navigation, route }) => {
           onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
         >
           <View style={styles.notificationButton}>
-            <SvgUri width="22" height="22" source={BellIcon} />
+            <SvgUri
+              width="22"
+              height="22"
+              source={
+                notificationUpdate
+                  ? NotificationBellActiveIcon
+                  : NotificationBellIcon
+              }
+            />
           </View>
         </TouchableOpacity>
         {showQuickView ? (
