@@ -1,6 +1,7 @@
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import AchievedBar from "../assets/icons/Reward_screen/AchievedBar.png";
 import InfoSheet from "../components/organisms/InfoSheet";
 
 import React, { useState } from "react";
@@ -231,11 +232,12 @@ const IssuesReportedAwards = () => {
       ? activeBadges[index]
       : inactiveBadges[index];
 
-    const badgeText = `Level ${index + 1}`;
+    const badgeText = isActive ? "Achieved!" : `Level ${index + 1}`;
 
     return (
       <View key={index} style={styles.badgeItem}>
         <Image source={BadgeComponent} style={styles.badgeImage} />
+        {isActive && <Image source={AchievedBar} style={styles.achievedBar} />}
         <Text style={styles.badgeText}>{badgeText}</Text>
         <Text style={styles.badgeReports}>100 points</Text>
       </View>
@@ -244,7 +246,9 @@ const IssuesReportedAwards = () => {
 
   return (
     <ScrollView style={styles.container} fadingEdgeLength={150}>
-      <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.backButton}>Back</Text>
+      </TouchableOpacity>
       <View style={styles.header}>
         <Text style={styles.headerText}>Issues Reported Awards</Text>
         <TouchableOpacity onPress={() => setIsSheetOpen(true)}>
@@ -356,6 +360,11 @@ const styles = StyleSheet.create({
     width: "30%",
     alignItems: "center",
     marginBottom: 20,
+  },
+  achievedBar: {
+    width: "70%", // Adjust the size as needed
+    height: 4, // Adjust the size as needed
+    marginBottom: 5,
   },
   badgeImage: {
     width: 85,
