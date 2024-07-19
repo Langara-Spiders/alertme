@@ -13,12 +13,14 @@ import Input from "../atoms/Input";
 
 const LocationInput = (props) => {
   const intl = useIntl();
-
-  const [address, setAddress] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState();
   const [inputWidth, setInputWidth] = useState(0);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (props.value) setText(props.value);
+  }, [props.value]);
 
   const label = intl.formatMessage({
     id: "input.addresscomponent.labelmessage",
@@ -29,13 +31,6 @@ const LocationInput = (props) => {
     id: "input.addresscomponent.placeholdermessage",
     defaultMessage: "Enter address",
   });
-
-  useEffect(() => {
-    if (props.value?.address_line1) {
-      setAddress(props.value.address_line1);
-      setText(TruncateAddress(props.value.address_line1));
-    }
-  }, [props.value]);
 
   const fetchAddress = async () => {
     try {
@@ -55,7 +50,6 @@ const LocationInput = (props) => {
           `${addressData.address_line1}, ${addressData.address_line2}`;
         const truncatedAddress = TruncateAddress(fullAddress, 30);
 
-        setAddress(fullAddress);
         setText(truncatedAddress);
 
         setSuggestions([]);
@@ -99,7 +93,6 @@ const LocationInput = (props) => {
     const fullAddress = item.formatted;
     const truncatedAddress = TruncateAddress(item.formatted, 30);
 
-    setAddress(fullAddress);
     setText(truncatedAddress);
     setSuggestions([]);
 

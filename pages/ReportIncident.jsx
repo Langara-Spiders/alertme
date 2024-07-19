@@ -4,6 +4,7 @@ import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,6 +23,7 @@ import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import LoadingGif from "../assets/loading.gif";
 import { routes } from "../constants";
 
 const user_type = {
@@ -30,6 +32,7 @@ const user_type = {
 
 const ReportIncident = () => {
   const intl = useIntl();
+  const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({});
   const [selectedAddress, setSelectedAddress] = useState({});
   const [categoryList, setCategoryList] = useState([]);
@@ -83,6 +86,7 @@ const ReportIncident = () => {
   };
 
   const handleConfirmPost = async () => {
+    setLoading(true);
     const report = {
       category_id: selectedCategory?.id,
       subject: incidentSubject,
@@ -99,6 +103,7 @@ const ReportIncident = () => {
     };
 
     const res = await postIssue(report, images);
+    setLoading(false);
 
     const successType = `post-${uniqueId()}`;
     navigation.navigate(routes.HOME, {
@@ -106,6 +111,19 @@ const ReportIncident = () => {
       coordinates: res?.coordinates,
     });
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Image
+          source={LoadingGif}
+          style={styles.loadingIcon}
+          alt="loader image"
+        />
+        <Text>Posting...</Text>
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView
@@ -272,5 +290,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 10,
     paddingTop: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingIcon: {
+    width: 100,
+    height: 100,
   },
 });

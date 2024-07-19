@@ -1,9 +1,8 @@
+import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";

@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
+  Image,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -28,6 +29,9 @@ import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_ico
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import NotificationBellIcon from "../assets/icons/notification-bell.svg";
+import LoadingGif from "../assets/loading.gif";
+import IncidentCard from "../components/molecules/cards/IncidentCard";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 import { useStore } from "../store";
@@ -38,6 +42,7 @@ const screenHeight = Dimensions.get("screen").height;
 
 const Home = ({ navigation, route }) => {
   const { getNotifications } = useStore();
+  const [loading, setLoading] = useState(true);
   const [nearbyIssues, setNearbyIssues] = useState([]);
   const [showQuickView, setShowQuickView] = useState(false);
   const [quickViewIssue, setQuickViewIssue] = useState({});
@@ -142,6 +147,7 @@ const Home = ({ navigation, route }) => {
     const { latitude, longitude } = await getLocation();
     const response = await getNearbyIncident(latitude, longitude);
     setNearbyIssues(response?.data ?? []);
+    setLoading(false);
   };
 
   // ######################## Nearest First ########################
@@ -165,7 +171,9 @@ const Home = ({ navigation, route }) => {
   const handleMarkerPress = (issue) => {
     setQuickViewIssue(issue);
     setShowQuickView(true);
-    setHighlightedMarkerId(issue.id); // Set the highlighted marker ID
+
+    console.log(showQuickView);
+    // setHighlightedMarkerId(issue.id);
   };
 
   const animateToMap = (latitude, longitude) => {
@@ -224,8 +232,20 @@ const Home = ({ navigation, route }) => {
 
   const handleMapPress = () => {
     setHighlightedMarkerId(null);
-    setShowQuickView(false);
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Image
+          source={LoadingGif}
+          style={styles.loadingIcon}
+          alt="loader image"
+        />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <TouchableWithoutFeedback onPress={handleMapPress}>
@@ -235,11 +255,40 @@ const Home = ({ navigation, route }) => {
             <SuccessCard type={successType?.split("-")?.at(0)} />
           </Animated.View>
         )}
-        {showQuickView && (
-          <TouchableWithoutFeedback onPress={() => setShowQuickView(false)}>
-            <Animated.View style={styles.overlay} />
-          </TouchableWithoutFeedback>
-        )}
+        {/* {showQuickView ? (
+          <TouchableOpacity
+            onPress={() => setShowQuickView(false)}
+            style={styles.incidentQuickViewContainer}
+          >
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(routes.INCIDENT_DETAIL, {
+                  incident: quickViewIssue,
+                })
+              }
+            >
+              <IncidentCard
+                id={quickViewIssue?.id}
+                status={quickViewIssue?.status}
+                subject={quickViewIssue?.subject}
+                description={quickViewIssue?.description}
+                address={quickViewIssue?.address}
+                created_at={quickViewIssue?.created_at}
+                upvote_count={quickViewIssue?.upvote_count}
+                images={quickViewIssue?.images}
+                onPress={() => handleCardPress(quickViewIssue)}
+                style={{
+                  position: "absolute",
+                  top: 30,
+                  left: 20,
+                  right: 20,
+                  zIndex: 99,
+                  elevation: 99,
+                }}
+              />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ) : null} */}
         <View
           style={styles.searchContainer}
           onLayout={(event) => {
@@ -258,23 +307,27 @@ const Home = ({ navigation, route }) => {
             onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
           >
             <View style={styles.notificationButton}>
-              <SvgUri width="22" height="22" source={BellIcon} />
+              <SvgUri width="22" height="22" source={NotificationBellIcon} />
             </View>
           </TouchableOpacity>
           {showQuickView ? (
-            <>
+            <TouchableOpacity
+              onPress={() => setShowQuickView(false)}
+              style={styles.incidentQuickViewContainer}
+            >
               <View style={styles.incidentQuickViewContainer}>
                 <TouchableOpacity
-                  onPress={() =>
+                  onPress={() => {
+                    setShowQuickView(false);
                     navigation.navigate(routes.INCIDENT_DETAIL, {
                       incident: quickViewIssue,
-                    })
-                  }
+                    });
+                  }}
                 >
                   <IncidentCard {...quickViewIssue} />
                 </TouchableOpacity>
               </View>
-            </>
+            </TouchableOpacity>
           ) : null}
         </View>
         {showNumOfIssuesCard && (
@@ -554,7 +607,7 @@ const styles = StyleSheet.create({
   incidentQuickViewContainer: {
     position: "absolute",
     padding: 16,
-    paddingTop: 5,
+    paddingTop: 0,
     top: 10,
     left: 0,
     backgroundColor: "transparent",
@@ -657,5 +710,15 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     opacity: 0.5,
     zIndex: 2, // Ensure it's below the quick view container
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingIcon: {
+    width: 100,
+    height: 100,
   },
 });

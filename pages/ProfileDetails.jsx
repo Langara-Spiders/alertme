@@ -26,10 +26,14 @@ const ProfileDetails = () => {
           ...state,
           phone: action.payload,
         };
-      case "CHANGE_COORDINATE":
+      case "CHANGE_ADDRESS":
         return {
           ...state,
-          coordinates: action.payload,
+          address: action.payload,
+          coordinates: {
+            lat: action.payload?.lat,
+            lng: action.payload?.lon,
+          },
         };
       case "CHANGE_PROJECTID":
         return {
@@ -41,8 +45,6 @@ const ProfileDetails = () => {
 
   const fetchProfileData = async () => {
     const response = await getProfile();
-    console.log(response, "PROFILE DETAIL");
-
     dispatchProfile({
       type: "CHANGE_PROFILE",
       payload: response?.user ?? {},
@@ -57,6 +59,7 @@ const ProfileDetails = () => {
   }, []);
 
   const handleSave = async () => {
+    console.log(profile);
     const response = await updateProfile(profile, image);
     dispatchProfile({
       type: "CHANGE_PROFILE",
@@ -110,9 +113,13 @@ const ProfileDetails = () => {
         }
       />
       <LocationInput
-        // latitude={latitude}
-        // longitude={longitude}
-        value={profile.address}
+        onSelect={(e) =>
+          dispatchProfile({
+            type: "CHANGE_ADDRESS",
+            payload: e,
+          })
+        }
+        value={profile.address?.truncatedAddress}
       />
       <View style={styles.buttonContainer}>
         <Button style={styles.button} onPress={handleSave}>
@@ -147,11 +154,21 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   buttonContainer: {
-    marginTop: 200,
+    marginTop: 70,
     width: "50%",
     margin: "auto",
   },
   buttonText: {
     color: "white",
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingIcon: {
+    width: 100,
+    height: 100,
   },
 });

@@ -1,7 +1,7 @@
 import * as Notifications from "expo-notifications";
 
 import { useEffect, useState } from "react";
-import { LogBox, SafeAreaView, StatusBar } from "react-native";
+import { LogBox, StatusBar } from "react-native";
 import { en, fr } from "./lang";
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -46,12 +46,10 @@ export default function App() {
         defaultLocale="en"
       >
         <UpdateProvider>
-          <SafeAreaView style={{ flex: 1 }}>
-            <GluestackUIProvider config={configLight}>
-              <StatusBar barStyle="light-content" backgroundColor="#FF6B00" />
-              <RootNavigator />
-            </GluestackUIProvider>
-          </SafeAreaView>
+          <GluestackUIProvider config={configLight}>
+            <StatusBar barStyle="dark-content" backgroundColor="white" />
+            <RootNavigator />
+          </GluestackUIProvider>
         </UpdateProvider>
       </IntlProvider>
     </NavigationContainer>
