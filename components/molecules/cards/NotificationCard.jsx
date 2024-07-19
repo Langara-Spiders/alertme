@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 
 const NotificationCard = ({ title, description, timeAgo, read }) => {
@@ -30,14 +31,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F3F4F4",
     padding: 15,
     marginVertical: 5,
-    marginHorizontal: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+    width: "100%",
     height: 120,
-    width: "90%",
   },
   header: {
     flexDirection: "row",

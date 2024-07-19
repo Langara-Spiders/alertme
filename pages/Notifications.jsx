@@ -9,9 +9,10 @@ import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { NotificationCard } from "../components/molecules";
 import { routes } from "../constants";
 import { useStore } from "../store";
+import { timeAgo } from "../utils";
 
 const Notifications = (props) => {
-  const { getNotifications, setNotifications } = useStore();
+  const { getNotifications } = useStore();
   const notifications = getNotifications();
 
   const [activeButton, setActiveButton] = useState("all");
@@ -125,7 +126,12 @@ const Notifications = (props) => {
         <ScrollView contentContainerStyle={styles.scrollView}>
           {filteredNotifications.map((notificationItem, index) => (
             <TouchableOpacity
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onPress={() =>
                 navigation.navigate(routes.INCIDENT_DETAIL, {
                   incident_id: notificationItem.incident_id,
@@ -136,8 +142,8 @@ const Notifications = (props) => {
                 key={notificationItem.incident_id}
                 title={notificationItem.title}
                 description={notificationItem.description}
-                timeAgo={notificationItem.timeAgo || "Just now"} // Ensure timeAgo is provided or fallback to a default value
-                read={notificationItem.read_flag} // Use read_flag based on your data structure
+                timeAgo={timeAgo(notificationItem.created_at)}
+                read={notificationItem.read_flag}
               />
             </TouchableOpacity>
           ))}
