@@ -25,7 +25,6 @@ import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
 import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
-import ConstructionHazardIcon from "../assets/icons/map_markers/const_hazard_icon.svg";
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
@@ -365,7 +364,7 @@ const Home = ({ navigation, route }) => {
                                   issue.upvote_count >= 3
                                 ? ConfirmedHazardIcon
                                 : issue.reported_by === "ORG"
-                                  ? ConstructionHazardIcon
+                                  ? VerifiedHazardIcon
                                   : HazardIcon
                           }
                         />
