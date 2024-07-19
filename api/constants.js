@@ -1,6 +1,6 @@
 // development
 export const API_BASE_URL = "https://alertme.tech/api";
-export const API_WS_UPDATES_URL = "ws://alertme.tech/api/notifications";
+export const API_WS_UPDATES_URL = "ws://35.85.118.12:8000/api/notifications";
 // testing
 // export const API_BASE_URL = "http://0.0.0.0:8000/api";
 // export const API_WS_UPDATES_URL = "ws://0.0.0.0:8000/api/notifications";
