@@ -146,7 +146,7 @@ const StackNavigator = () => {
         name={routes.ISSUESREPORTEDAWARDS}
         options={{
           title: "IssuesReportedAwards",
-          headerShown: true,
+          headerShown: false,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}

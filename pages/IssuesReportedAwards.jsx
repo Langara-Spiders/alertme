@@ -1,9 +1,10 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { Image, Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import InfoSheet from "../components/organisms/InfoSheet";
-
 import React, { useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import InfoSheet from "../components/organisms/InfoSheet";
 
 // Import all active badges
 const A1 = require("../assets/badges/A1.png");
@@ -244,8 +245,18 @@ const IssuesReportedAwards = () => {
 
   return (
     <ScrollView style={styles.container} fadingEdgeLength={150}>
-      <TouchableOpacity onPress={() => navigation.goBack()}></TouchableOpacity>
       <View style={styles.header}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
         <Text style={styles.headerText}>Issues Reported Awards</Text>
         <TouchableOpacity onPress={() => setIsSheetOpen(true)}>
           <Image
@@ -306,8 +317,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
   },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: "#F3F4F4",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    opacity: 0.5,
+  },
   headerText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
   },
   infoIcon: {
