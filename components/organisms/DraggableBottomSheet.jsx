@@ -32,7 +32,10 @@ const DraggableBottomSheet = (props) => {
                 animation={Easing.quad}
                 animationDuration={200}
               >
-                <ScrollView>{props.children}</ScrollView>
+                <View style={styles.sheetContent}>
+                  {props.fixedHeader}
+                  <ScrollView>{props.children}</ScrollView>
+                </View>
               </BottomSheet>
             </View>
           </TouchableWithoutFeedback>
@@ -53,5 +56,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+  },
+  sheetContent: {
+    flex: 1,
   },
 });

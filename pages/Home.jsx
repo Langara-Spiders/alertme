@@ -410,18 +410,20 @@ const Home = ({ navigation, route }) => {
         <DBottomSheet
           isOpen={isSheetVisible}
           onClose={() => setIsSheetVisible(false)}
+          fixedHeader={
+            <View style={styles.bottomSHeader}>
+              <Text style={styles.bottomSText}>
+                <FormattedMessage
+                  id="Nearby.layout"
+                  defaultMessage="Nearby Active Issues"
+                />
+              </Text>
+              <TouchableOpacity onPress={handleViewAllPress}>
+                <Text style={styles.viewAllText}>View All</Text>
+              </TouchableOpacity>
+            </View>
+          }
         >
-          <View style={styles.bottomSHeader}>
-            <Text style={styles.bottomSText}>
-              <FormattedMessage
-                id="Nearby.layout"
-                defaultMessage="Nearby Active Issues"
-              />
-            </Text>
-            <TouchableOpacity onPress={handleViewAllPress}>
-              <Text style={styles.viewAllText}>View All</Text>
-            </TouchableOpacity>
-          </View>
           {nearbyIssues?.map((issue) => (
             <View key={issue.id}>
               <TouchableWithoutFeedback

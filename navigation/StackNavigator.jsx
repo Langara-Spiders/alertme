@@ -39,7 +39,7 @@ const StackNavigator = () => {
       />
       <Stack.Screen
         name={routes.NOTIFICATIONS}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
@@ -79,7 +79,7 @@ const StackNavigator = () => {
       </Stack.Screen>
       <Stack.Screen
         name={routes.LEADERBOARD}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
@@ -131,7 +131,7 @@ const StackNavigator = () => {
         name={routes.NEARBYACTIVEISSUES}
         options={{
           title: "Nearby Issues",
-          headerShown: true,
+          headerShown: false,
           headerBackTitleVisible: false,
           headerRight: () => <Icon as={StarIcon} m="$2" w="$4" h="$4" />,
         }}
