@@ -24,7 +24,7 @@ const LocationInput = (props) => {
 
   const label = intl.formatMessage({
     id: "input.addresscomponent.labelmessage",
-    defaultMessage: "Address *",
+    defaultMessage: "Address*",
   });
 
   const placeholder = intl.formatMessage({

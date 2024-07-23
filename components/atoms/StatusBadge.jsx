@@ -1,4 +1,5 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { StyleSheet } from "react-native";
 
 const StatusBadge = (props) => {
@@ -37,8 +38,7 @@ const StatusBadge = (props) => {
       fontFamily: "Public Sans",
       fontSize: 12,
       fontStyle: "normal",
-      fontWeight: "600",
-      lineHeight: 15.6, // 130% of 12px
+      fontWeight: "bold",
     },
   });
 

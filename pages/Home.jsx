@@ -6,17 +6,13 @@ import {
   Animated,
   Dimensions,
   Image,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import {
-  NearbyIncidentCard,
-  NumOfIssuesCard,
-  Search,
-  SuccessCard,
-} from "../components/molecules";
+import { NumOfIssuesCard, Search, SuccessCard } from "../components/molecules";
 
 import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
@@ -470,7 +466,7 @@ const Home = ({ navigation, route }) => {
                 }}
               >
                 <View>
-                  <NearbyIncidentCard {...issue} />
+                  <IncidentCard {...issue} hideStatus={true} />
                 </View>
               </TouchableWithoutFeedback>
               <View style={styles.separator} />
@@ -494,7 +490,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     position: "absolute",
     left: 0,
-    top: 44,
+    top: Platform.OS === "ios" ? 44 : 0,
     zIndex: 99,
     elevation: 99,
     flexDirection: "row",

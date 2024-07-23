@@ -124,10 +124,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
+    gap: 5,
     padding: 10,
   },
   largeImageBox: {
-    width: 206,
+    flex: 1,
     height: 132,
     borderRadius: 10,
     borderWidth: 1,

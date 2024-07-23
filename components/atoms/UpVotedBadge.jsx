@@ -51,10 +51,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#0B0C0C",
-    fontFamily: "Public Sans",
     fontSize: 12,
     fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: 15.6, // 130% of 12px
+    fontWeight: "bold",
   },
 });

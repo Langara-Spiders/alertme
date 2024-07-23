@@ -1,9 +1,7 @@
-import { ScrollView, View } from "@gluestack-ui/themed";
+import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 
-import { StyleSheet } from "react-native";
-
-import { Pressable, Text } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { NearbyIncidentCard } from "../components/molecules";

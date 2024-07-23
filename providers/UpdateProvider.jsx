@@ -4,7 +4,6 @@ import * as Notifications from "expo-notifications";
 import React, { createContext, useEffect } from "react";
 
 import { useNavigation } from "@react-navigation/native";
-import { Platform } from "react-native";
 import { API_WS_UPDATES_URL } from "../api/constants";
 import { routes } from "../constants";
 import { useStore } from "../store";
@@ -14,7 +13,11 @@ export const UpdateContext = createContext();
 export const UpdateProvider = ({ children }) => {
   const navigation = useNavigation();
   const { getUser, setNotifications } = useStore();
-  const { token } = getUser();
+  const { token, isStaff } = getUser();
+
+  useEffect(async () => {
+    await Notifications.requestPermissionsAsync();
+  }, []);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -42,9 +45,12 @@ export const UpdateProvider = ({ children }) => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
         const data = response?.notification?.request?.content?.data ?? {};
-        navigation.navigate(routes.INCIDENT_DETAIL, {
-          incident_id: data.incident_id,
-        });
+        navigation.navigate(
+          isStaff ? routes.INCIDENT_DETAIL_ORG : routes.INCIDENT_DETAIL,
+          {
+            incident_id: data.incident_id,
+          }
+        );
       }
     );
     return () => {
@@ -78,15 +84,12 @@ export const UpdateProvider = ({ children }) => {
 
         if (res.notification) {
           const notification = res.notification;
-
           setNotifications({
             ...notification,
             read_flag: false,
           });
 
-          if (Platform.OS === "ios") {
-            sendPushNotification(notification);
-          }
+          sendPushNotification(notification);
         }
       };
 

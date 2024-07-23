@@ -123,31 +123,36 @@ const ReportIncident = () => {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      enabled
-    >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={{ backgroundColor: "#fff" }}>
-          <View style={styles.header}>
-            <Pressable
-              onPress={() => navigation.navigate("Home")}
-              style={styles.iconContainer}
-            >
-              <SvgUri
-                width="24"
-                height="24"
-                source={Back_Icon}
-                style={styles.icon}
-              />
-            </Pressable>
-            <Text style={styles.headerText}>Add Issue</Text>
-          </View>
-          <View style={styles.container}>
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+      <View style={styles.header}>
+        <Pressable
+          onPress={() => navigation.navigate("Home")}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
+        <Text style={styles.headerText}>Create Report</Text>
+      </View>
+      <View style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          enabled
+        >
+          <ScrollView
+            style={{
+              marginBottom: 50,
+            }}
+            contentContainerStyle={{ flexGrow: 1 }}
+          >
             <Text style={styles.title}>
               <FormattedMessage
                 id="reportIncident.titleaddpics"
-                defaultMessage="Add Issues Pictures*"
+                defaultMessage="Add Pictures*"
               />
             </Text>
             <View style={{ flex: 1 }}>
@@ -157,7 +162,7 @@ const ReportIncident = () => {
               <Text style={styles.title}>
                 <FormattedMessage
                   id="reportIncident.categories"
-                  defaultMessage="Issue Category:"
+                  defaultMessage="Category*"
                 />
               </Text>
               <CategoriesModal
@@ -169,11 +174,11 @@ const ReportIncident = () => {
             <Input
               label={intl.formatMessage({
                 id: "reportIncident.inputLabel.incidentType",
-                defaultMessage: "Issue Type*",
+                defaultMessage: "Subject*",
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.inputPlaceholder.incidentSubject",
-                defaultMessage: "Issue Subject",
+                defaultMessage: "Enter subject",
               })}
               value={incidentSubject}
               onChangeText={(text) => {
@@ -192,7 +197,7 @@ const ReportIncident = () => {
               })}
               placeholder={intl.formatMessage({
                 id: "reportIncident.input.incidentDescription",
-                defaultMessage: "Issue Description",
+                defaultMessage: "Enter Description",
               })}
               value={incidentDescription}
               onChangeText={(text) => {
@@ -206,24 +211,30 @@ const ReportIncident = () => {
                 },
               }}
             />
-            <Button onPress={handlePostIncident}>
-              <FormattedMessage
-                id="reportIncident.postBtn"
-                defaultMessage="Post Incident"
-              />
-            </Button>
-            {showConfirmation && (
-              <View>
-                <ReadyToPostModal
-                  onCancel={handleCancelPostIncident}
-                  onConfirm={handleConfirmPost}
-                />
-              </View>
-            )}
+          </ScrollView>
+        </KeyboardAvoidingView>
+
+        <Button
+          style={{
+            button: styles.postButton,
+          }}
+          onPress={handlePostIncident}
+        >
+          <FormattedMessage
+            id="reportIncident.postBtn"
+            defaultMessage="Post Incident"
+          />
+        </Button>
+        {showConfirmation && (
+          <View>
+            <ReadyToPostModal
+              onCancel={handleCancelPostIncident}
+              onConfirm={handleConfirmPost}
+            />
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        )}
+      </View>
+    </View>
   );
 };
 
@@ -293,6 +304,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
+  },
+  postButton: {
+    position: "fixed",
+    left: 0,
+    bottom: 40,
   },
   loadingIcon: {
     width: 100,

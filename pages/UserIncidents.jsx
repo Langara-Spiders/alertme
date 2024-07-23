@@ -8,14 +8,12 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
 import { getMyIssues } from "../api/incident";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { IncidentCard } from "../components/molecules";
-
-const screenWidth = Dimensions.get("window").width;
 
 const UserIncidents = (props) => {
   const { navigation } = props;
