@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 
-import { Text, View } from "@gluestack-ui/themed";
+import { CloseIcon, Icon, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -16,6 +16,7 @@ import { NumOfIssuesCard, Search, SuccessCard } from "../components/molecules";
 
 import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
+import MapViewDirections from "react-native-maps-directions";
 import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
@@ -26,6 +27,8 @@ import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
 import NotificationBellActiveIcon from "../assets/icons/notification-bell-active.svg";
 import NotificationBellIcon from "../assets/icons/notification-bell.svg";
+import CurrentLocationArrow from "../assets/images/CurrentLocationArrow.png";
+import SearchedMarker from "../assets/images/SearchedMarker.png";
 import LoadingGif from "../assets/loading.gif";
 import IncidentCard from "../components/molecules/cards/IncidentCard";
 import { DBottomSheet } from "../components/organisms";
@@ -51,6 +54,10 @@ const Home = ({ navigation, route }) => {
   const [showNumOfIssuesCard, setShowNumOfIssuesCard] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [highlightedMarkerId, setHighlightedMarkerId] = useState(null);
+  const [origin, setOrigin] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const mapRef = useRef(null);
 
   const { successType, coordinates, markerId } = route?.params ?? {};
@@ -127,6 +134,14 @@ const Home = ({ navigation, route }) => {
 
   useEffect(() => {}, [searchValue]);
 
+  useEffect(
+    () => {
+      console.log("showPopup useEffect:", showPopup);
+    },
+    [showPopup],
+    [selectedLocation]
+  );
+
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -134,6 +149,8 @@ const Home = ({ navigation, route }) => {
     }
     let location = await Location.getCurrentPositionAsync({});
     const { coords } = location ?? {};
+    setOrigin(coords); // the origin for the map directions
+    setCurrentLocation(coords); // the current location marker
     return coords ?? {};
   };
 
@@ -167,7 +184,6 @@ const Home = ({ navigation, route }) => {
   const handleMarkerPress = (issue) => {
     setQuickViewIssue(issue);
     setShowQuickView(true);
-
     console.log(showQuickView);
     // setHighlightedMarkerId(issue.id);
   };
@@ -206,10 +222,12 @@ const Home = ({ navigation, route }) => {
     setSelectedLocation({
       latitude: lat,
       longitude: lon,
+      formatted: formatted,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     });
 
+    setDestination(null);
     // animation is based on the new state values
     setTimeout(() => {
       if (mapRef.current) {
@@ -228,6 +246,25 @@ const Home = ({ navigation, route }) => {
 
   const handleMapPress = () => {
     setHighlightedMarkerId(null);
+    setShowPopup(false);
+  };
+
+  const handleSearchMarkerPress = (location) => {
+    setSelectedLocation(location);
+    setShowPopup(true);
+  };
+
+  const handleEnableDirections = () => {
+    setShowPopup(false);
+    setDestination(selectedLocation);
+  };
+
+  const handleCloseCard = () => {
+    setShowPopup(false);
+  };
+
+  const handleExitNavigation = () => {
+    setDestination(null);
   };
 
   if (loading) {
@@ -251,6 +288,7 @@ const Home = ({ navigation, route }) => {
             <SuccessCard type={successType?.split("-")?.at(0)} />
           </Animated.View>
         )}
+
         <View
           style={styles.searchContainer}
           onLayout={(event) => {
@@ -388,24 +426,130 @@ const Home = ({ navigation, route }) => {
                   latitude: selectedLocation.latitude,
                   longitude: selectedLocation.longitude,
                 }}
-                onPress={() => {
-                  alert("direction");
-                }}
+                onPress={() => handleSearchMarkerPress(selectedLocation)}
               >
-                {/* <View style={styles.markerStyles}>
-                <View style={styles.markerInner}>
-                  <SvgUri width="38" height="36" source={ConfirmedHazardIcon} />
+                <View>
+                  <Image
+                    source={SearchedMarker}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      paddingRight: 0,
+                      paddingBottom: 0,
+                      position: "relative",
+                      top: 10,
+                    }}
+                  />
                 </View>
-              </View> */}
               </Marker>
             )}
+
+            {currentLocation && (
+              <Marker
+                coordinate={{
+                  latitude: currentLocation.latitude,
+                  longitude: currentLocation.longitude,
+                }}
+                title="My Location"
+                description="This is where I am currently located"
+              >
+                <View style={styles.currentLocationMarkerWrapper}>
+                  <View style={styles.currentLocationMarker}>
+                    <Image
+                      width="30"
+                      height="30"
+                      source={CurrentLocationArrow}
+                      style={styles.currentLocationImage}
+                    />
+                  </View>
+                </View>
+              </Marker>
+            )}
+
+            {/* Add MapViewDirections */}
+            {currentLocation && destination && (
+              <>
+                <MapViewDirections
+                  origin={currentLocation}
+                  destination={destination}
+                  apikey={"AIzaSyDcoaVQFwVzKapMDmVUtSYzCvm37rGrrqU"}
+                  strokeWidth={3}
+                  strokeColor={"black"}
+                  onReady={(result) => {
+                    mapRef.current.fitToCoordinates(result.coordinates, {
+                      edgePadding: {
+                        right: 20,
+                        bottom: 20,
+                        left: 20,
+                        top: 20,
+                      },
+                    });
+                  }}
+                />
+                <Marker coordinate={destination} anchor={{ x: 0.5, y: 0.5 }}>
+                  <View style={styles.destinationMarker}>
+                    <View style={styles.destinationInnerCircle} />
+                  </View>
+                </Marker>
+              </>
+            )}
           </MapView>
+
+          {/* popup to show the direction */}
+          {showPopup && selectedLocation && (
+            <View style={styles.overlayContainer}>
+              <View style={styles.cardContainer}>
+                <View style={styles.cardInner1}>
+                  <Image
+                    source={{ uri: "https://picsum.photos/200/300" }}
+                    style={styles.locationImage}
+                  />
+                  <TouchableOpacity
+                    style={styles.cardCloseButton}
+                    onPress={handleCloseCard}
+                  >
+                    <Icon as={CloseIcon} height={30} width={30} />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.cardInner2}>
+                  <Text style={styles.locationText}>
+                    <FormattedMessage
+                      id="home.Card.Location.Heading"
+                      defaultMessage="Location:"
+                    />
+                    {selectedLocation.formatted}
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.cardButton}
+                    onPress={handleEnableDirections}
+                  >
+                    <Text style={styles.cardButtonText}>
+                      <FormattedMessage
+                        id="home.Card.Directions.EnabledirectionMeesage"
+                        defaultMessage="Enable Directions"
+                      />
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          )}
+
           <View style={styles.buttonsContainerLeft}>
             <TouchableOpacity onPress={handleRecenter}>
               <View style={styles.locationIcon}>
                 <SvgUri width="50" height="50" source={CurrentLocationIcon} />
               </View>
             </TouchableOpacity>
+            {/* to exit the navigation */}
+            {destination && (
+              <TouchableOpacity
+                style={styles.exitButton}
+                onPress={handleExitNavigation}
+              >
+                <Text style={styles.exitButtonText}>Exit</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View style={styles.buttonsContainerRight}>
             <TouchableOpacity
@@ -510,6 +654,9 @@ const styles = StyleSheet.create({
     left: 30,
     bottom: 132,
     borderRadius: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonsContainerRight: {
     position: "absolute",
@@ -656,7 +803,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   highlightedMarkerOuter: {
-    borderColor: "rgba(255, 145, 64, 0.2)",
+    borderColor: "rgba(255, 145, 64, 0.1)",
     borderRadius: 50,
     borderWidth: 15,
   },
@@ -667,7 +814,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 10,
     elevation: 5,
-    borderColor: "rgba(255, 145, 64, 0.5)",
+    borderColor: "rgba(255, 145, 64, 0.2)",
   },
   overlay: {
     position: "absolute",
@@ -690,5 +837,112 @@ const styles = StyleSheet.create({
   loadingIcon: {
     width: 100,
     height: 100,
+  },
+
+  overlayContainer: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -150 }, { translateY: -100 }],
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    padding: 10,
+    borderRadius: 10,
+  },
+  cardContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    overflow: "hidden",
+    width: 300,
+  },
+  cardInner1: {
+    position: "relative",
+  },
+  locationImage: {
+    width: "100%",
+    height: 200,
+  },
+  cardCloseButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "white",
+    borderRadius: 15,
+    padding: 5,
+    zIndex: 10,
+  },
+  cardInner2: {
+    justifyContent: "start",
+    alignItems: "start",
+    padding: 10,
+    gap: 10,
+  },
+  locationText: {
+    flex: 1,
+    marginRight: 10,
+    textAlign: "center",
+  },
+  cardButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#FF6B00",
+    borderRadius: 5,
+  },
+  cardButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  exitButton: {
+    position: "absolute",
+    left: 60,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "black",
+    borderRadius: 100,
+  },
+  exitButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  currentLocationMarkerWrapper: {
+    borderColor: "rgba(255, 145, 64, 0.2)",
+    borderRadius: 50,
+    borderWidth: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  currentLocationMarker: {
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    elevation: 5,
+    backgroundColor: "rgba(255, 145, 64, 0.5)",
+  },
+  currentLocationImage: {
+    width: 30,
+    height: 30,
+  },
+
+  destinationMarker: {
+    borderColor: "black",
+    borderRadius: 50,
+    borderWidth: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  destinationInnerCircle: {
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderColor: "white",
+    borderWidth: 4,
   },
 });
