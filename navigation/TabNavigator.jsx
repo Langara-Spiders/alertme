@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Text, View } from "@gluestack-ui/themed";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { Image, Platform, SafeAreaView, StyleSheet } from "react-native";
 import {
   CivilianIncidentsOrg,
   Home,
@@ -13,17 +13,16 @@ import {
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FormattedMessage } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import home1 from "../assets/icons/home-out.svg";
-import home from "../assets/icons/home.svg";
-import myIssue1 from "../assets/icons/MyIssue-Outline.svg";
-import myIssue from "../assets/icons/MyIssues.svg";
-import accountIcon1 from "../assets/icons/profile-outline.svg";
-import accountIcon from "../assets/icons/profile.svg";
-import rewards1 from "../assets/icons/rewards-outline.svg";
-import rewards from "../assets/icons/rewards.svg";
-import siteIssue1 from "../assets/icons/siteIssues-outline.svg";
-import siteIssue from "../assets/icons/siteIssues.svg";
+import HomeIcon from "../assets/icons/navigation_icons/home_icon.png";
+import HomeIconActive from "../assets/icons/navigation_icons/home_icon_active.png";
+import MyReportsIcon from "../assets/icons/navigation_icons/my_reports_icon.png";
+import MyReportsIconActive from "../assets/icons/navigation_icons/my_reports_icon_active.png";
+import ProfileIcon from "../assets/icons/navigation_icons/profile_icon.png";
+import ProfileIconActive from "../assets/icons/navigation_icons/profile_icon_active.png";
+import RewardsIcon from "../assets/icons/navigation_icons/rewards_icon.png";
+import RewardsIconActive from "../assets/icons/navigation_icons/rewards_icon_active.png";
+import SiteIcon from "../assets/icons/navigation_icons/site_icon.png";
+import SiteIconActive from "../assets/icons/navigation_icons/site_icon_active.png";
 import { routes } from "../constants";
 import { useStore } from "../store";
 
@@ -57,10 +56,11 @@ const TabNavigator = (props) => {
         initialParams={{ isStaff }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View
-              style={[styles.iconContainer, focused && styles.focusedContainer]}
-            >
-              <SvgUri width="28" height="28" source={focused ? home1 : home} />
+            <View style={styles.iconContainer}>
+              <Image
+                style={styles.icon}
+                source={focused ? HomeIconActive : HomeIcon}
+              />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
                 <FormattedMessage id="Nav.home" defaultMessage="Home" />
               </Text>
@@ -74,16 +74,10 @@ const TabNavigator = (props) => {
             name={routes.CIVILIAN_INCIDENTS_ORG}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View
-                  style={[
-                    styles.iconContainer,
-                    focused && styles.focusedContainer,
-                  ]}
-                >
-                  <SvgUri
-                    width="28"
-                    height="28"
-                    source={focused ? myIssue1 : myIssue}
+                <View style={styles.iconContainer}>
+                  <Image
+                    style={styles.icon}
+                    source={focused ? MyReportsIconActive : MyReportsIcon}
                   />
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
@@ -107,16 +101,10 @@ const TabNavigator = (props) => {
             name={routes.SITE_INCIDENTS_ORG}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View
-                  style={[
-                    styles.iconContainer,
-                    focused && styles.focusedContainer,
-                  ]}
-                >
-                  <SvgUri
-                    width="28"
-                    height="28"
-                    source={focused ? siteIssue1 : siteIssue}
+                <View style={styles.iconContainer}>
+                  <Image
+                    style={styles.icon}
+                    source={focused ? SiteIconActive : SiteIcon}
                   />
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
@@ -140,23 +128,17 @@ const TabNavigator = (props) => {
             name={routes.MY_INCIDENTS}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View
-                  style={[
-                    styles.iconContainer,
-                    focused && styles.focusedContainer,
-                  ]}
-                >
-                  <SvgUri
-                    width="28"
-                    height="28"
-                    source={focused ? myIssue1 : myIssue}
+                <View style={styles.iconContainer}>
+                  <Image
+                    style={styles.icon}
+                    source={focused ? MyReportsIconActive : MyReportsIcon}
                   />
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
                   >
                     <FormattedMessage
                       id="Nav.myIssue"
-                      defaultMessage="My Issues"
+                      defaultMessage="My Reports"
                     />
                   </Text>
                 </View>
@@ -173,16 +155,10 @@ const TabNavigator = (props) => {
             name={routes.REWARDS}
             options={{
               tabBarIcon: ({ focused }) => (
-                <View
-                  style={[
-                    styles.iconContainer,
-                    focused && styles.focusedContainer,
-                  ]}
-                >
-                  <SvgUri
-                    width="28"
-                    height="28"
-                    source={focused ? rewards : rewards1}
+                <View style={styles.iconContainer}>
+                  <Image
+                    style={styles.icon}
+                    source={focused ? RewardsIconActive : RewardsIcon}
                   />
                   <Text
                     style={focused ? styles.focusedText : styles.defaultText}
@@ -209,13 +185,10 @@ const TabNavigator = (props) => {
         component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View
-              style={[styles.iconContainer, focused && styles.focusedContainer]}
-            >
-              <SvgUri
-                width="28"
-                height="28"
-                source={focused ? accountIcon1 : accountIcon}
+            <View style={styles.iconContainer}>
+              <Image
+                style={styles.icon}
+                source={focused ? ProfileIconActive : ProfileIcon}
               />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
                 <FormattedMessage id="Nav.profile" defaultMessage="Profile" />
@@ -231,31 +204,19 @@ export default TabNavigator;
 
 const styles = StyleSheet.create({
   icon: {
-    tintColor: "black",
+    width: 28,
+    height: 28,
   },
   iconContainer: {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "auto",
-    height: "auto",
-    marginTop: 30,
+    marginTop: Platform.OS === "ios" ? 30 : 0,
   },
   container: {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "auto",
-    height: "auto",
-  },
-  focusedContainer: {
-    backgroundColor: "#FFF3EA",
-    width: 60,
-    height: 60,
-    borderRadius: 16,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 30,
   },
   tabBarStyle: {
     position: "absolute",
@@ -277,7 +238,7 @@ const styles = StyleSheet.create({
   focusedText: {
     color: "#FF6B00",
     fontSize: 10,
-    fontWeight: "600",
+    fontWeight: "bold",
     marginTop: 5,
   },
   defaultText: {

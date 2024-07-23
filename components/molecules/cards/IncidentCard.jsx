@@ -1,13 +1,6 @@
 import * as Location from "expo-location";
 
-import {
-  Card,
-  Heading,
-  Image,
-  Pressable,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Card, Image, Pressable, Text, View } from "@gluestack-ui/themed";
 import { useEffect, useState } from "react";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
@@ -30,7 +23,7 @@ const dateOptions = {
   hour12: true,
 };
 
-const IncidentCard = (props) => {
+const IncidentCard = ({ hideStatus, ...props }) => {
   const navigation = useNavigation();
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
@@ -71,19 +64,17 @@ const IncidentCard = (props) => {
     <Pressable onPress={handlePress}>
       <Card style={styles.card}>
         <View style={styles.infoContainer}>
-          <View style={styles.statusContainer}>
-            <StatusBadge status={props.status} />
-          </View>
-          <Heading style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {props.subject ?? "No Subject"}
-          </Heading>
-          <Heading
-            style={styles.distance}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
-            {distance ? `${distance} km away` : "Distance unavailable"}
-          </Heading>
+          {!hideStatus ? (
+            <View style={styles.statusContainer}>
+              <StatusBadge status={props.status} />
+            </View>
+          ) : null}
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+            {props.subject}
+          </Text>
+          <Text style={styles.distance} numberOfLines={1} ellipsizeMode="tail">
+            {`${distance} km away`}
+          </Text>
           <View style={styles.locationContainer}>
             <SvgUri width="16" height="16" source={Location_Spot} />
             <Text
@@ -91,7 +82,7 @@ const IncidentCard = (props) => {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {props.address?.fullAddress ?? "Address unavailable"}
+              {props.address?.fullAddress}
             </Text>
           </View>
           <View style={styles.footer}>
@@ -138,7 +129,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F3F4F4",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -154,21 +144,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    alignSelf: "stretch",
     color: "#0B0C0C",
-    fontFamily: "Public Sans",
     fontSize: 18,
     fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: 0,
+    fontWeight: "bold",
   },
   distance: {
     color: "#0B0C0C",
-    fontFamily: "Public Sans",
     fontSize: 18,
     fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: 0,
+    fontWeight: "bold",
     marginBottom: 16,
   },
   footer: {
@@ -198,7 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontStyle: "normal",
     fontWeight: "400",
-    marginTop: 4,
   },
   imageContainer: {
     alignItems: "flex-end",
