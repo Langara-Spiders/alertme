@@ -12,7 +12,8 @@ import { useStore } from "../store";
 import { timeAgo } from "../utils";
 
 const Notifications = (props) => {
-  const { getNotifications, setNotifications } = useStore();
+  const { getUser, getNotifications, setNotifications } = useStore();
+  const { isStaff } = getUser();
   const notifications = getNotifications();
 
   const [activeButton, setActiveButton] = useState("all");
@@ -137,9 +138,12 @@ const Notifications = (props) => {
                   ...notificationItem,
                   read_flag: true,
                 });
-                navigation.navigate(routes.INCIDENT_DETAIL, {
-                  incident_id: notificationItem.incident_id,
-                });
+                navigation.navigate(
+                  isStaff ? routes.INCIDENT_DETAIL_ORG : routes.INCIDENT_DETAIL,
+                  {
+                    incident_id: notificationItem.incident_id,
+                  }
+                );
               }}
             >
               <NotificationCard

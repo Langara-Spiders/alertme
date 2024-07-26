@@ -11,7 +11,7 @@ const useStore = create(
         name: "",
         email: "",
         projectId: "",
-        isStaff: "",
+        isStaff: false,
         token: "",
         access_token: "",
       },
