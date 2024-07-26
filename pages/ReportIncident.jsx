@@ -149,68 +149,70 @@ const ReportIncident = () => {
             }}
             contentContainerStyle={{ flexGrow: 1 }}
           >
-            <Text style={styles.title}>
-              <FormattedMessage
-                id="reportIncident.titleaddpics"
-                defaultMessage="Add Pictures*"
-              />
-            </Text>
-            <View style={{ flex: 1 }}>
-              <IncidentImageUpload images={images} setImages={setImages} />
-            </View>
-            <View style={styles.category}>
+            <View style={{ marginBottom: 70 }}>
               <Text style={styles.title}>
                 <FormattedMessage
-                  id="reportIncident.categories"
-                  defaultMessage="Category*"
+                  id="reportIncident.titleaddpics"
+                  defaultMessage="Add Pictures*"
                 />
               </Text>
-              <CategoriesModal
-                selectedCategory={selectedCategory}
-                categoriesList={categoryList}
-                onSelectCategory={handleCategorySelect}
+              <View style={{ flex: 1 }}>
+                <IncidentImageUpload images={images} setImages={setImages} />
+              </View>
+              <View style={styles.category}>
+                <Text style={styles.title}>
+                  <FormattedMessage
+                    id="reportIncident.categories"
+                    defaultMessage="Category*"
+                  />
+                </Text>
+                <CategoriesModal
+                  selectedCategory={selectedCategory}
+                  categoriesList={categoryList}
+                  onSelectCategory={handleCategorySelect}
+                />
+              </View>
+              <Input
+                label={intl.formatMessage({
+                  id: "reportIncident.inputLabel.incidentType",
+                  defaultMessage: "Subject*",
+                })}
+                placeholder={intl.formatMessage({
+                  id: "reportIncident.inputPlaceholder.incidentSubject",
+                  defaultMessage: "Enter subject",
+                })}
+                value={incidentSubject}
+                onChangeText={(text) => {
+                  setIncidentSubject(text);
+                }}
+              />
+              <LocationInput
+                value={address}
+                onChangeText={changeAddress}
+                onSelect={(e) => setSelectedAddress(e)}
+              />
+              <Input
+                label={intl.formatMessage({
+                  id: "reportIncident.description",
+                  defaultMessage: "Description*",
+                })}
+                placeholder={intl.formatMessage({
+                  id: "reportIncident.input.incidentDescription",
+                  defaultMessage: "Enter Description",
+                })}
+                value={incidentDescription}
+                onChangeText={(text) => {
+                  setIncidentDescription(text);
+                }}
+                multiline
+                style={{
+                  inputbox: {
+                    height: 86,
+                    marginBottom: 18,
+                  },
+                }}
               />
             </View>
-            <Input
-              label={intl.formatMessage({
-                id: "reportIncident.inputLabel.incidentType",
-                defaultMessage: "Subject*",
-              })}
-              placeholder={intl.formatMessage({
-                id: "reportIncident.inputPlaceholder.incidentSubject",
-                defaultMessage: "Enter subject",
-              })}
-              value={incidentSubject}
-              onChangeText={(text) => {
-                setIncidentSubject(text);
-              }}
-            />
-            <LocationInput
-              value={address}
-              onChangeText={changeAddress}
-              onSelect={(e) => setSelectedAddress(e)}
-            />
-            <Input
-              label={intl.formatMessage({
-                id: "reportIncident.description",
-                defaultMessage: "Description*",
-              })}
-              placeholder={intl.formatMessage({
-                id: "reportIncident.input.incidentDescription",
-                defaultMessage: "Enter Description",
-              })}
-              value={incidentDescription}
-              onChangeText={(text) => {
-                setIncidentDescription(text);
-              }}
-              multiline
-              style={{
-                inputbox: {
-                  height: 86,
-                  marginBottom: 18,
-                },
-              }}
-            />
           </ScrollView>
         </KeyboardAvoidingView>
 

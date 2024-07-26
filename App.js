@@ -1,5 +1,9 @@
 import * as Notifications from "expo-notifications";
 
+import {
+  PublicSans_400Regular,
+  useFonts,
+} from "@expo-google-fonts/public-sans";
 import { useEffect, useState } from "react";
 import { LogBox, StatusBar } from "react-native";
 import { en, fr } from "./lang";
@@ -32,6 +36,9 @@ export default function App() {
   const [locale, setLocale] = useState("en");
   const { getUser } = useStore();
   const { token } = getUser();
+  const [fontsLoaded] = useFonts({
+    PublicSans_400Regular,
+  });
 
   useEffect(() => {
     axios.defaults.headers.common["Accept-Language"] = "en-CA";

@@ -80,7 +80,7 @@ const Home = ({ navigation, route }) => {
       setShowSuccessCard(true);
       setTimeout(() => {
         setShowSuccessCard(false);
-      }, 2000);
+      }, 20000);
     }
     if (successType?.startsWith("post") || successType?.startsWith("animate")) {
       animateToMap(coordinates?.lat, coordinates?.lng);
@@ -95,7 +95,7 @@ const Home = ({ navigation, route }) => {
     handleRecenter();
     const interval = setInterval(() => {
       getNearbyIncidentAPICall();
-    }, 5000);
+    }, 50000);
 
     // Show the card when the component mounts
     setShowNumOfIssuesCard(true);
