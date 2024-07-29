@@ -59,7 +59,6 @@ const ProfileDetails = () => {
   }, []);
 
   const handleSave = async () => {
-    console.log(profile);
     const response = await updateProfile(profile, image);
     dispatchProfile({
       type: "CHANGE_PROFILE",

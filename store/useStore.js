@@ -15,6 +15,9 @@ const useStore = create(
         token: "",
         access_token: "",
       },
+      settings: {
+        lang: "en",
+      },
       notifications: {},
       getUser: () => get().user,
 
@@ -59,6 +62,18 @@ const useStore = create(
           return { notifications };
         });
       },
+
+      setLang: (lang) => {
+        set((state) => {
+          const settings = {
+            ...state.settings,
+          };
+          settings.lang = lang;
+          return { settings };
+        });
+      },
+
+      getSettings: () => get().settings,
     }),
     {
       name: "app-storage",

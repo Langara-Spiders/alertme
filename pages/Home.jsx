@@ -280,6 +280,11 @@ const Home = ({ navigation, route }) => {
     );
   }
 
+  const language = "fr"; // Set the desired language (e.g., 'fr' for French)
+
+  // Define a custom URL tile with the language parameter
+  const tileUrl = `https://mt1.google.com/vt/lyrs=m&hl=${language}&x={x}&y={y}&z={z}`;
+
   return (
     <TouchableWithoutFeedback onPress={handleMapPress}>
       <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -363,6 +368,7 @@ const Home = ({ navigation, route }) => {
               latitudeDelta: 0.02,
               longitudeDelta: 0.03,
             }}
+            accessibilityLanguage=""
             onPress={handleMapPress} // Clear highlight and quick card when map is pressed
           >
             {nearbyIssues?.map((issue) => {

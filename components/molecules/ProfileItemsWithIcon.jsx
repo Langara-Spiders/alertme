@@ -1,37 +1,31 @@
-import {
-  ArrowRightIcon,
-  Button,
-  Pressable,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Text, View } from "@gluestack-ui/themed";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
+import ArrowRightIcon from "../../assets/icons/profile_icons/arrow_right_icon.png";
 
-const ProfileItemsWithIcon = (props) => {
+const ProfileItemsWithIcon = ({ icon, label, route }) => {
   const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate(props.screen);
-  };
   return (
-    <Button style={styles.container} onPress={handlePress}>
-      <View style={styles.textIcon}>
-        <SvgUri width="30" height="30" source={props.icon} />
-        <Text style={styles.text}>
-          <FormattedMessage
-            id={props.messageId}
-            defaultMessage={props.defaultMessage}
-          />
-        </Text>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate(route)}
+    >
+      <View style={styles.iconContainer}>
+        <Image
+          alt="Profile List Icon"
+          style={styles.profileListIcon}
+          source={icon}
+        />
+        <Text style={styles.text}>{label}</Text>
       </View>
-      <Pressable>
-        <ArrowRightIcon style={styles.arrowIcon} />
-      </Pressable>
-    </Button>
+      <Image
+        alt="Right Arrow"
+        style={styles.arrowRight}
+        source={ArrowRightIcon}
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -42,12 +36,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 10,
+    marginHorizontal: 24,
+    marginTop: 24,
     backgroundColor: "transparent",
   },
-  textIcon: {
+  iconContainer: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  profileListIcon: {
+    width: 24,
+    height: 24,
+  },
+  arrowRight: {
+    width: 24,
+    height: 24,
   },
   text: {
     marginLeft: 10,

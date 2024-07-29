@@ -50,7 +50,12 @@ const Notifications = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>Notifications</Text>
+        <Text style={styles.headerText}>
+          <FormattedMessage
+            id="Notifications.title"
+            defaultMessage="Notifications"
+          />
+        </Text>
       </View>
       <View style={styles.filterContainer}>
         <View style={styles.header}>

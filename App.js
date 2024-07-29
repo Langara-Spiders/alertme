@@ -4,9 +4,9 @@ import {
   PublicSans_400Regular,
   useFonts,
 } from "@expo-google-fonts/public-sans";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LogBox, StatusBar } from "react-native";
-import { en, fr } from "./lang";
+import { en, fr, pa } from "./lang";
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { NavigationContainer } from "@react-navigation/native";
@@ -30,12 +30,16 @@ Notifications.setNotificationHandler({
 const messages = {
   en,
   fr,
+  pa,
 };
 
 export default function App() {
-  const [locale, setLocale] = useState("en");
-  const { getUser } = useStore();
+  const { getUser, getSettings } = useStore();
+  const { lang } = getSettings();
   const { token } = getUser();
+
+  console.log(getSettings());
+
   const [fontsLoaded] = useFonts({
     PublicSans_400Regular,
   });
@@ -47,11 +51,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <IntlProvider
-        messages={messages[locale]}
-        locale={locale}
-        defaultLocale="en"
-      >
+      <IntlProvider messages={messages[lang]} locale={lang} defaultLocale="en">
         <UpdateProvider>
           <GluestackUIProvider config={configLight}>
             <StatusBar barStyle="dark-content" backgroundColor="white" />

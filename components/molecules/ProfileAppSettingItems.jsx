@@ -17,22 +17,52 @@ import {
   View,
 } from "@gluestack-ui/themed";
 import React, { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Button, SwitchButton, UnitSwitch } from "../atoms";
 
-import { useNavigation } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-
-const AppSettingArray = [
-  { id: "applicationSound", text: "Application Sound" },
-  { id: "accessLocation", text: "Access Location" },
-  { id: "accessCamera", text: "Access Camera" },
-  { id: "notification", text: "Notification" },
-];
+import { useStore } from "../../store";
 
 const ProfileAppSettingItems = () => {
+  const intl = useIntl();
+  const { setLang, getSettings } = useStore();
+  const { lang } = getSettings();
   const [isKm, setIsKm] = useState(false);
-  const navigation = useNavigation();
+
+  const profileAppSettingItems = [
+    {
+      label: (
+        <FormattedMessage
+          id="ProfileAppSettingsItems.settings.sound"
+          defaultMessage="Application Sound"
+        />
+      ),
+    },
+    {
+      label: (
+        <FormattedMessage
+          id="ProfileAppSettingsItems.settings.location"
+          defaultMessage="Access Location"
+        />
+      ),
+    },
+    {
+      label: (
+        <FormattedMessage
+          id="ProfileAppSettingsItems.settings.camera"
+          defaultMessage="Access Camera"
+        />
+      ),
+    },
+    {
+      label: (
+        <FormattedMessage
+          id="ProfileAppSettingsItems.settings.notifications"
+          defaultMessage="Push Notifications"
+        />
+      ),
+    },
+  ];
 
   const [switchValues, setSwitchValues] = useState({
     applicationSound: false,
@@ -61,9 +91,26 @@ const ProfileAppSettingItems = () => {
             defaultMessage="Language"
           />
         </Text>
-        <Select>
+        <Select defaultValue selectedValue onValueChange={(e) => setLang(e)}>
           <SelectTrigger variant="outline" size="md">
-            <SelectInput placeholder="English" />
+            <SelectInput
+              value={
+                lang === "en"
+                  ? intl.formatMessage({
+                      id: "ProfileAppSettingsItems.lang.english",
+                      defaultMessage: "English",
+                    })
+                  : lang === "fr"
+                    ? intl.formatMessage({
+                        id: "ProfileAppSettingsItems.lang.french",
+                        defaultMessage: "French",
+                      })
+                    : intl.formatMessage({
+                        id: "ProfileAppSettingsItems.lang.punjabi",
+                        defaultMessage: "Punjabi",
+                      })
+              }
+            />
             <SelectIcon mr="$3">
               <Icon as={ChevronDownIcon} />
             </SelectIcon>
@@ -74,8 +121,33 @@ const ProfileAppSettingItems = () => {
               <SelectDragIndicatorWrapper>
                 <SelectDragIndicator />
               </SelectDragIndicatorWrapper>
-              <SelectItem label="French" value="french" />
-              <SelectItem label="English" value="english" />
+              <SelectItem
+                label={
+                  <FormattedMessage
+                    id="ProfileAppSettingsItems.lang.english"
+                    defaultMessage="English"
+                  />
+                }
+                value="en"
+              />
+              <SelectItem
+                label={
+                  <FormattedMessage
+                    id="ProfileAppSettingsItems.lang.french"
+                    defaultMessage="French"
+                  />
+                }
+                value="fr"
+              />
+              <SelectItem
+                label={
+                  <FormattedMessage
+                    id="ProfileAppSettingsItems.lang.punjabi"
+                    defaultMessage="Punjabi"
+                  />
+                }
+                value="pa"
+              />
             </SelectContent>
           </SelectPortal>
         </Select>
@@ -93,22 +165,16 @@ const ProfileAppSettingItems = () => {
         </Card>
       </View>
 
-      {AppSettingArray.map((item) => (
-        <View key={item.id}>
+      {profileAppSettingItems.map((item, idx) => (
+        <View key={idx}>
           <Card style={styles.settingItem2}>
             <View>
-              <Text>
-                <FormattedMessage
-                  id={`profile.appsettingTextOption.${item.id}`}
-                  defaultMessage={item.text}
-                  values={{ text: item.text }}
-                />
-              </Text>
+              <Text>{item?.label}</Text>
             </View>
             <View>
               <SwitchButton
-                onValueChange={() => handleSwitchChange(item.id)}
-                value={switchValues[item.id]}
+                // onValueChange={() => handleSwitchChange(item.id)}
+                // value={switchValues[item.id]}
                 trackColor={{ false: "#F1F1F1", true: "#FF9900" }}
               />
             </View>

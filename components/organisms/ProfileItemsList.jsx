@@ -1,52 +1,71 @@
 import { View } from "@gluestack-ui/themed";
-import About from "../../assets/icons/Profile/About.svg";
-import ProfileUser from "../../assets/icons/Profile/ProfileUser.svg";
+import { FormattedMessage } from "react-intl";
+import AboutIcon from "../../assets/icons/profile_icons/about_icon.png";
+import AppearanceIcon from "../../assets/icons/profile_icons/appearance_icon.png";
+import ProfileIcon from "../../assets/icons/profile_icons/profile_icon.png";
+import SettingsIcon from "../../assets/icons/profile_icons/settings_icon.png";
+import ShareIcon from "../../assets/icons/profile_icons/share_icon.png";
+import { routes } from "../../constants";
 import ProfileItemsWithIcon from "../molecules/ProfileItemsWithIcon";
 
 const ProfileItemsList = (props) => {
-  const items = [
+  const profileItemsList = [
     {
-      icon: ProfileUser,
-      messageId: "profiledetails.icon.message",
-      defaultMessage: "Profile Details",
-      screen: "Profile Details",
+      icon: ProfileIcon,
+      label: (
+        <FormattedMessage
+          id="ProfileItemsList.profile"
+          defaultMessage="Profile Details"
+        />
+      ),
+      route: routes.PROFILE_DETAILS,
     },
-    // {
-    //   icon: Setting,
-    //   messageId: "appsetting.icon.message",
-    //   defaultMessage: "App Setting",
-    //   screen: "App Setting",
-    // },
-    // {
-    //   icon: Share,
-    //   messageId: "sharewithfriends.icon.message",
-    //   defaultMessage: "Share with friends",
-    //   screen: "ShareWithFriends",
-    // },
-    // {
-    //   icon: Appearance,
-    //   messageId: "appearance.icon.message",
-    //   defaultMessage: "Appearance",
-    //   screen: "Appearance",
-    // },
     {
-      icon: About,
-      messageId: "about.icon.message",
-      defaultMessage: "About",
-      screen: "About",
+      icon: SettingsIcon,
+      label: (
+        <FormattedMessage
+          id="ProfileItemsList.settings"
+          defaultMessage="App Settings"
+        />
+      ),
+      route: routes.APP_SETTING,
+    },
+    {
+      icon: ShareIcon,
+      label: (
+        <FormattedMessage
+          id="ProfileItemsList.share"
+          defaultMessage="Share with friends"
+        />
+      ),
+      route: routes.SHARE_WITH_FRIENDS,
+    },
+    {
+      icon: AppearanceIcon,
+      label: (
+        <FormattedMessage
+          id="ProfileItemsList.appearance"
+          defaultMessage="Appearance"
+        />
+      ),
+      route: routes.APPEARANCE,
+    },
+    {
+      icon: AboutIcon,
+      label: (
+        <FormattedMessage id="ProfileItemsList.about" defaultMessage="About" />
+      ),
+      route: routes.ABOUT,
     },
   ];
-
   return (
     <View>
-      {items.map((item, index) => (
+      {profileItemsList.map((item, idx) => (
         <ProfileItemsWithIcon
-          key={index}
-          icon={item.icon}
-          messageId={item.messageId}
-          defaultMessage={item.defaultMessage}
-          screen={item.screen}
-          // navigation={props.navigation}
+          key={idx}
+          icon={item?.icon}
+          label={item?.label}
+          route={item?.route}
         />
       ))}
     </View>

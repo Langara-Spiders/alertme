@@ -10,10 +10,65 @@ import {
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
+import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import { getMyIssues } from "../api/incident";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import { IncidentCard } from "../components/molecules";
+
+const filterOptions = [
+  {
+    label: (
+      <FormattedMessage id="UserIncidents.filter.all" defaultMessage="All" />
+    ),
+    value: "all",
+  },
+  {
+    label: (
+      <FormattedMessage
+        id="UserIncidents.filter.active"
+        defaultMessage="Active"
+      />
+    ),
+    value: "active",
+  },
+  {
+    label: (
+      <FormattedMessage
+        id="UserIncidents.filter.pending"
+        defaultMessage="Pending"
+      />
+    ),
+    value: "pending",
+  },
+  {
+    label: (
+      <FormattedMessage
+        id="UserIncidents.filter.fixing"
+        defaultMessage="Fixing"
+      />
+    ),
+    value: "fixing",
+  },
+  {
+    label: (
+      <FormattedMessage
+        id="UserIncidents.filter.resolved"
+        defaultMessage="Resolved"
+      />
+    ),
+    value: "resolved",
+  },
+  {
+    label: (
+      <FormattedMessage
+        id="UserIncidents.filter.rejected"
+        defaultMessage="Rejected"
+      />
+    ),
+    value: "rejected",
+  },
+];
 
 const UserIncidents = (props) => {
   const { navigation } = props;
@@ -83,7 +138,12 @@ const UserIncidents = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>My Posted Issues</Text>
+        <Text style={styles.headerText}>
+          <FormattedMessage
+            id="UserIncidents.title.myreports"
+            defaultMessage="My Reports"
+          />
+        </Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -91,31 +151,29 @@ const UserIncidents = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "fixing", "resolved", "rejected"].map(
-            (status) => (
-              <TouchableOpacity
-                key={status}
+          {filterOptions.map((status) => (
+            <TouchableOpacity
+              key={status.value}
+              style={[
+                styles.button,
+                activeButton === status.value
+                  ? styles.activeButton
+                  : styles.inactiveButton,
+              ]}
+              onPress={() => handleButtonPress(status.value)}
+            >
+              <Text
                 style={[
-                  styles.button,
-                  activeButton === status
-                    ? styles.activeButton
-                    : styles.inactiveButton,
+                  styles.buttonText,
+                  activeButton === status.value
+                    ? styles.activeButtonText
+                    : styles.inactiveButtonText,
                 ]}
-                onPress={() => handleButtonPress(status)}
               >
-                <Text
-                  style={[
-                    styles.buttonText,
-                    activeButton === status
-                      ? styles.activeButtonText
-                      : styles.inactiveButtonText,
-                  ]}
-                >
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </Text>
-              </TouchableOpacity>
-            )
-          )}
+                {status.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
       <View style={{ flex: 1, marginTop: 16 }}>
