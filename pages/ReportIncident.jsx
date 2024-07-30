@@ -22,7 +22,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
 import LoadingGif from "../assets/loading.gif";
 import { routes } from "../constants";
 
@@ -257,8 +257,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: 30,
     backgroundColor: "#F3F4F4",
+    opacity: 0.8,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
@@ -266,7 +267,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    opacity: 0.5,
   },
   headerText: {
     fontSize: 18,

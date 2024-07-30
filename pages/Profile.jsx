@@ -141,11 +141,12 @@ const styles = StyleSheet.create({
     textAlign: "start",
     marginLeft: 16,
     textDecorationLine: "none",
+    fontWeight: "semibold",
   },
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 16,
   },
   loadingContainer: {
     flex: 1,

@@ -12,7 +12,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
 import { getMyIssues } from "../api/incident";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
 import { IncidentCard } from "../components/molecules";
 
 const UserIncidents = (props) => {
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: 30,
+    opacity: 0.8,
     backgroundColor: "#F3F4F4",
     justifyContent: "center",
     alignItems: "center",
@@ -154,7 +155,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    opacity: 0.5,
   },
   headerText: {
     fontSize: 18,
