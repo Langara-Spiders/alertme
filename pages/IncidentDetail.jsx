@@ -233,12 +233,14 @@ const IncidentDetail = ({ route, navigation }) => {
       </ScrollView>
       <View style={styles.bottomFixedContainer}>
         <View style={styles.bottomModalContent}>
-          <View style={styles.upvoteCardContainer}>
-            <UpVoteCard
-              upVotes={incident.upvote_count}
-              voters={incident.voters}
-            />
-          </View>
+          {showReportedBySectionUSER() ? (
+            <View style={styles.upvoteCardContainer}>
+              <UpVoteCard
+                upVotes={incident.upvote_count}
+                voters={incident.voters}
+              />
+            </View>
+          ) : null}
           {showReportedBySectionUSER() && showUpvoteButton() && (
             <View style={styles.upvoteButtonContainer}>
               <LargeActionButton
