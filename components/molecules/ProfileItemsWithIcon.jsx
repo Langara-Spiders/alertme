@@ -1,15 +1,10 @@
-import {
-  ArrowRightIcon,
-  Button,
-  Pressable,
-  Text,
-  View,
-} from "@gluestack-ui/themed";
+import { Button, Pressable, Text, View } from "@gluestack-ui/themed";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import ArrowRightIcon from "../../assets/icons/System_Icons/ArrowRight.svg";
 
 const ProfileItemsWithIcon = (props) => {
   const navigation = useNavigation();
@@ -29,7 +24,7 @@ const ProfileItemsWithIcon = (props) => {
         </Text>
       </View>
       <Pressable>
-        <ArrowRightIcon style={styles.arrowIcon} />
+        <SvgUri source={ArrowRightIcon} width="24" height="24" />
       </Pressable>
     </Button>
   );

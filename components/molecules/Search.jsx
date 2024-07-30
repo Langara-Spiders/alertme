@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Debouce, TruncateAddress } from "../../utils";
 
+import { useIsFocused } from "@react-navigation/native";
 import { useIntl } from "react-intl";
 import { getAutocomplete } from "../../api";
 import SearchIcon from "../../assets/icons/SearchIcon.svg";
@@ -10,6 +11,7 @@ import Input from "../atoms/Input";
 
 const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
   const intl = useIntl();
+  const isFocused = useIsFocused();
   const [text, setText] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -62,9 +64,14 @@ const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
   );
 
   useEffect(() => {
-    // console.log("Component mounted or value prop changed. Current value:", value);
     setText(value);
   }, [value]);
+
+  useEffect(() => {
+    if (!isFocused) {
+      setSuggestions([]);
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -75,6 +82,7 @@ const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
         icon={SearchIcon}
         placeholder={placeholder}
         inputbox={styles.customContainer}
+        searchfield={styles.field}
       />
       {suggestions.length > 0 && (
         <FlatList
@@ -100,7 +108,23 @@ const styles = StyleSheet.create({
   customContainer: {
     backgroundColor: "#fff",
     width: "100%",
-    height: 50,
+    borderRadius: 12,
+    shadowColor: "grey",
+    shadowOffset: { width: 8, height: 8 },
+    shadowOpacity: 7,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  field: {
+    color: "#333",
+    fontSize: 16,
+    height: 48,
+    shadowColor: "red",
+    shadowOffset: { width: 8, height: 8 },
+    shadowOpacity: 7,
+    shadowRadius: 3.84,
+
+    borderWidth: 9,
   },
   input: {
     marginBottom: 10,

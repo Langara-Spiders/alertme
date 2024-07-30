@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     left: 16,
     right: 16,
     elevation: 5,
-    borderRadius: 15,
+    borderRadius: 12,
     height: 76,
     shadowColor: "gray",
     shadowOffset: {
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   focusedText: {
     color: "#FF6B00",

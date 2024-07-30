@@ -31,7 +31,7 @@ const Input = (props) => {
           value={props.value}
           onChangeText={props.onChangeText}
           placeholder={props.placeholder}
-          style={[styles.field]}
+          style={[styles.field, props.style?.searchfield]}
           multiline={false}
           numberOfLines={1}
           ellipsizeMode="tail"

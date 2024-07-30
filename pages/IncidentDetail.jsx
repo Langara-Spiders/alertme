@@ -10,7 +10,9 @@ import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
 import { uniqueId } from "lodash";
 import { Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import ArrowLeft from "../assets/icons/System_Icons/ArrowLeft.svg";
+import Delete from "../assets/icons/System_Icons/Delete.svg";
+import Edit from "../assets/icons/System_Icons/Edit.svg";
 import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
 import ImagePlaceHolder from "../assets/icons/TakePicture.svg";
@@ -176,13 +178,38 @@ const IncidentDetail = ({ route, navigation }) => {
           <SvgUri
             width="24"
             height="24"
-            source={Back_Icon}
+            source={ArrowLeft}
             style={styles.icon}
           />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.detailsContainer}>
-        <StatusBadge status={incident.status} style={styles.statusBadge} />
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <StatusBadge status={incident.status} style={styles.statusBadge} />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <SvgUri
+              source={Edit}
+              width={32}
+              height={32}
+              style={{ marginRight: 10 }}
+            />
+            <SvgUri source={Delete} width={32} height={32} />
+          </View>
+        </View>
         <Text style={styles.title}>{incident.subject}</Text>
         <Text style={styles.distance}>
           {calculateIncidentDistance().toFixed(2)} km away
@@ -314,15 +341,17 @@ const styles = StyleSheet.create({
     left: 10,
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: 30,
+    textAlign: "center",
     backgroundColor: "#F3F4F4",
+    opacity: 0.8,
     justifyContent: "center",
     alignItems: "center",
   },
   icon: {
     width: 24,
     height: 24,
-    opacity: 0.5,
+    elevation: 5,
   },
   detailsContainer: {
     flex: 1,

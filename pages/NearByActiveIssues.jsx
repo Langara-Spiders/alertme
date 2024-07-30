@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
 import { NearbyIncidentCard } from "../components/molecules";
 import { DateTime } from "../utils";
 
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    opacity: 0.5,
   },
   headerText: {
     fontSize: 18,

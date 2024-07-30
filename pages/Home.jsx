@@ -58,6 +58,7 @@ const Home = ({ navigation, route }) => {
   const [destination, setDestination] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [isNavigationEnabled, setIsNavigationEnabled] = useState(false);
   const mapRef = useRef(null);
 
   const { successType, coordinates, markerId } = route?.params ?? {};
@@ -257,6 +258,7 @@ const Home = ({ navigation, route }) => {
   const handleEnableDirections = () => {
     setShowPopup(false);
     setDestination(selectedLocation);
+    setIsNavigationEnabled(true);
   };
 
   const handleCloseCard = () => {
@@ -265,6 +267,7 @@ const Home = ({ navigation, route }) => {
 
   const handleExitNavigation = () => {
     setDestination(null);
+    setIsNavigationEnabled(false);
   };
 
   if (loading) {
@@ -302,14 +305,16 @@ const Home = ({ navigation, route }) => {
             onChange={handleSearchChange}
             onSelect={handleSearchSelect}
             containerWidth={searchContainerWidth}
+            style={styles.search}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate(routes.NOTIFICATIONS)}
+            style={styles.notificationButtonContainer}
           >
             <View style={styles.notificationButton}>
               <SvgUri
-                width="22"
-                height="22"
+                width="24"
+                height="24"
                 source={
                   notificationUpdate
                     ? NotificationBellActiveIcon
@@ -453,15 +458,19 @@ const Home = ({ navigation, route }) => {
                 title="My Location"
                 description="This is where I am currently located"
               >
-                <View style={styles.currentLocationMarkerWrapper}>
-                  <View style={styles.currentLocationMarker}>
-                    <Image
-                      width="30"
-                      height="30"
-                      source={CurrentLocationArrow}
-                      style={styles.currentLocationImage}
-                    />
-                  </View>
+                <View
+                  style={[
+                    isNavigationEnabled && styles.currentLocationMarkerWrapper,
+                    isNavigationEnabled &&
+                      styles.highlightedCurrentLocationWrapper,
+                  ]}
+                >
+                  <Image
+                    width="50"
+                    height="50"
+                    source={CurrentLocationArrow}
+                    style={styles.currentLocationImage}
+                  />
                 </View>
               </Marker>
             )}
@@ -637,9 +646,15 @@ const styles = StyleSheet.create({
     top: Platform.OS === "ios" ? 44 : 0,
     zIndex: 99,
     elevation: 99,
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingRight: 20,
+  },
+  search: {
+    marginRight: 8,
+  },
+  notificationButtonContainer: {
+    marginRight: 20,
   },
   numOfIssuesCardContainer: {
     position: "absolute",
@@ -779,10 +794,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     width: 52,
-    height: 52,
+    height: 54,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "grey",
+    shadowOffset: { width: 8, height: 8 },
+    shadowOpacity: 7,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   separator: {
     height: 10,
@@ -802,19 +822,20 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0,.2)",
     elevation: 5,
   },
-  highlightedMarkerOuter: {
-    borderColor: "rgba(255, 145, 64, 0.1)",
+  currentLocationMarkerWrapper: {
+    borderColor: "rgba(255, 145, 64, 0.2)",
     borderRadius: 50,
     borderWidth: 15,
   },
-  highlightedMarkerInner: {
+  highlightedCurrentLocationWrapper: {
     borderRadius: 50,
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 10,
+    padding: 8,
+    backgroundColor: "rgba(255, 145, 64, 0.5)",
     elevation: 5,
-    borderColor: "rgba(255, 145, 64, 0.2)",
   },
   overlay: {
     position: "absolute",
@@ -919,7 +940,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 4,
     elevation: 5,
     backgroundColor: "rgba(255, 145, 64, 0.5)",
   },
