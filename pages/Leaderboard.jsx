@@ -1,23 +1,19 @@
-import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
-
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import SvgUri from "react-native-svg-uri";
 import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg";
 import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
 import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
 import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
-// Import top place banners
-import { useNavigation } from "@react-navigation/native";
+import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
   const navigation = useNavigation();
 
-  const calculateLevel = (points) => {
-    return Math.floor(points / 150) + 1;
-  };
+  const calculateLevel = (points) => Math.floor(points / 150) + 1;
 
   if (!leaderboard || leaderboard.length < 3) {
     return (
@@ -28,7 +24,10 @@ const Leaderboard = (props) => {
   }
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={["rgba(255, 220, 194, 0.0)", "#FFDCC2"]}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <Pressable
           onPress={() => navigation.goBack()}
@@ -84,13 +83,8 @@ const Leaderboard = (props) => {
             />
           ))}
         </ScrollView>
-        <View style={styles.gradientContainer}>
-          <View style={styles.gradientPart1} />
-          <View style={styles.gradientPart2} />
-          <View style={styles.gradientPart3} />
-        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -99,7 +93,6 @@ export default Leaderboard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF0E5",
     padding: 20,
   },
   header: {
