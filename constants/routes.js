@@ -19,6 +19,7 @@ const routes = {
   PROFILE_DETAILS: "Profile Details",
   APPEARANCE: "Appearance",
   ABOUT: "About",
+  SHARE_WITH_FRIENDS: "Share With Friends",
 
   // Incidents
   MY_INCIDENTS: "My Issues",

@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
     position: "absolute",
     bottom: -40,
   },
@@ -129,12 +130,12 @@ const styles = StyleSheet.create({
   },
   content1: {
     margin: 0,
-    marginTop: 30,
+    marginTop: 48,
   },
   content: {
     flex: 1,
     padding: 16,
-    marginTop: 30,
+    marginTop: 48,
   },
   link: {
     color: "#FF6B00",

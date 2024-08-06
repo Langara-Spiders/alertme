@@ -1,4 +1,4 @@
-import { Text, View } from "@gluestack-ui/themed";
+import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useReducer, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Alert, StyleSheet } from "react-native";
@@ -6,11 +6,15 @@ import { getProfile, updateProfile } from "../api/user";
 import { Button, Input } from "../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../components/molecules";
 
+import { useNavigation } from "@react-navigation/native";
+import SvgUri from "react-native-svg-uri";
 import EditIcon from "../assets/icons/Edit.svg";
+import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
 import User from "../assets/images/User.png";
 
 const ProfileDetails = () => {
   const intl = useIntl();
+  const navigation = useNavigation();
 
   const reducerProfile = (state, action) => {
     switch (action.type) {
@@ -70,6 +74,25 @@ const ProfileDetails = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Pressable
+          onPress={() => navigation.navigate("Profile")}
+          style={styles.iconContainer}
+        >
+          <SvgUri
+            width="24"
+            height="24"
+            source={Back_Icon}
+            style={styles.icon}
+          />
+        </Pressable>
+        <Text style={styles.headerText}>
+          <FormattedMessage
+            id="profile.ProfileDetails.headerText"
+            defaultMessage="Profile Details"
+          />
+        </Text>
+      </View>
       <View style={styles.imageContainer}>
         <ProfileImageEdit
           initialImage={profile.picture || User}
@@ -143,6 +166,31 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 30,
+    backgroundColor: "#F3F4F4",
+    opacity: 0.8,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    textAlign: "center",
+  },
+  headerText: {
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   imageContainer: {
     margin: 30,
     marginLeft: "auto",
@@ -154,7 +202,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   buttonContainer: {
-    marginTop: 70,
+    marginTop: 157,
     width: "50%",
     margin: "auto",
   },
