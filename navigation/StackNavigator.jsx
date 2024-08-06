@@ -13,6 +13,7 @@ import {
   Notifications,
   ProfileDetails,
   ReportIncident,
+  ShareWithFriends,
 } from "../pages";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -90,7 +91,7 @@ const StackNavigator = () => {
       </Stack.Screen>
       <Stack.Screen
         name={routes.APP_SETTING}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
@@ -100,7 +101,7 @@ const StackNavigator = () => {
       </Stack.Screen>
       <Stack.Screen
         name={routes.PROFILE_DETAILS}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
@@ -109,8 +110,22 @@ const StackNavigator = () => {
         )}
       </Stack.Screen>
       <Stack.Screen
+        name={routes.SHARE_WITH_FRIENDS}
+        options={{
+          headerShown: false,
+          headerBackTitleVisible: false,
+        }}
+      >
+        {(props) => (
+          <SafeAreaWrapper>
+            <ShareWithFriends {...props} />
+          </SafeAreaWrapper>
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen
         name={routes.APPEARANCE}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
@@ -120,7 +135,7 @@ const StackNavigator = () => {
       </Stack.Screen>
       <Stack.Screen
         name={routes.ABOUT}
-        options={{ headerShown: true, headerBackTitleVisible: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       >
         {(props) => (
           <SafeAreaWrapper>
