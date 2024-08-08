@@ -46,7 +46,6 @@ const Home = ({ navigation, route }) => {
   const [showQuickView, setShowQuickView] = useState(false);
   const [quickViewIssue, setQuickViewIssue] = useState({});
   const [isSheetVisible, setIsSheetVisible] = useState(false);
-  const [AddIssueVisible, setAddIssueVisible] = useState(false);
   const [notificationUpdate, setNotificationUpdate] = useState(false);
   const [showSuccessCard, setShowSuccessCard] = useState(false);
   const [searchContainerWidth, setSearchContainerWidth] = useState(screenWidth);
@@ -360,7 +359,7 @@ const Home = ({ navigation, route }) => {
           <MapView
             ref={mapRef}
             style={styles.map}
-            customMapStyle={mapStyle} // Apply custom map style here
+            customMapStyle={mapStyle}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 49.225,
@@ -368,7 +367,7 @@ const Home = ({ navigation, route }) => {
               latitudeDelta: 0.02,
               longitudeDelta: 0.03,
             }}
-            onPress={handleMapPress} // Clear highlight and quick card when map is pressed
+            onPress={handleMapPress}
           >
             {nearbyIssues?.map((issue) => {
               if (
@@ -398,7 +397,7 @@ const Home = ({ navigation, route }) => {
                         style={[
                           styles.markerInner,
                           highlightedMarkerId === issue.id &&
-                            styles.highlightedMarkerInner, // highlighting style
+                            styles.highlightedMarkerInner,
                         ]}
                       >
                         <SvgUri
@@ -649,12 +648,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "rgba(50, 50, 71, 0.08)",
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+    elevation: 8,
   },
   search: {
     marginRight: 8,
   },
   notificationButtonContainer: {
     marginRight: 20,
+    backgroundColor: "transparent",
   },
   numOfIssuesCardContainer: {
     position: "absolute",
@@ -676,7 +681,7 @@ const styles = StyleSheet.create({
   buttonsContainerRight: {
     position: "absolute",
     display: "flex",
-    alignItems: "flex-end", // Align items to the right
+    alignItems: "flex-end",
     right: 16,
     bottom: 120,
     gap: 20,
@@ -691,14 +696,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   map: {
-    ...StyleSheet.absoluteFillObject, // Ensure the map takes the full container size
+    ...StyleSheet.absoluteFillObject,
   },
   reportIncidentBtn: {
     position: "absolute",
     bottom: 10,
     left: 0,
     zIndex: 99,
-    elevation: 99,
   },
   heading: {
     fontSize: 18,
@@ -764,6 +768,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     marginRight: 0,
+    shadowColor: "rgba(50, 50, 71, 0.08)",
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+    elevation: 8,
   },
   addIssueIcon: {
     backgroundColor: "white",
@@ -779,6 +788,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     marginRight: 0,
+    shadowColor: "rgba(50, 50, 71, 0.08)",
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+    elevation: 8,
   },
   nearbyIssueIcon: {
     backgroundColor: "white",
@@ -798,11 +812,11 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "grey",
-    shadowOffset: { width: 8, height: 8 },
-    shadowOpacity: 7,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowColor: "rgba(50, 50, 71, 0.08)",
+    shadowOffset: { width: 10, height: 16 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+    elevation: 8,
   },
   separator: {
     height: 10,

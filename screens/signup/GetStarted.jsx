@@ -1,8 +1,9 @@
+import { StyleSheet, View } from "react-native";
+
 import { Text } from "@gluestack-ui/themed";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet, View } from "react-native";
-import { Button } from "../components/atoms";
+import { Button } from "../../components/atoms";
 
 const GetStarted = () => {
   return (

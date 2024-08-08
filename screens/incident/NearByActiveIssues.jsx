@@ -3,9 +3,9 @@ import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
-import { NearbyIncidentCard } from "../components/molecules";
-import { DateTime } from "../utils";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import { NearbyIncidentCard } from "../../components/molecules";
+import { DateTime } from "../../utils";
 
 const NearByActiveIssues = ({ route }) => {
   const { incidents } = route.params;

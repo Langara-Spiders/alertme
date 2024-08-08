@@ -11,21 +11,21 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
-import { getCivilianIssuesForOrg } from "../api/incident";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
-import { IncidentCard } from "../components/molecules";
+import { getSiteIssuesForOrg } from "../../api/incident";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import { IncidentCard } from "../../components/molecules";
 
 const screenWidth = Dimensions.get("window").width;
 
-const CivilianIncidentsOrg = (props) => {
+const SiteIncidentsOrg = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    getCivilianIncidentsAll();
+    getSiteIncidentsAll();
     const interval = setInterval(() => {
-      getCivilianIncidentsAll();
+      getSiteIncidentsAll();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -41,9 +41,9 @@ const CivilianIncidentsOrg = (props) => {
     return coords ?? {};
   };
 
-  const getCivilianIncidentsAll = async () => {
+  const getSiteIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getCivilianIssuesForOrg(
+    const response = await getSiteIssuesForOrg(
       activeButton === "all" ? null : activeButton
     );
 
@@ -84,7 +84,7 @@ const CivilianIncidentsOrg = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>Civilian Reports</Text>
+        <Text style={styles.headerText}>Site Reports</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -92,31 +92,29 @@ const CivilianIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "fixing", "resolved", "rejected"].map(
-            (status) => (
-              <TouchableOpacity
-                key={status}
+          {["all", "active", "resolved"].map((status) => (
+            <TouchableOpacity
+              key={status}
+              style={[
+                styles.button,
+                activeButton === status
+                  ? styles.activeButton
+                  : styles.inactiveButton,
+              ]}
+              onPress={() => handleButtonPress(status)}
+            >
+              <Text
                 style={[
-                  styles.button,
+                  styles.buttonText,
                   activeButton === status
-                    ? styles.activeButton
-                    : styles.inactiveButton,
+                    ? styles.activeButtonText
+                    : styles.inactiveButtonText,
                 ]}
-                onPress={() => handleButtonPress(status)}
               >
-                <Text
-                  style={[
-                    styles.buttonText,
-                    activeButton === status
-                      ? styles.activeButtonText
-                      : styles.inactiveButtonText,
-                  ]}
-                >
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </Text>
-              </TouchableOpacity>
-            )
-          )}
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
       <View style={{ flex: 1, marginTop: 16 }}>
@@ -132,7 +130,7 @@ const CivilianIncidentsOrg = (props) => {
   );
 };
 
-export default CivilianIncidentsOrg;
+export default SiteIncidentsOrg;
 
 const styles = StyleSheet.create({
   screen: {

@@ -9,7 +9,7 @@ import {
   Rewards,
   SiteIncidentsOrg,
   UserIncidents,
-} from "../pages";
+} from "../screens";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FormattedMessage } from "react-intl";

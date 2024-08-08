@@ -5,11 +5,11 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
-import { NotificationCard } from "../components/molecules";
-import { routes } from "../constants";
-import { useStore } from "../store";
-import { timeAgo } from "../utils";
+import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import { NotificationCard } from "../../components/molecules";
+import { routes } from "../../constants";
+import { useStore } from "../../store";
+import { timeAgo } from "../../utils";
 
 const Notifications = (props) => {
   const { getUser, getNotifications, setNotifications } = useStore();

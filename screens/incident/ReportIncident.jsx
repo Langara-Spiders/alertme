@@ -10,21 +10,21 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { getCategories, getReverseGeoCoding, postIssue } from "../api";
-import { Button, Input } from "../components/atoms";
+import { getCategories, getReverseGeoCoding, postIssue } from "../../api";
+import { Button, Input } from "../../components/atoms";
 import {
   CategoriesModal,
   IncidentImageUpload,
   LocationInput,
   ReadyToPostModal,
-} from "../components/molecules";
+} from "../../components/molecules";
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
-import LoadingGif from "../assets/loading.gif";
-import { routes } from "../constants";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import LoadingGif from "../../assets/loading.gif";
+import { routes } from "../../constants";
 
 const user_type = {
   type: "user",

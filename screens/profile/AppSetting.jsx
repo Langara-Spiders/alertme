@@ -1,5 +1,5 @@
 import { View } from "@gluestack-ui/themed";
-import { ProfileAppSettingItems } from "../components/molecules";
+import { ProfileAppSettingItems } from "../../components/molecules";
 
 const AppSetting = () => {
   return (

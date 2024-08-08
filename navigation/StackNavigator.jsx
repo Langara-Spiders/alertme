@@ -14,7 +14,7 @@ import {
   ProfileDetails,
   ReportIncident,
   ShareWithFriends,
-} from "../pages";
+} from "../screens";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native";

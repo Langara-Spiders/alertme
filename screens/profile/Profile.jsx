@@ -9,12 +9,12 @@ import {
 } from "@gluestack-ui/themed";
 import { useEffect, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import { getProfile, logout } from "../api";
+import { getProfile, logout } from "../../api";
 
 import axios from "axios";
-import ProfileItemsList from "../components/organisms/ProfileItemsList";
-import { routes } from "../constants";
-import { useStore } from "../store";
+import ProfileItemsList from "../../components/organisms/ProfileItemsList";
+import { routes } from "../../constants";
+import { useStore } from "../../store";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -49,7 +49,7 @@ const Profile = (props) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require("../assets/images/pattern.png")}
+          source={require("../../assets/images/pattern.png")}
           style={styles.background}
           alt="backgroundimage"
         />

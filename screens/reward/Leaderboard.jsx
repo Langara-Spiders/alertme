@@ -1,13 +1,13 @@
 import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
-import { LeaderBoardCard, TopThreeCard } from "../components/molecules";
+import { LeaderBoardCard, TopThreeCard } from "../../components/molecules";
 
 import React from "react";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import FirstPlaceBanner from "../assets/icons/Reward_screen/FirstPlaceBanner.svg";
-import SecondPlaceBanner from "../assets/icons/Reward_screen/SecondPlaceBanner.svg";
-import ThirdPlaceBanner from "../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
-import Back_Icon from "../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import FirstPlaceBanner from "../../assets/icons/Reward_screen/FirstPlaceBanner.svg";
+import SecondPlaceBanner from "../../assets/icons/Reward_screen/SecondPlaceBanner.svg";
+import ThirdPlaceBanner from "../../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
+import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
 // Import top place banners
 import { useNavigation } from "@react-navigation/native";
 
