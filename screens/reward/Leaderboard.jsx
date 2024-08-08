@@ -10,14 +10,13 @@ import ThirdPlaceBanner from "../../assets/icons/Reward_screen/ThirdPlaceBanner.
 import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
 // Import top place banners
 import { useNavigation } from "@react-navigation/native";
+import LinearGradient from "react-native-linear-gradient";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
   const navigation = useNavigation();
 
-  const calculateLevel = (points) => {
-    return Math.floor(points / 150) + 1;
-  };
+  const calculateLevel = (points) => Math.floor(points / 150) + 1;
 
   if (!leaderboard || leaderboard.length < 3) {
     return (
@@ -28,7 +27,19 @@ const Leaderboard = (props) => {
   }
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={[
+        "rgba(255, 220, 194, 0.0)",
+        "rgba(255, 220, 194, 0.0)",
+        "rgba(255, 220, 194, 0.0)",
+        "#FFDCC2",
+        "#FFDCC2",
+        "#FFDCC2",
+        "#FFDCC2",
+        "rgba(255, 220, 194, 0.0)",
+      ]}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <Pressable
           onPress={() => navigation.goBack()}
@@ -84,13 +95,8 @@ const Leaderboard = (props) => {
             />
           ))}
         </ScrollView>
-        <View style={styles.gradientContainer}>
-          <View style={styles.gradientPart1} />
-          <View style={styles.gradientPart2} />
-          <View style={styles.gradientPart3} />
-        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 

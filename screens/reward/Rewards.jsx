@@ -2,6 +2,7 @@ import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import {
   LeaderBoardCard,
   RewardGreetingCard,
@@ -188,7 +189,18 @@ const Rewards = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={[
+        "rgba(255, 220, 194, 0.0)",
+        "rgba(255, 220, 194, 0.0)",
+        "#FFDCC2",
+        "#FFDCC2",
+        "#FFDCC2",
+        "#FFDCC2",
+        "rgba(255, 220, 194, 0.0)",
+      ]}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <RewardGreetingCard name={user.name} picture={user.picture} />
       </View>
@@ -249,7 +261,7 @@ const Rewards = (props) => {
           })}
         </View>
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 };
 
