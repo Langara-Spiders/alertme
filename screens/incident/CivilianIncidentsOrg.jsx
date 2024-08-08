@@ -11,19 +11,19 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
-import { getMyIssues } from "../api/incident";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
-import { IncidentCard } from "../components/molecules";
+import { getCivilianIssuesForOrg } from "../../api/incident";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import { IncidentCard } from "../../components/molecules";
 
-const UserIncidents = (props) => {
+const CivilianIncidentsOrg = (props) => {
   const { navigation } = props;
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    getMyIncidentsNearBy();
+    getCivilianIncidentsAll();
     const interval = setInterval(() => {
-      getMyIncidentsNearBy();
+      getCivilianIncidentsAll();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -39,13 +39,12 @@ const UserIncidents = (props) => {
     return coords ?? {};
   };
 
-  const getMyIncidentsNearBy = async () => {
+  const getCivilianIncidentsAll = async () => {
     const { latitude, longitude } = await getLocation();
-    const response = await getMyIssues(
-      latitude,
-      longitude,
+    const response = await getCivilianIssuesForOrg(
       activeButton === "all" ? null : activeButton
     );
+
     const incidentsWithDistance = response ?? [];
 
     // Sort incidents by distance
@@ -83,7 +82,7 @@ const UserIncidents = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>My Posted Issues</Text>
+        <Text style={styles.headerText}>Civilian Reports</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -131,7 +130,7 @@ const UserIncidents = (props) => {
   );
 };
 
-export default UserIncidents;
+export default CivilianIncidentsOrg;
 
 const styles = StyleSheet.create({
   screen: {

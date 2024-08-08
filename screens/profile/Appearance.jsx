@@ -1,14 +1,14 @@
 import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
-import { configDark, configLight } from "../config/gluestack-ui.config";
+import { configDark, configLight } from "../../config/gluestack-ui.config";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
-import { ModeSwitch } from "../components/atoms";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import { ModeSwitch } from "../../components/atoms";
 
 const Appearance = ({ onThemeChange }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);

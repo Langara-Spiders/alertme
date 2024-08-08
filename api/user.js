@@ -11,7 +11,7 @@ const login = async (token) => {
       { token }
     );
 
-    print(API_BASE_URL);
+    console.log(res);
     return res.data;
   } catch (error) {
     console.error(error.message);

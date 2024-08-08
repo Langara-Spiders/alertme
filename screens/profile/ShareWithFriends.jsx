@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
-import ShareIcon from "../assets/icons/Profile/Share.svg";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
+import ShareIcon from "../../assets/icons/Profile/Share.svg";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 
 const ShareWithFriends = () => {
   const navigation = useNavigation();

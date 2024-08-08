@@ -1,8 +1,8 @@
 import { Text, View } from "@gluestack-ui/themed";
+
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
-
-import LoginAsCard from "../components/molecules/cards/LoginAsCard";
+import LoginAsCard from "../../components/molecules/cards/LoginAsCard";
 
 const ChooseUser = () => {
   return (

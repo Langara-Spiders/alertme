@@ -3,8 +3,7 @@ import * as WebBrowser from "expo-web-browser";
 
 import { Image, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect } from "react";
-import { Dimensions, StyleSheet } from "react-native";
-import { IconButton } from "../components/atoms";
+import { StyleSheet } from "react-native";
 
 import axios from "axios";
 import Constants from "expo-constants";
@@ -18,12 +17,11 @@ import GoogleIcon from "../assets/images/Login/google.png";
 import Male from "../assets/images/Login/male.png";
 import semi from "../assets/images/Login/semi.svg";
 import star from "../assets/images/Login/star.svg";
+import { IconButton } from "../components/atoms";
 import { routes } from "../constants";
 import { useStore } from "../store";
 
 WebBrowser.maybeCompleteAuthSession();
-
-const { width, height } = Dimensions.get("window");
 
 const Login = (props) => {
   const { navigation } = props;
@@ -41,6 +39,7 @@ const Login = (props) => {
       const { token } = response?.data;
       setUser(token, access_token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      console.log("HEREEEE");
       navigation.navigate(routes.MAIN);
     }
   };

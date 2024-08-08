@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../assets/icons/System_Icons/ArrowLeft.svg";
+import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 
 const About = () => {
   const navigation = useNavigation();

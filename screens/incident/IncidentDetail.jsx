@@ -3,23 +3,27 @@ import * as Location from "expo-location";
 import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity } from "react-native";
-import { getIncidentDetailsForUser, upVoteIssue } from "../api/incident";
-import { LargeActionButton, StatusBadge } from "../components/atoms";
-import { PostedByCard, UpVoteCard, UpVoteModal } from "../components/molecules";
+import { getIncidentDetailsForUser, upVoteIssue } from "../../api/incident";
+import { LargeActionButton, StatusBadge } from "../../components/atoms";
+import {
+  PostedByCard,
+  UpVoteCard,
+  UpVoteModal,
+} from "../../components/molecules";
 
 import { uniqueId } from "lodash";
 import { Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import ArrowLeft from "../assets/icons/System_Icons/ArrowLeft.svg";
-import Delete from "../assets/icons/System_Icons/Delete.svg";
-import Edit from "../assets/icons/System_Icons/Edit.svg";
-import Location_Spot from "../assets/icons/System_Icons/Location_spot.svg";
-import Scroll_Dot from "../assets/icons/System_Icons/Scroll_Dot.svg";
-import ImagePlaceHolder from "../assets/icons/TakePicture.svg";
-import LoadingGif from "../assets/loading.gif";
-import { routes } from "../constants";
-import useStore from "../store/useStore";
-import { calculateDistance } from "../utils/CalculateDistance";
+import ArrowLeft from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import Delete from "../../assets/icons/System_Icons/Delete.svg";
+import Edit from "../../assets/icons/System_Icons/Edit.svg";
+import Location_Spot from "../../assets/icons/System_Icons/Location_spot.svg";
+import Scroll_Dot from "../../assets/icons/System_Icons/Scroll_Dot.svg";
+import ImagePlaceHolder from "../../assets/icons/TakePicture.svg";
+import LoadingGif from "../../assets/loading.gif";
+import { routes } from "../../constants";
+import useStore from "../../store/useStore";
+import { calculateDistance } from "../../utils/CalculateDistance";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
