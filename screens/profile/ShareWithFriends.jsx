@@ -1,9 +1,8 @@
-import { Button, Pressable, Text, View } from "@gluestack-ui/themed";
-import { Alert, Share, StyleSheet } from "react-native";
-
+import { Pressable, Text, View } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { Alert, Share, StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import ShareIcon from "../../assets/icons/Profile/Share.svg";
 import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
@@ -15,8 +14,8 @@ const ShareWithFriends = () => {
     try {
       const result = await Share.share({
         dialogTitle: "Share AlertMe with friends",
-        message: "Check out AlertMe at https://about.alertme.tech/",
-        url: "https://about.alertme.tech/",
+        message: "Check out AlertMe at https://alertme.tech/",
+        url: "https://alertme.tech/",
       });
 
       if (result.action === Share.sharedAction) {
@@ -25,9 +24,10 @@ const ShareWithFriends = () => {
         } else {
           Alert.alert("Content shared!");
         }
-      } else if (result.action === Share.dismissedAction) {
-        Alert.alert("Sharing dismissed");
       }
+      // else if (result.action === Share.dismissedAction) {
+      //   Alert.alert("Sharing dismissed");
+      // }
     } catch (error) {
       Alert.alert("Error", error.message);
     }
@@ -54,15 +54,15 @@ const ShareWithFriends = () => {
           />
         </Text>
       </View>
-      <Button onPress={onShare} style={styles.textContainer}>
+      <TouchableOpacity onPress={onShare} style={styles.textContainer}>
         <SvgUri source={ShareIcon} width={24} height={24} style={styles.icon} />
         <Text style={styles.textLang}>
           <FormattedMessage
             id="ShareWithFriends.shareButtonText"
-            defaultMessage="Share With Friends"
+            defaultMessage="Share with friend"
           />
         </Text>
-      </Button>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -73,8 +73,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 10,
-    paddingTop: 40,
+    padding: 20,
   },
   header: {
     flexDirection: "row",
@@ -86,11 +85,9 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 30,
     backgroundColor: "#F3F4F4",
-    opacity: 0.8,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
-    paddingLeft: 10,
   },
   icon: {
     width: 24,
@@ -98,23 +95,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   headerText: {
-    marginLeft: 10,
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#333",
   },
   textContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     alignItems: "center",
-    gap: 10,
-    height: 70,
-    backgroundColor: "#F3F4F4",
+    padding: 15,
     borderRadius: 10,
+    backgroundColor: "#F7F7F7",
+    marginTop: 20,
   },
   textLang: {
-    fontSize: 18,
-  },
-  icon: {
-    marginRight: 10,
+    fontSize: 16,
+    marginLeft: 10,
+    fontWeight: "500",
   },
 });
