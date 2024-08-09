@@ -16,6 +16,7 @@ const useStore = create(
         access_token: "",
       },
       notifications: {},
+      showTraffic: false,
       getUser: () => get().user,
 
       setUser: (token, access_token) => {
@@ -59,6 +60,8 @@ const useStore = create(
           return { notifications };
         });
       },
+
+      setShowTraffic: (value) => set({ showTraffic: value }),
     }),
     {
       name: "app-storage",

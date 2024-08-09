@@ -16,17 +16,17 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
-import React, { useState } from "react";
-import { Image, StyleSheet } from "react-native";
-import { Button, SwitchButton } from "../atoms";
-
 import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Image, StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import franceFlag from "../../assets/images/Flags/france.png";
 import indianFlag from "../../assets/images/Flags/ind.png";
 import usFlag from "../../assets/images/Flags/us.png";
+import { useStore } from "../../store";
+import { Button, SwitchButton } from "../atoms";
 
 const languages = [
   { label: "English", value: "english", image: usFlag },
@@ -42,20 +42,24 @@ const AppSettingArray = [
 ];
 
 const ProfileAppSettingItems = () => {
+  const { showTraffic, setShowTraffic } = useStore((state) => ({
+    showTraffic: state.showTraffic,
+    setShowTraffic: state.setShowTraffic,
+  }));
   const [isKm, setIsKm] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const navigation = useNavigation();
 
-  const [switchValues, setSwitchValues] = useState({
+  const [tempSwitchValues, setTempSwitchValues] = useState({
     applicationSound: false,
     accessLocation: false,
     accessCamera: false,
     notification: false,
-    showTraffic: false,
+    showTraffic: showTraffic, // Initialize with the current store value
   });
 
   const handleSwitchChange = (id) => {
-    setSwitchValues((prevValues) => ({
+    setTempSwitchValues((prevValues) => ({
       ...prevValues,
       [id]: !prevValues[id],
     }));
@@ -63,6 +67,14 @@ const ProfileAppSettingItems = () => {
 
   const handleUnitSwitchChange = (value) => {
     setIsKm(value);
+  };
+
+  const handleSave = () => {
+    // Apply the changes to the global store
+    setShowTraffic(tempSwitchValues.showTraffic);
+    // Apply other settings here if needed
+
+    console.log("Settings saved");
   };
 
   return (
@@ -195,19 +207,14 @@ const ProfileAppSettingItems = () => {
         <View>
           <SwitchButton
             onValueChange={() => handleSwitchChange("showTraffic")}
-            value={switchValues["showTraffic"]}
+            value={tempSwitchValues.showTraffic}
             trackColor={{ false: "#e0e0e0", true: "#FF6B00" }}
           />
         </View>
       </View>
 
       <View style={styles.savebutton}>
-        <Button
-          variant="primary"
-          onPress={() => {
-            console.log("Save");
-          }}
-        >
+        <Button variant="primary" onPress={handleSave}>
           <FormattedMessage id="profile.appsettingSave" defaultMessage="Save" />
         </Button>
       </View>
