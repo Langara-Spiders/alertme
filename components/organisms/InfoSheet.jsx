@@ -32,7 +32,7 @@ const InfoSheet = ({ isOpen, onClose }) => {
               <BottomSheet
                 ref={bottomSheetRef}
                 isOpen={isOpen}
-                sliderMaxHeight={Math.min(screenHeight * 0.8, 600)}
+                sliderMaxHeight={Math.max(screenHeight * 1.5)}
                 animation={Easing.quad}
                 animationDuration={200}
               >
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginTop: 10,
+    marginTop: 30,
   },
   paragraph: {
     fontSize: 14,
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   understoodButton: {
     backgroundColor: "transparent",
     padding: 15,
+    paddingBottom: 40,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

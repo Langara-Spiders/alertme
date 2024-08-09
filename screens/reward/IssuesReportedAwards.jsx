@@ -247,11 +247,20 @@ const IssuesReportedAwards = () => {
   };
 
   return (
-    <ScrollView style={styles.container} fadingEdgeLength={150}>
-      <View style={styles.header}>
+    <ScrollView
+      style={[
+        styles.container,
+        isSheetOpen && styles.dimmed, // Apply dimmed background uniformly with customizable opacity
+      ]}
+      fadingEdgeLength={150}
+    >
+      <View style={[styles.header]}>
         <Pressable
           onPress={() => navigation.goBack()}
-          style={styles.iconContainer}
+          style={[
+            styles.iconContainer,
+            isSheetOpen && [styles.dimmed, { opacity: 0.15 }],
+          ]}
         >
           <SvgUri
             width="24"
@@ -268,7 +277,12 @@ const IssuesReportedAwards = () => {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.achievementContainer}>
+      <View
+        style={[
+          styles.achievementContainer,
+          isSheetOpen && [styles.dimmed, { opacity: 0.15 }], // Uniform dimming with lower opacity
+        ]}
+      >
         <Text style={styles.achievementTitle}>
           Achieved Level {achievedLevel}
         </Text>
@@ -308,6 +322,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
     padding: 20,
+  },
+  dimmed: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Base dimming effect with customizable opacity
   },
   backButton: {
     color: "#000",
