@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign: "start",
     marginLeft: 16,
     textDecorationLine: "none",
-    fontWeight: "semibold",
+    fontWeight: "600",
   },
   avatar: {
     width: 100,
