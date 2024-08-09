@@ -40,7 +40,8 @@ const screenWidth = Dimensions.get("screen").width; // Changed from "window" to 
 const screenHeight = Dimensions.get("screen").height;
 
 const Home = ({ navigation, route }) => {
-  const { getNotifications } = useStore();
+  const getNotifications = useStore((state) => state.getNotifications);
+  const showTraffic = useStore((state) => state.showTraffic);
   const [loading, setLoading] = useState(true);
   const [nearbyIssues, setNearbyIssues] = useState([]);
   const [showQuickView, setShowQuickView] = useState(false);
@@ -361,6 +362,7 @@ const Home = ({ navigation, route }) => {
             style={styles.map}
             customMapStyle={mapStyle}
             provider={PROVIDER_GOOGLE}
+            showsTraffic={showTraffic}
             initialRegion={{
               latitude: 49.225,
               longitude: -123.1076,
