@@ -8,11 +8,29 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+
 import BottomSheet from "react-native-simple-bottom-sheet";
+import { useStore } from "../../store";
 
 const DraggableBottomSheet = (props) => {
   const bottomSheetRef = useRef(null);
   const screenHeight = Dimensions.get("window").height;
+  const { palette } = useStore();
+
+  const styles = StyleSheet.create({
+    modalOverlay: {
+      flex: 1,
+      justifyContent: "flex-end",
+    },
+    bottomSheetContainer: {
+      backgroundColor: palette.bg1,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+    },
+    sheetContent: {
+      flex: 1,
+    },
+  });
 
   return (
     <Modal
@@ -30,7 +48,7 @@ const DraggableBottomSheet = (props) => {
                 isOpen={props.isOpen}
                 sliderMaxHeight={Math.min(screenHeight * 0.8, 600)}
                 animation={Easing.quad}
-                animationDuration={200}
+                animationDuration={100}
               >
                 <View style={styles.sheetContent}>
                   {props.fixedHeader}
@@ -46,18 +64,3 @@ const DraggableBottomSheet = (props) => {
 };
 
 export default DraggableBottomSheet;
-
-const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  bottomSheetContainer: {
-    backgroundColor: "white",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  sheetContent: {
-    flex: 1,
-  },
-});

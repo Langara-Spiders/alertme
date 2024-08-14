@@ -34,7 +34,7 @@ const messages = {
 
 export default function App() {
   const [locale, setLocale] = useState("en");
-  const { getUser, palette } = useStore();
+  const { getUser, palette, theme } = useStore();
   const { token } = getUser();
   const [fontsLoaded] = useFonts({
     PublicSans_400Regular,
@@ -54,7 +54,10 @@ export default function App() {
       >
         <UpdateProvider>
           <GluestackUIProvider config={configLight}>
-            <StatusBar barStyle="dark-content" backgroundColor={palette.bg1} />
+            <StatusBar
+              barStyle={theme === "dark" ? "light-content" : "dark-content"}
+              backgroundColor={palette.bg1}
+            />
             <RootNavigator />
           </GluestackUIProvider>
         </UpdateProvider>
