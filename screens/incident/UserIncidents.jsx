@@ -102,6 +102,7 @@ const UserIncidents = (props) => {
     headerText: {
       fontSize: 18,
       fontWeight: "bold",
+      color: palette.txt1,
     },
     filterContainer: {
       marginTop: 12,
@@ -161,7 +162,7 @@ const UserIncidents = (props) => {
             style={styles.icon}
           />
         </Pressable>
-        <Text style={styles.headerText}>My Posted Issues</Text>
+        <Text style={styles.headerText}>My Reports</Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
