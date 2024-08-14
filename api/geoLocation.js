@@ -16,7 +16,7 @@ const getReverseGeoCoding = async (latitude, longitude) => {
 const getAutocomplete = async (text) => {
   try {
     const res = await axios.get(
-      `${GEOAPIFY_API_URL}/autocomplete?text=${text}&apiKey=28261b8da404459a907d8b450ae64fd1`
+      `${GEOAPIFY_API_URL}/autocomplete?text=${text}, BC, Canada&apiKey=28261b8da404459a907d8b450ae64fd1`
     );
     return (
       res?.data?.features?.map((feature) => ({

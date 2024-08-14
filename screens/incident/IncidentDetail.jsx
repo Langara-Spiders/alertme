@@ -20,10 +20,10 @@ import Edit from "../../assets/icons/System_Icons/Edit.svg";
 import Location_Spot from "../../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../../assets/icons/System_Icons/Scroll_Dot.svg";
 import ImagePlaceHolder from "../../assets/icons/TakePicture.svg";
-import LoadingGif from "../../assets/loading.gif";
 import { routes } from "../../constants";
 import useStore from "../../store/useStore";
 import { calculateDistance } from "../../utils/CalculateDistance";
+import Loader from "../Loader";
 
 const IncidentDetail = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -34,6 +34,7 @@ const IncidentDetail = ({ route, navigation }) => {
   const [modalType, setModalType] = useState("");
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
+  const { palette } = useStore();
 
   useEffect(() => {
     fetchIncidentDetails();
@@ -121,17 +122,150 @@ const IncidentDetail = ({ route, navigation }) => {
   };
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Image
-          source={LoadingGif}
-          style={styles.loadingIcon}
-          alt="loader image"
-        />
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Loader />;
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    imageContainer: {
+      position: "relative",
+      height: 250,
+    },
+    imageScrollContainer: {
+      height: "100%",
+    },
+    image: {
+      width: 400,
+      height: "100%",
+    },
+    dotsContainer: {
+      position: "absolute",
+      bottom: 30,
+      left: 0,
+      right: 0,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    dot: {
+      marginHorizontal: 4,
+    },
+    iconContainer: {
+      position: "absolute",
+      top: 20,
+      left: 10,
+      width: 40,
+      height: 40,
+      borderRadius: 30,
+      textAlign: "center",
+      backgroundColor: palette.backButtonBg,
+      opacity: 0.8,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    icon: {
+      width: 24,
+      height: 24,
+      elevation: 5,
+    },
+    detailsContainer: {
+      flex: 1,
+      padding: 20,
+      paddingBottom: 200,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      backgroundColor: palette.bg1,
+      overflow: "hidden",
+      marginTop: -20,
+    },
+    statusBadge: {
+      alignSelf: "flex-start",
+      marginBottom: 10,
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: "bold",
+      marginTop: 8,
+      color: palette.txt1,
+    },
+    distance: {
+      fontSize: 20,
+      fontWeight: "bold",
+      marginBottom: 8,
+      color: palette.txt1,
+    },
+    heading: {
+      color: palette.txt2,
+      fontSize: 14,
+      fontWeight: "500",
+      marginTop: 8,
+    },
+    locationText: {
+      marginTop: 4,
+      marginBottom: 8,
+    },
+    viewMap: {
+      color: "#FF6600",
+    },
+    typeContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 4,
+      marginBottom: 8,
+    },
+    iconBackground: {
+      width: 40,
+      height: 40,
+      borderRadius: 8,
+      backgroundColor: palette.bg2,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 8,
+    },
+    description: {
+      marginTop: 4,
+      marginBottom: 8,
+      color: palette.txt1,
+    },
+    user_reported: {
+      marginTop: 4,
+    },
+    upvoteCardContainer: {
+      backgroundColor: palette.bg2,
+      borderRadius: 10,
+      marginTop: 10,
+    },
+    upvoteButtonContainer: {
+      marginTop: 10,
+    },
+    bottomFixedContainer: {
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: palette.bg2,
+      paddingVertical: 0,
+      paddingHorizontal: 20,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      // elevation: 10,
+      // shadowColor: "#000",
+      // shadowOffset: { width: 0, height: 2 },
+      // shadowOpacity: 0.25,
+      // shadowRadius: 3.84,
+    },
+    bottomModalContent: {
+      backgroundColor: palette.bg2,
+      paddingVertical: 0,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -231,7 +365,7 @@ const IncidentDetail = ({ route, navigation }) => {
             }
             style={styles.locationText}
           >
-            <Text>
+            <Text style={{ color: palette.txt1 }}>
               <SvgUri width="16" height="16" source={Location_Spot} />
               {"  "}
               {incident.address.fullAddress},{" "}
@@ -248,7 +382,7 @@ const IncidentDetail = ({ route, navigation }) => {
               source={{ uri: incident.category_icon }}
             />
           </View>
-          <Text style={styles.categoryText}>{incident.category_name}</Text>
+          <Text style={{ color: palette.txt1 }}>{incident.category_name}</Text>
         </View>
         <Text style={styles.heading}>Description</Text>
         <Text style={styles.description}>{incident.description}</Text>
@@ -311,151 +445,3 @@ IncidentDetail.navigationOptions = {
 };
 
 export default IncidentDetail;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  imageContainer: {
-    position: "relative",
-    height: 250,
-  },
-  imageScrollContainer: {
-    height: "100%",
-  },
-  image: {
-    width: 400,
-    height: "100%",
-  },
-  dotsContainer: {
-    position: "absolute",
-    bottom: 30,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  dot: {
-    marginHorizontal: 4,
-  },
-  iconContainer: {
-    position: "absolute",
-    top: 20,
-    left: 10,
-    width: 40,
-    height: 40,
-    borderRadius: 30,
-    textAlign: "center",
-    backgroundColor: "#F3F4F4",
-    opacity: 0.8,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    elevation: 5,
-  },
-  detailsContainer: {
-    flex: 1,
-    padding: 20,
-    paddingBottom: 200,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    backgroundColor: "white",
-    overflow: "hidden",
-    marginTop: -20,
-  },
-  statusBadge: {
-    alignSelf: "flex-start",
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 8,
-  },
-  distance: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  heading: {
-    color: "#888",
-    fontSize: 14,
-    fontWeight: "500",
-    marginTop: 8,
-  },
-  locationText: {
-    marginTop: 4,
-    marginBottom: 8,
-  },
-  viewMap: {
-    color: "#FF6600",
-  },
-  typeContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 4,
-    marginBottom: 8,
-  },
-  iconBackground: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    backgroundColor: "#F3F4F4",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 8,
-  },
-  description: {
-    marginTop: 4,
-    marginBottom: 8,
-  },
-  user_reported: {
-    marginTop: 4,
-  },
-  upvoteCardContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  upvoteButtonContainer: {
-    marginTop: 10,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
-  },
-  bottomFixedContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    paddingVertical: 0,
-    paddingHorizontal: 20,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    // elevation: 10,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-  },
-  bottomModalContent: {
-    backgroundColor: "white",
-    paddingVertical: 0,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-  },
-});

@@ -209,14 +209,4 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
   },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
-  },
 });

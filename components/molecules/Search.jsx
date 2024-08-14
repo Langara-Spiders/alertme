@@ -7,6 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useIntl } from "react-intl";
 import { getAutocomplete } from "../../api";
 import SearchIcon from "../../assets/icons/SearchIcon.svg";
+import { useStore } from "../../store";
 import Input from "../atoms/Input";
 
 const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
@@ -14,6 +15,8 @@ const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
   const isFocused = useIsFocused();
   const [text, setText] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
+
+  const { palette } = useStore();
 
   const placeholder = intl.formatMessage({
     id: "input.searchcomponent.placeholdermessage",
@@ -73,6 +76,60 @@ const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
     }
   }, [isFocused]);
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 10,
+      position: "relative",
+      width: "100%",
+    },
+    customContainer: {
+      backgroundColor: palette.bg1,
+      color: palette.txt1,
+      width: "100%",
+      borderRadius: 12,
+      shadowColor: "grey",
+      borderColor: "transparent",
+      shadowOffset: { width: 8, height: 8 },
+      shadowOpacity: 7,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    field: {
+      color: "#333",
+      fontSize: 16,
+      height: 48,
+      shadowColor: "red",
+      shadowOffset: { width: 8, height: 8 },
+      shadowOpacity: 7,
+      shadowRadius: 3.84,
+
+      borderWidth: 9,
+    },
+    input: {
+      marginBottom: 10,
+      backgroundColor: palette.bg1,
+      color: palette.txt1,
+    },
+    suggestionsList: {
+      position: "absolute",
+      top: 70,
+      left: 10, //works for android
+      right: 0,
+      borderColor: "#F3F4F4",
+      backgroundColor: palette.bg1,
+      borderRadius: 10,
+      width: "100%",
+      zIndex: 1,
+      margin: 10,
+    },
+    suggestion: {
+      padding: 20,
+      color: palette.txt1,
+      width: "100%",
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Input
@@ -97,54 +154,3 @@ const Search = ({ value = "", onChange, onSelect, containerWidth }) => {
 };
 
 export default Search;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    position: "relative",
-    width: "100%",
-  },
-  customContainer: {
-    backgroundColor: "#fff",
-    width: "100%",
-    borderRadius: 12,
-    shadowColor: "grey",
-    shadowOffset: { width: 8, height: 8 },
-    shadowOpacity: 7,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  field: {
-    color: "#333",
-    fontSize: 16,
-    height: 48,
-    shadowColor: "red",
-    shadowOffset: { width: 8, height: 8 },
-    shadowOpacity: 7,
-    shadowRadius: 3.84,
-
-    borderWidth: 9,
-  },
-  input: {
-    marginBottom: 10,
-    backgroundColor: "#fff",
-  },
-  suggestionsList: {
-    position: "absolute",
-    top: 70,
-    left: 10, //works for android
-    right: 0,
-    borderColor: "#F3F4F4",
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    width: "100%",
-    zIndex: 1,
-    margin: 10,
-  },
-  suggestion: {
-    padding: 20,
-    color: "black",
-    width: "100%",
-  },
-});

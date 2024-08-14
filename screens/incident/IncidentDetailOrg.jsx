@@ -22,10 +22,10 @@ import Delete from "../../assets/icons/System_Icons/Delete.svg";
 import Edit from "../../assets/icons/System_Icons/Edit.svg";
 import Location_Spot from "../../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../../assets/icons/System_Icons/Scroll_Dot.svg";
-import LoadingGif from "../../assets/loading.gif";
 import { routes } from "../../constants";
 import useStore from "../../store/useStore";
 import { calculateDistance } from "../../utils/CalculateDistance";
+import Loader from "../Loader";
 
 const IncidentDetailOrg = ({ route, navigation }) => {
   const { incident_id } = route.params;
@@ -261,16 +261,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
   };
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Image
-          source={LoadingGif}
-          style={styles.loadingIcon}
-          alt="loader image"
-        />
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Loader />;
   }
 
   return (
@@ -514,15 +505,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     marginTop: 10,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
   },
   bottomFixedContainer: {
     position: "absolute",

@@ -27,9 +27,7 @@ import { routes } from "../constants";
 import { useStore } from "../store";
 
 const SafeAreaWrapper = ({ children, backgroundColor }) => (
-  <SafeAreaView
-    style={{ flex: 1, backgroundColor: backgroundColor || "white" }}
-  >
+  <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor }}>
     {children}
   </SafeAreaView>
 );
@@ -37,8 +35,55 @@ const SafeAreaWrapper = ({ children, backgroundColor }) => (
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = (props) => {
-  const { getUser } = useStore();
+  const { getUser, palette } = useStore();
   const { isStaff } = getUser();
+
+  const styles = StyleSheet.create({
+    icon: {
+      width: 28,
+      height: 28,
+    },
+    iconContainer: {
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: Platform.OS === "ios" ? 30 : 0,
+    },
+    container: {
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    tabBarStyle: {
+      position: "absolute",
+      bottom: 32,
+      left: 16,
+      right: 16,
+      elevation: 5,
+      borderRadius: 12,
+      borderTopColor: palette.bg2,
+      height: 76,
+      shadowColor: "gray",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: 10,
+      backgroundColor: palette.bg1,
+    },
+    focusedText: {
+      color: "#FF6B00",
+      fontSize: 10,
+      fontWeight: "bold",
+      marginTop: 5,
+    },
+    defaultText: {
+      color: palette.txt1,
+      fontSize: 10,
+      marginTop: 5,
+    },
+  });
 
   return (
     <Tab.Navigator
@@ -58,7 +103,10 @@ const TabNavigator = (props) => {
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconContainer}>
               <Image
-                style={styles.icon}
+                style={[
+                  styles.icon,
+                  { tintColor: focused ? palette.primary1 : palette.txt1 },
+                ]}
                 source={focused ? HomeIconActive : HomeIcon}
               />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
@@ -76,7 +124,10 @@ const TabNavigator = (props) => {
               tabBarIcon: ({ focused }) => (
                 <View style={styles.iconContainer}>
                   <Image
-                    style={styles.icon}
+                    style={[
+                      styles.icon,
+                      { tintColor: focused ? palette.primary1 : palette.txt1 },
+                    ]}
                     source={focused ? MyReportsIconActive : MyReportsIcon}
                   />
                   <Text
@@ -92,7 +143,7 @@ const TabNavigator = (props) => {
             }}
           >
             {(props) => (
-              <SafeAreaWrapper backgroundColor="white">
+              <SafeAreaWrapper backgroundColor={palette.bg1}>
                 <CivilianIncidentsOrg {...props} />
               </SafeAreaWrapper>
             )}
@@ -103,7 +154,10 @@ const TabNavigator = (props) => {
               tabBarIcon: ({ focused }) => (
                 <View style={styles.iconContainer}>
                   <Image
-                    style={styles.icon}
+                    style={[
+                      styles.icon,
+                      { tintColor: focused ? palette.primary1 : palette.txt1 },
+                    ]}
                     source={focused ? SiteIconActive : SiteIcon}
                   />
                   <Text
@@ -116,7 +170,7 @@ const TabNavigator = (props) => {
             }}
           >
             {(props) => (
-              <SafeAreaWrapper backgroundColor="white">
+              <SafeAreaWrapper backgroundColor={palette.bg1}>
                 <SiteIncidentsOrg {...props} />
               </SafeAreaWrapper>
             )}
@@ -130,7 +184,10 @@ const TabNavigator = (props) => {
               tabBarIcon: ({ focused }) => (
                 <View style={styles.iconContainer}>
                   <Image
-                    style={styles.icon}
+                    style={[
+                      styles.icon,
+                      { tintColor: focused ? palette.primary1 : palette.txt1 },
+                    ]}
                     source={focused ? MyReportsIconActive : MyReportsIcon}
                   />
                   <Text
@@ -146,7 +203,7 @@ const TabNavigator = (props) => {
             }}
           >
             {(props) => (
-              <SafeAreaWrapper backgroundColor="white">
+              <SafeAreaWrapper backgroundColor={palette.bg1}>
                 <UserIncidents {...props} />
               </SafeAreaWrapper>
             )}
@@ -157,7 +214,10 @@ const TabNavigator = (props) => {
               tabBarIcon: ({ focused }) => (
                 <View style={styles.iconContainer}>
                   <Image
-                    style={styles.icon}
+                    style={[
+                      styles.icon,
+                      { tintColor: focused ? palette.primary1 : palette.txt1 },
+                    ]}
                     source={focused ? RewardsIconActive : RewardsIcon}
                   />
                   <Text
@@ -173,7 +233,7 @@ const TabNavigator = (props) => {
             }}
           >
             {(props) => (
-              <SafeAreaWrapper backgroundColor="#FFF0E5">
+              <SafeAreaWrapper backgroundColor={palette.bg3}>
                 <Rewards />
               </SafeAreaWrapper>
             )}
@@ -187,7 +247,10 @@ const TabNavigator = (props) => {
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconContainer}>
               <Image
-                style={styles.icon}
+                style={[
+                  styles.icon,
+                  { tintColor: focused ? palette.primary1 : palette.txt1 },
+                ]}
                 source={focused ? ProfileIconActive : ProfileIcon}
               />
               <Text style={focused ? styles.focusedText : styles.defaultText}>
@@ -201,49 +264,3 @@ const TabNavigator = (props) => {
   );
 };
 export default TabNavigator;
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 28,
-    height: 28,
-  },
-  iconContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: Platform.OS === "ios" ? 30 : 0,
-  },
-  container: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tabBarStyle: {
-    position: "absolute",
-    bottom: 32,
-    left: 16,
-    right: 16,
-    elevation: 5,
-    borderRadius: 12,
-    height: 76,
-    shadowColor: "gray",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    backgroundColor: "white",
-  },
-  focusedText: {
-    color: "#FF6B00",
-    fontSize: 10,
-    fontWeight: "bold",
-    marginTop: 5,
-  },
-  defaultText: {
-    color: "black",
-    fontSize: 10,
-    marginTop: 5,
-  },
-});

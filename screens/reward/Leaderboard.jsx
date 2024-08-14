@@ -1,19 +1,23 @@
 import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
+import React, { useState } from "react";
 import { LeaderBoardCard, TopThreeCard } from "../../components/molecules";
 
-import React from "react";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import FirstPlaceBanner from "../../assets/icons/Reward_screen/FirstPlaceBanner.svg";
 import SecondPlaceBanner from "../../assets/icons/Reward_screen/SecondPlaceBanner.svg";
 import ThirdPlaceBanner from "../../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
 import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import Loader from "../Loader";
 // Import top place banners
 import { useNavigation } from "@react-navigation/native";
+import { useStore } from "../../store";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const { palette } = useStore();
 
   const calculateLevel = (points) => {
     return Math.floor(points / 150) + 1;
@@ -26,6 +30,80 @@ const Leaderboard = (props) => {
       </View>
     );
   }
+
+  setTimeout(() => setLoading(false), 3000);
+
+  if (loading) return <Loader />;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: palette.bg3,
+      padding: 20,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    iconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 12,
+      backgroundColor: palette.backButtonBg,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 10,
+    },
+    icon: {
+      width: 24,
+      height: 24,
+      opacity: 0.5,
+      color: "#0B0C0C",
+    },
+    headerText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    topThreeContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "flex-end",
+      marginBottom: 20,
+      marginTop: 84,
+    },
+    firstPlace: {
+      alignItems: "center",
+      marginHorizontal: 10,
+      zIndex: 1,
+      position: "relative",
+      top: -50,
+    },
+    secondPlace: {
+      alignItems: "center",
+      marginHorizontal: 10,
+    },
+    thirdPlace: {
+      alignItems: "center",
+      marginHorizontal: 10,
+    },
+    leaderboardWrapper: {
+      flex: 1,
+      position: "relative",
+    },
+    leaderboardContainer: {
+      flex: 1,
+    },
+    errorContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    errorText: {
+      fontSize: 18,
+      color: "red",
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -95,73 +173,3 @@ const Leaderboard = (props) => {
 };
 
 export default Leaderboard;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF0E5",
-    padding: 20,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: "#F3F4F4",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    opacity: 0.5,
-    color: "#0B0C0C",
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#0B0C0C",
-  },
-  topThreeContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-end",
-    marginBottom: 20,
-    marginTop: 84,
-  },
-  firstPlace: {
-    alignItems: "center",
-    marginHorizontal: 10,
-    zIndex: 1,
-    position: "relative",
-    top: -50,
-  },
-  secondPlace: {
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
-  thirdPlace: {
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
-  leaderboardWrapper: {
-    flex: 1,
-    position: "relative",
-  },
-  leaderboardContainer: {
-    flex: 1,
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  errorText: {
-    fontSize: 18,
-    color: "red",
-  },
-});

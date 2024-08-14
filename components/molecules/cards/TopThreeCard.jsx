@@ -5,12 +5,72 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+
 import React from "react";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { useStore } from "../../../store";
 
 const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
   const firstName = name.split(" ")[0]; // Extract the first name
+  const { palette } = useStore();
+
+  const styles = StyleSheet.create({
+    container: {
+      alignItems: "center",
+      marginHorizontal: -10,
+      marginRight: 20,
+      marginLeft: 20,
+    },
+    avatarContainer: {
+      position: "relative",
+      alignItems: "center",
+    },
+    avatar: {
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      marginBottom: 5,
+    },
+    avatarImage: {
+      width: "100%",
+      height: "100%",
+    },
+    avatarFallbackText: {
+      color: "#FFF",
+      fontWeight: "bold",
+      fontSize: 20,
+    },
+    crown: {
+      width: 30, // Adjust the width as per your SVG dimensions
+      height: 30, // Adjust the height as per your SVG dimensions
+      position: "absolute",
+      top: -21, // Adjust this value to position the crown above the avatar
+      left: 9,
+      zIndex: 1, // Ensure crown is above the avatar
+    },
+    banner: {
+      width: 70, // Adjust the width as per your SVG dimensions
+      height: 20, // Adjust the height as per your SVG dimensions
+      position: "absolute",
+      bottom: -10, // Adjust this value to overlap the avatar
+      left: 3,
+    },
+    name: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: palette.txt1,
+      marginTop: 20,
+      textAlign: "center",
+      maxWidth: 150,
+      flexWrap: "wrap",
+    },
+    level: {
+      fontSize: 14,
+      color: palette.txt1,
+      marginTop: 2,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -45,60 +105,3 @@ const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
 };
 
 export default TopThreeCard;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    marginHorizontal: -10,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  avatarContainer: {
-    position: "relative",
-    alignItems: "center",
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginBottom: 5,
-  },
-  avatarImage: {
-    width: "100%",
-    height: "100%",
-  },
-  avatarFallbackText: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  crown: {
-    width: 30, // Adjust the width as per your SVG dimensions
-    height: 30, // Adjust the height as per your SVG dimensions
-    position: "absolute",
-    top: -21, // Adjust this value to position the crown above the avatar
-    left: 9,
-    zIndex: 1, // Ensure crown is above the avatar
-  },
-  banner: {
-    width: 70, // Adjust the width as per your SVG dimensions
-    height: 20, // Adjust the height as per your SVG dimensions
-    position: "absolute",
-    bottom: -10, // Adjust this value to overlap the avatar
-    left: 3,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#1E1E1E",
-    marginTop: 20,
-    textAlign: "center",
-    maxWidth: 150,
-    flexWrap: "wrap",
-  },
-  level: {
-    fontSize: 14,
-    color: "#1E1E1E",
-    marginTop: 2,
-  },
-});

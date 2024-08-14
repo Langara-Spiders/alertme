@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { NumOfIssuesCard, Search, SuccessCard } from "../components/molecules";
+import { mapStyleDark, mapStyleLight } from "../config/mapStyle";
 
 import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
@@ -21,20 +22,19 @@ import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
 import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
 import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
+import NotificationBellActiveIcon from "../assets/icons/home_icons/bell_active_icon.png";
+import NotificationBellIcon from "../assets/icons/home_icons/bell_inactive_icon.png";
 import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
 import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
+import SearchedMarker from "../assets/icons/map_markers/pinpoint.png";
+import CurrentLocationArrow from "../assets/icons/map_markers/position.png";
 import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
 import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
-import NotificationBellActiveIcon from "../assets/icons/notification-bell-active.svg";
-import NotificationBellIcon from "../assets/icons/notification-bell.svg";
-import CurrentLocationArrow from "../assets/images/CurrentLocationArrow.png";
-import SearchedMarker from "../assets/images/SearchedMarker.png";
-import LoadingGif from "../assets/loading.gif";
 import IncidentCard from "../components/molecules/cards/IncidentCard";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
 import { useStore } from "../store";
-import mapStyle from "../utils/mapStyle.json";
+import Loader from "./Loader";
 
 const screenWidth = Dimensions.get("screen").width; // Changed from "window" to "screen"
 const screenHeight = Dimensions.get("screen").height;
@@ -42,6 +42,7 @@ const screenHeight = Dimensions.get("screen").height;
 const Home = ({ navigation, route }) => {
   const getNotifications = useStore((state) => state.getNotifications);
   const showTraffic = useStore((state) => state.showTraffic);
+  const { palette, theme } = useStore();
   const [loading, setLoading] = useState(true);
   const [nearbyIssues, setNearbyIssues] = useState([]);
   const [showQuickView, setShowQuickView] = useState(false);
@@ -60,7 +61,6 @@ const Home = ({ navigation, route }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isNavigationEnabled, setIsNavigationEnabled] = useState(false);
   const mapRef = useRef(null);
-
   const { successType, coordinates, markerId } = route?.params ?? {};
   const { isStaff } = route.params;
   const isFocused = useIsFocused();
@@ -68,7 +68,7 @@ const Home = ({ navigation, route }) => {
 
   // ######################## USE EFFECTS ########################
 
-  useEffect(() => {
+  useEffect(async () => {
     const unsubscribe = navigation.addListener("blur", () => {
       setIsSheetVisible(false);
     });
@@ -161,7 +161,7 @@ const Home = ({ navigation, route }) => {
     const { latitude, longitude } = await getLocation();
     const response = await getNearbyIncident(latitude, longitude);
     setNearbyIssues(response?.data ?? []);
-    setLoading(false);
+    setTimeout(() => setLoading(false), 3000);
   };
 
   // ######################## Nearest First ########################
@@ -271,17 +271,348 @@ const Home = ({ navigation, route }) => {
   };
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Image
-          source={LoadingGif}
-          style={styles.loadingIcon}
-          alt="loader image"
-        />
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Loader />;
   }
+
+  const styles = StyleSheet.create({
+    button: {
+      borderRadius: 100,
+      borderWidth: 2,
+      borderColor: "grey",
+      backgroundColor: "#09090D",
+    },
+    searchContainer: {
+      position: "absolute",
+      left: 0,
+      top: Platform.OS === "ios" ? 44 : 0,
+      zIndex: 99,
+      elevation: 99,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      shadowColor: "rgba(50, 50, 71, 0.08)",
+      shadowOffset: { width: 0, height: 16 },
+      shadowOpacity: 1,
+      shadowRadius: 16,
+      elevation: 8,
+    },
+    search: {
+      marginRight: 8,
+    },
+    notificationButtonContainer: {
+      marginRight: 20,
+      backgroundColor: "transparent",
+    },
+    numOfIssuesCardContainer: {
+      position: "absolute",
+      top: 132,
+      left: "50%",
+      transform: [{ translateX: -110 }],
+      zIndex: 98,
+      elevation: 98,
+    },
+    buttonsContainerLeft: {
+      position: "absolute",
+      left: 30,
+      bottom: 132,
+      borderRadius: 50,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonsContainerRight: {
+      position: "absolute",
+      display: "flex",
+      alignItems: "flex-end",
+      right: 16,
+      bottom: 120,
+      gap: 20,
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+    mapContainer: {
+      flex: 1,
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    map: {
+      ...StyleSheet.absoluteFillObject,
+    },
+    reportIncidentBtn: {
+      position: "absolute",
+      bottom: 10,
+      left: 0,
+      zIndex: 99,
+    },
+    heading: {
+      fontSize: 18,
+      fontWeight: 600,
+      paddingBottom: 10,
+    },
+    itemText: {
+      padding: 10,
+      fontSize: 16,
+      fontWeight: 400,
+    },
+    bottomContainer: {
+      paddingBottom: 32,
+    },
+    bottomSHeader: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 10,
+    },
+    bottomSText: {
+      fontSize: 16,
+      fontWeight: "600",
+      color: "#1E1E1E",
+    },
+    viewAllText: {
+      fontSize: 16,
+      fontWeight: "600",
+      color: "#FF9900",
+    },
+    successCardContainer: {
+      position: "absolute",
+      bottom: 80,
+      width: "100%",
+      zIndex: 100,
+      padding: 16,
+    },
+    incidentQuickViewContainer: {
+      position: "absolute",
+      padding: 16,
+      paddingTop: 0,
+      top: 10,
+      left: 0,
+      backgroundColor: "transparent",
+      width: screenWidth,
+      height: screenHeight,
+      zIndex: 3,
+    },
+    addIssueText: {
+      color: palette.txt1,
+      textShadowColor: "gray",
+      textShadowOffset: { width: 0.5, height: 0.5 },
+      textShadowRadius: 3,
+      fontWeight: "bold",
+      fontSize: 12,
+      marginTop: 5,
+      textAlign: "center",
+      alignContent: "center",
+      justifyContent: "center",
+    },
+    addIssueButton: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      marginRight: 0,
+      shadowColor: "rgba(50, 50, 71, 0.08)",
+      shadowOffset: { width: 0, height: 16 },
+      shadowOpacity: 1,
+      shadowRadius: 16,
+      elevation: 8,
+    },
+    addIssueIcon: {
+      backgroundColor: palette.bg1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: 56,
+      height: 56,
+      borderRadius: 16,
+    },
+    nearbyIssueButton: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      marginRight: 0,
+      shadowColor: "rgba(50, 50, 71, 0.08)",
+      shadowOffset: { width: 0, height: 16 },
+      shadowOpacity: 1,
+      shadowRadius: 16,
+      elevation: 8,
+    },
+    nearbyIssueIcon: {
+      backgroundColor: palette.bg1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: 56,
+      height: 56,
+      borderRadius: 16,
+      color: "green",
+    },
+    notificationButton: {
+      backgroundColor: palette.bg1,
+      borderRadius: 12,
+      width: 52,
+      height: 54,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      shadowColor: "rgba(50, 50, 71, 0.08)",
+      shadowOffset: { width: 10, height: 16 },
+      shadowOpacity: 1,
+      shadowRadius: 16,
+      elevation: 8,
+    },
+    separator: {
+      height: 10,
+    },
+    markerStyles: {
+      borderColor: "rgba(0,0,0,.1)",
+      borderRadius: 50,
+      borderWidth: 10,
+    },
+    markerInner: {
+      borderRadius: 50,
+      backgroundColor: "#fff",
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 10,
+      padding: 5,
+      borderColor: "rgba(0,0,0,.2)",
+      elevation: 5,
+    },
+    currentLocationMarkerWrapper: {
+      borderColor: "rgba(255, 145, 64, 0.2)",
+      borderRadius: 50,
+      borderWidth: 15,
+    },
+    highlightedCurrentLocationWrapper: {
+      borderRadius: 50,
+      backgroundColor: "#fff",
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 10,
+      padding: 8,
+      backgroundColor: "rgba(255, 145, 64, 0.5)",
+      elevation: 5,
+    },
+    overlay: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: screenWidth,
+      height: screenHeight,
+      backgroundColor: "black",
+      opacity: 0.5,
+      zIndex: 2, // Ensure it's below the quick view container
+    },
+    overlayContainer: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: [{ translateX: -150 }, { translateY: -100 }],
+      alignItems: "center",
+      justifyContent: "center",
+      shadowColor: "black",
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.5,
+      padding: 10,
+      borderRadius: 10,
+    },
+    cardContainer: {
+      backgroundColor: palette.bg1,
+      borderRadius: 10,
+      overflow: "hidden",
+      width: 300,
+    },
+    cardInner1: {
+      position: "relative",
+    },
+    locationImage: {
+      width: "100%",
+      height: 200,
+    },
+    cardCloseButton: {
+      position: "absolute",
+      top: 10,
+      right: 10,
+      backgroundColor: "white",
+      borderRadius: 15,
+      padding: 5,
+      zIndex: 10,
+    },
+    cardInner2: {
+      justifyContent: "start",
+      alignItems: "start",
+      padding: 10,
+      gap: 10,
+    },
+    locationText: {
+      flex: 1,
+      marginRight: 10,
+      textAlign: "center",
+      color: palette.txt1,
+    },
+    cardButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      backgroundColor: "#FF6B00",
+      borderRadius: 5,
+    },
+    cardButtonText: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    exitButton: {
+      position: "absolute",
+      left: 60,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      backgroundColor: "black",
+      borderRadius: 100,
+    },
+    exitButtonText: {
+      color: "white",
+      fontWeight: "bold",
+    },
+    currentLocationMarkerWrapper: {
+      borderColor: "rgba(255, 145, 64, 0.2)",
+      borderRadius: 50,
+      borderWidth: 15,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    currentLocationMarker: {
+      borderRadius: 50,
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 4,
+      elevation: 5,
+      backgroundColor: "rgba(255, 145, 64, 0.5)",
+    },
+    currentLocationImage: {
+      width: 20,
+      height: 20,
+    },
+
+    destinationMarker: {
+      borderColor: palette.primary1,
+      borderRadius: 50,
+      borderWidth: 5,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    destinationInnerCircle: {
+      backgroundColor: palette.primary1,
+      justifyContent: "center",
+      alignItems: "center",
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      borderColor: "white",
+      borderWidth: 4,
+    },
+  });
 
   return (
     <TouchableWithoutFeedback onPress={handleMapPress}>
@@ -312,9 +643,12 @@ const Home = ({ navigation, route }) => {
             style={styles.notificationButtonContainer}
           >
             <View style={styles.notificationButton}>
-              <SvgUri
-                width="24"
-                height="24"
+              <Image
+                style={{
+                  width: 24,
+                  height: 24,
+                  tintColor: palette.txt1,
+                }}
                 source={
                   notificationUpdate
                     ? NotificationBellActiveIcon
@@ -360,7 +694,7 @@ const Home = ({ navigation, route }) => {
           <MapView
             ref={mapRef}
             style={styles.map}
-            customMapStyle={mapStyle}
+            customMapStyle={theme === "dark" ? mapStyleDark : mapStyleLight}
             provider={PROVIDER_GOOGLE}
             showsTraffic={showTraffic}
             initialRegion={{
@@ -437,13 +771,13 @@ const Home = ({ navigation, route }) => {
                 <View>
                   <Image
                     source={SearchedMarker}
+                    resizeMode="contain"
                     style={{
-                      width: 50,
-                      height: 50,
+                      width: 25,
+                      height: 25,
                       paddingRight: 0,
                       paddingBottom: 0,
                       position: "relative",
-                      top: 10,
                     }}
                   />
                 </View>
@@ -456,8 +790,7 @@ const Home = ({ navigation, route }) => {
                   latitude: currentLocation.latitude,
                   longitude: currentLocation.longitude,
                 }}
-                title="My Location"
-                description="This is where I am currently located"
+                title="You"
               >
                 <View
                   style={[
@@ -484,7 +817,7 @@ const Home = ({ navigation, route }) => {
                   destination={destination}
                   apikey={"AIzaSyDcoaVQFwVzKapMDmVUtSYzCvm37rGrrqU"}
                   strokeWidth={3}
-                  strokeColor={"black"}
+                  strokeColor={palette.primary1}
                   onReady={(result) => {
                     mapRef.current.fitToCoordinates(result.coordinates, {
                       edgePadding: {
@@ -511,7 +844,9 @@ const Home = ({ navigation, route }) => {
               <View style={styles.cardContainer}>
                 <View style={styles.cardInner1}>
                   <Image
-                    source={{ uri: "https://picsum.photos/200/300" }}
+                    source={{
+                      uri: "https://archive.org/download/placeholder-image/placeholder-image.jpg",
+                    }}
                     style={styles.locationImage}
                   />
                   <TouchableOpacity
@@ -523,10 +858,6 @@ const Home = ({ navigation, route }) => {
                 </View>
                 <View style={styles.cardInner2}>
                   <Text style={styles.locationText}>
-                    <FormattedMessage
-                      id="home.Card.Location.Heading"
-                      defaultMessage="Location:"
-                    />
                     {selectedLocation.formatted}
                   </Text>
                   <TouchableOpacity
@@ -633,353 +964,3 @@ const Home = ({ navigation, route }) => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: "grey",
-    backgroundColor: "#09090D",
-  },
-  searchContainer: {
-    position: "absolute",
-    left: 0,
-    top: Platform.OS === "ios" ? 44 : 0,
-    zIndex: 99,
-    elevation: 99,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    shadowColor: "rgba(50, 50, 71, 0.08)",
-    shadowOffset: { width: 0, height: 16 },
-    shadowOpacity: 1,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-  search: {
-    marginRight: 8,
-  },
-  notificationButtonContainer: {
-    marginRight: 20,
-    backgroundColor: "transparent",
-  },
-  numOfIssuesCardContainer: {
-    position: "absolute",
-    top: 132,
-    left: "50%",
-    transform: [{ translateX: -110 }],
-    zIndex: 98,
-    elevation: 98,
-  },
-  buttonsContainerLeft: {
-    position: "absolute",
-    left: 30,
-    bottom: 132,
-    borderRadius: 50,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonsContainerRight: {
-    position: "absolute",
-    display: "flex",
-    alignItems: "flex-end",
-    right: 16,
-    bottom: 120,
-    gap: 20,
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  mapContainer: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  reportIncidentBtn: {
-    position: "absolute",
-    bottom: 10,
-    left: 0,
-    zIndex: 99,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 600,
-    paddingBottom: 10,
-  },
-  itemText: {
-    padding: 10,
-    fontSize: 16,
-    fontWeight: 400,
-  },
-  bottomContainer: {
-    paddingBottom: 32,
-  },
-  bottomSHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  bottomSText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#1E1E1E",
-  },
-  viewAllText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#FF9900",
-  },
-  successCardContainer: {
-    position: "absolute",
-    bottom: 80,
-    width: "100%",
-    zIndex: 100,
-    padding: 16,
-  },
-  incidentQuickViewContainer: {
-    position: "absolute",
-    padding: 16,
-    paddingTop: 0,
-    top: 10,
-    left: 0,
-    backgroundColor: "transparent",
-    width: screenWidth,
-    height: screenHeight,
-    zIndex: 3,
-  },
-  addIssueText: {
-    color: "black",
-    textShadowColor: "white",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
-    fontWeight: "bold",
-    fontSize: 12,
-    marginTop: 5,
-    textAlign: "center",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  addIssueButton: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    marginRight: 0,
-    shadowColor: "rgba(50, 50, 71, 0.08)",
-    shadowOffset: { width: 0, height: 16 },
-    shadowOpacity: 1,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-  addIssueIcon: {
-    backgroundColor: "white",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-  },
-  nearbyIssueButton: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    marginRight: 0,
-    shadowColor: "rgba(50, 50, 71, 0.08)",
-    shadowOffset: { width: 0, height: 16 },
-    shadowOpacity: 1,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-  nearbyIssueIcon: {
-    backgroundColor: "white",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-    color: "green",
-  },
-  notificationButton: {
-    backgroundColor: "white",
-    borderRadius: 12,
-    width: 52,
-    height: 54,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "rgba(50, 50, 71, 0.08)",
-    shadowOffset: { width: 10, height: 16 },
-    shadowOpacity: 1,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-  separator: {
-    height: 10,
-  },
-  markerStyles: {
-    borderColor: "rgba(0,0,0,.1)",
-    borderRadius: 50,
-    borderWidth: 10,
-  },
-  markerInner: {
-    borderRadius: 50,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 10,
-    padding: 5,
-    borderColor: "rgba(0,0,0,.2)",
-    elevation: 5,
-  },
-  currentLocationMarkerWrapper: {
-    borderColor: "rgba(255, 145, 64, 0.2)",
-    borderRadius: 50,
-    borderWidth: 15,
-  },
-  highlightedCurrentLocationWrapper: {
-    borderRadius: 50,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 10,
-    padding: 8,
-    backgroundColor: "rgba(255, 145, 64, 0.5)",
-    elevation: 5,
-  },
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: screenWidth,
-    height: screenHeight,
-    backgroundColor: "black",
-    opacity: 0.5,
-    zIndex: 2, // Ensure it's below the quick view container
-  },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
-  },
-
-  overlayContainer: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: [{ translateX: -150 }, { translateY: -100 }],
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    padding: 10,
-    borderRadius: 10,
-  },
-  cardContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    overflow: "hidden",
-    width: 300,
-  },
-  cardInner1: {
-    position: "relative",
-  },
-  locationImage: {
-    width: "100%",
-    height: 200,
-  },
-  cardCloseButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    backgroundColor: "white",
-    borderRadius: 15,
-    padding: 5,
-    zIndex: 10,
-  },
-  cardInner2: {
-    justifyContent: "start",
-    alignItems: "start",
-    padding: 10,
-    gap: 10,
-  },
-  locationText: {
-    flex: 1,
-    marginRight: 10,
-    textAlign: "center",
-  },
-  cardButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#FF6B00",
-    borderRadius: 5,
-  },
-  cardButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  exitButton: {
-    position: "absolute",
-    left: 60,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "black",
-    borderRadius: 100,
-  },
-  exitButtonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  currentLocationMarkerWrapper: {
-    borderColor: "rgba(255, 145, 64, 0.2)",
-    borderRadius: 50,
-    borderWidth: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  currentLocationMarker: {
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 4,
-    elevation: 5,
-    backgroundColor: "rgba(255, 145, 64, 0.5)",
-  },
-  currentLocationImage: {
-    width: 30,
-    height: 30,
-  },
-
-  destinationMarker: {
-    borderColor: "black",
-    borderRadius: 50,
-    borderWidth: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  destinationInnerCircle: {
-    backgroundColor: "black",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderColor: "white",
-    borderWidth: 4,
-  },
-});

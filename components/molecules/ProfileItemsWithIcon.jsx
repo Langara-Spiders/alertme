@@ -1,52 +1,60 @@
-import { Button, Pressable, Text, View } from "@gluestack-ui/themed";
+import { Pressable, Text, View } from "@gluestack-ui/themed";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import ArrowRightIcon from "../../assets/icons/System_Icons/ArrowRight.svg";
+import { Image } from "react-native";
+import ArrowRightIcon from "../../assets/icons/profile_icons/arrow_right_icon.png";
+import { useStore } from "../../store";
 
 const ProfileItemsWithIcon = (props) => {
   const navigation = useNavigation();
+  const { palette } = useStore();
 
   const handlePress = () => {
     navigation.navigate(props.screen);
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginVertical: 10,
+      marginHorizontal: 20,
+      backgroundColor: "transparent",
+    },
+    textIcon: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    text: {
+      marginLeft: 10,
+      fontWeight: "600",
+      color: palette.txt1,
+    },
+  });
+
   return (
-    <Button style={styles.container} onPress={handlePress}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.textIcon}>
-        <SvgUri width="30" height="30" source={props.icon} />
-        <Text style={styles.text}>
-          <FormattedMessage
-            id={props.messageId}
-            defaultMessage={props.defaultMessage}
-          />
-        </Text>
+        <Image
+          style={{
+            width: 30,
+            height: 30,
+            tintColor: palette.txt1,
+          }}
+          source={props.icon}
+        />
+        <Text style={styles.text}>{props.label}</Text>
       </View>
       <Pressable>
-        <SvgUri source={ArrowRightIcon} width="24" height="24" />
+        <Image
+          source={ArrowRightIcon}
+          style={{ width: 24, height: 24, tintColor: palette.txt1 }}
+        />
       </Pressable>
-    </Button>
+    </TouchableOpacity>
   );
 };
 
 export default ProfileItemsWithIcon;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: 10,
-    backgroundColor: "transparent",
-  },
-  textIcon: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  text: {
-    marginLeft: 10,
-    fontWeight: "600",
-
-  },
-});

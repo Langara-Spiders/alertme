@@ -17,6 +17,20 @@ const useStore = create(
       },
       notifications: {},
       showTraffic: false,
+      palette: {
+        bg1: "#FFFFFF",
+        bg2: "#F3F4F4",
+        bg3: "#FFF0E5",
+        bg4: "#FFFFFF",
+        txt1: "#000000",
+        txt2: "#1E1E1E",
+        backButtonBg: "#F3F4F4",
+        badgeBg: "#E6E7E8",
+        primary1: "#FF6B02",
+        primary2: "#FF6B02",
+        loaderBg: "#FFF0E5",
+      },
+      theme: "light",
       getUser: () => get().user,
 
       setUser: (token, access_token) => {
@@ -62,6 +76,8 @@ const useStore = create(
       },
 
       setShowTraffic: (value) => set({ showTraffic: value }),
+      setPalette: (palette) => set({ palette }),
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: "app-storage",

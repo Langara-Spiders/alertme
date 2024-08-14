@@ -1,7 +1,9 @@
-import { FormattedMessage } from "react-intl";
 import { Image, StyleSheet, Text, View } from "react-native";
+
+import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
 import Upvot_Only_arrow from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
+import palette from "../../../config/palette";
 
 const UpVoteCard = (props) => {
   return (
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     height: 52,
     padding: 10,
     justifyContent: "space-between",
-    backgroundColor: "#F3F4F4",
+    backgroundColor: palette.backButtonBg,
     borderRadius: 8,
   },
   textContainer: {

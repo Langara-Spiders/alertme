@@ -2,6 +2,7 @@ import { Avatar, AvatarFallbackText, View } from "@gluestack-ui/themed";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Image, StyleSheet } from "react-native";
 
+import { useStore } from "../../../store";
 import Typography from "../../atoms/Typography";
 
 /* This component displays a greeting card with the user's name,
@@ -10,6 +11,52 @@ it falls back to displaying the first letter of the user's name. */
 const RewardsGreetingCard = (props) => {
   const intl = useIntl();
   const name = props.name || "";
+  const { palette } = useStore();
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      // padding: 20,
+      borderRadius: 10,
+      marginBottom: 15,
+      height: 100,
+    },
+    textContainer: {
+      flex: 1,
+      marginRight: 10,
+    },
+    greetingText: {
+      fontSize: 30,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    subtitleText: {
+      fontSize: 14,
+      marginTop: 10,
+      color: palette.txt1,
+    },
+    avatar: {
+      width: 100,
+      height: "100%",
+      // alignSelf: "stretch",
+      borderRadius: 100,
+      overflow: "hidden",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#FF9900",
+    },
+    avatarImage: {
+      width: "100%",
+      height: "100%",
+    },
+    avatarFallbackText: {
+      color: "#FFF",
+      fontWeight: "bold",
+      fontSize: 20,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -48,48 +95,3 @@ const RewardsGreetingCard = (props) => {
 };
 
 export default RewardsGreetingCard;
-
-/* Styles for the RewardsGreetingCard component including the container,
- text container, greeting text, subtitle text, and avatar styles. */
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    // padding: 20,
-    borderRadius: 10,
-    marginBottom: 15,
-    height: 100,
-  },
-  textContainer: {
-    flex: 1,
-    marginRight: 10,
-  },
-  greetingText: {
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-  subtitleText: {
-    fontSize: 14,
-    marginTop: 10,
-  },
-  avatar: {
-    width: 100,
-    height: "100%",
-    // alignSelf: "stretch",
-    borderRadius: 100,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FF9900",
-  },
-  avatarImage: {
-    width: "100%",
-    height: "100%",
-  },
-  avatarFallbackText: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-});

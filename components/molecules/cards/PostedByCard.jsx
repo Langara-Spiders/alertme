@@ -8,6 +8,8 @@ import {
 } from "@gluestack-ui/themed";
 import { StyleSheet, View } from "react-native";
 
+import { useStore } from "../../../store";
+
 const dateOptions = {
   year: "numeric",
   month: "long",
@@ -18,6 +20,37 @@ const dateOptions = {
 };
 
 const PostedByCard = (props) => {
+  const { palette } = useStore();
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 4,
+    },
+    hStack: {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    avatar: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+    },
+    vStack: {
+      marginLeft: 8,
+    },
+    name: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    date: {
+      fontSize: 14,
+      color: "#636C6E",
+    },
+  });
+
   return (
     <View style={styles.container}>
       <HStack space="md" style={styles.hStack}>
@@ -38,32 +71,5 @@ const PostedByCard = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 4,
-  },
-  hStack: {
-    alignItems: "center",
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  vStack: {
-    marginLeft: 8,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  date: {
-    fontSize: 14,
-    color: "#636C6E",
-  },
-});
 
 export default PostedByCard;

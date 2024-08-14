@@ -28,7 +28,8 @@ const IncidentCard = ({ hideStatus, ...props }) => {
   const { id, name, isStaff } = useStore.getState().getUser();
   const current_logged_in_user_id = id;
   const [userCoords, setUserCoords] = useState({ latitude: 0, longitude: 0 });
-  const [distance, setDistance] = useState(null);
+  const [distance, setDistance] = useState("--");
+  const { palette } = useStore();
 
   useEffect(() => {
     getLocation();
@@ -59,6 +60,94 @@ const IncidentCard = ({ hideStatus, ...props }) => {
       : routes.INCIDENT_DETAIL;
     navigation.navigate(targetRoute, { incident_id: props.id });
   };
+
+  const styles = StyleSheet.create({
+    card: {
+      display: "flex",
+      padding: 12,
+      alignItems: "center",
+      gap: 16,
+      alignSelf: "stretch",
+      borderRadius: 8,
+      backgroundColor: palette.bg2,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 2,
+    },
+    infoContainer: {
+      flex: 1,
+      marginRight: 10,
+    },
+    statusContainer: {
+      alignSelf: "flex-start",
+      marginBottom: 8,
+    },
+    title: {
+      color: palette.txt1,
+      fontSize: 18,
+      fontStyle: "normal",
+      fontWeight: "bold",
+    },
+    distance: {
+      color: palette.txt1,
+      fontSize: 18,
+      fontStyle: "normal",
+      fontWeight: "bold",
+      marginBottom: 16,
+    },
+    footer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      gap: 12,
+      flex: 1,
+      alignSelf: "stretch",
+    },
+    locationContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+      marginBottom: 20,
+    },
+    locationText: {
+      color: palette.txt1,
+      fontSize: 14,
+      marginLeft: 5,
+    },
+    timeText: {
+      flex: 1,
+      color: "#919A9C",
+      fontFamily: "Public Sans",
+      fontSize: 10,
+      fontStyle: "normal",
+      fontWeight: "400",
+    },
+    imageContainer: {
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+    },
+    image: {
+      display: "flex",
+      width: 56,
+      height: 56,
+      flexShrink: 0,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 5,
+      marginBottom: 60,
+    },
+    upvote: {
+      marginTop: 60,
+    },
+    verified: {
+      marginTop: 60,
+    },
+  });
 
   return (
     <Pressable onPress={handlePress}>
@@ -117,91 +206,3 @@ const IncidentCard = ({ hideStatus, ...props }) => {
 };
 
 export default IncidentCard;
-
-const styles = StyleSheet.create({
-  card: {
-    display: "flex",
-    padding: 12,
-    alignItems: "center",
-    gap: 16,
-    alignSelf: "stretch",
-    borderRadius: 8,
-    backgroundColor: "#F3F4F4",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  infoContainer: {
-    flex: 1,
-    marginRight: 10,
-  },
-  statusContainer: {
-    alignSelf: "flex-start",
-    marginBottom: 8,
-  },
-  title: {
-    color: "#0B0C0C",
-    fontSize: 18,
-    fontStyle: "normal",
-    fontWeight: "bold",
-  },
-  distance: {
-    color: "#0B0C0C",
-    fontSize: 18,
-    fontStyle: "normal",
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  footer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: 12,
-    flex: 1,
-    alignSelf: "stretch",
-  },
-  locationContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    marginBottom: 20,
-  },
-  locationText: {
-    color: "black",
-    fontSize: 14,
-    marginLeft: 5,
-  },
-  timeText: {
-    flex: 1,
-    color: "#919A9C",
-    fontFamily: "Public Sans",
-    fontSize: 10,
-    fontStyle: "normal",
-    fontWeight: "400",
-  },
-  imageContainer: {
-    alignItems: "flex-end",
-    justifyContent: "space-between",
-  },
-  image: {
-    display: "flex",
-    width: 56,
-    height: 56,
-    flexShrink: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    marginBottom: 60,
-  },
-  upvote: {
-    marginTop: 60,
-  },
-  verified: {
-    marginTop: 60,
-  },
-});

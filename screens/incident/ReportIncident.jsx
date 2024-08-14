@@ -4,7 +4,6 @@ import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -21,9 +20,9 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
+import { Loader } from "lucide-react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
-import LoadingGif from "../../assets/loading.gif";
 import { routes } from "../../constants";
 
 const user_type = {
@@ -110,20 +109,11 @@ const ReportIncident = () => {
   };
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Image
-          source={LoadingGif}
-          style={styles.loadingIcon}
-          alt="loader image"
-        />
-        <Text>Posting...</Text>
-      </View>
-    );
+    return <Loader />;
   }
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+    <View style={{ backgroundColor: palette.bg1, flex: 1 }}>
       <View style={styles.header}>
         <Pressable
           onPress={() => navigation.navigate("Home")}
@@ -301,19 +291,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 10,
   },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   postButton: {
     position: "fixed",
     left: 0,
     bottom: 40,
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
   },
 });

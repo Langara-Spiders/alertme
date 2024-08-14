@@ -4,11 +4,13 @@ import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { routes } from "../../../constants";
+import { useStore } from "../../../store";
 import Typography from "../../atoms/Typography";
 
 const RewardLevelCard = (props) => {
   const intl = useIntl();
   const navigation = useNavigation();
+  const { palette } = useStore();
 
   const handleViewProgress = () => {
     navigation.navigate(routes.ISSUESREPORTEDAWARDS, {
@@ -18,6 +20,68 @@ const RewardLevelCard = (props) => {
       achievedLevel: props.level,
     });
   };
+
+  const styles = StyleSheet.create({
+    card: {
+      backgroundColor: "white",
+      padding: 15,
+      borderRadius: 10,
+      marginBottom: 15,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    leftContainer: {
+      flex: 2,
+    },
+    levelText: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#000",
+      marginBottom: 5,
+    },
+    subtitleText: {
+      fontSize: 18,
+      color: "#000",
+      marginBottom: 15,
+    },
+    statsContainer: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+    },
+    stat: {
+      alignItems: "center",
+      marginRight: 20,
+    },
+    statAdjusted: {
+      alignItems: "center",
+      marginLeft: 8,
+    },
+    statLabel: {
+      fontSize: 12,
+      color: palette.primary1,
+      marginBottom: 5,
+    },
+    statValue: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "#000",
+    },
+    rightContainer: {
+      flex: 1,
+      alignItems: "center",
+    },
+    icon: {
+      width: 88,
+      height: 88,
+      marginBottom: 10,
+    },
+    viewProgressText: {
+      fontSize: 12,
+      color: palette.primary1,
+      textAlign: "center",
+    },
+  });
 
   return (
     <Card style={styles.card}>
@@ -62,65 +126,3 @@ const RewardLevelCard = (props) => {
 };
 
 export default RewardLevelCard;
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "white",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  leftContainer: {
-    flex: 2,
-  },
-  levelText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#000",
-    marginBottom: 5,
-  },
-  subtitleText: {
-    fontSize: 18,
-    color: "#000",
-    marginBottom: 15,
-  },
-  statsContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  stat: {
-    alignItems: "center",
-    marginRight: 20,
-  },
-  statAdjusted: {
-    alignItems: "center",
-    marginLeft: 8,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: "#FF6600",
-    marginBottom: 5,
-  },
-  statValue: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  rightContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  icon: {
-    width: 88,
-    height: 88,
-    marginBottom: 10,
-  },
-  viewProgressText: {
-    fontSize: 12,
-    color: "#FF6600",
-    textAlign: "center",
-  },
-});

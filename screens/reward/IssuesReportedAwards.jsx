@@ -6,6 +6,8 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
 import InfoSheet from "../../components/organisms/InfoSheet";
+import { useStore } from "../../store";
+import Loader from "../Loader";
 
 // Import all active badges
 const A1 = require("../../assets/badges/A1.png");
@@ -221,8 +223,10 @@ export { activeBadges, inactiveBadges };
 
 const IssuesReportedAwards = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
   const route = useRoute();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { palette } = useStore();
 
   const { totalReported, earnedBadges, earnedPoints, achievedLevel } =
     route.params;
@@ -245,6 +249,110 @@ const IssuesReportedAwards = () => {
       </View>
     );
   };
+
+  setTimeout(() => setLoading(false), 2000);
+
+  if (loading) return <Loader />;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: palette.bg1,
+      padding: 20,
+    },
+    backButton: {
+      color: "#000",
+      fontSize: 16,
+      marginBottom: 20,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: 20,
+    },
+    iconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 12,
+      backgroundColor: palette.backButtonBg,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 10,
+    },
+    icon: {
+      width: 24,
+      height: 24,
+      opacity: 0.5,
+    },
+    headerText: {
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    infoIcon: {
+      width: 24,
+      height: 24,
+    },
+    achievementContainer: {
+      backgroundColor: palette.backButtonBg,
+      padding: 20,
+      borderRadius: 10,
+      marginBottom: 20,
+    },
+    achievementTitle: {
+      fontSize: 18,
+      fontWeight: "bold",
+      marginBottom: 10,
+      color: palette.txt1,
+    },
+    achievementDetails: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    detailBox: {
+      alignItems: "center",
+    },
+    detailText: {
+      fontSize: 12,
+      color: palette.txt1,
+    },
+    detailValue: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    challengeBoard: {
+      marginBottom: 20,
+    },
+    challengeTitle: {
+      fontSize: 16,
+      marginBottom: 20,
+      color: palette.txt1,
+    },
+    badgesContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+    },
+    badgeItem: {
+      width: "30%",
+      alignItems: "center",
+      marginBottom: 20,
+    },
+    badgeImage: {
+      width: 85,
+      height: 85,
+      marginBottom: 10,
+    },
+    badgeText: {
+      fontSize: 14,
+      fontWeight: "bold",
+    },
+    badgeReports: {
+      fontSize: 12,
+      color: "#888",
+    },
+  });
 
   return (
     <ScrollView style={styles.container} fadingEdgeLength={150}>
@@ -302,100 +410,3 @@ const IssuesReportedAwards = () => {
 };
 
 export default IssuesReportedAwards;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-  },
-  backButton: {
-    color: "#000",
-    fontSize: 16,
-    marginBottom: 20,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: "#F3F4F4",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    opacity: 0.5,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  infoIcon: {
-    width: 24,
-    height: 24,
-  },
-  achievementContainer: {
-    backgroundColor: "#F5F5F5",
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  achievementTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  achievementDetails: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  detailBox: {
-    alignItems: "center",
-  },
-  detailText: {
-    fontSize: 12,
-    color: "#888",
-  },
-  detailValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  challengeBoard: {
-    marginBottom: 20,
-  },
-  challengeTitle: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
-  badgesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  badgeItem: {
-    width: "30%",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  badgeImage: {
-    width: 85,
-    height: 85,
-    marginBottom: 10,
-  },
-  badgeText: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  badgeReports: {
-    fontSize: 12,
-    color: "#888",
-  },
-});

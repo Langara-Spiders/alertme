@@ -1,41 +1,52 @@
 import { View } from "@gluestack-ui/themed";
-import About from "../../assets/icons/Profile/About.svg";
-import Appearance from "../../assets/icons/Profile/Appearance.svg";
-import ProfileUser from "../../assets/icons/Profile/ProfileUser.svg";
-import Setting from "../../assets/icons/Profile/Setting.svg";
-import Share from "../../assets/icons/Profile/Share.svg";
+import { FormattedMessage } from "react-intl";
+import About from "../../assets/icons/profile_icons/about_icon.png";
+import Appearance from "../../assets/icons/profile_icons/appearance_icon.png";
+import ProfileUser from "../../assets/icons/profile_icons/profile_icon.png";
+import Setting from "../../assets/icons/profile_icons/settings_icon.png";
+import Share from "../../assets/icons/profile_icons/share_icon.png";
 import ProfileItemsWithIcon from "../molecules/ProfileItemsWithIcon";
 
 const ProfileItemsList = (props) => {
   const items = [
     {
       icon: ProfileUser,
-      messageId: "profiledetails.icon.message",
-      defaultMessage: "Profile Details",
+      label: (
+        <FormattedMessage
+          id="label.profileDeatils"
+          defaultMessage="Profile Details"
+        />
+      ),
       screen: "Profile Details",
     },
     {
       icon: Setting,
-      messageId: "appsetting.icon.message",
-      defaultMessage: "App Setting",
+      label: (
+        <FormattedMessage id="label.appSetting" defaultMessage="App Setting" />
+      ),
       screen: "App Setting",
     },
     {
       icon: Share,
       messageId: "sharewithfriends.icon.message",
-      defaultMessage: "Share with friends",
+      label: (
+        <FormattedMessage
+          id="label.share"
+          defaultMessage="Share with Friends"
+        />
+      ),
       screen: "Share With Friends",
     },
     {
       icon: Appearance,
-      messageId: "appearance.icon.message",
-      defaultMessage: "Appearance",
+      label: (
+        <FormattedMessage id="label.appearance" defaultMessage="Appearance" />
+      ),
       screen: "Appearance",
     },
     {
       icon: About,
-      messageId: "about.icon.message",
-      defaultMessage: "About",
+      label: <FormattedMessage id="label.about" defaultMessage="About" />,
       screen: "About",
     },
   ];
@@ -46,10 +57,8 @@ const ProfileItemsList = (props) => {
         <ProfileItemsWithIcon
           key={index}
           icon={item.icon}
-          messageId={item.messageId}
-          defaultMessage={item.defaultMessage}
+          label={item.label}
           screen={item.screen}
-          // navigation={props.navigation}
         />
       ))}
     </View>

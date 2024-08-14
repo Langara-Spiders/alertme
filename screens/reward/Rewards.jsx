@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { StyleSheet, TouchableOpacity } from "react-native";
@@ -9,9 +9,11 @@ import {
 } from "../../components/molecules";
 
 import { useNavigation } from "@react-navigation/native";
+import { uniqueId } from "lodash";
 import { getReward } from "../../api/user";
-import LoadingGif from "../../assets/loading.gif";
 import { routes } from "../../constants";
+import { useStore } from "../../store";
+import Loader from "../Loader";
 
 const A1 = require("../../assets/badges/A1.png");
 const A2 = require("../../assets/badges/A2.png");
@@ -125,6 +127,7 @@ const Rewards = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
+  const { palette } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,27 +139,18 @@ const Rewards = (props) => {
           top_users: top_users,
           leaderboard: leaderboard,
         });
-        setLoading(false);
+        setTimeout(() => setLoading(false), 2000);
       } catch (error) {
         setError(error);
-        setLoading(false);
+        setTimeout(() => setLoading(false), 2000);
       }
     };
 
     fetchData();
-  }, []);
+  }, [uniqueId()]);
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Image
-          source={LoadingGif}
-          style={styles.loadingIcon}
-          alt="loader image"
-        />
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Loader />;
   }
 
   if (error) {
@@ -186,6 +180,57 @@ const Rewards = (props) => {
   const getBadgeForLevel = (level) => {
     return badges[level] || ABCD; // Default to ABCD if no badge is found
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: palette.bg3,
+      padding: 20,
+    },
+    header: {
+      marginBottom: 20,
+      height: 100,
+    },
+    levelCardText: {
+      color: palette.txt1,
+      fontSize: 14,
+      fontWeight: "bold",
+      textAlign: "center",
+      marginBottom: 10,
+    },
+    levelCardContainer: {
+      marginBottom: 20,
+    },
+    leaderboardHeader: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 10,
+    },
+    leaderboardText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: palette.txt2,
+    },
+    viewAllText: {
+      fontSize: 14,
+      color: palette.primary1,
+      fontWeight: "semibold",
+    },
+    leaderboardContainer: {
+      flex: 1,
+      paddingBottom: 200,
+    },
+    errorContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    errorText: {
+      fontSize: 18,
+      color: "red",
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -252,65 +297,5 @@ const Rewards = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF0E5",
-    padding: 20,
-  },
-  header: {
-    marginBottom: 20,
-    height: 100,
-  },
-  levelCardText: {
-    color: "black",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  levelCardContainer: {
-    marginBottom: 20,
-  },
-  leaderboardHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  leaderboardText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#1E1E1E",
-  },
-  viewAllText: {
-    fontSize: 14,
-    color: "#FF9900",
-  },
-  leaderboardContainer: {
-    flex: 1,
-    paddingBottom: 200,
-  },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingIcon: {
-    width: 100,
-    height: 100,
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  errorText: {
-    fontSize: 18,
-    color: "red",
-  },
-});
 
 export default Rewards;
