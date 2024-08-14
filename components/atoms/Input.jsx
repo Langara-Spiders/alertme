@@ -8,8 +8,44 @@ import {
 
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { useStore } from "../../store";
 
 const Input = (props) => {
+  const { palette } = useStore();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      padding: 10,
+      marginTop: 1,
+    },
+    label: {
+      color: "#333",
+      fontSize: 16,
+      marginBottom: 8,
+    },
+    container: {
+      borderRadius: 10,
+      borderColor: "#F3F4F4",
+      height: 56,
+      paddingHorizontal: 12,
+      backgroundColor: "#F3F4F4",
+      alignItems: "center",
+      justifyContent: "start",
+      width: "100%",
+    },
+    icon: {
+      marginLeft: 10,
+      width: 20,
+      height: 20,
+      backgroundColor: "#F3F4F4",
+    },
+    field: {
+      flex: 1,
+      paddingVertical: 12,
+      color: palette.txt1,
+    },
+  });
+
   return (
     <View style={styles.wrapper}>
       {props.label && <Text style={styles.label}>{props.label}</Text>}
@@ -42,35 +78,3 @@ const Input = (props) => {
 };
 
 export default Input;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    padding: 10,
-    marginTop: 1,
-  },
-  label: {
-    color: "#333",
-    fontSize: 16,
-    marginBottom: 8,
-  },
-  container: {
-    borderRadius: 10,
-    borderColor: "#F3F4F4",
-    height: 56,
-    paddingHorizontal: 12,
-    backgroundColor: "#F3F4F4",
-    alignItems: "center",
-    justifyContent: "start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: 10,
-    width: 20,
-    height: 20,
-    backgroundColor: "#F3F4F4",
-  },
-  field: {
-    flex: 1,
-    paddingVertical: 12,
-  },
-});
