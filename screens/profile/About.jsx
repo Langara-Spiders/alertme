@@ -1,10 +1,9 @@
 import { Pressable, Text, View } from "@gluestack-ui/themed";
+import { Image, StyleSheet } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 
 const About = () => {
   const navigation = useNavigation();
@@ -16,12 +15,7 @@ const About = () => {
           onPress={() => navigation.navigate("Profile")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>
           <FormattedMessage

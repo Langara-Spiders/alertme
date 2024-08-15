@@ -4,6 +4,7 @@ import * as WebBrowser from "expo-web-browser";
 import { Image, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect } from "react";
 
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Constants from "expo-constants";
 import { FormattedMessage } from "react-intl";
@@ -24,7 +25,7 @@ import { useStore } from "../store";
 WebBrowser.maybeCompleteAuthSession();
 
 const Login = (props) => {
-  const { navigation } = props;
+  const navigation = useNavigation();
   const { setUser } = useStore();
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: Constants.expoConfig.iosClientId,
@@ -35,7 +36,7 @@ const Login = (props) => {
     const { id_token, access_token } = googleResponse.params;
     const response = await login(id_token);
 
-    if (!response.error) {
+    if (response && !response.error) {
       const { token } = response?.data;
       setUser(token, access_token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -125,7 +126,7 @@ const Login = (props) => {
           >
             <FormattedMessage
               id="loginpage.loginwithgoogle"
-              defaultMessage="Sign up with Google"
+              defaultMessage="Sign in with Google"
             />
           </IconButton>
         </View>

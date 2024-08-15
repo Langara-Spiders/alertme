@@ -1,8 +1,350 @@
 {
-  "home.button": {
-    "defaultMessage": "Press"
+  "About.title.message": {
+    "defaultMessage": "AlertMe is a community driven app developed by team Spiders v1.0.0"
   },
-  "home.title": {
-    "defaultMessage": "Hi from Home"
+  "Appearance.title.message": {
+    "defaultMessage": "App Mode"
+  },
+  "ChooseUser.begin": {
+    "defaultMessage": "Please select the user type to begin with"
+  },
+  "ChooseUser.help": {
+    "defaultMessage": "Help us to know you better!"
+  },
+  "Civil.titleHeader": {
+    "defaultMessage": "Civilian Reports"
+  },
+  "ComponentAtom.numOfIssuesCard.textMessage": {
+    "defaultMessage": "Around you"
+  },
+  "GetStarted.alert": {
+    "defaultMessage": "Signup to AlertMe app to get started quickly to community application"
+  },
+  "GetStarted.go": {
+    "defaultMessage": "Let's go!"
+  },
+  "GetStarted.started": {
+    "defaultMessage": "Get Started"
+  },
+  "IncidentDetailOrg.Approve": {
+    "defaultMessage": "Approve"
+  },
+  "IncidentDetailOrg.Reject": {
+    "defaultMessage": "Reject"
+  },
+  "Nearby.layout": {
+    "defaultMessage": "Nearby Active Issues"
+  },
+  "ProfileDetails.contactinput.labelmessage": {
+    "defaultMessage": "Contact Number"
+  },
+  "ProfileDetails.contactinput.placeholdermessage": {
+    "defaultMessage": "Enter your number"
+  },
+  "ProfileDetails.nameinput.labelmessage": {
+    "defaultMessage": "Name *"
+  },
+  "ProfileDetails.nameinput.placeholdermessage": {
+    "defaultMessage": "Enter your name"
+  },
+  "ProfileDetails.savebutton.Buttonmessage": {
+    "defaultMessage": "Save"
+  },
+  "RewardLevelCard.earnedPoints": {
+    "defaultMessage": "Points"
+  },
+  "RewardLevelCard.issuesReported": {
+    "defaultMessage": "Reportes"
+  },
+  "RewardLevelCard.levelText": {
+    "defaultMessage": "Level"
+  },
+  "Rewards.leaderBoard": {
+    "defaultMessage": "Leaderboard"
+  },
+  "RewardsGreetingCard.greeting": {
+    "defaultMessage": "Hello"
+  },
+  "RewardsGreetingCard.roadhero": {
+    "defaultMessage": "You're a road hero 😎"
+  },
+  "ShareWithFriends.headerText": {
+    "defaultMessage": "Share With Friends"
+  },
+  "ShareWithFriends.shareButtonText": {
+    "defaultMessage": "Share with friend"
+  },
+  "Signup.AllowPermissions.button": {
+    "defaultMessage": "Continue"
+  },
+  "Signup.AllowPermissions.heading": {
+    "defaultMessage": "Allow Permissions"
+  },
+  "Signup.AllowPermissions.subheading": {
+    "defaultMessage": "To get started we need your permission to configure this app"
+  },
+  "Signup.Registration.button": {
+    "defaultMessage": "Continue"
+  },
+  "Signup.Registration.heading": {
+    "defaultMessage": "User Registration"
+  },
+  "Signup.Registration.subheading": {
+    "defaultMessage": "Please add your basic details below"
+  },
+  "Signup.SelectUserType.heading": {
+    "defaultMessage": "Help us to know you better!"
+  },
+  "Signup.SelectUserType.subheading": {
+    "defaultMessage": "Please select the user type to begin with"
+  },
+  "SiteInc.title": {
+    "defaultMessage": "Site Reports"
+  },
+  "SwitchCard.description.camera": {
+    "defaultMessage": "To access your camera for taking photos and videos."
+  },
+  "SwitchCard.description.location": {
+    "defaultMessage": "To send you location-based alerts and notifications."
+  },
+  "SwitchCard.description.notification": {
+    "defaultMessage": "To send you notifications and alerts."
+  },
+  "SwitchCard.title.camera": {
+    "defaultMessage": "Camera"
+  },
+  "SwitchCard.title.location": {
+    "defaultMessage": "Location"
+  },
+  "SwitchCard.title.notification": {
+    "defaultMessage": "Notification"
+  },
+  "Upvote.card": {
+    "defaultMessage": "Users upvoted this Issue"
+  },
+  "approveIncident.approve": {
+    "defaultMessage": "Approve"
+  },
+  "approveIncident.confirm": {
+    "defaultMessage": "👍Approve an incident?"
+  },
+  "approveIncident.description": {
+    "defaultMessage": "You are approving this posted incident by a civilian as this is a genuine incident inspected by you. You want to post this on the map and inform others."
+  },
+  "approveIncident.no": {
+    "defaultMessage": "No"
+  },
+  "atom.upvotebuttontext": {
+    "defaultMessage": "Upvoted •"
+  },
+  "atom.verifiedbuttontext": {
+    "defaultMessage": "Verified Issue"
+  },
+  "atoms.unitswitch.km": {
+    "defaultMessage": "Km"
+  },
+  "atoms.unitswitch.mile": {
+    "defaultMessage": "Mile"
+  },
+  "common.approve": {
+    "defaultMessage": "Approve"
+  },
+  "common.confirm": {
+    "defaultMessage": "Confirm"
+  },
+  "common.no": {
+    "defaultMessage": "No"
+  },
+  "common.reject": {
+    "defaultMessage": "Reject"
+  },
+  "congratsModal.Launch": {
+    "defaultMessage": "Launch App🚀"
+  },
+  "congratsModal.congrats": {
+    "defaultMessage": "Congratulations🎉"
+  },
+  "congratsModal.ready": {
+    "defaultMessage": "Your registration is complete. You are now ready to use AlertMe application"
+  },
+  "filterBtn.active": {
+    "defaultMessage": "Active"
+  },
+  "filterBtn.all": {
+    "defaultMessage": "All"
+  },
+  "filterBtn.fixing": {
+    "defaultMessage": "Fixing"
+  },
+  "filterBtn.rejected": {
+    "defaultMessage": "Rejected"
+  },
+  "filterBtn.resolved": {
+    "defaultMessage": "Resolved"
+  },
+  "home.Card.Directions.EnabledirectionMeesage": {
+    "defaultMessage": "Enable Directions"
+  },
+  "home.addIsuue": {
+    "defaultMessage": "Report"
+  },
+  "home.nearbyIssues": {
+    "defaultMessage": "Nearby"
+  },
+  "input.addresscomponent.labelmessage": {
+    "defaultMessage": "Address*"
+  },
+  "input.addresscomponent.placeholdermessage": {
+    "defaultMessage": "Enter address"
+  },
+  "input.searchcomponent.placeholdermessage": {
+    "defaultMessage": "Search"
+  },
+  "label.about": {
+    "defaultMessage": "About"
+  },
+  "label.appSetting": {
+    "defaultMessage": "App Setting"
+  },
+  "label.appearance": {
+    "defaultMessage": "Appearance"
+  },
+  "label.profileDeatils": {
+    "defaultMessage": "Profile Details"
+  },
+  "label.share": {
+    "defaultMessage": "Share with Friends"
+  },
+  "loginpage.letsgo.heading": {
+    "defaultMessage": "Let's Go!"
+  },
+  "loginpage.letsgo.subheading": {
+    "defaultMessage": "Signup to AlertMe app to get started quickly to community application"
+  },
+  "loginpage.loginwithgoogle": {
+    "defaultMessage": "Sign in with Google"
+  },
+  "logout": {
+    "defaultMessage": "Logout"
+  },
+  "molecules.cards.LoginAsCard.civilian.heading": {
+    "defaultMessage": "I'm Civilian"
+  },
+  "molecules.cards.LoginAsCard.civilian.subheading": {
+    "defaultMessage": "Community civilians can select this option to proceed further"
+  },
+  "molecules.cards.LoginAsCard.constructionworker.heading": {
+    "defaultMessage": "Construction Worker"
+  },
+  "molecules.cards.LoginAsCard.constructionworker.subheading": {
+    "defaultMessage": "Construction employee can select this option to proceed further"
+  },
+  "molecules.cards.greatWorkCard.congratsSubText": {
+    "defaultMessage": "Your level 3 completed"
+  },
+  "molecules.cards.greatWorkCard.congratsText": {
+    "defaultMessage": "Congratulation🎉"
+  },
+  "molecules.cards.greatWorkCard.gotorewardLink": {
+    "defaultMessage": "Go to Rewards"
+  },
+  "molecules.cards.greatWorkCard.heading": {
+    "defaultMessage": "Great Work!"
+  },
+  "molecules.cards.greatWorkCard.reportText": {
+    "defaultMessage": "You’ve posted 25 successful reports."
+  },
+  "notifications.button1": {
+    "defaultMessage": "All"
+  },
+  "notifications.button2": {
+    "defaultMessage": "Read"
+  },
+  "notifications.button3": {
+    "defaultMessage": "Unread"
+  },
+  "profile.About.headerText": {
+    "defaultMessage": "About"
+  },
+  "profile.Appearance.headerText": {
+    "defaultMessage": "Appearance"
+  },
+  "profile.ProfileDetails.headerText": {
+    "defaultMessage": "Profile Details"
+  },
+  "profile.appsetting.headerText": {
+    "defaultMessage": "App Settings"
+  },
+  "profile.appsettingLanguageText": {
+    "defaultMessage": "Language"
+  },
+  "profile.appsettingSave": {
+    "defaultMessage": "Save"
+  },
+  "profile.appsettingTextOption.showTraffic": {
+    "defaultMessage": "Show Traffic"
+  },
+  "readyModal.confirmation": {
+    "defaultMessage": "Here we can say two lines and ask them to confirm"
+  },
+  "readyModal.no": {
+    "defaultMessage": "No"
+  },
+  "readyModal.readytopost": {
+    "defaultMessage": "Ready to post the Incident?"
+  },
+  "readyModal.yes": {
+    "defaultMessage": "Post"
+  },
+  "rejectIncident.confirm": {
+    "defaultMessage": "🚫 Reject an incident"
+  },
+  "rejectIncident.description": {
+    "defaultMessage": "Are you sure you want to reject this incident?"
+  },
+  "rejectIncident.no": {
+    "defaultMessage": "No"
+  },
+  "rejectIncident.reject": {
+    "defaultMessage": "Reject"
+  },
+  "reportIncident.categories": {
+    "defaultMessage": "Category*"
+  },
+  "reportIncident.description": {
+    "defaultMessage": "Description*"
+  },
+  "reportIncident.input.incidentDescription": {
+    "defaultMessage": "Enter Description"
+  },
+  "reportIncident.inputLabel.incidentType": {
+    "defaultMessage": "Subject*"
+  },
+  "reportIncident.inputPlaceholder.incidentSubject": {
+    "defaultMessage": "Enter subject"
+  },
+  "reportIncident.postBtn": {
+    "defaultMessage": "Post Incident"
+  },
+  "reportIncident.titleaddpics": {
+    "defaultMessage": "Add Pictures*"
+  },
+  "resolveIncident.confirm": {
+    "defaultMessage": "👍Resolve an incident?"
+  },
+  "resolveIncident.description": {
+    "defaultMessage": "Are you sure to resolve an incident?"
+  },
+  "resolveIncident.no": {
+    "defaultMessage": "No"
+  },
+  "resolveIncident.yes": {
+    "defaultMessage": "Yes"
+  },
+  "upvoteModal.trust": {
+    "defaultMessage": "We trust that your up-vote is genuine and based on the incident you reviewed. Please refrain from misusing this community application."
+  },
+  "upvoteModal.upvote": {
+    "defaultMessage": "👍Confirm Up-vote?"
   }
 }

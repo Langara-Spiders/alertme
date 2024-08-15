@@ -10,9 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
-import SvgUri from "react-native-svg-uri";
 import { getMyIssues } from "../../api/incident";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import LoadingGif from "../../assets/loading.gif";
 import { IncidentCard } from "../../components/molecules";
 import { useStore } from "../../store";
@@ -57,7 +56,7 @@ const UserIncidents = (props) => {
 
     setIncidents(incidentsWithDistance);
 
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 1000);
   };
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
@@ -155,12 +154,7 @@ const UserIncidents = (props) => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>My Reports</Text>
       </View>

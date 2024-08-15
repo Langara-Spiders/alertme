@@ -1,15 +1,14 @@
 import { Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useReducer, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, Image, StyleSheet } from "react-native";
 import { getProfile, updateProfile } from "../../api/user";
 import { Button, Input } from "../../components/atoms";
 import { LocationInput, ProfileImageEdit } from "../../components/molecules";
 
 import { useNavigation } from "@react-navigation/native";
-import SvgUri from "react-native-svg-uri";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import EditIcon from "../../assets/icons/Edit.svg";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import User from "../../assets/images/User.png";
 
 const ProfileDetails = () => {
@@ -79,12 +78,7 @@ const ProfileDetails = () => {
           onPress={() => navigation.navigate("Profile")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>
           <FormattedMessage

@@ -5,23 +5,15 @@ import { useEffect, useState } from "react";
 import { UpVotedBadge, VerifiedBadge } from "../../atoms/";
 
 import { useNavigation } from "@react-navigation/native";
+import { FormattedDate } from "react-intl";
 import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Location_Spot from "../../../assets/icons/System_Icons/Location_spot.svg";
+import Location_Spot from "../../../assets/icons/location_spot_icon.png";
 import ImagePlaceHolder from "../../../assets/icons/TakePicture.svg";
 import { routes } from "../../../constants";
 import useStore from "../../../store/useStore";
 import { calculateDistance } from "../../../utils/CalculateDistance";
 import { StatusBadge } from "../../atoms";
-
-const dateOptions = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: true,
-};
 
 const IncidentCard = ({ hideStatus, ...props }) => {
   const navigation = useNavigation();
@@ -165,7 +157,7 @@ const IncidentCard = ({ hideStatus, ...props }) => {
             {`${distance} km away`}
           </Text>
           <View style={styles.locationContainer}>
-            <SvgUri width="16" height="16" source={Location_Spot} />
+            <Image style={{ width: 16, height: 16 }} source={Location_Spot} />
             <Text
               style={styles.locationText}
               numberOfLines={1}
@@ -176,7 +168,15 @@ const IncidentCard = ({ hideStatus, ...props }) => {
           </View>
           <View style={styles.footer}>
             <Text style={styles.timeText}>
-              {new Date(props.created_at).toLocaleString("en-US", dateOptions)}
+              <FormattedDate
+                year="numeric"
+                month="short"
+                day="numeric"
+                hour="2-digit"
+                minute="2-digit"
+                hour12={true}
+                value={props.created_at}
+              />
             </Text>
           </View>
         </View>

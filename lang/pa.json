@@ -2,19 +2,7 @@
   "About.title.message": [
     {
       "type": 0,
-      "value": "AlertMe ਇੱਕ ਕਮਿਊਨਿਟੀ ਐਪ ਹੈ ਜੋ ਟੀਮ Spiders v1.0.0 ਦੁਆਰਾ ਵਿਕਸਤ ਕੀਤੀ ਗਈ ਹੈ"
-    }
-  ],
-  "AllowPermissions.heading": [
-    {
-      "type": 0,
-      "value": "ਅਨੁਮਤੀਆਂ ਦਿਓ"
-    }
-  ],
-  "AllowPermissions.message": [
-    {
-      "type": 0,
-      "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ, ਸਾਨੂੰ ਇਸ ਐਪ ਨੂੰ ਸੈਟ ਅੱਪ ਕਰਨ ਲਈ ਤੁਹਾਡੀ ਅਨੁਮਤੀ ਦੀ ਲੋੜ ਹੈ"
+      "value": "AlertMe ਇੱਕ ਸਮੁਦਾਇਕ ਐਪ ਹੈ ਜੋ ਟੀਮ Spiders ਦੁਆਰਾ ਵਿਕਸਤ ਕੀਤੀ ਗਈ ਹੈ v1.0.0"
     }
   ],
   "Appearance.title.message": [
@@ -26,31 +14,37 @@
   "ChooseUser.begin": [
     {
       "type": 0,
-      "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਯੂਜ਼ਰ ਕਿਸਮ ਚੁਣੋ"
+      "value": "ਕਿਰਪਾ ਕਰਕੇ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਯੂਜ਼ਰ ਕਿਸਮ ਦੀ ਚੋਣ ਕਰੋ"
     }
   ],
   "ChooseUser.help": [
     {
       "type": 0,
-      "value": "ਸਾਨੂੰ ਤੁਹਾਨੂੰ ਚੰਗੀ ਤਰ੍ਹਾਂ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰੋ!"
+      "value": "ਸਾਨੂੰ ਤੁਹਾਨੂੰ ਬਿਹਤਰ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰੋ!"
+    }
+  ],
+  "Civil.titleHeader": [
+    {
+      "type": 0,
+      "value": "ਨਾਗਰਿਕ ਰਿਪੋਰਟਾਂ"
     }
   ],
   "ComponentAtom.numOfIssuesCard.textMessage": [
     {
       "type": 0,
-      "value": "ਤੁਹਾਡੇ ਆਲੇ ਦੁਆਲੇ"
+      "value": "ਤੁਹਾਡੇ ਆਲੇ-ਦੁਆਲੇ"
     }
   ],
   "GetStarted.alert": [
     {
       "type": 0,
-      "value": "ਐਪ AlertMe ਵਿੱਚ ਸਾਈਨ ਅਪ ਕਰੋ ਤਾਂ ਜੋ ਕਮਿਊਨਿਟੀ ਐਪ ਦੀ ਵਰਤੋਂ ਜਲਦੀ ਸ਼ੁਰੂ ਹੋ ਸਕੇ"
+      "value": "AlertMe 'ਚ ਸਾਈਨਅਪ ਕਰੋ ਤੇਜ਼ੀ ਨਾਲ ਸ਼ੁਰੂ ਕਰਨ ਲਈ"
     }
   ],
   "GetStarted.go": [
     {
       "type": 0,
-      "value": "ਆਓ ਸ਼ੁਰੂ ਕਰੀਏ!"
+      "value": "ਚੱਲੋ ਚੱਲੀਏ!"
     }
   ],
   "GetStarted.started": [
@@ -68,55 +62,13 @@
   "IncidentDetailOrg.Reject": [
     {
       "type": 0,
-      "value": "ਅਸਵੀਕਾਰ ਕਰੋ"
-    }
-  ],
-  "Nav.Civilian": [
-    {
-      "type": 0,
-      "value": "ਸਿਵਿਲ"
-    }
-  ],
-  "Nav.Site": [
-    {
-      "type": 0,
-      "value": "ਸਾਈਟ"
-    }
-  ],
-  "Nav.home": [
-    {
-      "type": 0,
-      "value": "ਹੋਮ"
-    }
-  ],
-  "Nav.myIssue": [
-    {
-      "type": 0,
-      "value": "ਮੇਰੀਆਂ ਰਿਪੋਰਟਾਂ"
-    }
-  ],
-  "Nav.profile": [
-    {
-      "type": 0,
-      "value": "ਪ੍ਰੋਫਾਈਲ"
-    }
-  ],
-  "Nav.rewards": [
-    {
-      "type": 0,
-      "value": "ਇਨਾਮ"
+      "value": "ਰੱਦ ਕਰੋ"
     }
   ],
   "Nearby.layout": [
     {
       "type": 0,
-      "value": "ਨੇੜੇ ਦੀਆਂ ਸਰਗਰਮ ਸਮੱਸਿਆਵਾਂ"
-    }
-  ],
-  "Notifications.title": [
-    {
-      "type": 0,
-      "value": "ਸੂਚਨਾਵਾਂ"
+      "value": "ਨਜ਼ਦੀਕੀ ਸਰਗਰਮ ਮੁੱਦੇ"
     }
   ],
   "ProfileDetails.contactinput.labelmessage": [
@@ -128,667 +80,235 @@
   "ProfileDetails.contactinput.placeholdermessage": [
     {
       "type": 0,
-      "value": "ਤੁਹਾਡਾ ਨੰਬਰ ਦਰਜ ਕਰੋ"
+      "value": "ਆਪਣਾ ਨੰਬਰ ਦਰਜ ਕਰੋ"
     }
   ],
   "ProfileDetails.nameinput.labelmessage": [
     {
       "type": 0,
-      "value": "ਨਾਮ *"
-    }
-  ],
-  "ProfileAppSettingsItems.settings.camera": [
-    {
-      "type": 0,
-      "value": "ਕੈਮਰਾ ਦੀ ਐਕਸੈੱਸ"
-    }
-  ],
-  "ProfileAppSettingsItems.settings.location": [
-    {
-      "type": 0,
-      "value": "ਸਥਿਤੀ ਦੀ ਐਕਸੈੱਸ"
-    }
-  ],
-  "ProfileAppSettingsItems.settings.notifications": [
-    {
-      "type": 0,
-      "value": "ਸੂਚਨਾਵਾਂ"
-    }
-  ],
-  "ProfileAppSettingsItems.settings.sound": [
-    {
-      "type": 0,
-      "value": "ਐਪ ਦਾ ਸਾਉਂਡ"
+      "value": "ਨਾਂ *"
     }
   ],
   "ProfileDetails.nameinput.placeholdermessage": [
     {
       "type": 0,
-      "value": "ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ"
+      "value": "ਆਪਣਾ ਨਾਂ ਦਰਜ ਕਰੋ"
     }
   ],
   "ProfileDetails.savebutton.Buttonmessage": [
     {
       "type": 0,
-      "value": "ਸੇਵ ਕਰੋ"
+      "value": "ਸੰਭਾਲੋ"
     }
   ],
-  "RewardLevelCard.earnedPoints": [
-    {
-      "type": 0,
-      "value": "ਅੰਕ"
-    }
-  ],
-  "ProfileItemsList.about": [
-    {
-      "type": 0,
-      "value": "ਬਾਰੇ"
-    }
-  ],
-  "ProfileItemsList.appearance": [
-    {
-      "type": 0,
-      "value": "ਦਿਖਾਈ"
-    }
-  ],
-  "ProfileItemsList.profile": [
-    {
-      "type": 0,
-      "value": "ਪ੍ਰੋਫਾਈਲ ਵੇਰਵੇ"
-    }
-  ],
-  "ProfileItemsList.settings": [
-    {
-      "type": 0,
-      "value": "ਐਪ ਸੈਟਿੰਗਜ਼"
-    }
-  ],
-  "ProfileItemsList.share": [
-    {
-      "type": 0,
-      "value": "ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ"
-    }
-  ],
-  "RewardLevelCard.issuesReported": [
-    {
-      "type": 0,
-      "value": "ਰਿਪੋਰਟਾਂ"
-    }
-  ],
-  "RewardLevelCard.levelText": [
-    {
-      "type": 0,
-      "value": "ਸਤਰ"
-    }
-  ],
-  "Rewards.leaderBoard": [
-    {
-      "type": 0,
-      "value": "ਲੀਡਰਬੋਰਡ"
-    }
-  ],
-  "RewardsGreetingCard.greeting": [
-    {
-      "type": 0,
-      "value": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ "
-    }
-  ],
+  "RewardLevelCard.earnedPoints": [{ "type": 0, "value": "ਅੰਕ" }],
+  "RewardLevelCard.issuesReported": [{ "type": 0, "value": "ਰਿਪੋਰਟ" }],
+  "RewardLevelCard.levelText": [{ "type": 0, "value": "ਸਤਰ" }],
+  "Rewards.leaderBoard": [{ "type": 2, "value": "ਲੀਡਰਬੋਰਡ" }],
+  "RewardsGreetingCard.greeting": [{ "type": 0, "value": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ" }],
   "RewardsGreetingCard.roadhero": [
-    {
-      "type": 0,
-      "value": "ਤੁਸੀਂ ਰੋਡ ਹੀਰੋ ਹੋ 😎"
-    }
+    { "type": 0, "value": "ਤੁਸੀਂ ਸੜਕ ਦੇ ਹੀਰੋ ਹੋ 😎" }
   ],
-  "Signup.AllowPermissions.button": [
-    {
-      "type": 0,
-      "value": "ਜਾਰੀ ਰੱਖੋ"
-    }
+  "ShareWithFriends.headerText": [
+    { "type": 0, "value": "ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ" }
   ],
-  "Signup.AllowPermissions.heading": [
-    {
-      "type": 0,
-      "value": "ਅਨੁਮਤੀਆਂ ਦਿਓ"
-    }
+  "ShareWithFriends.shareButtonText": [
+    { "type": 0, "value": "ਦੋਸਤ ਨਾਲ ਸਾਂਝਾ ਕਰੋ" }
   ],
+  "Signup.AllowPermissions.button": [{ "type": 0, "value": "ਜਾਰੀ ਰੱਖੋ" }],
+  "Signup.AllowPermissions.heading": [{ "type": 0, "value": "ਇਜਾਜ਼ਤਾਂ ਦਿਓ" }],
   "Signup.AllowPermissions.subheading": [
     {
       "type": 0,
-      "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ, ਸਾਨੂੰ ਇਸ ਐਪ ਨੂੰ ਸੈਟ ਅੱਪ ਕਰਨ ਲਈ ਤੁਹਾਡੀ ਅਨੁਮਤੀ ਦੀ ਲੋੜ ਹੈ"
+      "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਅਸੀਂ ਇਸ ਐਪ ਨੂੰ ਕਨਫਿਗਰ ਕਰਨ ਲਈ ਤੁਹਾਡੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ"
     }
   ],
-  "Signup.Registration.button": [
-    {
-      "type": 0,
-      "value": "ਜਾਰੀ ਰੱਖੋ"
-    }
-  ],
-  "Signup.Registration.heading": [
-    {
-      "type": 0,
-      "value": "ਯੂਜ਼ਰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ"
-    }
-  ],
+  "Signup.Registration.button": [{ "type": 0, "value": "ਜਾਰੀ ਰੱਖੋ" }],
+  "Signup.Registration.heading": [{ "type": 0, "value": "ਯੂਜ਼ਰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ" }],
   "Signup.Registration.subheading": [
-    {
-      "type": 0,
-      "value": "ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਆਪਣੇ ਬੁਨਿਆਦੀ ਵੇਰਵੇ ਸ਼ਾਮਲ ਕਰੋ"
-    }
+    { "type": 2, "value": "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਮੂਲ ਵੇਰਵੇ ਹੇਠਾਂ ਸ਼ਾਮਲ ਕਰੋ" }
   ],
   "Signup.SelectUserType.heading": [
-    {
-      "type": 0,
-      "value": "ਸਾਨੂੰ ਤੁਹਾਨੂੰ ਚੰਗੀ ਤਰ੍ਹਾਂ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰੋ!"
-    }
+    { "type": 0, "value": "ਸਾਨੂੰ ਤੁਹਾਨੂੰ ਬਿਹਤਰ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰੋ!" }
   ],
   "Signup.SelectUserType.subheading": [
-    {
-      "type": 0,
-      "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਯੂਜ਼ਰ ਕਿਸਮ ਚੁਣੋ"
-    }
+    { "type": 0, "value": "ਕਿਰਪਾ ਕਰਕੇ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਯੂਜ਼ਰ ਕਿਸਮ ਦੀ ਚੋਣ ਕਰੋ" }
   ],
-  "StatusBadge.status.active": [
-    {
-      "type": 0,
-      "value": "ਸਕਿਰਿਆ"
-    }
-  ],
-  "StatusBadge.status.fixing": [
-    {
-      "type": 0,
-      "value": "ਮਰੰਮਤ"
-    }
-  ],
-  "StatusBadge.status.pending": [
-    {
-      "type": 0,
-      "value": "ਬਕਾਇਆ"
-    }
-  ],
-  "StatusBadge.status.rejected": [
-    {
-      "type": 0,
-      "value": "ਅਸਵੀਕਾਰ"
-    }
-  ],
-  "StatusBadge.status.resolved": [
-    {
-      "type": 0,
-      "value": "ਹੱਲ"
-    }
-  ],
+  "SiteInc.title": [{ "type": 0, "value": "ਸਾਈਟ ਰਿਪੋਰਟਾਂ" }],
   "SwitchCard.description.camera": [
-    {
-      "type": 0,
-      "value": "ਤਸਵੀਰਾਂ ਅਤੇ ਵੀਡੀਓਜ਼ ਲੈਣ ਲਈ ਤੁਹਾਡੀ ਕੈਮਰੇ ਦੀ ਪਹੁੰਚ ਲਈ।"
-    }
+    { "type": 0, "value": "ਫੋਟੋਆਂ ਅਤੇ ਵੀਡੀਓਜ਼ ਲਈ ਕੈਮਰਾ ਐਕਸੈਸ ਕਰੋ।" }
   ],
   "SwitchCard.description.location": [
-    {
-      "type": 0,
-      "value": "ਤੁਹਾਨੂੰ ਸਥਾਨ ਅਧਾਰਿਤ ਅਲਰਟਸ ਅਤੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਭੇਜਣ ਲਈ।"
-    }
+    { "type": 0, "value": "ਸਥਾਨ ਅਧਾਰਿਤ ਚੇਤਾਵਨੀਆਂ ਲਈ।" }
   ],
   "SwitchCard.description.notification": [
-    {
-      "type": 0,
-      "value": "ਤੁਹਾਨੂੰ ਨੋਟੀਫਿਕੇਸ਼ਨ ਅਤੇ ਅਲਰਟ ਭੇਜਣ ਲਈ।"
-    }
+    { "type": 0, "value": "ਨੋਟਿਫਿਕੇਸ਼ਨ ਭੇਜਣ ਲਈ।" }
   ],
-  "SwitchCard.title.camera": [
-    {
-      "type": 0,
-      "value": "ਕੈਮਰਾ"
-    }
-  ],
-  "SwitchCard.title.location": [
-    {
-      "type": 0,
-      "value": "ਸਥਾਨ"
-    }
-  ],
-  "SwitchCard.title.notification": [
-    {
-      "type": 0,
-      "value": "ਨੋਟੀਫਿਕੇਸ਼ਨ"
-    }
-  ],
+  "SwitchCard.title.camera": [{ "type": 0, "value": "ਕੈਮਰਾ" }],
+  "SwitchCard.title.location": [{ "type": 0, "value": "ਸਥਾਨ" }],
+  "SwitchCard.title.notification": [{ "type": 0, "value": "ਨੋਟਿਫਿਕੇਸ਼ਨ" }],
   "Upvote.card": [
-    {
-      "type": 0,
-      "value": " ਇਸ ਸਮੱਸਿਆ ਲਈ ਵੋਟ ਕਰਨ ਵਾਲੇ ਯੂਜ਼ਰ"
-    }
+    { "type": 0, "value": "ਯੂਜ਼ਰਾਂ ਨੇ ਇਸ ਮੁੱਦੇ ਨੂੰ ਵੋਟ ਦਿੱਤਾ ਹੈ" }
   ],
-  "UserIncidents.filter.active": [
-    {
-      "type": 0,
-      "value": "ਸਕਿਰਿਆ"
-    }
-  ],
-  "UserIncidents.filter.all": [
-    {
-      "type": 0,
-      "value": "ਸਭ"
-    }
-  ],
-  "UserIncidents.filter.fixing": [
-    {
-      "type": 0,
-      "value": "ਮਰੰਮਤ"
-    }
-  ],
-  "UserIncidents.filter.pending": [
-    {
-      "type": 0,
-      "value": "ਬਕਾਇਆ"
-    }
-  ],
-  "UserIncidents.filter.rejected": [
-    {
-      "type": 0,
-      "value": "ਅਸਵੀਕਾਰ"
-    }
-  ],
-  "UserIncidents.filter.resolved": [
-    {
-      "type": 0,
-      "value": "ਹੱਲ"
-    }
-  ],
-  "UserIncidents.title.myreports": [
-    {
-      "type": 0,
-      "value": "ਮੇਰੀਆਂ ਰਿਪੋਰਟਾਂ"
-    }
-  ],
-  "approveIncident.approve": [
-    {
-      "type": 0,
-      "value": "ਮਨਜ਼ੂਰ ਕਰੋ"
-    }
-  ],
-  "approveIncident.confirm": [
-    {
-      "type": 0,
-      "value": "👍 ਇਕ ਘਟਨਾ ਨੂੰ ਮਨਜ਼ੂਰ ਕਰੋ?"
-    }
-  ],
+  "approveIncident.approve": [{ "type": 0, "value": "ਮਨਜ਼ੂਰ ਕਰੋ" }],
+  "approveIncident.confirm": [{ "type": 0, "value": "👍ਇੱਕ ਘਟਨਾ ਮਨਜ਼ੂਰ ਕਰੋ?" }],
   "approveIncident.description": [
     {
       "type": 0,
-      "value": "ਤੁਸੀਂ ਇੱਕ ਘਟਨਾ ਨੂੰ ਮਨਜ਼ੂਰ ਕਰਦੇ ਹੋ ਜੋ ਕਿ ਸਿਵਿਲ ਦੁਆਰਾ ਰਿਪੋਰਟ ਕੀਤੀ ਗਈ ਸੀ। ਤੁਸੀਂ ਇਸਨੂੰ ਨਕਸ਼ੇ 'ਤੇ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ ਅਤੇ ਹੋਰਨਾਂ ਨੂੰ ਸੂਚਿਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।"
+      "value": "ਤੁਸੀਂ ਇਸ ਘਟਨਾ ਨੂੰ ਸਹੀ ਸਮਝਦੇ ਹੋ। ਤੁਹਾਨੂੰ ਇਸ ਨੂੰ ਨਕਸ਼ੇ 'ਤੇ ਪੋਸਟ ਕਰਨਾ ਅਤੇ ਦੂਜਿਆਂ ਨੂੰ ਸੂਚਿਤ ਕਰਨਾ ਹੈ।"
     }
   ],
-  "approveIncident.no": [
+  "approveIncident.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "atom.upvotebuttontext": [{ "type": 0, "value": "ਵੋਟ ਕੀਤਾ •" }],
+  "atom.verifiedbuttontext": [{ "type": 0, "value": "ਪੁਸ਼ਟੀ ਕੀਤਾ ਮੁੱਦਾ" }],
+  "atoms.unitswitch.km": [{ "type": 0, "value": "ਕਿਮੀ" }],
+  "atoms.unitswitch.mile": [{ "type": 0, "value": "ਮੀਲ" }],
+  "common.approve": [{ "type": 0, "value": "ਮਨਜ਼ੂਰ ਕਰੋ" }],
+  "common.confirm": [{ "type": 0, "value": "ਪੁਸ਼ਟੀ ਕਰੋ" }],
+  "common.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "common.reject": [{ "type": 0, "value": "ਰੱਦ ਕਰੋ" }],
+  "congratsModal.Launch": [{ "type": 0, "value": "ਐਪ ਲਾਂਚ ਕਰੋ🚀" }],
+  "congratsModal.congrats": [{ "type": 0, "value": "ਮੁਬਾਰਕਾਂ🎉" }],
+  "congratsModal.ready": [
     {
       "type": 0,
-      "value": "ਨਹੀਂ"
+      "value": "ਤੁਹਾਡਾ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਮੁਕੰਮਲ ਹੋ ਗਿਆ ਹੈ। ਹੁਣ ਤੁਸੀਂ AlertMe ਵਰਤਣ ਲਈ ਤਿਆਰ ਹੋ"
     }
   ],
-  "atom.upvotebuttontext": [
-    {
-      "type": 0,
-      "value": "ਮਨਜ਼ੂਰ ਕੀਤਾ •"
-    }
+  "filterBtn.active": [{ "type": 0, "value": "ਸਰਗਰਮ" }],
+  "filterBtn.all": [{ "type": 0, "value": "ਸਾਰੇ" }],
+  "filterBtn.fixing": [{ "type": 0, "value": "ਠੀਕ" }],
+  "filterBtn.rejected": [{ "type": 0, "value": "ਰੱਦ" }],
+  "filterBtn.resolved": [{ "type": 0, "value": "ਹੱਲ" }],
+  "home.Card.Directions.EnabledirectionMeesage": [
+    { "type": 0, "value": "ਦਿਸ਼ਾਵਾਂ ਚਾਲੂ ਕਰੋ" }
   ],
-  "atom.verifiedbuttontext": [
-    {
-      "type": 0,
-      "value": "ਪ੍ਰਮਾਣਿਤ ਸਮੱਸਿਆ"
-    }
-  ],
-  "atoms.unitswitch.km": [
-    {
-      "type": 0,
-      "value": "Km"
-    }
-  ],
-  "atoms.unitswitch.miles": [
-    {
-      "type": 0,
-      "value": "ਮਾਈਲ"
-    }
-  ],
-  "closeModal.areyousure": [
-    {
-      "type": 0,
-      "value": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ ਕਿ ਤੁਸੀਂ ਐਪ ਨੂੰ ਬੰਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-    }
-  ],
-  "closeModal.yes": [
-    {
-      "type": 0,
-      "value": "ਹਾਂ"
-    }
-  ],
-  "components.molecules.AppSelector.selectUserType": [
-    {
-      "type": 0,
-      "value": "ਯੂਜ਼ਰ ਕਿਸਮ ਚੁਣੋ"
-    }
-  ],
-  "home.addIsuue": [
-    {
-      "type": 0,
-      "value": "ਸੰਕੇਤ ਕਰੋ"
-    }
-  ],
-  "home.nearbyIssues": [
-    {
-      "type": 0,
-      "value": "ਨੇੜੇ"
-    }
-  ],
-  "input.addresscomponent.labelmessage": [
-    {
-      "type": 0,
-      "value": "ਪਤਾ*"
-    }
-  ],
+  "home.addIsuue": [{ "type": 0, "value": "ਰਿਪੋਰਟ" }],
+  "home.nearbyIssues": [{ "type": 0, "value": "ਨਜ਼ਦੀਕ" }],
+  "input.addresscomponent.labelmessage": [{ "type": 0, "value": "ਪਤਾ*" }],
   "input.addresscomponent.placeholdermessage": [
+    { "type": 0, "value": "ਪਤਾ ਦਰਜ ਕਰੋ" }
+  ],
+  "input.searchcomponent.placeholdermessage": [{ "type": 0, "value": "ਖੋਜੋ" }],
+  "label.about": [{ "type": 0, "value": "ਬਾਰੇ" }],
+  "label.appSetting": [{ "type": 0, "value": "ਸੈਟਿੰਗ" }],
+  "label.appearance": [{ "type": 0, "value": "ਦਿਖਾਵਟ" }],
+  "label.profileDeatils": [{ "type": 0, "value": "ਪ੍ਰੋਫਾਈਲ ਵੇਰਵੇ" }],
+  "label.share": [{ "type": 0, "value": "ਸਾਂਝਾ ਕਰੋ" }],
+  "loginpage.letsgo.heading": [{ "type": 0, "value": "ਚਲੋ!" }],
+  "common.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "common.reject": [{ "type": 0, "value": "ਅਸਵੀਕਾਰ ਕਰੋ" }],
+  "congratsModal.Launch": [{ "type": 0, "value": "ਐਪ ਲਾਂਚ ਕਰੋ🚀" }],
+  "congratsModal.congrats": [{ "type": 0, "value": "ਬਧਾਈ ਹੋਣ🎉" }],
+  "congratsModal.ready": [
     {
       "type": 0,
-      "value": "ਪਤਾ ਦਰਜ ਕਰੋ"
+      "value": "ਤੁਹਾਡੀ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਮੁਕੰਮਲ ਹੋ ਗਈ ਹੈ। ਤੁਸੀਂ ਹੁਣ AlertMe ਐਪਲਿਕੇਸ਼ਨ ਵਰਤਣ ਲਈ ਤਿਆਰ ਹੋ।"
     }
   ],
-  "input.searchcomponent.placeholdermessage": [
-    {
-      "type": 0,
-      "value": "ਖੋਜੋ"
-    }
+  "filterBtn.active": [{ "type": 0, "value": "ਸਕ੍ਰਿਯ" }],
+  "filterBtn.all": [{ "type": 0, "value": "ਸਾਰੇ" }],
+  "filterBtn.fixing": [{ "type": 0, "value": "ਸੁਧਾਰਨਾ" }],
+  "filterBtn.rejected": [{ "type": 0, "value": "ਅਸਵੀਕਾਰ ਕੀਤਾ" }],
+  "filterBtn.resolved": [{ "type": 0, "value": "ਹੱਲ ਕੀਤਾ" }],
+  "home.Card.Directions.EnabledirectionMeesage": [
+    { "type": 0, "value": "ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼ ਐਨਬਲ ਕਰੋ" }
   ],
-  "loginpage.letsgo.heading": [
-    {
-      "type": 0,
-      "value": "ਆਓ ਚੱਲੀਏ!"
-    }
+  "home.addIsuue": [{ "type": 0, "value": "ਰਿਪੋਰਟ ਕਰੋ" }],
+  "home.nearbyIssues": [{ "type": 0, "value": "ਅਸਪਾਸ" }],
+  "input.addresscomponent.labelmessage": [{ "type": 0, "value": "ਪਤਾ*" }],
+  "input.addresscomponent.placeholdermessage": [
+    { "type": 0, "value": "ਪਤਾ ਦਾਖਲ ਕਰੋ" }
   ],
+  "input.searchcomponent.placeholdermessage": [{ "type": 0, "value": "ਖੋਜੋ" }],
+  "label.about": [{ "type": 0, "value": "ਬਾਰੇ" }],
+  "label.appSetting": [{ "type": 0, "value": "ਐਪ ਸੈਟਿੰਗ" }],
+  "label.appearance": [{ "type": 0, "value": "ਦਿੱਖ" }],
+  "label.profileDeatils": [{ "type": 0, "value": "ਪ੍ਰੋਫਾਈਲ ਵੇਰਵੇ" }],
+  "label.share": [{ "type": 0, "value": "ਮਿੱਤਰੀਆਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ" }],
+  "loginpage.letsgo.heading": [{ "type": 0, "value": "ਚਲੋ!" }],
   "loginpage.letsgo.subheading": [
-    {
-      "type": 0,
-      "value": "ਕਮਿਊਨਿਟੀ ਐਪ AlertMe ਵਰਤਣ ਲਈ ਜਲਦੀ ਨਾਲ ਸਾਈਨਅਪ ਕਰੋ"
-    }
+    { "type": 0, "value": "AlertMe ਐਪ 'ਤੇ ਸਾਈਨਅਪ ਕਰੋ ਤੇ ਜਲਦੀ ਸ਼ੁਰੂ ਕਰੋ।" }
   ],
-  "loginpage.loginwithgoogle": [
-    {
-      "type": 0,
-      "value": "Google ਨਾਲ ਸਾਈਨਅਪ ਕਰੋ"
-    }
-  ],
+  "loginpage.loginwithgoogle": [{ "type": 0, "value": "ਗੂਗਲ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ" }],
+  "logout": [{ "type": 0, "value": "ਲੌਗ ਆਉਟ" }],
   "molecules.cards.LoginAsCard.civilian.heading": [
-    {
-      "type": 0,
-      "value": "ਮੈਂ ਇੱਕ ਸਿਵਿਲ ਹਾਂ"
-    }
+    { "type": 0, "value": "ਮੈਂ ਨਾਗਰਿਕ ਹਾਂ" }
   ],
   "molecules.cards.LoginAsCard.civilian.subheading": [
-    {
-      "type": 0,
-      "value": "ਕਮਿਊਨਿਟੀ ਦੇ ਸਿਵਿਲ ਇਸ ਵਿਕਲਪ ਨੂੰ ਚੁਣ ਸਕਦੇ ਹਨ ਜਾਰੀ ਰੱਖਣ ਲਈ"
-    }
+    { "type": 0, "value": "ਸਮੁਦਾਇਕ ਨਾਗਰਿਕ ਅੱਗੇ ਜਾਨ ਲਈ ਇਹ ਵਿਕਲਪ ਚੁਣ ਸਕਦੇ ਹਨ।" }
   ],
   "molecules.cards.LoginAsCard.constructionworker.heading": [
-    {
-      "type": 0,
-      "value": "ਨਿਰਮਾਣ ਕਾਮੀ"
-    }
+    { "type": 0, "value": "ਬਣਾਣਾ ਕਰਮਚਾਰੀ" }
   ],
   "molecules.cards.LoginAsCard.constructionworker.subheading": [
-    {
-      "type": 0,
-      "value": "ਨਿਰਮਾਣ ਦੇ ਕਰਮਚਾਰੀ ਇਸ ਵਿਕਲਪ ਨੂੰ ਚੁਣ ਸਕਦੇ ਹਨ ਜਾਰੀ ਰੱਖਣ ਲਈ"
-    }
+    { "type": 0, "value": "ਨਿਰਮਾਣ ਕਰਮਚਾਰੀ ਅੱਗੇ ਜਾਨ ਲਈ ਇਹ ਵਿਕਲਪ ਚੁਣ ਸਕਦੇ ਹਨ।" }
   ],
   "molecules.cards.greatWorkCard.congratsSubText": [
-    {
-      "type": 0,
-      "value": "ਤੁਹਾਡਾ ਸਤਰ 3 ਪੂਰਾ ਹੋ ਗਿਆ ਹੈ"
-    }
+    { "type": 2, "value": "ਤੁਹਾਡਾ ਸਤਰ 3 ਪੂਰਾ ਹੋ ਗਿਆ ਹੈ" }
   ],
   "molecules.cards.greatWorkCard.congratsText": [
-    {
-      "type": 0,
-      "value": "ਮੁਬਾਰਕਾਂ🎉"
-    }
+    { "type": 0, "value": "ਬਧਾਈ ਹੋਣ🎉" }
   ],
   "molecules.cards.greatWorkCard.gotorewardLink": [
-    {
-      "type": 0,
-      "value": "ਇਨਾਮਾਂ ਤੇ ਜਾਓ"
-    }
+    { "type": 0, "value": "ਇਨਾਮਾਂ 'ਤੇ ਜਾਓ" }
   ],
   "molecules.cards.greatWorkCard.heading": [
-    {
-      "type": 0,
-      "value": "ਵਧੀਆ ਕੰਮ!"
-    }
+    { "type": 0, "value": "ਸ਼ਾਨਦਾਰ ਕੰਮ!" }
   ],
   "molecules.cards.greatWorkCard.reportText": [
-    {
-      "type": 0,
-      "value": "ਤੁਸੀਂ 25 ਸਫਲ ਰਿਪੋਰਟਾਂ ਪੋਸਟ ਕੀਤੀਆਂ ਹਨ।"
-    }
+    { "type": 0, "value": "ਤੁਸੀਂ 25 ਸਫਲ ਰਿਪੋਰਟਾਂ ਪੋਸਟ ਕੀਤੀਆਂ ਹਨ।" }
   ],
-  "notifications.button1": [
-    {
-      "type": 0,
-      "value": "ਸਭ"
-    }
+  "notifications.button1": [{ "type": 0, "value": "ਸਾਰੇ" }],
+  "notifications.button2": [{ "type": 0, "value": "ਪੜ੍ਹਿਆ" }],
+  "notifications.button3": [{ "type": 0, "value": "ਅਣਪੜ੍ਹਿਆ" }],
+  "profile.About.headerText": [{ "type": 0, "value": "ਬਾਰੇ" }],
+  "profile.Appearance.headerText": [{ "type": 0, "value": "ਦਿੱਖ" }],
+  "profile.ProfileDetails.headerText": [
+    { "type": 0, "value": "ਪ੍ਰੋਫਾਈਲ ਵੇਰਵੇ" }
   ],
-  "notifications.button2": [
-    {
-      "type": 0,
-      "value": "ਪੜ੍ਹਿਆ"
-    }
-  ],
-  "notifications.button3": [
-    {
-      "type": 0,
-      "value": "ਨਾ ਪੜ੍ਹਿਆ"
-    }
-  ],
-  "profile.appsettingDistanceUnitText": [
-    {
-      "type": 0,
-      "value": "ਦੂਰੀ ਯੂਨਿਟ"
-    }
-  ],
-  "profile.appsettingLanguageText": [
-    {
-      "type": 0,
-      "value": "ਭਾਸ਼ਾ"
-    }
-  ],
-  "profile.appsettingSave": [
-    {
-      "type": 0,
-      "value": "ਸੇਵ ਕਰੋ"
-    }
+  "profile.appsetting.headerText": [{ "type": 0, "value": "ਐਪ ਸੈਟਿੰਗਜ਼" }],
+  "profile.appsettingLanguageText": [{ "type": 0, "value": "ਭਾਸ਼ਾ" }],
+  "profile.appsettingSave": [{ "type": 0, "value": "ਸੇਵ ਕਰੋ" }],
+  "profile.appsettingTextOption.showTraffic": [
+    { "type": 0, "value": "ਟ੍ਰੈਫਿਕ ਦਿਖਾਓ" }
   ],
   "readyModal.confirmation": [
-    {
-      "type": 0,
-      "value": "ਅਸੀਂ ਇੱਥੇ ਦੋ ਲਾਈਨਾਂ ਕਹਿ ਸਕਦੇ ਹਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਪੁੱਛ ਸਕਦੇ ਹਾਂ"
-    }
+    { "type": 0, "value": "ਕਿਰਪਾ ਕਰਕੇ ਦੋ ਪੰਗਤਾਂ ਵਿੱਚ ਪੁਸ਼ਟੀ ਕਰੋ" }
   ],
-  "readyModal.no": [
-    {
-      "type": 0,
-      "value": "ਨਹੀਂ"
-    }
-  ],
-  "readyModal.readytopost": [
-    {
-      "type": 0,
-      "value": "ਘਟਨਾ ਪੋਸਟ ਕਰਨ ਲਈ ਤਿਆਰ?"
-    }
-  ],
-  "readyModal.yes": [
-    {
-      "type": 0,
-      "value": "ਪੋਸਟ ਕਰੋ"
-    }
-  ],
-  "rejectIncident.confirm": [
-    {
-      "type": 0,
-      "value": "🚫 ਇਕ ਘਟਨਾ ਅਸਵੀਕਾਰ ਕਰੋ"
-    }
-  ],
+  "readyModal.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "readyModal.readytopost": [{ "type": 0, "value": "ਘਟਨਾ ਪੋਸਟ ਕਰਨ ਲਈ ਤਿਆਰ?" }],
+  "readyModal.yes": [{ "type": 0, "value": "ਪੋਸਟ ਕਰੋ" }],
+  "rejectIncident.confirm": [{ "type": 0, "value": "🚫 ਘਟਨਾ ਨੂੰ ਖਾਰਜ ਕਰੋ" }],
   "rejectIncident.description": [
-    {
-      "type": 0,
-      "value": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ ਕਿ ਤੁਸੀਂ ਇਸ ਘਟਨਾ ਨੂੰ ਅਸਵੀਕਾਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-    }
+    { "type": 0, "value": "ਕੀ ਤੁਸੀਂ ਇਸ ਘਟਨਾ ਨੂੰ ਖਾਰਜ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?" }
   ],
-  "rejectIncident.no": [
-    {
-      "type": 0,
-      "value": "ਨਹੀਂ"
-    }
-  ],
-  "rejectIncident.reject": [
-    {
-      "type": 0,
-      "value": "ਅਸਵੀਕਾਰ ਕਰੋ"
-    }
-  ],
-  "reportIncident.categories": [
-    {
-      "type": 0,
-      "value": "ਸ਼੍ਰੇਣੀ*"
-    }
-  ],
-  "reportIncident.description": [
-    {
-      "type": 0,
-      "value": "ਵੇਰਵਾ*"
-    }
-  ],
+  "rejectIncident.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "rejectIncident.reject": [{ "type": 0, "value": "ਅਸਵੀਕਾਰ" }],
+  "reportIncident.categories": [{ "type": 0, "value": "ਸ਼੍ਰੇਣੀ*" }],
+  "reportIncident.description": [{ "type": 0, "value": "ਵਰਣਨ*" }],
   "reportIncident.input.incidentDescription": [
-    {
-      "type": 0,
-      "value": "ਵੇਰਵਾ ਦਰਜ ਕਰੋ"
-    }
+    { "type": 0, "value": "ਵਰਣਨ ਦਰਜ ਕਰੋ" }
   ],
-  "reportIncident.inputLabel.incidentType": [
-    {
-      "type": 0,
-      "value": "ਵਿਸ਼ਾ*"
-    }
-  ],
+  "reportIncident.inputLabel.incidentType": [{ "type": 0, "value": "ਵਿਸ਼ਾ*" }],
   "reportIncident.inputPlaceholder.incidentSubject": [
-    {
-      "type": 0,
-      "value": "ਵਿਸ਼ਾ ਦਰਜ ਕਰੋ"
-    }
+    { "type": 0, "value": "ਵਿਸ਼ਾ ਦਰਜ ਕਰੋ" }
   ],
-  "reportIncident.postBtn": [
-    {
-      "type": 0,
-      "value": "ਘਟਨਾ ਪੋਸਟ ਕਰੋ"
-    }
-  ],
+  "reportIncident.postBtn": [{ "type": 0, "value": "ਘਟਨਾ ਪੋਸਟ ਕਰੋ" }],
   "reportIncident.titleaddpics": [
-    {
-      "type": 0,
-      "value": "ਤਸਵੀਰਾਂ ਸ਼ਾਮਲ ਕਰੋ*"
-    }
+    { "type": 0, "value": "ਤਸਵੀਰਾਂ ਸ਼ਾਮਿਲ ਕਰੋ*" }
   ],
-  "resolveIncident.confirm": [
-    {
-      "type": 0,
-      "value": "👍 ਇਕ ਘਟਨਾ ਹੱਲ ਕਰੋ?"
-    }
-  ],
+  "resolveIncident.confirm": [{ "type": 0, "value": "👍ਇੱਕ ਘਟਨਾ ਹੱਲ ਕਰੋ?" }],
   "resolveIncident.description": [
-    {
-      "type": 0,
-      "value": "ਕੀ ਤੁਸੀਂ ਇੱਕ ਘਟਨਾ ਹੱਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-    }
+    { "type": 0, "value": "ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਘਟਨਾ ਨੂੰ ਹੱਲ ਕਰਨ ਲਈ ਯਕੀਨੀਂ ਹੋ?" }
   ],
-  "resolveIncident.no": [
-    {
-      "type": 0,
-      "value": "ਨਹੀਂ"
-    }
-  ],
-  "resolveIncident.yes": [
-    {
-      "type": 0,
-      "value": "ਹਾਂ"
-    }
-  ],
-  "splash.layout": [
-    {
-      "type": 0,
-      "value": "ਤੁਰੰਤ ਕਮਿਊਨਿਟੀ ਸੁਰੱਖਿਆ ਐਪ"
-    }
-  ],
+  "resolveIncident.no": [{ "type": 0, "value": "ਨਹੀਂ" }],
+  "resolveIncident.yes": [{ "type": 0, "value": "ਹਾਂ" }],
   "upvoteModal.trust": [
     {
       "type": 0,
-      "value": "ਅਸੀਂ ਸੋਚਦੇ ਹਾਂ ਕਿ ਤੁਹਾਡਾ ਵੋਟ ਪ੍ਰਮਾਣਿਕ ਹੈ ਅਤੇ ਤੁਸੀਂ ਸਮੀਖਿਆ ਕੀਤੀ ਘਟਨਾ 'ਤੇ ਅਧਾਰਿਤ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਿਊਨਿਟੀ ਐਪ ਨੂੰ ਹਾਈਜੈਕ ਕਰਨ ਤੋਂ ਬਚੋ।"
+      "value": "ਸਾਨੂੰ ਭਰੋਸਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਉਪਵੋਟ ਅਸਲ ਅਤੇ ਉਹ ਘਟਨਾ ਤੇ ਅਧਾਰਿਤ ਹੈ ਜਿਸਨੂੰ ਤੁਸੀਂ ਸਮੀਖਿਆ ਕੀਤੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਿਊਨਿਟੀ ਐਪਲੀਕੇਸ਼ਨ ਦਾ ਬੇਹਤਰ ਕਰਕੇ ਇਸਦਾ ਗਲਤ ਫ਼ਾਇਦਾ ਨਾ ਉਠਾਓ।"
     }
   ],
-  "upvoteModal.upvote": [
-    {
-      "type": 0,
-      "value": "👍 ਵੋਟ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ?"
-    }
-  ],
-  "timeAgo.dayago": [
-    {
-      "type": 0,
-      "value": "1 ਦਿਨ ਪਹਿਲਾਂ"
-    }
-  ],
-  "timeAgo.daysago": [
-    {
-      "type": 0,
-      "value": "ਦਿਨ"
-    }
-  ],
-  "timeAgo.hourago": [
-    {
-      "type": 0,
-      "value": "1 ਘੰਟਾ ਪਹਿਲਾਂ"
-    }
-  ],
-  "timeAgo.hoursago": [
-    {
-      "type": 0,
-      "value": "ਘੰਟੇ"
-    }
-  ],
-  "timeAgo.justnow": [
-    {
-      "type": 0,
-      "value": "ਹੋਣ ਹੀ"
-    }
-  ],
-  "timeAgo.minago": [
-    {
-      "type": 0,
-      "value": "1 ਮਿੰਟ ਪਹਿਲਾਂ"
-    }
-  ],
-  "timeAgo.minsago": [
-    {
-      "type": 0,
-      "value": "ਮਿੰਟ"
-    }
-  ],
-  "timeAgo.secago": [
-    {
-      "type": 0,
-      "value": "1 ਸਕਿੰਟ ਪਹਿਲਾਂ"
-    }
-  ],
-  "timeAgo.secsago": [
-    {
-      "type": 0,
-      "value": "ਸਕਿੰਟ"
-    }
-  ]
+  "upvoteModal.upvote": [{ "type": 0, "value": "👍ਉਪਵੋਟ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ?" }]
 }

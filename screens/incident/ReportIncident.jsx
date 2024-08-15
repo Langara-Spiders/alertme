@@ -21,8 +21,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
 import { Loader } from "lucide-react-native";
-import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import { routes } from "../../constants";
 import { useStore } from "../../store";
 
@@ -183,12 +182,7 @@ const ReportIncident = () => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>Create Report</Text>
       </View>

@@ -6,7 +6,7 @@ import { Debouce, TruncateAddress } from "../../utils";
 import { useIsFocused } from "@react-navigation/native";
 import { useIntl } from "react-intl";
 import { getAutocomplete } from "../../api";
-import SearchIcon from "../../assets/icons/SearchIcon.svg";
+import SearchIcon from "../../assets/icons/search_icon.png";
 import { useStore } from "../../store";
 import Input from "../atoms/Input";
 

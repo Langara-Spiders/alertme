@@ -4,9 +4,9 @@ import {
   PublicSans_400Regular,
   useFonts,
 } from "@expo-google-fonts/public-sans";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LogBox, StatusBar } from "react-native";
-import { en, fr } from "./lang";
+import { en, fr, pa } from "./lang";
 
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { NavigationContainer } from "@react-navigation/native";
@@ -30,11 +30,11 @@ Notifications.setNotificationHandler({
 const messages = {
   en,
   fr,
+  pa,
 };
 
 export default function App() {
-  const [locale, setLocale] = useState("en");
-  const { getUser, palette, theme } = useStore();
+  const { getUser, palette, theme, locale } = useStore();
   const { token } = getUser();
   const [fontsLoaded] = useFonts({
     PublicSans_400Regular,
@@ -44,6 +44,8 @@ export default function App() {
     axios.defaults.headers.common["Accept-Language"] = "en-CA";
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }, []);
+
+  console.log(locale);
 
   return (
     <NavigationContainer>

@@ -11,7 +11,9 @@ import { useEffect, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { getProfile, logout } from "../../api";
 
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
 import ProfileItemsList from "../../components/organisms/ProfileItemsList";
 import { routes } from "../../constants";
 import { useStore } from "../../store";
@@ -20,21 +22,28 @@ import Loader from "../Loader";
 const { width: screenWidth } = Dimensions.get("window");
 
 const Profile = (props) => {
-  const { navigation } = props;
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const { getUser, resetUser, palette } = useStore();
   const [profileImg, setProfileImg] = useState("");
   const { access_token } = getUser();
   const userInfo = getUser();
 
-  const logoutAPICall = async () => {
-    const response = await logout(access_token);
-    if (response.status == 200) {
-      resetUser();
-      axios.defaults.headers.common["Authorization"] = "";
-      navigation.reset({ index: 1, routes: [{ name: routes.HOME }] });
-      navigation.navigate(routes.LOGIN);
-    }
+  const logoutAPICall = () => {
+    logout(access_token)
+      .then((response) => {
+        if (response.status == 200) {
+          resetUser();
+          axios.defaults.headers.common["Authorization"] = "";
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        navigation.reset({ index: 1, routes: [{ name: routes.HOME }] });
+        navigation.navigate(routes.LOGIN);
+      });
   };
 
   const fetchProfileData = async () => {
@@ -44,7 +53,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     fetchProfileData();
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   if (loading) return <Loader />;
@@ -148,7 +157,9 @@ const Profile = (props) => {
       </View>
       <View style={styles.content}>
         <Link onPress={() => logoutAPICall()}>
-          <LinkText style={styles.link}>Logout</LinkText>
+          <LinkText style={styles.link}>
+            <FormattedMessage id="logout" defaultMessage="Logout" />
+          </LinkText>
         </Link>
       </View>
     </View>

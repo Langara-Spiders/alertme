@@ -18,18 +18,17 @@ import { mapStyleDark, mapStyleLight } from "../config/mapStyle";
 import { useIsFocused } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
 import MapViewDirections from "react-native-maps-directions";
-import SvgUri from "react-native-svg-uri";
 import { getNearbyIncident } from "../api/incident";
-import AddIssueIcon from "../assets/icons/add-issue-icon.svg";
-import CurrentLocationIcon from "../assets/icons/current-location-icon.svg";
 import NotificationBellActiveIcon from "../assets/icons/home_icons/bell_active_icon.png";
 import NotificationBellIcon from "../assets/icons/home_icons/bell_inactive_icon.png";
-import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.svg";
-import HazardIcon from "../assets/icons/map_markers/hazard_icon.svg";
+import CurrentLocationIcon from "../assets/icons/home_icons/current_location_icon.png";
+import NearbyIssuesIcon from "../assets/icons/home_icons/nearby_icon.png";
+import AddIssueIcon from "../assets/icons/home_icons/report_icon.png";
+import ConfirmedHazardIcon from "../assets/icons/map_markers/conf_hazard_icon.png";
+import HazardIcon from "../assets/icons/map_markers/hazard_icon.png";
 import SearchedMarker from "../assets/icons/map_markers/pinpoint.png";
 import CurrentLocationArrow from "../assets/icons/map_markers/position.png";
-import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.svg";
-import NearbyIssuesIcon from "../assets/icons/nearby-issues-icon.svg";
+import VerifiedHazardIcon from "../assets/icons/map_markers/verf_hazard_icon.png";
 import IncidentCard from "../components/molecules/cards/IncidentCard";
 import { DBottomSheet } from "../components/organisms";
 import { routes } from "../constants";
@@ -104,7 +103,7 @@ const Home = ({ navigation, route }) => {
     // Hide NumOfIssuesCard after 5 seconds
     const timer = setTimeout(() => {
       setShowNumOfIssuesCard(false);
-    }, 5000);
+    }, 7000);
 
     return () => {
       clearInterval(interval);
@@ -161,7 +160,7 @@ const Home = ({ navigation, route }) => {
     const { latitude, longitude } = await getLocation();
     const response = await getNearbyIncident(latitude, longitude);
     setNearbyIssues(response?.data ?? []);
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => setLoading(false), 1000);
   };
 
   // ######################## Nearest First ########################
@@ -183,10 +182,9 @@ const Home = ({ navigation, route }) => {
   };
 
   const handleMarkerPress = (issue) => {
+    setHighlightedMarkerId(issue.id);
     setQuickViewIssue(issue);
     setShowQuickView(true);
-    console.log(showQuickView);
-    // setHighlightedMarkerId(issue.id);
   };
 
   const animateToMap = (latitude, longitude) => {
@@ -305,9 +303,9 @@ const Home = ({ navigation, route }) => {
     },
     numOfIssuesCardContainer: {
       position: "absolute",
-      top: 132,
+      top: 100,
       left: "50%",
-      transform: [{ translateX: -110 }],
+      transform: [{ translateX: -115 }],
       zIndex: 98,
       elevation: 98,
     },
@@ -468,9 +466,19 @@ const Home = ({ navigation, route }) => {
       borderRadius: 50,
       borderWidth: 10,
     },
+    highlightedMarkerOuter: {
+      borderColor: "rgba(255, 145, 64, 0.2)",
+      borderRadius: 50,
+      borderWidth: 10,
+    },
+    highlightedMarkerInne: {
+      borderColor: "rgba(255, 125, 32, 0.488)",
+      borderRadius: 50,
+      borderWidth: 10,
+    },
     markerInner: {
       borderRadius: 50,
-      backgroundColor: "#fff",
+      backgroundColor: palette.bg1,
       justifyContent: "center",
       alignItems: "center",
       borderWidth: 10,
@@ -736,9 +744,11 @@ const Home = ({ navigation, route }) => {
                             styles.highlightedMarkerInner,
                         ]}
                       >
-                        <SvgUri
-                          width="30"
-                          height="28"
+                        <Image
+                          style={{
+                            width: 30,
+                            height: 28,
+                          }}
                           source={
                             issue.reported_by === "USER" &&
                             issue.is_accepted_by_org
@@ -879,7 +889,10 @@ const Home = ({ navigation, route }) => {
           <View style={styles.buttonsContainerLeft}>
             <TouchableOpacity onPress={handleRecenter}>
               <View style={styles.locationIcon}>
-                <SvgUri width="50" height="50" source={CurrentLocationIcon} />
+                <Image
+                  style={{ width: 50, height: 50 }}
+                  source={CurrentLocationIcon}
+                />
               </View>
             </TouchableOpacity>
             {/* to exit the navigation */}
@@ -898,7 +911,10 @@ const Home = ({ navigation, route }) => {
             >
               <View style={styles.addIssueButton}>
                 <View style={styles.addIssueIcon}>
-                  <SvgUri width="32" height="32" source={AddIssueIcon} />
+                  <Image
+                    style={{ width: 32, height: 32 }}
+                    source={AddIssueIcon}
+                  />
                 </View>
                 <Text style={styles.addIssueText}>
                   <FormattedMessage
@@ -912,7 +928,10 @@ const Home = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => setIsSheetVisible(true)}>
                 <View style={styles.nearbyIssueButton}>
                   <View style={styles.nearbyIssueIcon}>
-                    <SvgUri width="32" height="32" source={NearbyIssuesIcon} />
+                    <Image
+                      style={{ width: 32, height: 32 }}
+                      source={NearbyIssuesIcon}
+                    />
                   </View>
                   <Text style={styles.addIssueText}>
                     <FormattedMessage

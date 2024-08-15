@@ -3,7 +3,7 @@ import { ProfileAppSettingItems } from "../../components/molecules";
 
 const AppSetting = () => {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ProfileAppSettingItems />
     </View>
   );

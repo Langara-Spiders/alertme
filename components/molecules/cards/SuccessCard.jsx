@@ -1,33 +1,34 @@
 import { Text, View } from "@gluestack-ui/themed";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import successIcon from "../../../assets/icons/SuccessFill.svg";
-import upVoteIcon from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
+import { Image, StyleSheet } from "react-native";
+
+import successIcon from "../../../assets/icons/SuccessFill.png";
+import upVoteIcon from "../../../assets/icons/upvote_arrow.png";
+
 const SuccessCard = ({ type }) => {
   let heading = "";
   let message = "";
 
   if (type === "post") {
-    icon = <SvgUri width="24" height="24" source={successIcon} />;
+    icon = <Image style={{ width: 24, height: 24 }} source={successIcon} />;
     heading = "Issue Posted Successfully";
     message =
       "Your incident posts to the map after 3 upvotes 🔼 or employee review and post!";
   } else if (type === "confirm") {
-    icon = <SvgUri width="24" height="24" source={upVoteIcon} />;
+    icon = <Image style={{ width: 24, height: 24 }} source={upVoteIcon} />;
     heading = "You have upvoted an Incident";
     message =
       "Thank you for your response. We will update you on the incident status soon.";
   } else if (type === "approve") {
-    icon = <SvgUri width="24" height="24" source={successIcon} />;
+    icon = <Image style={{ width: 24, height: 24 }} source={successIcon} />;
     heading = "You have approved Incident ";
     message =
       "Thank you for your response. We will post this incident on map to inform others";
   } else if (type === "reject") {
-    icon = <SvgUri width="24" height="24" source={successIcon} />;
+    icon = <Image style={{ width: 24, height: 24 }} source={successIcon} />;
     heading = "You have rejected an Incident";
     message = "Thank you for your response. We will update status in the app.";
   } else if (type === "resolve") {
-    icon = <SvgUri width="24" height="24" source={successIcon} />;
+    icon = <Image style={{ width: 24, height: 24 }} source={successIcon} />;
     heading = "You have resolved an Incident";
     message = "Thank you for your response. We will update status in the app.";
   }

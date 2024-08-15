@@ -5,10 +5,10 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import { Image, StyleSheet } from "react-native";
 
 import React from "react";
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
+import CrownIcon from "../../../assets/icons/reward_icons/crown_icon.png";
 import { useStore } from "../../../store";
 
 const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
@@ -46,15 +46,16 @@ const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
       height: 30, // Adjust the height as per your SVG dimensions
       position: "absolute",
       top: -21, // Adjust this value to position the crown above the avatar
-      left: 9,
+      left: 15,
       zIndex: 1, // Ensure crown is above the avatar
     },
     banner: {
-      width: 70, // Adjust the width as per your SVG dimensions
+      width: 50, // Adjust the width as per your SVG dimensions
       height: 20, // Adjust the height as per your SVG dimensions
       position: "absolute",
       bottom: -10, // Adjust this value to overlap the avatar
       left: 3,
+      zIndex: 999,
     },
     name: {
       fontSize: 16,
@@ -75,12 +76,7 @@ const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        {rank === 1 && (
-          <SvgUri
-            source={require("../../../assets/icons/Reward_screen/Reward_Crown.svg")}
-            style={styles.crown}
-          />
-        )}
+        {rank === 1 && <Image source={CrownIcon} style={styles.crown} />}
         <Avatar style={styles.avatar}>
           {avatar ? (
             <AvatarImage
@@ -94,7 +90,7 @@ const TopThreeCard = ({ rank, name, level, avatar, banner }) => {
             </AvatarFallbackText>
           )}
         </Avatar>
-        {banner && <SvgUri source={banner} style={styles.banner} />}
+        {banner && <Image source={banner} style={styles.banner} />}
       </View>
       <Text style={styles.name} numberOfLines={1}>
         {firstName}

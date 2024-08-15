@@ -2,8 +2,7 @@ import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import { IncidentCard } from "../../components/molecules";
 import { DateTime } from "../../utils";
 
@@ -52,12 +51,7 @@ const NearByActiveIssues = ({ route }) => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>Nearby Active Issues</Text>
       </View>

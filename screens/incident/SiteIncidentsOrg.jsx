@@ -8,12 +8,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
-import SvgUri from "react-native-svg-uri";
+import { FormattedMessage } from "react-intl";
 import { getSiteIssuesForOrg } from "../../api/incident";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
+import LoadingGif from "../../assets/loading.gif";
 import { IncidentCard } from "../../components/molecules";
 import { useStore } from "../../store";
-import Loader from "../Loader";
 
 const SiteIncidentsOrg = (props) => {
   const { navigation } = props;
@@ -43,7 +43,7 @@ const SiteIncidentsOrg = (props) => {
     incidentsWithDistance.sort((a, b) => a.distance - b.distance);
     setIncidents(incidentsWithDistance);
 
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 1000);
   };
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
@@ -62,11 +62,9 @@ const SiteIncidentsOrg = (props) => {
     return incident.status.toLowerCase() === activeButton;
   });
 
-  if (loading) return <Loader />;
-
   const styles = StyleSheet.create({
     screen: {
-      backgroundColor: "white",
+      backgroundColor: palette.bg1,
       padding: 16,
     },
     header: {
@@ -78,7 +76,7 @@ const SiteIncidentsOrg = (props) => {
       height: 40,
       borderRadius: 30,
       opacity: 0.8,
-      backgroundColor: "#F3F4F4",
+      backgroundColor: palette.backButtonBg,
       justifyContent: "center",
       alignItems: "center",
       marginRight: 10,
@@ -90,6 +88,7 @@ const SiteIncidentsOrg = (props) => {
     headerText: {
       fontSize: 18,
       fontWeight: "bold",
+      color: palette.txt1,
     },
     filterContainer: {
       marginTop: 12,
@@ -109,12 +108,12 @@ const SiteIncidentsOrg = (props) => {
       marginRight: 6,
     },
     activeButton: {
-      backgroundColor: "#ff6600",
+      backgroundColor: palette.primary2,
     },
     inactiveButton: {
-      backgroundColor: "#F3F4F4",
+      backgroundColor: palette.bg2,
       borderWidth: 1,
-      borderColor: "#F3F4F4",
+      borderColor: palette.bg2,
     },
     buttonText: {
       color: "#FFF",
@@ -142,14 +141,11 @@ const SiteIncidentsOrg = (props) => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
-        <Text style={styles.headerText}>Site Reports</Text>
+        <Text style={styles.headerText}>
+          <FormattedMessage id="SiteInc.title" defaultMessage="Site Reports" />
+        </Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -157,26 +153,51 @@ const SiteIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "resolved"].map((status) => (
+          {[
+            {
+              value: "all",
+              label: (
+                <FormattedMessage id="filterBtn.all" defaultMessage="All" />
+              ),
+            },
+            {
+              value: "active",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.active"
+                  defaultMessage="Active"
+                />
+              ),
+            },
+            {
+              value: "resolved",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.resolved"
+                  defaultMessage="Resolved"
+                />
+              ),
+            },
+          ].map((status) => (
             <TouchableOpacity
               key={status}
               style={[
                 styles.button,
-                activeButton === status
+                activeButton === status.value
                   ? styles.activeButton
                   : styles.inactiveButton,
               ]}
-              onPress={() => handleButtonPress(status)}
+              onPress={() => handleButtonPress(status.value)}
             >
               <Text
                 style={[
                   styles.buttonText,
-                  activeButton === status
+                  activeButton === status.value
                     ? styles.activeButtonText
                     : styles.inactiveButtonText,
                 ]}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {status.label}
               </Text>
             </TouchableOpacity>
           ))}

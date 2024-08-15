@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
-import ConfirmedHazard from "../../assets/icons/map_markers/conf_hazard_icon.svg";
+import ConfirmedHazard from "../../assets/icons/map_markers/conf_hazard_icon.png";
 import ArrowLeft from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import { LoginAsCard } from "../../components/molecules";
 
@@ -23,7 +23,7 @@ const SelectUserType = (props) => {
         <Text style={styles.text2}>
           <FormattedMessage
             id="Signup.SelectUserType.subheading"
-            defaultMessage="Please select the user type to 
+            defaultMessage="Please select the user type to
 begin with"
           />
         </Text>

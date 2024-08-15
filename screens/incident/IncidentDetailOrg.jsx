@@ -17,10 +17,10 @@ import {
 import { uniqueId } from "lodash";
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
+import Location_Spot from "../../assets/icons/location_spot_icon.png";
 import Delete from "../../assets/icons/System_Icons/Delete.svg";
 import Edit from "../../assets/icons/System_Icons/Edit.svg";
-import Location_Spot from "../../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../../assets/icons/System_Icons/Scroll_Dot.svg";
 import { routes } from "../../constants";
 import useStore from "../../store/useStore";
@@ -297,12 +297,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           style={styles.iconContainer}
           onPress={() => navigation.goBack()}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.detailsContainer}>
@@ -314,7 +309,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
             alignItems: "center",
           }}
         >
-          <StatusBadge status={incident.status} style={styles.statusBadge} />
+          <StatusBadge status={incident?.status} style={styles.statusBadge} />
           <View
             style={{
               display: "flex",
@@ -348,7 +343,7 @@ const IncidentDetailOrg = ({ route, navigation }) => {
           style={styles.locationText}
         >
           <Text>
-            <SvgUri width="16" height="16" source={Location_Spot} />
+            <Image style={{ width: 16, height: 16 }} source={Location_Spot} />
             {"  "}
             {incident.address.fullAddress},{" "}
             <Text style={styles.viewMap}>View Map</Text>

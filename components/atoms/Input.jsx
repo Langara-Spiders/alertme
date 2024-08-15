@@ -5,9 +5,8 @@ import {
   Text,
   View,
 } from "@gluestack-ui/themed";
+import { Image, StyleSheet } from "react-native";
 
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import { useStore } from "../../store";
 
 const Input = (props) => {
@@ -33,12 +32,6 @@ const Input = (props) => {
       justifyContent: "start",
       width: "100%",
     },
-    icon: {
-      marginLeft: 10,
-      width: 20,
-      height: 20,
-      backgroundColor: "#F3F4F4",
-    },
     field: {
       flex: 1,
       paddingVertical: 12,
@@ -60,7 +53,10 @@ const Input = (props) => {
       >
         {props.icon && (
           <InputSlot style={props.iconSlotStyle}>
-            <SvgUri source={props.icon} width="20" height="20" />
+            <Image
+              source={props.icon}
+              style={{ width: 25, height: 25, tintColor: palette.txt1 }}
+            />
           </InputSlot>
         )}
         <InputField

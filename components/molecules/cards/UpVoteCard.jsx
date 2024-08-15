@@ -1,8 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { FormattedMessage } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import Upvot_Only_arrow from "../../../assets/icons/System_Icons/Upvot_Only_arrow.svg";
+import Upvot_Only_arrow from "../../../assets/icons/upvote_arrow.png";
 import { useStore } from "../../../store";
 
 const UpVoteCard = (props) => {
@@ -36,7 +35,7 @@ const UpVoteCard = (props) => {
       marginLeft: -10,
     },
     icon: {
-      width: 12,
+      width: 16,
       height: 16,
       marginBottom: 2,
     },
@@ -44,12 +43,7 @@ const UpVoteCard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <SvgUri
-          width="18"
-          height="18"
-          source={Upvot_Only_arrow}
-          style={styles.icon}
-        />
+        <Image source={Upvot_Only_arrow} style={styles.icon} />
         <Text style={styles.text}>
           {props.upVotes}
           <FormattedMessage

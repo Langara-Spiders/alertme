@@ -139,10 +139,10 @@ const Rewards = (props) => {
           top_users: top_users,
           leaderboard: leaderboard,
         });
-        setTimeout(() => setLoading(false), 2000);
+        setTimeout(() => setLoading(false), 1000);
       } catch (error) {
         setError(error);
-        setTimeout(() => setLoading(false), 2000);
+        setTimeout(() => setLoading(false), 1000);
       }
     };
 

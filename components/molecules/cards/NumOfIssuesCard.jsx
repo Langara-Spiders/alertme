@@ -1,9 +1,8 @@
 import { Text, View } from "@gluestack-ui/themed";
-import { useIntl } from "react-intl";
+import { Image, StyleSheet } from "react-native";
 
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import HazardIcon from "../../../assets/icons/map_markers/hazard_icon.svg";
+import { useIntl } from "react-intl";
+import HazardIcon from "../../../assets/icons/map_markers/hazard_icon.png";
 
 const NumOfIssuesCard = (props) => {
   const numOfIssues = props.numOfIssues;
@@ -23,7 +22,7 @@ const NumOfIssuesCard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <SvgUri width="30" height="30" source={HazardIcon} />
+        <Image style={{ width: 30, height: 30 }} source={HazardIcon} />
       </View>
       <View style={styles.textDivide}>
         <Text style={styles.text1}>

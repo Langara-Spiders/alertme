@@ -1,17 +1,15 @@
 import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
+import { Image, StyleSheet } from "react-native";
 import { LeaderBoardCard, TopThreeCard } from "../../components/molecules";
 
-import { StyleSheet } from "react-native";
-import SvgUri from "react-native-svg-uri";
-import FirstPlaceBanner from "../../assets/icons/Reward_screen/FirstPlaceBanner.svg";
-import SecondPlaceBanner from "../../assets/icons/Reward_screen/SecondPlaceBanner.svg";
-import ThirdPlaceBanner from "../../assets/icons/Reward_screen/ThirdPlaceBanner.svg";
-import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
-import Loader from "../Loader";
-// Import top place banners
 import { useNavigation } from "@react-navigation/native";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
+import FirstPlaceBanner from "../../assets/icons/reward_icons/first_place_icon.png";
+import SecondPlaceBanner from "../../assets/icons/reward_icons/second_place_icon.png";
+import ThirdPlaceBanner from "../../assets/icons/reward_icons/third_place_icon.png";
 import { useStore } from "../../store";
+import Loader from "../Loader";
 
 const Leaderboard = (props) => {
   const { leaderboard, top_users } = props.route.params;
@@ -31,7 +29,7 @@ const Leaderboard = (props) => {
     );
   }
 
-  setTimeout(() => setLoading(false), 3000);
+  setTimeout(() => setLoading(false), 1000);
 
   if (loading) return <Loader />;
 
@@ -112,12 +110,7 @@ const Leaderboard = (props) => {
           onPress={() => navigation.goBack()}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>Leaderboard</Text>
       </View>

@@ -3,8 +3,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import InfoSheet from "../../components/organisms/InfoSheet";
 import { useStore } from "../../store";
 import Loader from "../Loader";
@@ -250,7 +249,7 @@ const IssuesReportedAwards = () => {
     );
   };
 
-  setTimeout(() => setLoading(false), 2000);
+  setTimeout(() => setLoading(false), 1000);
 
   if (loading) return <Loader />;
 
@@ -361,12 +360,7 @@ const IssuesReportedAwards = () => {
           onPress={() => navigation.goBack()}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>Reward Progress</Text>
         <TouchableOpacity onPress={() => setIsSheetOpen(true)}>

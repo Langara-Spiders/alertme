@@ -31,6 +31,7 @@ const useStore = create(
         loaderBg: "#FFF0E5",
       },
       theme: "light",
+      locale: "en",
       getUser: () => get().user,
 
       setUser: (token, access_token) => {
@@ -78,6 +79,7 @@ const useStore = create(
       setShowTraffic: (value) => set({ showTraffic: value }),
       setPalette: (palette) => set({ palette }),
       setTheme: (theme) => set({ theme }),
+      setLocale: (locale) => set({ locale }),
     }),
     {
       name: "app-storage",

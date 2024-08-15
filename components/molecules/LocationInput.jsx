@@ -2,13 +2,12 @@ import * as Location from "expo-location";
 
 import { Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { getAutocomplete, getReverseGeoCoding } from "../../api";
 import { Debouce, TruncateAddress } from "../../utils";
 
 import { useIntl } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import LocationIcon from "../../assets/icons/LocationIcon.svg";
+import LocationIcon from "../../assets/icons/location_icon.png";
 import Input from "../atoms/Input";
 
 const LocationInput = (props) => {
@@ -135,7 +134,7 @@ const LocationInput = (props) => {
           inputbox={styles.customContainer}
         />
         <TouchableOpacity onPress={fetchAddress} style={styles.iconStyle}>
-          <SvgUri width="28" height="28" source={LocationIcon} />
+          <Image style={{ width: 28, height: 28 }} source={LocationIcon} />
         </TouchableOpacity>
       </View>
       {suggestions.length > 0 && (

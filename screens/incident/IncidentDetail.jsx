@@ -14,10 +14,10 @@ import {
 import { uniqueId } from "lodash";
 import { Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import Location_Spot from "../../assets/icons/location_spot_icon.png";
 import ArrowLeft from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import Delete from "../../assets/icons/System_Icons/Delete.svg";
 import Edit from "../../assets/icons/System_Icons/Edit.svg";
-import Location_Spot from "../../assets/icons/System_Icons/Location_spot.svg";
 import Scroll_Dot from "../../assets/icons/System_Icons/Scroll_Dot.svg";
 import ImagePlaceHolder from "../../assets/icons/TakePicture.svg";
 import { routes } from "../../constants";
@@ -330,7 +330,7 @@ const IncidentDetail = ({ route, navigation }) => {
             alignItems: "center",
           }}
         >
-          <StatusBadge status={incident.status} style={styles.statusBadge} />
+          <StatusBadge status={incident?.status} style={styles.statusBadge} />
           <View
             style={{
               display: "flex",
@@ -366,7 +366,7 @@ const IncidentDetail = ({ route, navigation }) => {
             style={styles.locationText}
           >
             <Text style={{ color: palette.txt1 }}>
-              <SvgUri width="16" height="16" source={Location_Spot} />
+              <Image style={{ width: 16, height: 16 }} source={Location_Spot} />
               {"  "}
               {incident.address.fullAddress},{" "}
               <Text style={styles.viewMap}>View Map</Text>

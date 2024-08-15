@@ -1,14 +1,347 @@
 {
-  "home.button": [
+  "About.title.message": [
     {
       "type": 0,
-      "value": "Appuyez"
+      "value": "AlertMe est une application communautaire développée par l'équipe Spiders v1.0.0"
     }
   ],
-  "home.title": [
+  "Appearance.title.message": [
     {
       "type": 0,
-      "value": "Bonjour de la maison"
+      "value": "Mode de l'application"
     }
-  ]
+  ],
+  "ChooseUser.begin": [
+    {
+      "type": 0,
+      "value": "Veuillez sélectionner le type d'utilisateur pour commencer"
+    }
+  ],
+  "ChooseUser.help": [
+    {
+      "type": 0,
+      "value": "Aidez-nous à mieux vous connaître!"
+    }
+  ],
+  "Civil.titleHeader": [
+    {
+      "type": 0,
+      "value": "Rapports civils"
+    }
+  ],
+  "ComponentAtom.numOfIssuesCard.textMessage": [
+    {
+      "type": 0,
+      "value": "Autour de vous"
+    }
+  ],
+  "GetStarted.alert": [
+    {
+      "type": 0,
+      "value": "Inscrivez-vous à AlertMe pour commencer rapidement"
+    }
+  ],
+  "GetStarted.go": [
+    {
+      "type": 0,
+      "value": "Allons-y !"
+    }
+  ],
+  "GetStarted.started": [
+    {
+      "type": 0,
+      "value": "Commencer"
+    }
+  ],
+  "IncidentDetailOrg.Approve": [
+    {
+      "type": 0,
+      "value": "Approuver"
+    }
+  ],
+  "IncidentDetailOrg.Reject": [
+    {
+      "type": 0,
+      "value": "Rejeter"
+    }
+  ],
+  "Nearby.layout": [
+    {
+      "type": 0,
+      "value": "Problèmes actifs à proximité"
+    }
+  ],
+  "ProfileDetails.contactinput.labelmessage": [
+    {
+      "type": 0,
+      "value": "Numéro de contact"
+    }
+  ],
+  "ProfileDetails.contactinput.placeholdermessage": [
+    {
+      "type": 0,
+      "value": "Entrez votre numéro"
+    }
+  ],
+  "ProfileDetails.nameinput.labelmessage": [
+    {
+      "type": 0,
+      "value": "Nom *"
+    }
+  ],
+  "ProfileDetails.nameinput.placeholdermessage": [
+    {
+      "type": 0,
+      "value": "Entrez votre nom"
+    }
+  ],
+  "ProfileDetails.savebutton.Buttonmessage": [
+    {
+      "type": 0,
+      "value": "Enregistrer"
+    }
+  ],
+  "RewardLevelCard.earnedPoints": [{ "type": 0, "value": "Points" }],
+  "RewardLevelCard.issuesReported": [{ "type": 0, "value": "Rapportés" }],
+  "RewardLevelCard.levelText": [{ "type": 0, "value": "Niveau" }],
+  "Rewards.leaderBoard": [{ "type": 0, "value": "Classement" }],
+  "RewardsGreetingCard.greeting": [{ "type": 0, "value": "Bonjour" }],
+  "RewardsGreetingCard.roadhero": [
+    { "type": 0, "value": "Tu es un héros de la route 😎" }
+  ],
+  "ShareWithFriends.headerText": [
+    { "type": 0, "value": "Partager avec des amis" }
+  ],
+  "ShareWithFriends.shareButtonText": [
+    { "type": 0, "value": "Partager avec un ami" }
+  ],
+  "Signup.AllowPermissions.button": [{ "type": 0, "value": "Continuer" }],
+  "Signup.AllowPermissions.heading": [
+    { "type": 0, "value": "Autoriser les permissions" }
+  ],
+  "Signup.AllowPermissions.subheading": [
+    {
+      "type": 0,
+      "value": "Nous avons besoin de votre permission pour configurer cette application"
+    }
+  ],
+  "Signup.Registration.button": [{ "type": 0, "value": "Continuer" }],
+  "Signup.Registration.heading": [
+    { "type": 0, "value": "Inscription utilisateur" }
+  ],
+  "Signup.Registration.subheading": [
+    {
+      "type": 0,
+      "value": "Veuillez ajouter vos informations de base ci-dessous"
+    }
+  ],
+  "Signup.SelectUserType.heading": [
+    { "type": 0, "value": "Aidez-nous à mieux vous connaître !" }
+  ],
+  "Signup.SelectUserType.subheading": [
+    {
+      "type": 0,
+      "value": "Veuillez sélectionner le type d'utilisateur pour commencer"
+    }
+  ],
+  "SiteInc.title": [{ "type": 0, "value": "Rapports de site" }],
+  "SwitchCard.description.camera": [
+    { "type": 0, "value": "Accéder à votre caméra pour photos et vidéos." }
+  ],
+  "SwitchCard.description.location": [
+    { "type": 0, "value": "Pour des alertes basées sur la localisation." }
+  ],
+  "SwitchCard.description.notification": [
+    { "type": 0, "value": "Pour vous envoyer des notifications." }
+  ],
+  "SwitchCard.title.camera": [{ "type": 0, "value": "Caméra" }],
+  "SwitchCard.title.location": [{ "type": 0, "value": "Localisation" }],
+  "SwitchCard.title.notification": [{ "type": 0, "value": "Notification" }],
+  "Upvote.card": [
+    { "type": 0, "value": "Utilisateurs ont voté pour ce problème" }
+  ],
+  "approveIncident.approve": [{ "type": 0, "value": "Approuver" }],
+  "approveIncident.confirm": [
+    { "type": 0, "value": "👍Approuver un incident ?" }
+  ],
+  "approveIncident.description": [
+    {
+      "type": 0,
+      "value": "Vous approuvez cet incident vérifié. Vous souhaitez le publier sur la carte et informer les autres."
+    }
+  ],
+  "approveIncident.no": [{ "type": 0, "value": "Non" }],
+  "atom.upvotebuttontext": [{ "type": 0, "value": "Voté •" }],
+  "atom.verifiedbuttontext": [{ "type": 0, "value": "Problème vérifié" }],
+  "atoms.unitswitch.km": [{ "type": 0, "value": "Km" }],
+  "atoms.unitswitch.mile": [{ "type": 0, "value": "Mile" }],
+  "common.approve": [{ "type": 0, "value": "Approuver" }],
+  "common.confirm": [{ "type": 0, "value": "Confirmer" }],
+  "common.no": [{ "type": 0, "value": "Non" }],
+  "common.reject": [{ "type": 0, "value": "Rejeter" }],
+  "congratsModal.Launch": [{ "type": 0, "value": "Lancer l'appli🚀" }],
+  "congratsModal.congrats": [{ "type": 0, "value": "Félicitations🎉" }],
+  "congratsModal.ready": [
+    {
+      "type": 0,
+      "value": "Votre inscription est terminée. Vous pouvez maintenant utiliser AlertMe"
+    }
+  ],
+  "filterBtn.active": [{ "type": 0, "value": "Actif" }],
+  "filterBtn.all": [{ "type": 0, "value": "Tous" }],
+  "filterBtn.fixing": [{ "type": 0, "value": "Réparer" }],
+  "filterBtn.rejected": [{ "type": 0, "value": "Rejeté" }],
+  "filterBtn.resolved": [{ "type": 0, "value": "Résolu" }],
+  "home.Card.Directions.EnabledirectionMeesage": [
+    { "type": 0, "value": "Activer les directions" }
+  ],
+  "home.addIsuue": [{ "type": 0, "value": "Signaler" }],
+  "home.nearbyIssues": [{ "type": 0, "value": "À proximité" }],
+  "input.addresscomponent.labelmessage": [{ "type": 0, "value": "Adresse*" }],
+  "input.addresscomponent.placeholdermessage": [
+    { "type": 0, "value": "Entrez l'adresse" }
+  ],
+  "input.searchcomponent.placeholdermessage": [
+    { "type": 0, "value": "Rechercher" }
+  ],
+  "label.about": [{ "type": 0, "value": "À propos" }],
+  "label.appSetting": [{ "type": 0, "value": "Paramètres" }],
+  "label.appearance": [{ "type": 0, "value": "Apparence" }],
+  "label.profileDeatils": [{ "type": 0, "value": "Détails du profil" }],
+  "label.share": [{ "type": 0, "value": "Partager" }],
+  "loginpage.letsgo.heading": [{ "type": 0, "value": "C'est parti !" }],
+  "common.no": [{ "type": 0, "value": "Non" }],
+  "common.reject": [{ "type": 0, "value": "Rejeter" }],
+  "congratsModal.Launch": [{ "type": 0, "value": "Lancer l'appli🚀" }],
+  "congratsModal.congrats": [{ "type": 0, "value": "Félicitations🎉" }],
+  "congratsModal.ready": [
+    {
+      "type": 0,
+      "value": "Votre inscription est terminée. Vous pouvez maintenant utiliser AlertMe"
+    }
+  ],
+  "filterBtn.active": [{ "type": 0, "value": "Actif" }],
+  "filterBtn.all": [{ "type": 0, "value": "Tous" }],
+  "filterBtn.fixing": [{ "type": 0, "value": "Réparer" }],
+  "filterBtn.rejected": [{ "type": 0, "value": "Rejeté" }],
+  "filterBtn.resolved": [{ "type": 0, "value": "Résolu" }],
+  "home.Card.Directions.EnabledirectionMeesage": [
+    { "type": 0, "value": "Activer les directions" }
+  ],
+  "home.addIsuue": [{ "type": 0, "value": "Signaler" }],
+  "home.nearbyIssues": [{ "type": 0, "value": "À proximité" }],
+  "input.addresscomponent.labelmessage": [{ "type": 0, "value": "Adresse*" }],
+  "input.addresscomponent.placeholdermessage": [
+    { "type": 0, "value": "Entrez l'adresse" }
+  ],
+  "input.searchcomponent.placeholdermessage": [
+    { "type": 0, "value": "Rechercher" }
+  ],
+  "label.about": [{ "type": 0, "value": "À propos" }],
+  "label.appSetting": [{ "type": 0, "value": "Paramètres" }],
+  "label.appearance": [{ "type": 0, "value": "Apparence" }],
+  "label.profileDeatils": [{ "type": 0, "value": "Détails du profil" }],
+  "label.share": [{ "type": 0, "value": "Partager avec des amis" }],
+  "loginpage.letsgo.heading": [{ "type": 0, "value": "Allons-y !" }],
+  "loginpage.letsgo.subheading": [
+    {
+      "type": 0,
+      "value": "Inscrivez-vous sur l'app AlertMe pour commencer rapidement."
+    }
+  ],
+  "loginpage.loginwithgoogle": [
+    { "type": 0, "value": "Se connecter avec Google" }
+  ],
+  "logout": [{ "type": 0, "value": "Déconnexion" }],
+  "molecules.cards.LoginAsCard.civilian.heading": [
+    { "type": 0, "value": "Je suis un civil" }
+  ],
+  "molecules.cards.LoginAsCard.civilian.subheading": [
+    {
+      "type": 0,
+      "value": "Les civils de la communauté peuvent choisir cette option pour continuer."
+    }
+  ],
+  "molecules.cards.LoginAsCard.constructionworker.heading": [
+    { "type": 0, "value": "Travailleur de construction" }
+  ],
+  "molecules.cards.LoginAsCard.constructionworker.subheading": [
+    {
+      "type": 0,
+      "value": "Les employés de la construction peuvent choisir cette option pour continuer."
+    }
+  ],
+  "molecules.cards.greatWorkCard.congratsSubText": [
+    { "type": 0, "value": "Niveau 3 complété" }
+  ],
+  "molecules.cards.greatWorkCard.congratsText": [
+    { "type": 0, "value": "Félicitations🎉" }
+  ],
+  "molecules.cards.greatWorkCard.gotorewardLink": [
+    { "type": 0, "value": "Aller aux récompenses" }
+  ],
+  "molecules.cards.greatWorkCard.heading": [
+    { "type": 0, "value": "Bon travail !" }
+  ],
+  "molecules.cards.greatWorkCard.reportText": [
+    { "type": 0, "value": "Vous avez posté 25 rapports réussis." }
+  ],
+  "notifications.button1": [{ "type": 0, "value": "Tout" }],
+  "notifications.button2": [{ "type": 0, "value": "Lu" }],
+  "notifications.button3": [{ "type": 0, "value": "Non lu" }],
+  "profile.About.headerText": [{ "type": 0, "value": "À propos" }],
+  "profile.Appearance.headerText": [{ "type": 0, "value": "Apparence" }],
+  "profile.ProfileDetails.headerText": [
+    { "type": 0, "value": "Détails du profil" }
+  ],
+  "profile.appsetting.headerText": [
+    { "type": 0, "value": "Paramètres de l'app" }
+  ],
+  "profile.appsettingLanguageText": [{ "type": 0, "value": "Langue" }],
+  "profile.appsettingSave": [{ "type": 0, "value": "Enregistrer" }],
+  "profile.appsettingTextOption.showTraffic": [
+    { "type": 0, "value": "Afficher le trafic" }
+  ],
+  "readyModal.confirmation": [
+    { "type": 0, "value": "Veuillez confirmer en deux lignes" }
+  ],
+  "readyModal.no": [{ "type": 1, "value": "Non" }],
+  "readyModal.readytopost": [
+    { "type": 0, "value": "Prêt à publier l'incident ?" }
+  ],
+  "readyModal.yes": [{ "type": 0, "value": "Publier" }],
+  "rejectIncident.confirm": [{ "type": 0, "value": "🚫 Rejeter un incident" }],
+  "rejectIncident.description": [
+    { "type": 0, "value": "Êtes-vous sûr de vouloir rejeter cet incident ?" }
+  ],
+  "rejectIncident.no": [{ "type": 0, "value": "Non" }],
+  "rejectIncident.reject": [{ "type": 0, "value": "Rejeter" }],
+  "reportIncident.categories": [{ "type": 0, "value": "Catégorie*" }],
+  "reportIncident.description": [{ "type": 0, "value": "Description*" }],
+  "reportIncident.input.incidentDescription": [
+    { "type": 0, "value": "Entrez la description" }
+  ],
+  "reportIncident.inputLabel.incidentType": [{ "type": 0, "value": "Sujet*" }],
+  "reportIncident.inputPlaceholder.incidentSubject": [
+    { "type": 0, "value": "Entrez le sujet" }
+  ],
+  "reportIncident.postBtn": [{ "type": 0, "value": "Publier l'incident" }],
+  "reportIncident.titleaddpics": [
+    { "type": 0, "value": "Ajouter des photos*" }
+  ],
+  "resolveIncident.confirm": [
+    { "type": 0, "value": "👍Résoudre un incident ?" }
+  ],
+  "resolveIncident.description": [
+    { "type": 0, "value": "Êtes-vous sûr de résoudre un incident ?" }
+  ],
+  "resolveIncident.no": [{ "type": 0, "value": "Non" }],
+  "resolveIncident.yes": [{ "type": 0, "value": "Oui" }],
+  "upvoteModal.trust": [
+    {
+      "type": 0,
+      "value": "Nous faisons confiance à votre vote et à l'incident que vous avez examiné. Merci de ne pas abuser de cette application communautaire."
+    }
+  ],
+  "upvoteModal.upvote": [{ "type": 0, "value": "👍Confirmer le vote ?" }]
 }

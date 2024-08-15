@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 
 import { FormattedMessage } from "react-intl";
 import SvgUri from "react-native-svg-uri";
-import ConfirmedHazard from "../../assets/icons/map_markers/conf_hazard_icon.svg";
+import ConfirmedHazard from "../../assets/icons/map_markers/conf_hazard_icon.png";
 import ArrowLeft from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import { SwitchIconCard } from "../../components/molecules";
 
@@ -19,7 +19,7 @@ const AllowPermissions = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <SvgUri source={ConfirmedHazard} height={40} width={40} />
+        <Image source={ConfirmedHazard} height={40} width={40} />
       </View>
       <View>
         <Text style={styles.text1}>

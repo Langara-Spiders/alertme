@@ -1,18 +1,17 @@
-import { Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
+import { Image, Pressable, ScrollView, Text, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { FormattedMessage } from "react-intl";
-import SvgUri from "react-native-svg-uri";
-import Back_Icon from "../../assets/icons/System_Icons/Back_Icon_Filled.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import { NotificationCard } from "../../components/molecules";
 import { routes } from "../../constants";
 import { useStore } from "../../store";
 import { timeAgo } from "../../utils";
 
 const Notifications = (props) => {
-  const { getUser, getNotifications, setNotifications } = useStore();
+  const { getUser, getNotifications, setNotifications, palette } = useStore();
   const { isStaff } = getUser();
   const notifications = getNotifications();
 
@@ -36,6 +35,78 @@ const Notifications = (props) => {
       }
     }) || [];
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: palette.bg1,
+      padding: 16,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    iconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 12,
+      backgroundColor: palette.bg2,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 10,
+    },
+    icon: {
+      width: 24,
+      height: 24,
+      opacity: 0.5,
+    },
+    headerText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    button: {
+      alignItems: "center",
+      justifyContent: "center",
+      width: 90,
+      height: 32,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 20,
+      marginRight: 6,
+    },
+    filterContainer: {
+      marginTop: 12,
+    },
+    activeButton: {
+      backgroundColor: palette.primary2,
+    },
+    inactiveButton: {
+      backgroundColor: palette.bg2,
+      borderWidth: 1,
+      borderColor: palette.bg2,
+    },
+    buttonText: {
+      color: "#FFF",
+      fontFamily: "Public Sans",
+      fontSize: 12,
+      fontStyle: "normal",
+      fontWeight: "600",
+      lineHeight: 14.4,
+    },
+    activeButtonText: {
+      color: "#ffffff",
+    },
+    inactiveButtonText: {
+      color: "#636C6E",
+    },
+    scrollView: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingBottom: 20,
+      marginTop: 25,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -43,12 +114,7 @@ const Notifications = (props) => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
         <Text style={styles.headerText}>Notifications</Text>
       </View>
@@ -162,74 +228,3 @@ const Notifications = (props) => {
 };
 
 export default Notifications;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    padding: 16,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: "#F3F4F4",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    opacity: 0.5,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 90,
-    height: 32,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    marginRight: 6,
-  },
-  filterContainer: {
-    marginTop: 12,
-  },
-  activeButton: {
-    backgroundColor: "#ff6600",
-  },
-  inactiveButton: {
-    backgroundColor: "#F3F4F4",
-    borderWidth: 1,
-    borderColor: "#F3F4F4",
-  },
-  buttonText: {
-    color: "#FFF",
-    fontFamily: "Public Sans",
-    fontSize: 12,
-    fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: 14.4,
-  },
-  activeButtonText: {
-    color: "#ffffff",
-  },
-  inactiveButtonText: {
-    color: "#636C6E",
-  },
-  scrollView: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingBottom: 20,
-    marginTop: 25,
-  },
-});

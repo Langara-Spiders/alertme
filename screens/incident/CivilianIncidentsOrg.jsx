@@ -2,6 +2,7 @@ import * as Location from "expo-location";
 
 import {
   FlatList,
+  Image,
   Pressable,
   ScrollView,
   Text,
@@ -10,15 +11,19 @@ import {
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import SvgUri from "react-native-svg-uri";
+import { FormattedMessage } from "react-intl";
 import { getCivilianIssuesForOrg } from "../../api/incident";
-import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
+import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
+import LoadingGif from "../../assets/loading.gif";
 import { IncidentCard } from "../../components/molecules";
+import { useStore } from "../../store";
 
 const CivilianIncidentsOrg = (props) => {
   const { navigation } = props;
+  const [loading, setLoading] = useState(true);
   const [activeButton, setActiveButton] = useState("all");
   const [incidents, setIncidents] = useState([]);
+  const { palette } = useStore();
 
   useEffect(() => {
     getCivilianIncidentsAll();
@@ -51,6 +56,7 @@ const CivilianIncidentsOrg = (props) => {
     incidentsWithDistance.sort((a, b) => a.distance - b.distance);
 
     setIncidents(incidentsWithDistance);
+    setTimeout(() => setLoading(false), 1000);
   };
 
   const renderItem = ({ item }) => <IncidentCard {...item} />;
@@ -58,6 +64,7 @@ const CivilianIncidentsOrg = (props) => {
   const ItemSeparator = () => <View style={styles.separator} />;
 
   const handleButtonPress = (buttonType) => {
+    setLoading(true);
     setActiveButton(buttonType);
   };
 
@@ -68,6 +75,78 @@ const CivilianIncidentsOrg = (props) => {
     return incident.status.toLowerCase() === activeButton;
   });
 
+  const styles = StyleSheet.create({
+    screen: {
+      backgroundColor: palette.bg1,
+      padding: 16,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    iconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 30,
+      opacity: 0.8,
+      backgroundColor: palette.backButtonBg,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 10,
+    },
+    icon: {
+      width: 24,
+      height: 24,
+    },
+    headerText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: palette.txt1,
+    },
+    filterContainer: {
+      marginTop: 12,
+    },
+    scrollContainer: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+    },
+    button: {
+      alignItems: "center",
+      justifyContent: "center",
+      width: 90,
+      height: 32,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 20,
+      marginRight: 6,
+    },
+    activeButton: {
+      backgroundColor: palette.primary2,
+    },
+    inactiveButton: {
+      backgroundColor: palette.bg2,
+      borderWidth: 1,
+      borderColor: palette.bg2,
+    },
+    buttonText: {
+      color: "#FFF",
+      fontFamily: "Public Sans",
+      fontSize: 12,
+      fontStyle: "normal",
+      fontWeight: "600",
+      lineHeight: 14.4,
+    },
+    activeButtonText: {
+      color: "#FFF",
+    },
+    inactiveButtonText: {
+      color: "#636C6E",
+    },
+    separator: {
+      height: 10,
+    },
+  });
+
   return (
     <View style={[{ flex: 1 }, styles.screen]}>
       <View style={styles.header}>
@@ -75,14 +154,14 @@ const CivilianIncidentsOrg = (props) => {
           onPress={() => navigation.navigate("Home")}
           style={styles.iconContainer}
         >
-          <SvgUri
-            width="24"
-            height="24"
-            source={Back_Icon}
-            style={styles.icon}
-          />
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
-        <Text style={styles.headerText}>Civilian Reports</Text>
+        <Text style={styles.headerText}>
+          <FormattedMessage
+            id="Civil.titleHeader"
+            defaultMessage="Civilian Reports"
+          />
+        </Text>
       </View>
       <View style={styles.filterContainer}>
         <ScrollView
@@ -90,115 +169,104 @@ const CivilianIncidentsOrg = (props) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {["all", "active", "pending", "fixing", "resolved", "rejected"].map(
-            (status) => (
-              <TouchableOpacity
-                key={status}
+          {[
+            {
+              value: "all",
+              label: (
+                <FormattedMessage id="filterBtn.all" defaultMessage="All" />
+              ),
+            },
+            {
+              value: "active",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.active"
+                  defaultMessage="Active"
+                />
+              ),
+            },
+            {
+              value: "fixing",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.fixing"
+                  defaultMessage="Fixing"
+                />
+              ),
+            },
+            {
+              value: "resolved",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.resolved"
+                  defaultMessage="Resolved"
+                />
+              ),
+            },
+            {
+              value: "rejected",
+              label: (
+                <FormattedMessage
+                  id="filterBtn.rejected"
+                  defaultMessage="Rejected"
+                />
+              ),
+            },
+          ].map((status) => (
+            <TouchableOpacity
+              key={status.value}
+              style={[
+                styles.button,
+                activeButton === status.value
+                  ? styles.activeButton
+                  : styles.inactiveButton,
+              ]}
+              onPress={() => handleButtonPress(status.value)}
+            >
+              <Text
                 style={[
-                  styles.button,
-                  activeButton === status
-                    ? styles.activeButton
-                    : styles.inactiveButton,
+                  styles.buttonText,
+                  activeButton === status.value
+                    ? styles.activeButtonText
+                    : styles.inactiveButtonText,
                 ]}
-                onPress={() => handleButtonPress(status)}
               >
-                <Text
-                  style={[
-                    styles.buttonText,
-                    activeButton === status
-                      ? styles.activeButtonText
-                      : styles.inactiveButtonText,
-                  ]}
-                >
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </Text>
-              </TouchableOpacity>
-            )
-          )}
+                {status.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
       <View style={{ flex: 1, marginTop: 16 }}>
-        <FlatList
-          data={filteredIncidents}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          ItemSeparatorComponent={ItemSeparator}
-          contentContainerStyle={styles.listContainer}
-        />
+        {loading ? (
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              source={LoadingGif}
+              style={{
+                width: 100,
+                height: 100,
+              }}
+              alt="loader image"
+            />
+          </View>
+        ) : (
+          <FlatList
+            data={filteredIncidents}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            ItemSeparatorComponent={ItemSeparator}
+            contentContainerStyle={styles.listContainer}
+          />
+        )}
       </View>
     </View>
   );
 };
 
 export default CivilianIncidentsOrg;
-
-const styles = StyleSheet.create({
-  screen: {
-    backgroundColor: "white",
-    padding: 16,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 30,
-    opacity: 0.8,
-    backgroundColor: "#F3F4F4",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  filterContainer: {
-    marginTop: 12,
-  },
-  scrollContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 90,
-    height: 32,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    marginRight: 6,
-  },
-  activeButton: {
-    backgroundColor: "#ff6600",
-  },
-  inactiveButton: {
-    backgroundColor: "#F3F4F4",
-    borderWidth: 1,
-    borderColor: "#F3F4F4",
-  },
-  buttonText: {
-    color: "#FFF",
-    fontFamily: "Public Sans",
-    fontSize: 12,
-    fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: 14.4,
-  },
-  activeButtonText: {
-    color: "#FFF",
-  },
-  inactiveButtonText: {
-    color: "#636C6E",
-  },
-  separator: {
-    height: 10,
-  },
-});
