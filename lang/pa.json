@@ -1,4 +1,70 @@
 {
+  "badgeS.active": [
+    {
+      "type": 0,
+      "value": "ਸਕ੍ਰਿਆ"
+    }
+  ],
+  "badgeS.fixing": [
+    {
+      "type": 0,
+      "value": "ਠੀਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+    }
+  ],
+  "badgeS.pending": [
+    {
+      "type": 0,
+      "value": "ਬਕਾਇਆ"
+    }
+  ],
+  "badgeS.rejected": [
+    {
+      "type": 0,
+      "value": "ਅਸਵੀਕਾਰ ਕੀਤਾ ਗਿਆ"
+    }
+  ],
+  "badgeS.resolved": [
+    {
+      "type": 0,
+      "value": "ਸੁਲਝਾਇਆ"
+    }
+  ],
+  "Nav.Civilian": [
+    {
+      "type": 0,
+      "value": "ਨਾਗਰਿਕ"
+    }
+  ],
+  "Nav.Site": [
+    {
+      "type": 0,
+      "value": "ਸਾਈਟ"
+    }
+  ],
+  "Nav.home": [
+    {
+      "type": 0,
+      "value": "ਘਰ"
+    }
+  ],
+  "Nav.myIssue": [
+    {
+      "type": 0,
+      "value": "ਮੇਰੀ ਰਿਪੋਰਟ"
+    }
+  ],
+  "Nav.profile": [
+    {
+      "type": 0,
+      "value": "ਪਰੋਫਾਈਲ"
+    }
+  ],
+  "Nav.rewards": [
+    {
+      "type": 0,
+      "value": "ਇਨਾਮ"
+    }
+  ],
   "About.title.message": [
     {
       "type": 0,

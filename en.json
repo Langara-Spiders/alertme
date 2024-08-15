@@ -32,6 +32,24 @@
   "IncidentDetailOrg.Reject": {
     "defaultMessage": "Reject"
   },
+  "Nav.Civilian": {
+    "defaultMessage": "Civilian"
+  },
+  "Nav.Site": {
+    "defaultMessage": "Site"
+  },
+  "Nav.home": {
+    "defaultMessage": "Home"
+  },
+  "Nav.myIssue": {
+    "defaultMessage": "My Reports"
+  },
+  "Nav.profile": {
+    "defaultMessage": "Profile"
+  },
+  "Nav.rewards": {
+    "defaultMessage": "Rewards"
+  },
   "Nearby.layout": {
     "defaultMessage": "Nearby Active Issues"
   },
@@ -145,6 +163,21 @@
   },
   "atoms.unitswitch.mile": {
     "defaultMessage": "Mile"
+  },
+  "badgeS.active": {
+    "defaultMessage": "Active"
+  },
+  "badgeS.fixing": {
+    "defaultMessage": "Fixing"
+  },
+  "badgeS.pending": {
+    "defaultMessage": "Pending"
+  },
+  "badgeS.rejected": {
+    "defaultMessage": "Rejected"
+  },
+  "badgeS.resolved": {
+    "defaultMessage": "Resolved"
   },
   "common.approve": {
     "defaultMessage": "Approve"

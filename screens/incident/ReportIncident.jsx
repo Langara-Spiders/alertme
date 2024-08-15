@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 
-import { Pressable, Text, View } from "@gluestack-ui/themed";
+import { Image, Pressable, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
@@ -20,10 +20,10 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { uniqueId } from "lodash";
-import { Loader } from "lucide-react-native";
 import BackIcon from "../../assets/icons/common_icons/arrow_left.png";
 import { routes } from "../../constants";
 import { useStore } from "../../store";
+import Loader from "../Loader";
 
 const ReportIncident = () => {
   const intl = useIntl();

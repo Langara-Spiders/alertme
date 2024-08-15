@@ -1,4 +1,70 @@
 {
+  "badgeS.active": [
+    {
+      "type": 0,
+      "value": "Actif"
+    }
+  ],
+  "badgeS.fixing": [
+    {
+      "type": 0,
+      "value": "En cours de réparation"
+    }
+  ],
+  "badgeS.pending": [
+    {
+      "type": 0,
+      "value": "En attente"
+    }
+  ],
+  "badgeS.rejected": [
+    {
+      "type": 0,
+      "value": "Rejeté"
+    }
+  ],
+  "badgeS.resolved": [
+    {
+      "type": 0,
+      "value": "Résolu"
+    }
+  ],
+  "Nav.Civilian": [
+    {
+      "type": 0,
+      "value": "Civil"
+    }
+  ],
+  "Nav.Site": [
+    {
+      "type": 0,
+      "value": "Site"
+    }
+  ],
+  "Nav.home": [
+    {
+      "type": 0,
+      "value": "Accueil"
+    }
+  ],
+  "Nav.myIssue": [
+    {
+      "type": 0,
+      "value": "Mes Rapports"
+    }
+  ],
+  "Nav.profile": [
+    {
+      "type": 0,
+      "value": "Profil"
+    }
+  ],
+  "Nav.rewards": [
+    {
+      "type": 0,
+      "value": "Récompenses"
+    }
+  ],
   "About.title.message": [
     {
       "type": 0,

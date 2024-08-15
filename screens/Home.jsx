@@ -375,10 +375,9 @@ const Home = ({ navigation, route }) => {
     },
     successCardContainer: {
       position: "absolute",
-      bottom: 80,
+      bottom: 120,
       width: "100%",
       zIndex: 100,
-      padding: 16,
     },
     incidentQuickViewContainer: {
       position: "absolute",

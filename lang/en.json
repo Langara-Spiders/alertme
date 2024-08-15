@@ -65,6 +65,42 @@
       "value": "Reject"
     }
   ],
+  "Nav.Civilian": [
+    {
+      "type": 0,
+      "value": "Civilian"
+    }
+  ],
+  "Nav.Site": [
+    {
+      "type": 0,
+      "value": "Site"
+    }
+  ],
+  "Nav.home": [
+    {
+      "type": 0,
+      "value": "Home"
+    }
+  ],
+  "Nav.myIssue": [
+    {
+      "type": 0,
+      "value": "My Reports"
+    }
+  ],
+  "Nav.profile": [
+    {
+      "type": 0,
+      "value": "Profile"
+    }
+  ],
+  "Nav.rewards": [
+    {
+      "type": 0,
+      "value": "Rewards"
+    }
+  ],
   "Nearby.layout": [
     {
       "type": 0,
@@ -291,6 +327,36 @@
     {
       "type": 0,
       "value": "Mile"
+    }
+  ],
+  "badgeS.active": [
+    {
+      "type": 0,
+      "value": "Active"
+    }
+  ],
+  "badgeS.fixing": [
+    {
+      "type": 0,
+      "value": "Fixing"
+    }
+  ],
+  "badgeS.pending": [
+    {
+      "type": 0,
+      "value": "Pending"
+    }
+  ],
+  "badgeS.rejected": [
+    {
+      "type": 0,
+      "value": "Rejected"
+    }
+  ],
+  "badgeS.resolved": [
+    {
+      "type": 0,
+      "value": "Resolved"
     }
   ],
   "common.approve": [
