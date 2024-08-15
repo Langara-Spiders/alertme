@@ -26,10 +26,6 @@ import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import { routes } from "../../constants";
 import { useStore } from "../../store";
 
-const user_type = {
-  type: "user",
-};
-
 const ReportIncident = () => {
   const intl = useIntl();
   const [loading, setLoading] = useState(false);

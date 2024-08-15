@@ -3,11 +3,11 @@ import * as WebBrowser from "expo-web-browser";
 
 import { Image, Text, View } from "@gluestack-ui/themed";
 import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
 
 import axios from "axios";
 import Constants from "expo-constants";
 import { FormattedMessage } from "react-intl";
+import { StyleSheet } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { login } from "../api";
 import black from "../assets/images/Login/black.svg";
@@ -39,7 +39,6 @@ const Login = (props) => {
       const { token } = response?.data;
       setUser(token, access_token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      console.log("HEREEEE");
       navigation.navigate(routes.MAIN);
     }
   };
