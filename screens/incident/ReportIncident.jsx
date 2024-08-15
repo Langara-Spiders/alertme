@@ -24,6 +24,7 @@ import { Loader } from "lucide-react-native";
 import SvgUri from "react-native-svg-uri";
 import Back_Icon from "../../assets/icons/System_Icons/ArrowLeft.svg";
 import { routes } from "../../constants";
+import { useStore } from "../../store";
 
 const user_type = {
   type: "user",
@@ -42,6 +43,7 @@ const ReportIncident = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [images, setImages] = useState([]);
   const navigation = useNavigation();
+  const { palette } = useStore();
 
   useEffect(() => {
     getCategoriesAPICall();
@@ -111,6 +113,72 @@ const ReportIncident = () => {
   if (loading) {
     return <Loader />;
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      padding: 16,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      padding: 10,
+      paddingTop: 30,
+    },
+    iconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 30,
+      backgroundColor: "#F3F4F4",
+      opacity: 0.8,
+      justifyContent: "center",
+      alignItems: "center",
+      marginRight: 10,
+    },
+    icon: {
+      width: 24,
+      height: 24,
+    },
+    headerText: {
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    category: {
+      flex: 1,
+    },
+    headerText: {
+      marginLeft: 10,
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: "400",
+      color: "black",
+      marginLeft: 10,
+    },
+    input: {
+      height: 40,
+      borderColor: "#ccc",
+      borderWidth: 1,
+      marginBottom: 10,
+      paddingLeft: 10,
+      marginTop: 8,
+    },
+    textArea: {
+      height: 80,
+      borderColor: "#ccc",
+      borderWidth: 1,
+      paddingLeft: 10,
+      paddingTop: 10,
+    },
+    postButton: {
+      position: "fixed",
+      left: 0,
+      bottom: 40,
+    },
+  });
 
   return (
     <View style={{ backgroundColor: palette.bg1, flex: 1 }}>
@@ -231,69 +299,3 @@ const ReportIncident = () => {
 };
 
 export default ReportIncident;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 16,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    paddingTop: 30,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 30,
-    backgroundColor: "#F3F4F4",
-    opacity: 0.8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  category: {
-    flex: 1,
-  },
-  headerText: {
-    marginLeft: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "400",
-    color: "black",
-    marginLeft: 10,
-  },
-  input: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-    marginTop: 8,
-  },
-  textArea: {
-    height: 80,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-  },
-  postButton: {
-    position: "fixed",
-    left: 0,
-    bottom: 40,
-  },
-});
